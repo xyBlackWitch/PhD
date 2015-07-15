@@ -67,17 +67,16 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 
 
 
-
 	//resolution of reconstructed vertex position
 
 	TH1D* h_vx_res = new TH1D("h_vx_res", "x resolution of the vertex position; #Delta_{x}[cm]; counts", 100,-1.5,1.5);
-	ntpXiMinus->Project("h_vx_res", "XiMinusFit_vx-McTruth_decayvx", "McTruthMatch==1 ");
+	ntpXiMinus->Project("h_vx_res", "XiMinusFit_vx-MCTruth_decayvx", "McTruthMatch==1 ");
 
 	TH1D* h_vy_res = new TH1D("h_vy_res", "y resolution of the vertex position; #Delta_{y}[cm]; counts", 100,-1.5,1.5);
-	ntpXiMinus->Project("h_vy_res", "XiMinusFit_vy-McTruth_decayvy", "McTruthMatch==1 ");
+	ntpXiMinus->Project("h_vy_res", "XiMinusFit_vy-MCTruth_decayvy", "McTruthMatch==1 ");
 
-	TH1D* h_vz_res = new TH1D("h_vz_res", "z resolution of the vertex position; #Delta_{z}[cm]; counts", 100,-2,2);
-	ntpXiMinus->Project("h_vz_res", "XiMinusFit_vz-McTruth_decayvz", "McTruthMatch==1");
+	TH1D* h_vz_res = new TH1D("h_vz_res", "z resolution of the vertex position; #Delta_{z}[cm]; counts", 100,-1.5,1.5);
+	ntpXiMinus->Project("h_vz_res", "XiMinusFit_vz-MCTruth_decayvz", "McTruthMatch==1");
 
 
 	//resolution of reconstructed vertex position and the poca
@@ -88,7 +87,7 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 	TH1D* h_vy_poc_res = new TH1D("h_vy_poc_res", "differenz reconstructed vertex position and poca position; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
 	ntpXiMinus->Project("h_vy_poc_res", "XiMinusFit_vy - XiMinus_pocvy", "McTruthMatch==1 ");
 
-	TH1D* h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-2,2);
+	TH1D* h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-1.5,1.5);
 	ntpXiMinus->Project("h_vz_poc_res", "XiMinusFit_vz - XiMinus_pocvz", "McTruthMatch==1");
 
 
@@ -128,33 +127,33 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//****Create Canvas, draw histogram and save it
 
-//	jenny::CreateDrawAndSaveHistogram(h_vx_mc, outPath, "h_vx_mc", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_mc, outPath, "h_vy_mc", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_mc, outPath, "h_vz_mc", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vx_mc, outPath, "h_vx_mc", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_mc, outPath, "h_vy_mc", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_mc, outPath, "h_vz_mc", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
 
 	bool noAutorange =false;
 
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, noAutorange, 0.03, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, noAutorange, 0.15, 1);
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, noAutorange, 0.3, 1.5);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, noAutorange, 0.065, 2);
 
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_poc_res, outPath, "h_vz_poc_res", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_x, outPath, "h_reco_div_mc_x", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_y, outPath, "h_reco_div_mc_y", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_z, outPath, "h_reco_div_mc_z", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close, noAutorange, 0.16, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close, noAutorange, 0.02, 2);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_poc_res, outPath, "h_vz_poc_res", saveoutput, close, noAutorange, 0.15,5);
+
+	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_x, outPath, "h_reco_div_mc_x", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_y, outPath, "h_reco_div_mc_y", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_z, outPath, "h_reco_div_mc_z", saveoutput, close);
 
 
-//	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob", saveoutput, close);
 
 	if(close) exit(0);
 

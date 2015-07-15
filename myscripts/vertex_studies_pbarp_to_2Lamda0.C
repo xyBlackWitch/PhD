@@ -58,13 +58,13 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 	//resolution vertex position for Beam
 	TH1D * h_vx_res = new TH1D("h_vx_res", "x resolution of vertex position; #Delta_{x}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vx_res", "VtxFit_decayvx", "McTruthMatch==1");
+	ntpBeam->Project("h_vx_res", "VtxFit_vx-McTruth_decayvx", "McTruthMatch==1");
 
 	TH1D * h_vy_res = new TH1D("h_vy_res", "y resolution of vertex position; #Delta_{y}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vy_res", "VtxFit_decayvy", "McTruthMatch==1");
+	ntpBeam->Project("h_vy_res", "VtxFit_vy-McTruth_decayvy", "McTruthMatch==1");
 
 	TH1D * h_vz_res = new TH1D("h_vz_res", "z resolution of vertex position; #Delta_{z}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vz_res", "VtxFit_decayvz", "McTruthMatch==1");
+	ntpBeam->Project("h_vz_res", "VtxFit_vz-McTruth_decayvz", "McTruthMatch==1");
 
 
 
