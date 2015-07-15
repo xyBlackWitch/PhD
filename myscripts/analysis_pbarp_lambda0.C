@@ -3,6 +3,8 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
+#include "common_jenny.cpp"
+
 
 void analysis_pbarp_lambda0(int nevts=0){
   
@@ -11,12 +13,12 @@ void analysis_pbarp_lambda0(int nevts=0){
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/private/puetz/mysimulations/analysis/pbarp_lambda0_antilambda0/1000_events/idealtracking/";
+  TString Path ="/private/puetz/mysimulations/test/boxgenerator/lambda0_AntiLambda0_vtx_421/1000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output_oldidealtracking_new.root";
+  TString OutputFile = outPath + "analysis_output_oldidealtracking.root";
   
   //Input simulation Files
-  TString inPIDFile = Path + "pid_complete.root";
+  TString inPIDFile = Path + "pidideal_complete.root";
   TString inParFile = Path + "simparams.root";
   TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
   
@@ -50,7 +52,7 @@ void analysis_pbarp_lambda0(int nevts=0){
   RhoTuple * ntpCrossCheck = new RhoTuple("ntpCrossCheck", "CrossCheck info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana_oldidealtracking_new.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_oldidealtracking.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -182,7 +184,7 @@ void analysis_pbarp_lambda0(int nevts=0){
 			qa.qaP4("Proton_", proton[j]->P4(), ntpProton);
 			qa.qaP4("Proton_MC_", proton[j]->GetMcTruth()->P4(), ntpProton);
 			qa.qaCand("Proton_", proton[j], ntpProton);
-			qa.qaVtx("Proton_", proton[j], ntpProton);vz-truth_vz
+			qa.qaVtx("Proton_", proton[j], ntpProton);
 		
 
       RhoCandidate * mother = proton[j]->GetMcTruth()->TheMother();
@@ -291,12 +293,15 @@ void analysis_pbarp_lambda0(int nevts=0){
 //      }
 
       RhoCandidate * truth = lambda0[j]->GetMcTruth();
+      RhoCandidate * truthDaughter = lambda0[j]->Daughter(0)->GetMcTruth();
       TLorentzVector l;
-      if(0x0 != truth){
-				l = truth->P4();
-				qa.qaVtx("truth_", truth, ntpLambda0);
-      }
-      qa.qaP4("truth_", l, ntpLambda0);
+      TVector3 dv;
+
+      if(0x0 != truth) l = truth->P4();
+      if(0x0 != truthDaughter) dv = truthDaughter->Pos();
+
+      jenny::qaP3("McTruth_", dv, ntpLambda0);
+      qa.qaP4("McTruth_", l, ntpLambda0);
 
 
 	  //***information of boosted particle
@@ -425,7 +430,7 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 			//do vertex fit
 
-			cout << "!!!!!!!!!!!!!!Vertex Fit !!!!!!!!!!" << endl;
+
 
 			PndKinVtxFitter vertexFitter_cc (crossCheck[j]);
 			vertexFitter_cc.Fit();
@@ -436,22 +441,21 @@ void analysis_pbarp_lambda0(int nevts=0){
 			qa.qaVtx("VtxFit_", ccFit, ntpCrossCheck);
 			qa.qaMcDiff("VtxFit_", ccFit, ntpCrossCheck);
 
-			if(vertexFitter_cc.GetChi2()<=-1e-6) cout << "!!!!!!!!!!!!!! HIER drueber!!!!!!!!!!!!!!! " << endl;
-			cout << "!!!!!!!!!!!!!!END Vertex Fit !!!!!!!!!!" << endl;
+
 
 			float mc_mass_l0 = 0.;
 
 			RhoCandidate * truth = crossCheck[j]->GetMcTruth();
+			RhoCandidate * truthDaughter = crossCheck[j]->Daughter(0)->GetMcTruth();
 		    TLorentzVector l;
-		    if(0x0 != truth){
-					l = truth->P4();
-		    		qa.qaVtx("truth_", truth, ntpCrossCheck);
-		    		RhoCandidate * l0 = truth->Daughter(0);
-		    		if( 0x0 != l0) mc_mass_l0 = l0->Mass();
-		    }
-  		    qa.qaP4("truth_", l, ntpCrossCheck);
-			ntpCrossCheck->Column("truth_d0m", (float) mc_mass_l0);
+		    TVector3 dv;
 
+		    if(0x0 != truth) l = truth->P4();
+		    if(0x0 != truthDaughter) dv = truthDaughter->Pos();
+
+
+		    jenny::qaP3("McTruth_", dv, ntpCrossCheck);
+  		    qa.qaP4("McTruth_", l, ntpCrossCheck);
 
 
 			//***do 4c fit

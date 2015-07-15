@@ -3,6 +3,8 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
+#include "common_jenny.cpp"
+
 
 enum pidNumbers {
 	kPip = 211, kPim = -211,
@@ -406,9 +408,9 @@ void analysis_pbarp_Xi(int nevts=0){
 //
 //      ntpAntiLambda0->DumpData();
 //    }
-
-
-
+//
+//
+//
 
     //*** Xi- -> Lambda0 + Pi-
 	ximinus.Combine(Lambda0Fit, piminus);//BestCandLambda0,NotCombinedPiMinus);
@@ -474,40 +476,29 @@ void analysis_pbarp_Xi(int nevts=0){
       ntpXiMinus->Column("fMass_NDF", (float) massFitterXiMinus.GetNdf());
       ntpXiMinus->Column("fMass_Prob", (float) massFitterXiMinus.GetProb());
 
-      qa.qaMcDiff("XiMinus_", ximinusFit_mass, ntpXiMinus);
+      qa.qaMcDiff("MasFit_", ximinusFit_mass, ntpXiMinus);
 
 
 
       RhoCandidate * truth = ximinus[j]->GetMcTruth();
       TLorentzVector l;
+      TVector3 decayvtx;
       if(0x0 != truth){
 				l = truth->P4();
-				qa.qaVtx("MCTruth_", truth, ntpXiMinus);
       }
+
+      RhoCandidate * daughterTruth = ximinus[j]->Daughter(0)->GetMcTruth();
+      TVector3 dl;
+
+      if (0x0 != daughterTruth) dl = daughterTruth->Pos();
+
+      jenny::qaP3("MCTruth_", dl, ntpXiMinus);
       qa.qaP4("MCTruth_", l, ntpXiMinus);
-
-
-      RhoCandidate * daughter1 = ximinus[j]->Daughter(0)->GetMcTruth();
-      RhoCandidate * daughter2 = ximinus[j]->Daughter(1)->GetMcTruth();
-
-//      if (daughter1 != 0x0) && daughter2 != 0x0){
-//      TVector3 test = ximinusFit->DecayVtx();
-//      TVector3 decay1 = daughter1->Pos();
-//      TVector3 decay2 = daughter2->Pos();
-
-      float decay_z = (daughter1 != 0x0)? daughter1->Pos().z() : -9999;
-      float decay_x = (daughter1 != 0x0)? daughter1->Pos().x() : -9999;
-      float decay_y = (daughter1 != 0x0)? daughter1->Pos().y() : -9999;
-      ntpXiMinus->Column("McTruth_d0_z", (float) decay_z);
-      ntpXiMinus->Column("McTruth_d0_x", (float) decay_x);
-      ntpXiMinus->Column("McTruth_d0_y", (float) decay_y);
-
-//      }
 
 //			//***information of boosted particle
 //			ximinusFit->Boost(-beamBoost);
 //	 		qa.qaComp("boost_", ximinusFit, ntpXiMinus);
-
+//
       ntpXiMinus->DumpData();
 	}
     Lambda0Fit.Cleanup();
