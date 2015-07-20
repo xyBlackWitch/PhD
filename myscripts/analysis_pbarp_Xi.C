@@ -24,7 +24,7 @@ void analysis_pbarp_Xi(int nevts=0){
   //Output File
   TString Path = "/private/puetz/mysimulations/test/boxgenerator/Xi/run2/old/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output_oldidealtracking.root";
+  TString OutputFile = outPath + "analysis_output_oldidealtracking_new.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -63,7 +63,7 @@ void analysis_pbarp_Xi(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana_oldidealtracking.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_oldidealtracking_new.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -71,9 +71,11 @@ void analysis_pbarp_Xi(int nevts=0){
   
   //RhoCandLists for analysis
   RhoCandList piplus, piminus, lambda0, antiLambda0, proton, antiProton, xiplus, ximinus, xiSys;
-//  RhoCandList BestCandLambda0, BestCandAntiLambda0, NotCombinedPiMinus, CombinedPiMinus, CombinedPiPlus, NotCombinedPiPlus;
+  RhoCandList BestCandLambda0, BestCandAntiLambda0, NotCombinedPiMinus, CombinedPiMinus, CombinedPiPlus, NotCombinedPiPlus;
   RhoCandList Lambda0Fit, AntiLambda0Fit, XiMinusFit, XiPlusFit;
   RhoCandList mclist, all;
+
+  RhoCandidate * dummy = new RhoCandidate();
 
   //***Mass selector
   double m0_lambda0= TDatabasePDG::Instance()->GetParticle("Lambda0")->Mass();
@@ -131,7 +133,7 @@ void analysis_pbarp_Xi(int nevts=0){
     
     //***Selection with no PID info
     theAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
-//    theAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
+    theAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
     theAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
     theAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
     theAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
@@ -239,7 +241,6 @@ void analysis_pbarp_Xi(int nevts=0){
 
     for (int j=0; j<lambda0.GetLength(); ++j){
 
-
       //general info about event
       ntpLambda0->Column("ev",     (Float_t) evt);
       ntpLambda0->Column("cand",    (Float_t) j);
@@ -273,14 +274,15 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
 //      jenny::CombinedList(lambda0[j], &CombinedPiMinus, -211);
-
-
+//
+//
 //      for (int daughter=0; daughter<lambda0[j]->NDaughters(); daughter++){
 //    	  RhoCandidate * daughterCand = lambda0[j]->Daughter(daughter);
 //    	  if (daughterCand->PdgCode()==-211) CombinedPiMinus.Append(daughterCand);
 //      }
 //
 //      CombinedPiMinus.RemoveClones();
+
 
 
       // do mass fit
@@ -298,13 +300,22 @@ void analysis_pbarp_Xi(int nevts=0){
       Lambda0Fit.Append(lambda0Fit);
 
       RhoCandidate * truth = lambda0[j]->GetMcTruth();
+      RhoCandidate * truthDaughter = lambda0[j]->Daughter(0)->GetMcTruth();
       TLorentzVector l;
+      TVector3 dl;
 
-      if(0x0 != truth){
-				l = truth->P4();
-				qa.qaVtx("MCTruth_", truth, ntpLambda0);
-      }
-      qa.qaP4("MCTruth_", l, ntpLambda0);
+	    if(0x0 != truth){
+	    	l = truth->P4();
+	    	qa.qaVtx("McTruth_", truth, ntpLambda0);
+	    	dl = truth->Daughter(0)->Pos();
+	    }
+	    else{
+	    	qa.qaVtx("McTruth_", dummy, ntpLambda0);
+	    }
+
+      jenny::qaP3("McTruth_", dl, ntpLambda0);
+      qa.qaP4("McTruth_", l, ntpLambda0);
+
 
 
 //			//***information of boosted particle
@@ -313,13 +324,14 @@ void analysis_pbarp_Xi(int nevts=0){
 
 		  ntpLambda0->DumpData();
 
-   }
 
+   }
+//
 //    for (int pim=0; pim<CombinedPiMinus.GetLength(); pim++){
 //        	  NotCombinedPiMinus.Remove(CombinedPiMinus[pim]);
 //          }
 //
-
+//
 //     CombinedPiMinus.Cleanup();
 
 //    //***AntiLambda0 -> PiPlus + AntiProton
@@ -411,7 +423,7 @@ void analysis_pbarp_Xi(int nevts=0){
 //
 //
 //
-
+//
     //*** Xi- -> Lambda0 + Pi-
 	ximinus.Combine(Lambda0Fit, piminus);//BestCandLambda0,NotCombinedPiMinus);
 	ximinus.Select(xiMassSelector);
@@ -482,18 +494,22 @@ void analysis_pbarp_Xi(int nevts=0){
 
       RhoCandidate * truth = ximinus[j]->GetMcTruth();
       TLorentzVector l;
-      TVector3 decayvtx;
+      TVector3 decay;
+
       if(0x0 != truth){
 				l = truth->P4();
+				qa.qaVtx("MCTruth_", truth, ntpXiMinus);
+				RhoCandidate * d = truth->Daughter(0);
+				decay = d->Pos();
+      }
+      else{
+    	  qa.qaVtx("MCTruth_", dummy, ntpXiMinus);
       }
 
-      RhoCandidate * daughterTruth = ximinus[j]->Daughter(0)->GetMcTruth();
-      TVector3 dl;
-
-      if (0x0 != daughterTruth) dl = daughterTruth->Pos();
-
-      jenny::qaP3("MCTruth_", dl, ntpXiMinus);
+      jenny::qaP3("MCTruth_", decay, ntpXiMinus);
       qa.qaP4("MCTruth_", l, ntpXiMinus);
+
+
 
 //			//***information of boosted particle
 //			ximinusFit->Boost(-beamBoost);

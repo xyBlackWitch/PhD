@@ -25,7 +25,7 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 
 	//Input file
-	TFile * file = new TFile(inPath + "output_ana_oldidealtracking.root", "READ");
+	TFile * file = new TFile(inPath + "output_ana_oldidealtracking_new.root", "READ");
 
 	//Reading data from file
 	TTree * ntpMC = (TTree*) file->Get("ntpMC");
@@ -57,15 +57,26 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 
 	//resolution vertex position for Beam
-	TH1D * h_vx_res = new TH1D("h_vx_res", "x resolution of vertex position; #Delta_{x}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vx_res", "VtxFit_vx-McTruth_decayvx", "McTruthMatch==1");
+	TH1D * h_vx_res = new TH1D("h_vx_res", "x resolution of vertex position; #Delta_{x}[cm]; counts", 100,-1,1);
+	ntpBeam->Project("h_vx_res", "VtxFit_vx-McTruth_vx", "McTruthMatch==1");
 
-	TH1D * h_vy_res = new TH1D("h_vy_res", "y resolution of vertex position; #Delta_{y}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vy_res", "VtxFit_vy-McTruth_decayvy", "McTruthMatch==1");
+	TH1D * h_vy_res = new TH1D("h_vy_res", "y resolution of vertex position; #Delta_{y}[cm]; counts", 100,-1,1);
+	ntpBeam->Project("h_vy_res", "VtxFit_vy-McTruth_vy", "McTruthMatch==1");
 
-	TH1D * h_vz_res = new TH1D("h_vz_res", "z resolution of vertex position; #Delta_{z}[cm]; counts", 58,-5,5);
-	ntpBeam->Project("h_vz_res", "VtxFit_vz-McTruth_decayvz", "McTruthMatch==1");
+	TH1D * h_vz_res = new TH1D("h_vz_res", "z resolution of vertex position; #Delta_{z}[cm]; counts", 100,-1.5,1.5);
+	ntpBeam->Project("h_vz_res", "VtxFit_vz-McTruth_vz", "McTruthMatch==1");
 
+
+
+	//resolution vertex position and poca
+	TH1D * h_vx_poca = new TH1D("h_vx_poca", "vertex position - poca for x coordinate; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
+	ntpBeam->Project("h_vx_poca", "VtxFit_vx-pocvx", "McTruthMatch==1");
+
+	TH1D * h_vy_poca = new TH1D("h_vy_poca", "vertex position - poca for y coordinate; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
+	ntpBeam->Project("h_vy_poca", "VtxFit_vy-pocvy", "McTruthMatch==1");
+
+	TH1D * h_vz_poca = new TH1D("h_vz_poca", "vertex position - poca for z coordinate; z_{reco} - z_{poca}[cm]; counts", 100,-1.5,1.5);
+	ntpBeam->Project("h_vz_poca", "VtxFit_vz-pocvz", "McTruthMatch==1");
 
 
 	//2-dimensional plots for poca and vertex
@@ -93,9 +104,15 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_vx_res, outPath, "h_vx_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_res, outPath, "h_vy_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_res, outPath, "h_vz_res", saveoutput, close);
+	bool autoRange = false;
+
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.6, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.5, 15);
+
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_poca, outPath, "h_vx_poca", saveoutput, close);//, autoRange, 0.1, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_poca, outPath, "h_vy_poca", saveoutput, close);//, autoRange, 0.6, 1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_poca, outPath, "h_vz_poca", saveoutput, close);//, autoRange, 0.5, 15);
 
 
 	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);

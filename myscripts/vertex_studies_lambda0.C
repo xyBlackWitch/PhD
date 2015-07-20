@@ -148,10 +148,11 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 	jenny::CreateDrawAndSaveHistogram(h_vy_mc, outPath, "h_vy_mc", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogram(h_vz_mc, outPath, "h_vz_mc", saveoutput, close);
 
+	bool autoRange = false;
 
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1,3);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.03,1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close);//, autoRange, 0.03, 1);
 
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close);
@@ -161,9 +162,9 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vx, outPath, "h_reco_div_mc_vx", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vy, outPath, "h_reco_div_mc_vy", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vz, outPath, "h_reco_div_mc_vz", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vx, outPath, "h_reco_div_mc_vx", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vy, outPath, "h_reco_div_mc_vy", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_vz, outPath, "h_reco_div_mc_vz", saveoutput, close);
 
 
 	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
