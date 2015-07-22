@@ -48,7 +48,7 @@ namespace jenny{
 
 	}
 
-	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
+	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1){
 
 			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -61,7 +61,7 @@ namespace jenny{
 			//gStyle->SetOptStat(11);
 			histo->Draw();
 
-			TF1 * fit = doubleGaussFit(histo);
+			TF1 * fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
 			fit->Draw("SAME");
 
 
@@ -100,9 +100,8 @@ namespace jenny{
 	}
 
 	  std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
-		  /* give back the order of the best chi2
-		   * 1 means best, 2: second best ...
-		   * analoge for bad chi2 with negative values
+		  /** @brief  give back the order of the best chi2
+		   * @details give back the order of the best chi2!  1 means best, 2: second best (analoge for bad chi2 with negative values)
 		   */
 
 		  std::map<double, int> chi2_good, chi2_bad;
@@ -146,9 +145,8 @@ namespace jenny{
 	  }
 
 	  std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
-		  /* give back the order of the best chi2
-		   * 1 means best, 2: second best ...
-		   * analoge for bad chi2 with negative values
+		  /** @brief  give back the order of the best chi2 for MassFit
+		   * @details give back the order of the best chi2 for the MassFit!  1 means best, 2: second best (analoge for bad chi2 with negative values)
 		   */
 
 		  if(m0==0) std::cout << "Mass is missing for mass fit" << std::endl;
@@ -195,7 +193,10 @@ namespace jenny{
 	  }
 
 	  void CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
-
+		  /**
+		   * @brief: gives back a list of already combined particles
+		   * @details: The function creates a list of already combined particles for the analysis
+		   */
 		  for (int daughter=0; daughter<cand->NDaughters(); daughter++){
 			  RhoCandidate * daughterCand = cand->Daughter(daughter);
 			  if (daughterCand->PdgCode()==pdg){
@@ -205,17 +206,23 @@ namespace jenny{
 		  }
 
 		  combinedList->RemoveClones();
+		  return combinedList;
 
 	  }
 
-	  TF1 * doubleGaussFit(TH1 * hist){
-
+	  TF1 * doubleGaussFit(TH1 * hist, bool autorange, double inner, double outer){
+		  /**
+		   * @brief performes a double gaussian Fit
+		   */
 		  Double_t parameters[6] = {0,0,0,0,0,0};
 		  gStyle->SetOptFit(1);
 
 		  double center = hist->GetMean();
-		  double inner = fabs(center - hist->GetXaxis()->GetXmax()) /10;
-		  double outer = fabs(center - hist->GetXaxis()->GetXmax()) /10*8;
+
+		  if (autorange){
+			  double inner = fabs(center - hist->GetXaxis()->GetXmax()) /10;
+			  double outer = fabs(center - hist->GetXaxis()->GetXmax()) /10*8;
+		  }
 
 		  TF1 * fit1 = new TF1("fit1", "gaus", center-inner, center+inner );
 
@@ -244,6 +251,127 @@ namespace jenny{
 
 		  return fitproper;
 
+	  }
+
+	  void qaP3(TString pre, TVector3 v, RhoTuple *n, bool skip=false){
+
+		  if (n==0) return;
+
+		  if(!skip){
+			  n->Column(pre+"decayvx", (Float_t) v.x(), 0.0f);
+			  n->Column(pre+"decayvy", (Float_t) v.y(), 0.0f);
+			  n->Column(pre+"decayvz", (Float_t) v.z(), 0.0f);
+		  }
+		  else{
+			  n->Column(pre+"decayvx", (Float_t) -999, 0.0f);
+			  n->Column(pre+"decayvy", (Float_t) -999, 0.0f);
+			  n->Column(pre+"decayvz", (Float_t) -999, 0.0f);
+		  }
+
+	  }
+
+
+	  void numberOfHitsInSubdetector(TString pre="", RhoCandidate *c, RhoTuple *n){
+
+		/* This void method saves the number of Hits in the MVD, STT and GEM detector
+		 * into the RhoTuple.
+		 * Useful only for final state particle!
+		 */
+
+	  	PndPidCandidate *pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+	  	if(pidCand){
+	  		n->Column(pre + "MvdHits", (Int_t) pidCand->GetMvdHits(), 0);
+	  		n->Column(pre + "SttHits", (Int_t) pidCand->GetSttHits(), 0);
+	  		n->Column(pre + "GemHits", (Int_t) pidCand->GetGemHits(), 0);
+	  	}
+	  	else{
+	  		n->Column(pre + "MvdHits", (Int_t) -999, 0);
+	  		n->Column(pre + "SttHits", (Int_t) -999, 0);
+	  		n->Column(pre + "GemHits", (Int_t) -999, 0);
+	  	}
+	  }
+
+
+	  void tagNHits(TString pre= "", RhoCandidate *c, RhoTuple *n){
+
+	  	/**@brief Tag the particle with different integers
+	  	 * @details Tag the particle with different integers:
+	  	 * 0: if there is no hit in the detector
+	  	 * 1: sttHits>3 or mvdHits>3 or gemHit>3
+	  	 */
+
+	  	bool comp = c->IsComposite();
+	  	int tag=0;
+
+	  	if (!comp){
+
+	  		PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+
+	  		if(pidCand){
+	  			int mvdHits = pidCand->GetMvdHits();
+	  			int sttHits = pidCand->GetSttHits();
+	  			int gemHits = pidCand->GetGemHits();
+
+	  			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
+
+
+	  		}
+
+	  	}
+	  	else{
+	  		int dtag[2] = {0,0};
+	  		int ndau = c->NDaughters();
+
+	  		for(int dau=0; dau<ndau; dau++){
+	  			RhoCandidate * daughter = c->Daughter(dau);
+	  			dtag[dau] = tagNHits(daughter);
+	  		}
+	  		if(dtag[0]==1 && dtag[1]==1) tag=1;
+
+	  	}
+
+	  	n->Column(pre + "HitTag", (Int_t) tag, 0);
+	  }
+
+
+
+	  int tagNHits(RhoCandidate *c){
+
+		/**@brief Tag the particle with different integers
+		 * @details Tag the particle with different integers:
+		 * 0: if there is no hit in the detector
+		 * 1: sttHits>3 or mvdHits>3 or gemHit>3
+		 */
+	  	int tag = 0;
+	  	bool comp = c->IsComposite();
+
+
+	  	if(!comp){
+
+	  		PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+
+	  		if(pidCand){
+	  			int mvdHits = pidCand->GetMvdHits();
+	  			int sttHits = pidCand->GetSttHits();
+	  			int gemHits = pidCand->GetGemHits();
+
+	  			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
+	  		//		cout << "mvd: " << mvdHits << " stt: " << sttHits << " gem: " << gemHits << endl;
+
+	  		}
+	  	}
+	  	else{
+	  		int dtag[2] = {0,0};
+	  		int ndau = c->NDaughters();
+
+	  		for(int dau=0; dau<ndau; dau++){
+	  			RhoCandidate * daughter = c->Daughter(dau);
+	  			dtag[dau] = tagNHits(daughter);
+	  		}
+	  		if(dtag[0]==1 && dtag[1]==1) tag=1;
+	  	}
+
+	  	return tag;
 	  }
 
 }
