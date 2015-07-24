@@ -6,14 +6,14 @@ class RhoTuple;
 #include "common_jenny.cpp"
 
 
-void analysis_pbarp_lambda0(int nevts=0){
+void analysis_pbarp_lambda0_kalman(int nevts=0){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/private/puetz/mysimulations/analysis/pbarp_lambda0_antilambda0/10000_events/idealtracking/";
+  TString Path ="/private/puetz/mysimulations/test/boxgenerator/lambda0/10000_events/";
   TString outPath = Path;
   TString OutputFile = outPath + "analysis_output_kalman.root";
   
@@ -145,32 +145,32 @@ void analysis_pbarp_lambda0(int nevts=0){
     }
 
 		//Get PiPlus
-    for (int j=0; j<piplus.GetLength(); ++j){
-      qa.qaP4("PiPlus_", piplus[j]->P4(), ntpPiPlus);
-      qa.qaCand("PiPlus_", piplus[j], ntpPiPlus);
-
-			//general info about event
-      ntpPiPlus->Column("ev",     (Float_t) evt);
-      ntpPiPlus->Column("cand",    (Float_t) j);
-      ntpPiPlus->Column("ncand",   (Float_t) piplus.GetLength());
-
-
-			//info about 4-vector
-			qa.qaP4("PiPlus_", piplus[j]->P4(), ntpPiPlus);
-			qa.qaP4("PiPlus_MC_", piplus[j]->GetMcTruth()->P4(), ntpPiPlus);
-		
-
-      RhoCandidate * mother = piplus[j]->GetMcTruth()->TheMother();
-      int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-     
-      ntpPiPlus->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(piplus[j]));
-      ntpPiPlus->Column("Mother", (Int_t) moth);
-			ntpPiPlus->Column("PiPlus_CosTheta", (Float_t) piplus[j]->GetMomentum().CosTheta());	
- 			ntpPiPlus->Column("PiPlus_MC_CosTheta", (Float_t) piplus[j]->GetMcTruth()->GetMomentum().CosTheta());	
-			
-      ntpPiPlus->DumpData();
-
-    }
+//    for (int j=0; j<piplus.GetLength(); ++j){
+//      qa.qaP4("PiPlus_", piplus[j]->P4(), ntpPiPlus);
+//      qa.qaCand("PiPlus_", piplus[j], ntpPiPlus);
+//
+//			//general info about event
+//      ntpPiPlus->Column("ev",     (Float_t) evt);
+//      ntpPiPlus->Column("cand",    (Float_t) j);
+//      ntpPiPlus->Column("ncand",   (Float_t) piplus.GetLength());
+//
+//
+//			//info about 4-vector
+//			qa.qaP4("PiPlus_", piplus[j]->P4(), ntpPiPlus);
+//			qa.qaP4("PiPlus_MC_", piplus[j]->GetMcTruth()->P4(), ntpPiPlus);
+//
+//
+//      RhoCandidate * mother = piplus[j]->GetMcTruth()->TheMother();
+//      int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+//
+//      ntpPiPlus->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(piplus[j]));
+//      ntpPiPlus->Column("Mother", (Int_t) moth);
+//			ntpPiPlus->Column("PiPlus_CosTheta", (Float_t) piplus[j]->GetMomentum().CosTheta());
+// 			ntpPiPlus->Column("PiPlus_MC_CosTheta", (Float_t) piplus[j]->GetMcTruth()->GetMomentum().CosTheta());
+//
+//      ntpPiPlus->DumpData();
+//
+//    }
 
 		//Get Proton
     for (int j=0; j<proton.GetLength(); j++){
@@ -204,29 +204,29 @@ void analysis_pbarp_lambda0(int nevts=0){
     
 
 		//Get Antiproton
-    for (int j=0; j<antiProton.GetLength(); j++){
-
-			//general info about event
-      ntpAntiProton->Column("ev",     (Float_t) evt);
-      ntpAntiProton->Column("cand",    (Float_t) j);
-      ntpAntiProton->Column("ncand",   (Float_t) antiProton.GetLength());
-
-			//info about 4-vector
-			qa.qaP4("AntiProton_", antiProton[j]->P4(), ntpAntiProton);
-			qa.qaP4("AntiProton_MC_", antiProton[j]->GetMcTruth()->P4(), ntpAntiProton);
-			qa.qaCand("AntiProton_", antiProton[j], ntpAntiProton);
-		
-
-      RhoCandidate * mother = antiProton[j]->GetMcTruth()->TheMother();
-      int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-     
-      ntpAntiProton->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(antiProton[j]));
-      ntpAntiProton->Column("Mother", (Int_t) moth);
-			ntpAntiProton->Column("AntiProton_CosTheta", (Float_t) antiProton[j]->GetMomentum().CosTheta());	
- 			ntpAntiProton->Column("AntiProton_MC_CosTheta", (Float_t) antiProton[j]->GetMcTruth()->GetMomentum().CosTheta());	
-			
-			ntpAntiProton->DumpData();
-    }
+//    for (int j=0; j<antiProton.GetLength(); j++){
+//
+//			//general info about event
+//      ntpAntiProton->Column("ev",     (Float_t) evt);
+//      ntpAntiProton->Column("cand",    (Float_t) j);
+//      ntpAntiProton->Column("ncand",   (Float_t) antiProton.GetLength());
+//
+//			//info about 4-vector
+//			qa.qaP4("AntiProton_", antiProton[j]->P4(), ntpAntiProton);
+//			qa.qaP4("AntiProton_MC_", antiProton[j]->GetMcTruth()->P4(), ntpAntiProton);
+//			qa.qaCand("AntiProton_", antiProton[j], ntpAntiProton);
+//
+//
+//      RhoCandidate * mother = antiProton[j]->GetMcTruth()->TheMother();
+//      int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+//
+//      ntpAntiProton->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(antiProton[j]));
+//      ntpAntiProton->Column("Mother", (Int_t) moth);
+//			ntpAntiProton->Column("AntiProton_CosTheta", (Float_t) antiProton[j]->GetMomentum().CosTheta());
+// 			ntpAntiProton->Column("AntiProton_MC_CosTheta", (Float_t) antiProton[j]->GetMcTruth()->GetMomentum().CosTheta());
+//
+//			ntpAntiProton->DumpData();
+//    }
         
 			
     //***Lambda0 -> PiMinus + Proton
@@ -276,6 +276,15 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 
 
+      //do kalman vertex fit
+
+      PndKalmanVtxFitter kalmanfitter (lambda0[j]);
+      kalmanfitter.Fit();
+      RhoCandidate * kalmanFit = lambda0[j]->GetFit();
+
+      qa.qaFitter("KalmanFit_", &kalmanfitter, ntpLambda0);
+      qa.qaVtx("KalmanFit_", kalmanFit, ntpLambda0);
+
 
       // do mass fit
       PndKinFitter massFitterLambda0(lambda0Fit);
@@ -324,9 +333,9 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 
     //***AntiLambda0 -> PiMinus + Proton
-    antiLambda0.Combine(piplus,antiProton);
-	antiLambda0.Select(lambdaMassSelector);
-    antiLambda0.SetType(-3122);
+//    antiLambda0.Combine(piplus,antiProton);
+//	antiLambda0.Select(lambdaMassSelector);
+//    antiLambda0.SetType(-3122);
 
 //    std::map<int,int> bestVtxFitAntiLambda0, bestMassFitAntiLambda0;
 //    bestVtxFitAntiLambda0 = jenny::VertexQaIndex(&antiLambda0);
@@ -337,184 +346,174 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 //    float bestchi2=9999;
 
-    for (int j=0; j<antiLambda0.GetLength(); ++j){
-
-      //general info about event
-      ntpAntiLambda0->Column("ev",     (Float_t) evt);
-      ntpAntiLambda0->Column("cand",    (Float_t) j);
-      ntpAntiLambda0->Column("ncand",   (Float_t) antiLambda0.GetLength());
-      ntpAntiLambda0->Column("McTruthMatch", (bool) theAnalysis->McTruthMatch(antiLambda0[j]));
-
-			RhoCandidate * mother = antiLambda0[j]->TheMother();
-			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-			ntpAntiLambda0->Column("Mother", (Float_t) moth);
-
-      qa.qaP4("AntiLambda0_", antiLambda0[j]->P4(), ntpAntiLambda0);
-      qa.qaComp("AntiLambda0_", antiLambda0[j], ntpAntiLambda0);
-      qa.qaEventShapeShort("es_", &evsh, ntpAntiLambda0);
-
-
-
-
-      // do vertex fit
-
-
-      PndKinVtxFitter vertexfitterAntiLambda0 (antiLambda0[j]);
-      vertexfitterAntiLambda0.Fit();
-      RhoCandidate * antiLambda0Fit = antiLambda0[j]->GetFit();
-
-
-      // store info of vertex fit
-
-
-      qa.qaFitter("VtxFit_", &vertexfitterAntiLambda0, ntpAntiLambda0);
-//      ntpAntiLambda0->Column("VtxFit_HowGood", (Int_t) bestVtxFitAntiLambda0[j]);
-
-	  qa.qaVtx("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
-
-
-	  // difference to MCTruth
-      qa.qaMcDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
-
-
-
-//      if(prob>0.01 && chi2<bestchi2){
-//    	  bestchi2 = chi2;
-//    	  AntiLambda0Fit.InsertAt(0,antiLambda0Fit);
+//    for (int j=0; j<antiLambda0.GetLength(); ++j){
+//
+//      //general info about event
+//      ntpAntiLambda0->Column("ev",     (Float_t) evt);
+//      ntpAntiLambda0->Column("cand",    (Float_t) j);
+//      ntpAntiLambda0->Column("ncand",   (Float_t) antiLambda0.GetLength());
+//      ntpAntiLambda0->Column("McTruthMatch", (bool) theAnalysis->McTruthMatch(antiLambda0[j]));
+//
+//			RhoCandidate * mother = antiLambda0[j]->TheMother();
+//			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+//			ntpAntiLambda0->Column("Mother", (Float_t) moth);
+//
+//      qa.qaP4("AntiLambda0_", antiLambda0[j]->P4(), ntpAntiLambda0);
+//      qa.qaComp("AntiLambda0_", antiLambda0[j], ntpAntiLambda0);
+//      qa.qaEventShapeShort("es_", &evsh, ntpAntiLambda0);
+//
+//
+//
+//
+//      // do vertex fit
+//
+//
+//      PndKinVtxFitter vertexfitterAntiLambda0 (antiLambda0[j]);
+//      vertexfitterAntiLambda0.Fit();
+//      RhoCandidate * antiLambda0Fit = antiLambda0[j]->GetFit();
+//
+//
+//      // store info of vertex fit
+//
+//
+//      qa.qaFitter("VtxFit_", &vertexfitterAntiLambda0, ntpAntiLambda0);
+////      ntpAntiLambda0->Column("VtxFit_HowGood", (Int_t) bestVtxFitAntiLambda0[j]);
+//
+//	  qa.qaVtx("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+//
+//
+//	  // difference to MCTruth
+//      qa.qaMcDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+//
+//
+//
+////      if(prob>0.01 && chi2<bestchi2){
+////    	  bestchi2 = chi2;
+////    	  AntiLambda0Fit.InsertAt(0,antiLambda0Fit);
+////      }
+//
+//
+//      // do mass fit
+//      PndKinFitter massFitterAntiLambda0(antiLambda0Fit);
+//      massFitterAntiLambda0.AddMassConstraint(m0_lambda0);
+//      massFitterAntiLambda0.Fit();
+//
+//      RhoCandidate * antiLambda0Fit_mass = antiLambda0Fit->GetFit();
+//
+//      qa.qaFitter("MassFit_", &massFitterAntiLambda0, ntpAntiLambda0);
+////      ntpAntiLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitAntiLambda0[j]);
+//      qa.qaMcDiff("MassFit_", antiLambda0Fit_mass, ntpAntiLambda0);
+//
+//
+////      if(bestVtxFitAntiLambda0[j]==1){ //&& bestMassFitAntiLambda0[j]>0){
+//    	  AntiLambda0Fit.Append(antiLambda0Fit);
+////      }
+//
+//      RhoCandidate * truth = antiLambda0[j]->GetMcTruth();
+//      TLorentzVector l;
+//      if(0x0 != truth){
+//				l = truth->P4();
+//				qa.qaVtx("truth_", truth, ntpAntiLambda0);
 //      }
-
-
-      // do mass fit
-      PndKinFitter massFitterAntiLambda0(antiLambda0Fit);
-      massFitterAntiLambda0.AddMassConstraint(m0_lambda0);
-      massFitterAntiLambda0.Fit();
-
-      RhoCandidate * antiLambda0Fit_mass = antiLambda0Fit->GetFit();
-
-      qa.qaFitter("MassFit_", &massFitterAntiLambda0, ntpAntiLambda0);
-//      ntpAntiLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitAntiLambda0[j]);
-      qa.qaMcDiff("MassFit_", antiLambda0Fit_mass, ntpAntiLambda0);
-
-
-//      if(bestVtxFitAntiLambda0[j]==1){ //&& bestMassFitAntiLambda0[j]>0){
-    	  AntiLambda0Fit.Append(antiLambda0Fit);
-//      }
-
-      RhoCandidate * truth = antiLambda0[j]->GetMcTruth();
-      TLorentzVector l;
-      if(0x0 != truth){
-				l = truth->P4();
-				qa.qaVtx("truth_", truth, ntpAntiLambda0);
-      }
-      qa.qaP4("truth_", l, ntpAntiLambda0);
-
-			//***information of boosted particle
-			antiLambda0Fit->Boost(-beamBoost);
-			qa.qaComp("boost_", antiLambda0Fit, ntpAntiLambda0);
-
-
-      ntpAntiLambda0->DumpData();
-    }
+//      qa.qaP4("truth_", l, ntpAntiLambda0);
+//
+//			//***information of boosted particle
+//			antiLambda0Fit->Boost(-beamBoost);
+//			qa.qaComp("boost_", antiLambda0Fit, ntpAntiLambda0);
+//
+//
+//      ntpAntiLambda0->DumpData();
+//    }
 
 
 
 		//*** Cross check: pbar + p -> Lambda0 + AntiLambda0
-
-		crossCheck.Combine(Lambda0Fit, AntiLambda0Fit);
-		crossCheck.SetType(88888);
-
-
-		for (int j=0; j<crossCheck.GetLength(); ++j){
-
-			//general information about event
-			ntpCrossCheck->Column("ev",     (Float_t) evt);
-			ntpCrossCheck->Column("cand",    (Float_t) j);
-			ntpCrossCheck->Column("ncand",   (Float_t) crossCheck.GetLength());
-			ntpCrossCheck->Column("McTruthMatch", (bool) theAnalysis->McTruthMatch(crossCheck[j]));
-
-			qa.qaP4("", crossCheck[j]->P4();, ntpCrossCheck);
-			qa.qaComp("", crossCheck[j], ntpCrossCheck);
-			qa.qaPoca("", crossCheck[j], ntpCrossCheck);
-			qa.qaEventShapeShort("es_", &evsh, ntpAntiLambda0);
+//
+//		crossCheck.Combine(Lambda0Fit, AntiLambda0Fit);
+//		crossCheck.SetType(88888);
 
 
-			//do vertex fit
-
-
-
-			PndKinVtxFitter vertexFitter_cc (crossCheck[j]);
-			vertexFitter_cc.Fit();
-			RhoCandidate * ccFit = crossCheck[j]->GetFit();
-
-			//store info of vertex fit
-			qa.qaFitter("VtxFit_", &vertexFitter_cc, ntpCrossCheck);
-			qa.qaVtx("VtxFit_", ccFit, ntpCrossCheck);
-			qa.qaMcDiff("VtxFit_", ccFit, ntpCrossCheck);
-
-
-
-			float mc_mass_l0 = 0.;
-
-			RhoCandidate * truth = ccFit->GetMcTruth();
-		    TLorentzVector l;
-
-
-		    if(0x0 != truth){
-		    	l = truth->P4();
-		    	qa.qaVtx("McTruth_", truth, ntpCrossCheck);
-		    }
-		    else{
-		    	qa.qaVtx("McTruth_", dummyCand, ntpCrossCheck);
-		    }
-
-  		    qa.qaP4("McTruth_", l, ntpCrossCheck);
-
-
-			//***do 4c fit
-			PndKinFitter cc_Fitter4c (crossCheck[j]);
-			cc_Fitter4c.Add4MomConstraint(ini);
-			cc_Fitter4c.Fit();
-
-			RhoCandidate * ccFit = crossCheck[j]->GetFit();
-
-			// store info of 4c Fit
-			ntpCrossCheck->Column("f4c_Chi2_cc", (Float_t) cc_Fitter4c.GetChi2());
-			ntpCrossCheck->Column("f4c_NDF_cc", (Float_t) cc_Fitter4c.GetNdf());
-			ntpCrossCheck->Column("f4c_Prob_cc", (Float_t) cc_Fitter4c.GetProb());
-
-			qa.qaComp("f4c_", ccFit, ntpCrossCheck);
-
-			//difference to MC Truth
-			qa.qaMcDiff("f4cMCDiff_", ccFit, ntpCrossCheck);
-
-
-			//do kalman vertex fit
-
-			PndKalmanVtxFitter kalmanfitter (crossCheck[j]);
-			kalmanfitter.Fit();
-			RhoCandidate * kalmanFit = crossCheck[j]->GetFit();
-
-			qa.qaFitter("KalmanFit_", &kalmanfitter, ntpCrossCheck);
-			qa.qaVtx("KalmanFit_", kalmanFit, ntpCrossCheck);
-
-			//do mass fit
-			PndKinFitter massFitter_cc (ccFit);
-			massFitter_cc.AddMassConstraint(m0_pbarpsystem);
-			massFitter_cc.Fit();
-
-			RhoCandidate * massFit_cc = ccFit->GetFit();
-
-			//store fit results
-			ntpCrossCheck->Column("fmass_Chi2_cc", (Float_t) massFitter_cc.GetChi2());
-			ntpCrossCheck->Column("fmass_NDF_cc", (Float_t) massFitter_cc.GetNdf());
-			ntpCrossCheck->Column("fmass_Prob_cc", (Float_t) massFitter_cc.GetProb());
-
-			qa.qaMcDiff("fmassMCDiff_", massFit_cc, ntpCrossCheck);
-
-			ntpCrossCheck->DumpData();
-		}
-	 Lambda0Fit.Cleanup();
-	 AntiLambda0Fit.Cleanup();
+//		for (int j=0; j<crossCheck.GetLength(); ++j){
+//
+//			//general information about event
+//			ntpCrossCheck->Column("ev",     (Float_t) evt);
+//			ntpCrossCheck->Column("cand",    (Float_t) j);
+//			ntpCrossCheck->Column("ncand",   (Float_t) crossCheck.GetLength());
+//			ntpCrossCheck->Column("McTruthMatch", (bool) theAnalysis->McTruthMatch(crossCheck[j]));
+//
+//			qa.qaP4("", crossCheck[j]->P4();, ntpCrossCheck);
+//			qa.qaComp("", crossCheck[j], ntpCrossCheck);
+//			qa.qaPoca("", crossCheck[j], ntpCrossCheck);
+//			qa.qaEventShapeShort("es_", &evsh, ntpAntiLambda0);
+//
+//
+//			//do vertex fit
+//
+//
+//
+//			PndKinVtxFitter vertexFitter_cc (crossCheck[j]);
+//			vertexFitter_cc.Fit();
+//			RhoCandidate * ccFit = crossCheck[j]->GetFit();
+//
+//			//store info of vertex fit
+//			qa.qaFitter("VtxFit_", &vertexFitter_cc, ntpCrossCheck);
+//			qa.qaVtx("VtxFit_", ccFit, ntpCrossCheck);
+//			qa.qaMcDiff("VtxFit_", ccFit, ntpCrossCheck);
+//
+//
+//
+//			float mc_mass_l0 = 0.;
+//
+//			RhoCandidate * truth = ccFit->GetMcTruth();
+//		    TLorentzVector l;
+//
+//
+//		    if(0x0 != truth){
+//		    	l = truth->P4();
+//		    	qa.qaVtx("McTruth_", truth, ntpCrossCheck);
+//		    }
+//		    else{
+//		    	qa.qaVtx("McTruth_", dummyCand, ntpCrossCheck);
+//		    }
+//
+//  		    qa.qaP4("McTruth_", l, ntpCrossCheck);
+//
+//
+//			//***do 4c fit
+//			PndKinFitter cc_Fitter4c (crossCheck[j]);
+//			cc_Fitter4c.Add4MomConstraint(ini);
+//			cc_Fitter4c.Fit();
+//
+//			RhoCandidate * ccFit = crossCheck[j]->GetFit();
+//
+//			// store info of 4c Fit
+//			ntpCrossCheck->Column("f4c_Chi2_cc", (Float_t) cc_Fitter4c.GetChi2());
+//			ntpCrossCheck->Column("f4c_NDF_cc", (Float_t) cc_Fitter4c.GetNdf());
+//			ntpCrossCheck->Column("f4c_Prob_cc", (Float_t) cc_Fitter4c.GetProb());
+//
+//			qa.qaComp("f4c_", ccFit, ntpCrossCheck);
+//
+//			//difference to MC Truth
+//			qa.qaMcDiff("f4cMCDiff_", ccFit, ntpCrossCheck);
+//
+//			//do mass fit
+//			PndKinFitter massFitter_cc (ccFit);
+//			massFitter_cc.AddMassConstraint(m0_pbarpsystem);
+//			massFitter_cc.Fit();
+//
+//			RhoCandidate * massFit_cc = ccFit->GetFit();
+//
+//			//store fit results
+//			ntpCrossCheck->Column("fmass_Chi2_cc", (Float_t) massFitter_cc.GetChi2());
+//			ntpCrossCheck->Column("fmass_NDF_cc", (Float_t) massFitter_cc.GetNdf());
+//			ntpCrossCheck->Column("fmass_Prob_cc", (Float_t) massFitter_cc.GetProb());
+//
+//			qa.qaMcDiff("fmassMCDiff_", massFit_cc, ntpCrossCheck);
+//
+//			ntpCrossCheck->DumpData();
+//		}
+//	 Lambda0Fit.Cleanup();
+//	 AntiLambda0Fit.Cleanup();
 	}
 
 
@@ -523,12 +522,12 @@ void analysis_pbarp_lambda0(int nevts=0){
 
   ntpMC -> GetInternalTree()->Write();
   ntpPiMinus ->GetInternalTree()->Write();
-  ntpPiPlus->GetInternalTree()->Write();
+//  ntpPiPlus->GetInternalTree()->Write();
   ntpProton->GetInternalTree()->Write();
-  ntpAntiProton->GetInternalTree()->Write();
+//  ntpAntiProton->GetInternalTree()->Write();
   ntpLambda0->GetInternalTree()->Write();
-  ntpAntiLambda0->GetInternalTree()->Write();
-  ntpCrossCheck->GetInternalTree()->Write();
+//  ntpAntiLambda0->GetInternalTree()->Write();
+//  ntpCrossCheck->GetInternalTree()->Write();
 
   out->Save();
   

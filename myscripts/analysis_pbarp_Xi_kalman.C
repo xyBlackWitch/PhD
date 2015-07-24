@@ -31,7 +31,7 @@ enum pidNumbers {
 
 
 
-void analysis_pbarp_Xi(int nevts=0){
+void analysis_pbarp_Xi_kalman(int nevts=0){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
@@ -40,9 +40,9 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
   //Output File
-  TString Path = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
+  TString Path = "/private/puetz/mysimulations/test/boxgenerator/Xi/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output_kalman.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -81,7 +81,7 @@ void analysis_pbarp_Xi(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_kalman.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -188,7 +188,7 @@ void analysis_pbarp_Xi(int nevts=0){
 //
 //        ntpPiPlus->DumpData();
 //    }
-
+//
     for (int pim=0; pim<piminus.GetLength(); ++pim){
         ntpPiMinus->Column("ev",     (Float_t) evt);
         ntpPiMinus->Column("cand",    (Float_t) pim);
@@ -198,8 +198,8 @@ void analysis_pbarp_Xi(int nevts=0){
         qa.qaP4("piminus_", piminus[pim]->P4(), ntpPiMinus);
         qa.qaCand("piminus_", piminus[pim], ntpPiMinus);
 
-        jenny::numberOfHitsInSubdetector("piminus_", piminus[pim], ntpPiMinus);
-        jenny::tagNHits("piminus_", piminus[pim], ntpPiMinus);
+//        jenny::numberOfHitsInSubdetector("piminus_", piminus[pim], ntpPiMinus);
+//        jenny::tagNHits("piminus_", piminus[pim], ntpPiMinus);
 
         RhoCandidate * mother_pim = piminus[pim]->GetMcTruth()->TheMother();
         int moth_pim = (0x0==mother_pim)? 88888 : mother_pim->PdgCode();
@@ -223,8 +223,8 @@ void analysis_pbarp_Xi(int nevts=0){
         qa.qaP4("proton_", proton[prot]->P4(), ntpProton);
         qa.qaCand("proton_", proton[prot], ntpProton);
 
-        jenny::numberOfHitsInSubdetector("proton_", proton[prot], ntpProton);
-        jenny::tagNHits("proton_", proton[prot], ntpProton);
+        //jenny::numberOfHitsInSubdetector("proton_", proton[prot], ntpProton);
+//        jenny::tagNHits("proton_", proton[prot], ntpProton);
 
         RhoCandidate * mother_prot = proton[prot]->GetMcTruth()->TheMother();
         int moth_prot = (0x0==mother_prot)? 88888 : mother_prot->PdgCode();
@@ -238,7 +238,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
         ntpProton->DumpData();
     }
-
+//
 //    for (int aProt=0; aProt<antiProton.GetLength(); ++aProt){
 //        ntpAntiProton->Column("ev",     (Float_t) evt);
 //        ntpAntiProton->Column("cand",    (Float_t) aProt);
@@ -301,11 +301,10 @@ void analysis_pbarp_Xi(int nevts=0){
 //      jenny::tagNHits("Lambda0_", lambda0[j], ntpLambda0);
 
 
-      // do vertex fit
+      //***** do vertex fit
       PndKinVtxFitter vertexfitterLambda0 (lambda0[j]);
 	  vertexfitterLambda0.Fit();
       RhoCandidate * lambda0Fit = lambda0[j]->GetFit();
-
 
       // store info of vertex fit
       qa.qaFitter("VtxFit_", &vertexfitterLambda0, ntpLambda0);
@@ -313,7 +312,20 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaVtx("VtxFit_", lambda0Fit, ntpLambda0);
 
       // differenz to MCTruth
-       qa.qaMcDiff("fvtxMcDiff_", lambda0Fit, ntpLambda0);
+      qa.qaMcDiff("fvtxMcDiff_", lambda0Fit, ntpLambda0);
+
+
+      //******do kalman vertex fit
+      PndKalmanVtxFitter kalmanfitterLambda0 (lambda0[j]);
+      kalmanfitterLambda0.Fit();
+      RhoCandidate * kalmanFitLambda0 = lambda0[j]->GetFit();
+
+	  qa.qaFitter("KalmanFit_", &kalmanfitterLambda0, ntpLambda0);
+      qa.qaVtx("KalmanFit_", kalmanFitLambda0, ntpLambda0);
+
+
+
+
 
 
 //      jenny::CombinedList(lambda0[j], &CombinedPiMinus, -211);
@@ -369,15 +381,15 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
    }
-
+//
 //    for (int pim=0; pim<CombinedPiMinus.GetLength(); pim++){
 //        	  NotCombinedPiMinus.Remove(CombinedPiMinus[pim]);
 //          }
-
-
+//
+//
 //     CombinedPiMinus.Cleanup();
 
-    //***AntiLambda0 -> PiPlus + AntiProton
+//    //***AntiLambda0 -> PiPlus + AntiProton
 //    antiLambda0.Combine(piplus,antiProton);
 //	antiLambda0.Select(lambdaMassSelector);
 //    antiLambda0.SetType(kal0);
@@ -500,16 +512,12 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
 
-      // do vertex-fit
-
-
-
+      //******* do vertex-fit
       PndKinVtxFitter vertexfitterXiMinus (ximinus[j]);
       vertexfitterXiMinus.Fit();
       RhoCandidate * ximinusFit = ximinus[j]->GetFit();
 
       XiMinusFit.Append(ximinusFit);
-
 
 
       // store info of vertex-fit
@@ -531,7 +539,20 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaMcDiff("fvtxMcDiff_", ximinusFit, ntpXiMinus);
 
 
-      // do mass fit
+
+      //******do kalman vertex fit
+      PndKalmanVtxFitter kalmanfitterximinus (ximinus[j]);
+      kalmanfitterximinus.Fit();
+      RhoCandidate * kalmanFitximinus = ximinus[j]->GetFit();
+
+	  qa.qaFitter("KalmanFit_", &kalmanfitterximinus, ntpXiMinus);
+      qa.qaVtx("KalmanFit_", kalmanFitximinus, ntpXiMinus);
+
+
+
+
+
+      //******** do mass fit
       PndKinFitter massFitterXiMinus(ximinusFit);
       massFitterXiMinus.AddMassConstraint(m0_lambda0);
       massFitterXiMinus.Fit();
@@ -559,7 +580,7 @@ void analysis_pbarp_Xi(int nevts=0){
     	  qa.qaVtx("MCTruth_", dummyCand, ntpXiMinus);
       }
 
-      jenny::qaP3("MCTruth_", decay, ntpXiMinus);
+//      jenny::qaP3("MCTruth_", decay, ntpXiMinus);
       qa.qaP4("MCTruth_", l, ntpXiMinus);
 
 
@@ -571,16 +592,16 @@ void analysis_pbarp_Xi(int nevts=0){
       ntpXiMinus->DumpData();
 	}
     Lambda0Fit.Cleanup();
-    BestCandLambda0.Cleanup();
-    NotCombinedPiMinus.Cleanup();
+//    BestCandLambda0.Cleanup();
+//    NotCombinedPiMinus.Cleanup();
 
 
 
-	//*** Xi+ -> AntiLambda0 + Pi+
+//	//*** Xi+ -> AntiLambda0 + Pi+
 //		xiplus.Combine(AntiLambda0Fit,piplus);
 //		xiplus.Select(xiMassSelector);
 //		xiplus.SetType(kaXip);
-
+//
 //    for (int j=0; j<xiplus.GetLength(); ++j){
 //
 //      //general info about event
@@ -594,10 +615,9 @@ void analysis_pbarp_Xi(int nevts=0){
 //      ntpXiPlus->Column("Mother", (Float_t) moth);
 //
 //      qa.qaP4("xiplus_", xiplus[j]->P4(), ntpXiPlus);
-
 //      qa.qaComp("xiplus_", xiplus[j], ntpXiPlus);
 //
-////      jenny::tagNHits("xiplus_", xiplus[j], ntpXiPlus);
+//      jenny::tagNHits("xiplus_", xiplus[j], ntpXiPlus);
 //
 //
 //
@@ -649,12 +669,12 @@ void analysis_pbarp_Xi(int nevts=0){
 //    BestCandAntiLambda0.Cleanup();
 
 
-
-    //******* Xi+ Xi- System*****************************
-
+//
+//    //******* Xi+ Xi- System*****************************
+//
 //    xiSys.Combine(XiPlusFit, XiMinusFit);
 //    xiSys.SetType(88888);
-
+//
 //    for (int syscand=0; syscand<xiSys.GetLength(); ++syscand){
 //
 //        ntpXiSys->Column("ev",     (Float_t) evt);
@@ -693,7 +713,6 @@ void analysis_pbarp_Xi(int nevts=0){
 //
 //
 //
-
 //        ntpXiSys->DumpData();
 //
 //
