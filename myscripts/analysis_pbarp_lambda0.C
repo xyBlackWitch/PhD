@@ -179,6 +179,13 @@ void analysis_pbarp_lambda0(int nevts=0){
       ntpProton->Column("ev",     (Float_t) evt);
       ntpProton->Column("cand",    (Float_t) j);
       ntpProton->Column("ncand",   (Float_t) proton.GetLength());
+  	jenny::CreateDrawAndSaveHistogram(h_vx_mc, outPath, "h_vx_mc", saveoutput, close);
+  	jenny::CreateDrawAndSaveHistogram(h_vy_mc, outPath, "h_vy_mc", saveoutput, close);
+  	jenny::CreateDrawAndSaveHistogram(h_vz_mc, outPath, "h_vz_mc", saveoutput, close);
+
+  	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
+  	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
+  	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
 
 
 

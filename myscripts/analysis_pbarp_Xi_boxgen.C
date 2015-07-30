@@ -42,7 +42,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
   //Output File
   TString Path = "/private/puetz/mysimulations/test/boxgenerator/Xi/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output_test.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -81,7 +81,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_test.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -297,6 +297,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
 
       qa.qaP4("Lambda0_", lambda0[j]->P4(), ntpLambda0);
       qa.qaComp("Lambda0_", lambda0[j], ntpLambda0);
+      jenny::qaMomRes("Lambda0_", lambda0[j], ntpLambda0);
 
 //      jenny::tagNHits("Lambda0_", lambda0[j], ntpLambda0);
 
@@ -313,7 +314,10 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
       qa.qaVtx("VtxFit_", lambda0Fit, ntpLambda0);
 
       // differenz to MCTruth
-       qa.qaMcDiff("fvtxMcDiff_", lambda0Fit, ntpLambda0);
+       qa.qaMcDiff("VtxFit_", lambda0Fit, ntpLambda0);
+       jenny::qaVtxDiff("VtxFit_", lambda0Fit, ntpLambda0);
+       jenny::qaMomRes("VtxFit_", lambda0Fit, ntpLambda0);
+       qa.qaP4("VtxFit_", lambda0Fit->P4(), ntpLambda0);
 
 
 //      jenny::CombinedList(lambda0[j], &CombinedPiMinus, -211);
@@ -338,7 +342,10 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
       ntpLambda0->Column("fMass_NDF", (float) massFitterLambda0.GetNdf());
       ntpLambda0->Column("fMass_Prob", (float) massFitterLambda0.GetProb());
 
-      qa.qaMcDiff("Lambda0_", lambda0Fit_mass, ntpLambda0);
+      qa.qaMcDiff("MassFit_", lambda0Fit_mass, ntpLambda0);
+      jenny::qaVtxDiff("MassFit_", lambda0Fit_mass, ntpLambda0);
+      jenny::qaMomRes("MassFit_", lambda0Fit_mass, ntpLambda0);
+      qa.qaP4("MassFit_", lambda0Fit_mass->P4(), ntpLambda0);
 
       Lambda0Fit.Append(lambda0Fit);
 
@@ -513,9 +520,8 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
 
 
       // store info of vertex-fit
-      ntpXiMinus->Column("FitVertex_Chi2", (float) vertexfitterXiMinus.GetChi2());
-      ntpXiMinus->Column("FitVertex_NDF", (float) vertexfitterXiMinus.GetNdf());
-      ntpXiMinus->Column("FitVertex_Prob", (float) vertexfitterXiMinus.GetProb());
+      qa.qaFitter("VtxFit_", &vertexfitterXiMinus, ntpXiMinus);
+      qa.qaCand("VtxFit_", ximinusFit, ntpXiMinus);
 
 //      if (vertexfitterXiMinus.GetChi2()<-1e-5){
 //          		  cout << "Chi2 = " << vertexfitterXiMinus.GetChi2() <<" Probability = " << vertexfitterXiMinus.GetProb() << endl;
@@ -523,12 +529,16 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
 //      }
 
       //qa.qaFitter("Fitvtx_", vertexfitterXiMinus, ntpXiMinus);
-      qa.qaVtx("XiMinusFit_", ximinusFit, ntpXiMinus);
-      qa.qaCand("XiMinusFit_", ximinusFit, ntpXiMinus);
+      qa.qaVtx("VtxFit", ximinusFit, ntpXiMinus);
+      qa.qaCand("VtxFit_", ximinusFit, ntpXiMinus);
 
 
 	  // difference to MCTruth
-      qa.qaMcDiff("fvtxMcDiff_", ximinusFit, ntpXiMinus);
+      qa.qaMcDiff("VtxFit_", ximinusFit, ntpXiMinus);
+      jenny::qaVtxDiff("VtxFit_", ximinusFit, ntpXiMinus);
+      jenny::qaMomRes("VtxFit_", ximinusFit, ntpXiMinus);
+      qa.qaP4("VtxFit_", ximinusFit->P4(), ntpXiMinus);
+
 
 
       // do mass fit
@@ -537,12 +547,13 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
       massFitterXiMinus.Fit();
 
       RhoCandidate * ximinusFit_mass = ximinusFit->GetFit();
-      ntpXiMinus->Column("fMass_Chi2", (float) massFitterXiMinus.GetChi2());
-      ntpXiMinus->Column("fMass_NDF", (float) massFitterXiMinus.GetNdf());
-      ntpXiMinus->Column("fMass_Prob", (float) massFitterXiMinus.GetProb());
+      qa.qaFitter("MassFit_", &massFitterXiMinus, ntpXiMinus);
+      qa.qaCand("MassFit_", ximinusFit_mass, ntpXiMinus);
 
-      qa.qaMcDiff("MasFit_", ximinusFit_mass, ntpXiMinus);
-
+      qa.qaMcDiff("MassFit_", ximinusFit_mass, ntpXiMinus);
+      jenny::qaVtxDiff("MassFit_", ximinusFit_mass, ntpXiMinus);
+      jenny::qaMomRes("MassFit_", ximinusFit_mass, ntpXiMinus);
+      qa.qaP4("MassFit_", ximinusFit_mass->P4(), ntpXiMinus);
 
 
       RhoCandidate * truth = ximinus[j]->GetMcTruth();

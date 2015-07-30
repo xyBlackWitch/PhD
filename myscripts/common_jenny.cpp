@@ -17,6 +17,7 @@
 #include "TH1.h"
 #include "TString.h"
 #include "TCanvas.h"
+#include "TMath.h"
 #include <map>
 
 //#include "RhoTuple.h"
@@ -34,7 +35,7 @@ namespace jenny{
 		TString title = TString(histo->GetTitle());
 
 		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-		//gStyle->SetOptStat(11);
+		gStyle->SetOptStat(11);
 		histo->Draw();
 
 
@@ -206,8 +207,15 @@ namespace jenny{
 		  }
 
 		  combinedList->RemoveClones();
-		  return combinedList;
+		  //return combinedList;
 
+	  }
+
+	  void GetNotCombinedList(RhoCandList combinedList, RhoCandList * candList){
+		  for (int j=0; j<combinedList.GetLength(); j++){
+			  RhoCandidate * combinedCand = combinedList[j];
+			  candList->Remove(combinedCand);
+		  }
 	  }
 
 	  TF1 * doubleGaussFit(TH1 * hist, bool autorange, double inner, double outer){
@@ -271,6 +279,59 @@ namespace jenny{
 	  }
 
 
+	  void qaVtxDiff(TString pre="", RhoCandidate * c, RhoTuple * n){
+
+		  if(n==0) return;
+		  if(c==0) return;
+
+		  RhoCandidate * mct = c->GetMcTruth();
+
+		  if(mct){
+			  TVector3 v = c->DecayVtx();
+			  TVector3 mcv = mct->Daughter(0)->Pos();
+			  TVector3 vdiff = v-mcv;
+			  TMatrixD cov7 = c->Cov7();
+
+			  n->Column(pre + "diffvx", (Float_t) vdiff.X(), 0.0f );
+			  n->Column(pre + "diffvy", (Float_t) vdiff.Y(), 0.0f );
+			  n->Column(pre + "diffvz", (Float_t) vdiff.Z(), 0.0f );
+
+			  n->Column(pre + "pullvx", (Float_t) (vdiff.X()/TMath::Sqrt(cov7(0,0))), 0.0f);
+			  n->Column(pre + "pullvy", (Float_t) (vdiff.Y()/TMath::Sqrt(cov7(1,1))), 0.0f);
+			  n->Column(pre + "pullvz", (Float_t) (vdiff.Z()/TMath::Sqrt(cov7(2,2))), 0.0f);
+
+		  }
+		  else{
+			  n->Column(pre + "diffvx", (Float_t) -999.0, 0.0f );
+			  n->Column(pre + "diffvy", (Float_t) -999.0, 0.0f );
+			  n->Column(pre + "diffvz", (Float_t) -999.0, 0.0f );
+
+			  n->Column(pre + "pullvx", (Float_t) -999.0, 0.0f);
+			  n->Column(pre + "pullvy", (Float_t) -999.0, 0.0f);
+			  n->Column(pre + "pullvz", (Float_t) -999.0, 0.0f);
+
+		  }
+	  }
+
+	  void qaMomRes(TString pre="", RhoCandidate * c, RhoTuple * n){
+
+		  if(n==0 || c==0) return;
+
+		  RhoCandidate * mct = c->GetMcTruth();
+		  float momres = -999.0;
+
+		  if(mct){
+			  float p = c->P();
+			  float mcp = mct->P();
+
+			  momres = (p-mcp)/mcp;
+		  }
+
+		  n->Column(pre + "mom_res", (Float_t) momres, 0.0f);
+
+	  }
+
+
 	  void numberOfHitsInSubdetector(TString pre="", RhoCandidate *c, RhoTuple *n){
 
 		/* This void method saves the number of Hits in the MVD, STT and GEM detector
@@ -300,42 +361,26 @@ namespace jenny{
 	  	 * 1: sttHits>3 or mvdHits>3 or gemHit>3
 	  	 */
 
-	  	bool comp = c->IsComposite();
 	  	int tag=0;
 
-	  	if (!comp){
+		PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
 
-	  		PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+		if(pidCand){
+			int mvdHits = pidCand->GetMvdHits();
+			int sttHits = pidCand->GetSttHits();
+			int gemHits = pidCand->GetGemHits();
 
-	  		if(pidCand){
-	  			int mvdHits = pidCand->GetMvdHits();
-	  			int sttHits = pidCand->GetSttHits();
-	  			int gemHits = pidCand->GetGemHits();
-
-	  			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
+			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
 
 
-	  		}
-
-	  	}
-	  	else{
-	  		int dtag[2] = {0,0};
-	  		int ndau = c->NDaughters();
-
-	  		for(int dau=0; dau<ndau; dau++){
-	  			RhoCandidate * daughter = c->Daughter(dau);
-	  			dtag[dau] = tagNHits(daughter);
-	  		}
-	  		if(dtag[0]==1 && dtag[1]==1) tag=1;
-
-	  	}
+		}
 
 	  	n->Column(pre + "HitTag", (Int_t) tag, 0);
 	  }
 
 
 
-	  int tagNHits(RhoCandidate *c){
+	  int tagHits(RhoCandidate *c){
 
 		/**@brief Tag the particle with different integers
 		 * @details Tag the particle with different integers:
@@ -343,33 +388,18 @@ namespace jenny{
 		 * 1: sttHits>3 or mvdHits>3 or gemHit>3
 		 */
 	  	int tag = 0;
-	  	bool comp = c->IsComposite();
 
+	  	PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
 
-	  	if(!comp){
+		if(pidCand){
+			int mvdHits = pidCand->GetMvdHits();
+			int sttHits = pidCand->GetSttHits();
+			int gemHits = pidCand->GetGemHits();
 
-	  		PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
+		//		cout << "mvd: " << mvdHits << " stt: " << sttHits << " gem: " << gemHits << endl;
 
-	  		if(pidCand){
-	  			int mvdHits = pidCand->GetMvdHits();
-	  			int sttHits = pidCand->GetSttHits();
-	  			int gemHits = pidCand->GetGemHits();
-
-	  			if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
-	  		//		cout << "mvd: " << mvdHits << " stt: " << sttHits << " gem: " << gemHits << endl;
-
-	  		}
-	  	}
-	  	else{
-	  		int dtag[2] = {0,0};
-	  		int ndau = c->NDaughters();
-
-	  		for(int dau=0; dau<ndau; dau++){
-	  			RhoCandidate * daughter = c->Daughter(dau);
-	  			dtag[dau] = tagNHits(daughter);
-	  		}
-	  		if(dtag[0]==1 && dtag[1]==1) tag=1;
-	  	}
+		}
 
 	  	return tag;
 	  }

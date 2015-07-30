@@ -150,8 +150,8 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 
 	bool autoRange = false;
 
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_kalman", saveoutput, close, autoRange, 0.1,1);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_kalman", saveoutput, close, autoRange, 0.03,1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_kalman", saveoutput, close, autoRange, 0.1,1);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_kalman", saveoutput, close, autoRange, 0.03,1);
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_kalman", saveoutput, close, autoRange, 0.06, 1);
 
 //	jenny::CreateDrawAndSaveHistogram(h_vx_poc_res, outPath, "h_vx_poc_res_kalman", saveoutput, close);

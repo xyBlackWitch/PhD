@@ -30,7 +30,7 @@ enum pidNumbers {
 
 
 
-void analysis_pbarp_Xi(int nevts=0){
+void analysis_pbarp_Xi2(int nevts=0){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
@@ -41,7 +41,7 @@ void analysis_pbarp_Xi(int nevts=0){
   //Output File
   TString Path = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output2.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -80,7 +80,7 @@ void analysis_pbarp_Xi(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana2.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();

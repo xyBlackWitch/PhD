@@ -30,7 +30,7 @@ enum pidNumbers {
 
 
 
-void analysis_pbarp_Xi(int nevts=0){
+void analysis_pbarp_Xi_test(int nevts=0){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
@@ -41,7 +41,7 @@ void analysis_pbarp_Xi(int nevts=0){
   //Output File
   TString Path = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output_test.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -80,7 +80,7 @@ void analysis_pbarp_Xi(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_test.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -89,6 +89,7 @@ void analysis_pbarp_Xi(int nevts=0){
   //RhoCandLists for analysis
   RhoCandList piplus, piminus, lambda0, antiLambda0, proton, antiProton, xiplus, ximinus, xiSys;
   RhoCandList NotCombinedPiMinus, CombinedPiMinus, CombinedPiPlus, NotCombinedPiPlus;
+  RhoCandList SelectedProton, SelectedAntiProton, SelectedPiMinus, SelectedPiPlus;
   RhoCandList Lambda0Fit, AntiLambda0Fit, XiMinusFit, XiPlusFit;
   RhoCandList mclist, all;
 
@@ -152,8 +153,8 @@ void analysis_pbarp_Xi(int nevts=0){
     
     //***Selection with no PID info
     theAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
-    theAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
-    theAnalysis->FillList(NotCombinedPiPlus, "PionAllPlus", PidSelection);
+//    theAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
+//    theAnalysis->FillList(NotCombinedPiPlus, "PionAllPlus", PidSelection);
     theAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
     theAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
     theAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
@@ -172,6 +173,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
         jenny::numberOfHitsInSubdetector("PiPlus_", piplus[pip], ntpPiPlus);
         jenny::tagNHits("PiPlus_", piplus[pip], ntpPiPlus);
+        int tag = jenny::tagHits(piplus[pip]);
 
 
         RhoCandidate * mother_pip = piplus[pip]->GetMcTruth()->TheMother();
@@ -184,7 +186,10 @@ void analysis_pbarp_Xi(int nevts=0){
         qa.qaCand("PiPlus_MC_", piplus[pip]->GetMcTruth(), ntpPiPlus);
         ntpPiPlus->Column("PiPlus_MC_CosTheta", (Float_t) piplus[pip]->GetMcTruth()->GetMomentum().CosTheta());
 
-
+        if(tag==1){
+        	SelectedPiPlus.Append(piplus[pip]);
+        	NotCombinedPiPlus.Append(piplus[pip]);
+        }
 
         ntpPiPlus->DumpData();
     }
@@ -200,6 +205,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
         jenny::numberOfHitsInSubdetector("piminus_", piminus[pim], ntpPiMinus);
         jenny::tagNHits("piminus_", piminus[pim], ntpPiMinus);
+        int tag = jenny::tagHits(piminus[pim]);
 
         RhoCandidate * mother_pim = piminus[pim]->GetMcTruth()->TheMother();
         int moth_pim = (0x0==mother_pim)? 88888 : mother_pim->PdgCode();
@@ -212,6 +218,11 @@ void analysis_pbarp_Xi(int nevts=0){
         ntpPiMinus->Column("piminus_MC_CosTheta", (Float_t) piminus[pim]->GetMcTruth()->GetMomentum().CosTheta());
 
         ntpPiMinus->DumpData();
+
+        if(tag==1){
+        	SelectedPiMinus.Append(piminus[pim]);
+        	NotCombinedPiMinus.Append(piminus[pim]);
+        }
     }
 
     for (int prot=0; prot<proton.GetLength(); ++prot){
@@ -224,7 +235,9 @@ void analysis_pbarp_Xi(int nevts=0){
         qa.qaCand("proton_", proton[prot], ntpProton);
 
         jenny::numberOfHitsInSubdetector("proton_", proton[prot], ntpProton);
-        jenny::tagNHits("proton_", proton[prot], ntpProton);
+//        jenny::tagNHits("proton_", proton[prot], ntpProton);
+
+        int tag = jenny::tagHits(proton[prot]);
 
         RhoCandidate * mother_prot = proton[prot]->GetMcTruth()->TheMother();
         int moth_prot = (0x0==mother_prot)? 88888 : mother_prot->PdgCode();
@@ -237,6 +250,9 @@ void analysis_pbarp_Xi(int nevts=0){
         ntpProton->Column("proton_MC_CosTheta", (Float_t) proton[prot]->GetMcTruth()->GetMomentum().CosTheta());
 
         ntpProton->DumpData();
+
+        if(tag==1) SelectedProton.Append(proton[prot]);
+
     }
 
     for (int aProt=0; aProt<antiProton.GetLength(); ++aProt){
@@ -249,7 +265,8 @@ void analysis_pbarp_Xi(int nevts=0){
         qa.qaCand("antiProton_", antiProton[aProt], ntpAntiProton);
 
         jenny::numberOfHitsInSubdetector("antiProton_", antiProton[aProt], ntpAntiProton);
-        jenny::tagNHits("antiProton_", antiProton[aProt], ntpAntiProton);
+//        jenny::tagNHits("antiProton_", antiProton[aProt], ntpAntiProton);
+        int tag = jenny::tagHits(antiProton[aProt]);
 
         RhoCandidate * mother_aProt = antiProton[aProt]->GetMcTruth()->TheMother();
         int moth_aProt = (0x0==mother_aProt)? 88888 : mother_aProt->PdgCode();
@@ -263,6 +280,8 @@ void analysis_pbarp_Xi(int nevts=0){
         ntpAntiProton->Column("antiProton_MC_CosTheta", (Float_t) antiProton[aProt]->GetMcTruth()->GetMomentum().CosTheta());
 
         ntpAntiProton->DumpData();
+
+        if(tag==1) SelectedAntiProton.Append(antiProton[aProt]);
     }
 
 
@@ -271,7 +290,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
     //***Lambda0 -> PiMinus + Proton
 
-    lambda0.Combine(piminus,proton);
+    lambda0.Combine(SelectedPiMinus,SelectedProton);
 	lambda0.Select(lambdaMassSelector);
     lambda0.SetType(kl0);
 
@@ -298,21 +317,6 @@ void analysis_pbarp_Xi(int nevts=0){
 
       qa.qaP4("Lambda0_", lambda0[j]->P4(), ntpLambda0);
       qa.qaComp("Lambda0_", lambda0[j], ntpLambda0);
-
-      int tag = 0;
-      int ndau = lambda0[j]->NDaughters();
-      int dtag[2]={0,0};
-
-
-      for(int dau=0; dau<ndau; dau++){
-    	  RhoCandidate * daughter = lambda0[j]->Daughter(dau);
-    	  dtag[dau] = jenny::tagHits(daughter);
-      }
-
-      if(dtag[0]==1 && dtag[1]==1) tag=1;
-
-
-      ntpLambda0->Column("Lambda0_HitTag", (Int_t) tag);
 
 
       // do vertex fit
@@ -381,11 +385,15 @@ void analysis_pbarp_Xi(int nevts=0){
 
 //     Lambda0Fit.Cleanup();
      CombinedPiMinus.Cleanup();
+     SelectedPiMinus.Cleanup();
+     SelectedProton.Cleanup();
 //     NotCombinedPiMinus.Cleanup();
+     bestVtxFitLambda0.clear();
+     bestMassFitLambda0.clear();
 
 
     //***AntiLambda0 -> PiPlus + AntiProton
-    antiLambda0.Combine(piplus,antiProton);
+    antiLambda0.Combine(SelectedPiPlus,SelectedAntiProton);
 	antiLambda0.Select(lambdaMassSelector);
     antiLambda0.SetType(kal0);
 
@@ -410,23 +418,6 @@ void analysis_pbarp_Xi(int nevts=0){
 
       qa.qaP4("AntiLambda0_", antiLambda0[j]->P4(), ntpAntiLambda0);
       qa.qaComp("AntiLambda0_", antiLambda0[j], ntpAntiLambda0);
-
-
-      int tag = 0;
-      int ndau = antiLambda0[j]->NDaughters();
-      int dtag[2]={0,0};
-
-
-      for(int dau=0; dau<ndau; dau++){
-    	  	 RhoCandidate * daughter = antiLambda0[j]->Daughter(dau);
-    	  	 dtag[dau] = jenny::tagHits(daughter);
-      }
-
-      if(dtag[0]==1 && dtag[1]==1) tag=1;
-
-
-      ntpAntiLambda0->Column("AntiLambda0_HitTag", (Int_t) tag);
-
 
 
       // do vertex fit
@@ -484,8 +475,11 @@ void analysis_pbarp_Xi(int nevts=0){
     jenny::GetNotCombinedList(CombinedPiPlus, &NotCombinedPiPlus);
 
 	CombinedPiPlus.Cleanup();
+	SelectedPiPlus.Cleanup();
+	SelectedAntiProton.Cleanup();
 
-
+    bestVtxFitAntiLambda0.clear();
+    bestMassFitAntiLambda0.clear();
 
 
 
@@ -517,27 +511,6 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaP4("XiMinus_", ximinus[j]->P4(), ntpXiMinus);
       qa.qaComp("XiMinus_", ximinus[j], ntpXiMinus);
       qa.qaPoca("XiMinus_", ximinus[j], ntpXiMinus);
-
-
-      //tag Hits for final state particles
-      int tag = 0;
-      int dtag[2]= {0,0};
-
-      for (int dau=0; dau<ximinus[j]->NDaughters(); dau++){
-    	  RhoCandidate * daughter = ximinus[j]->Daughter(dau);
-    	  if (daughter->IsComposite()){
-    		  int dtag1 = jenny::tagHits(daughter->Daughter(0));
-    		  int dtag2 = jenny::tagHits(daughter->Daughter(1));
-    		  if (dtag1==1 && dtag2==1) dtag[dau]=1;
-    	  }
-    	  else{
-    		  dtag[dau] = jenny::tagHits(daughter);
-    	  }
-      }
-
-      if(dtag[0]==1 && dtag[1]==1) tag = 1;
-
-      ntpXiMinus->Column("XiMinus_HitTag", (Int_t) tag);
 
 
 
@@ -588,7 +561,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
       qa.qaP4("MCTruth_", l, ntpXiMinus);
 
-      if (BestVtxFitXiMinus[j]==1 && BestMassFitXiMinus[j]>0 && tag==1){
+      if (BestVtxFitXiMinus[j]==1 && BestMassFitXiMinus[j]>0){
     	  XiMinusFit.Append(ximinusFit);
       }
 
@@ -604,7 +577,8 @@ void analysis_pbarp_Xi(int nevts=0){
     Lambda0Fit.Cleanup();
     NotCombinedPiMinus.Cleanup();
 
-
+	BestVtxFitXiMinus.clear();
+	BestMassFitXiMinus.clear();
 
 
 
@@ -634,25 +608,25 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaComp("Xiplus_", xiplus[j], ntpXiPlus);
 
 
-      int tag = 0;
-      int dtag[2] = {0,0};
-
-      for (int dau=0; dau<xiplus[j]->NDaughters(); dau++){
-
-    	  RhoCandidate * daughter = xiplus[j]->Daughter(dau);
-    	  if(daughter->IsComposite()){
-    		  int dtag1 = jenny::tagHits(daughter->Daughter(0));
-    		  int dtag2 = jenny::tagHits(daughter->Daughter(1));
-       		  if(dtag1==1 && dtag2==1) dtag[dau]=1;
-    	  }
-    	  else{
-    		  dtag[dau] = jenny::tagHits(daughter);
-    	  }
-	 }
-
-      if(dtag[0]==1 && dtag[1]==1) tag=1;
-
-      ntpXiPlus->Column("XiPlus_HitTag", (Int_t) tag);
+//      int tag = 0;
+//      int dtag[2] = {0,0};
+//
+//      for (int dau=0; dau<xiplus[j]->NDaughters(); dau++){
+//
+//    	  RhoCandidate * daughter = xiplus[j]->Daughter(dau);
+//    	  if(daughter->IsComposite()){
+//    		  int dtag1 = jenny::tagHits(daughter->Daughter(0));
+//    		  int dtag2 = jenny::tagHits(daughter->Daughter(1));
+//       		  if(dtag1==1 && dtag2==1) dtag[dau]=1;
+//    	  }
+//    	  else{
+//    		  dtag[dau] = jenny::tagHits(daughter);
+//    	  }
+//	 }
+//
+//      if(dtag[0]==1 && dtag[1]==1) tag=1;
+//
+//      ntpXiPlus->Column("XiPlus_HitTag", (Int_t) tag);
 
 
 
@@ -696,7 +670,7 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaP4("MCTruth_", l, ntpXiPlus);
 
 
-      if(BestVtxFitXiPlus[j]==1 && BestMassFitXiPlus[j]>0 && tag==1){
+      if(BestVtxFitXiPlus[j]==1 && BestMassFitXiPlus[j]>0){
     	  XiPlusFit.Append(xiplusFit);
       }
 
@@ -709,6 +683,8 @@ void analysis_pbarp_Xi(int nevts=0){
 
     AntiLambda0Fit.Cleanup();
 //    BestCandAntiLambda0.Cleanup();
+	BestVtxFitXiPlus.clear();
+	BestMassFitXiPlus.clear();
 
 
 
