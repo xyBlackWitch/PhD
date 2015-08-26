@@ -6,6 +6,7 @@
 
 
 #pragma link C++ class  AnalysisTask+;
+#pragma link C++ class  AnalysisTaskLambda0+;
 
 
 #endif

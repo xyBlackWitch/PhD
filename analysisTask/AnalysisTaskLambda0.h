@@ -1,5 +1,5 @@
-#ifndef AnalysisTask_H
-#define AnalysisTask_H 1
+#ifndef AnalysisTaskLambda0_H
+#define AnalysisTaskLambda0_H 1
 
 #include "FairTask.h"
 #include "TFile.h"
@@ -15,16 +15,16 @@ class RhoCandidate;
 class RhoTuple;
 class RhoMassParticleSelector;
 
-class AnalysisTask : public FairTask
+class AnalysisTaskLambda0 : public FairTask
 {
 
 	public:
 
 		//** default constructor
-		AnalysisTask();
+		AnalysisTaskLambda0();
 
 		//** destructor
-		~AnalysisTask();
+		~AnalysisTaskLambda0();
 
 		virtual InitStatus Init();
 
@@ -39,6 +39,9 @@ class AnalysisTask : public FairTask
 		void SetNEvents(double nevents=0){
 			fnevts = nevents;
 		}
+		void SetMom(double mom=1.7){
+			fmom=mom;
+		}
 
 
 
@@ -49,8 +52,6 @@ class AnalysisTask : public FairTask
 
 //		enum pidNumbers;
 
-		void CombinedList(RhoCandidate *cand, RhoCandList *combinedList, int pdg);
-		void GetNotCombinedList(RhoCandList combinedList, RhoCandList * candList);
 
 		void numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTuple *n);
 		void tagNHits(TString pre, RhoCandidate *c, RhoTuple *n);
@@ -64,37 +65,32 @@ class AnalysisTask : public FairTask
 
 		TStopwatch ftimer;
 
-		int fEvtCount;
 		double fnevts;
 
 		double fmom;
 		double fm0_lambda0;
-		double fm0_Xi;
 		double fm0_beam;
 
 		const char* fOutPath;
 
-		RhoTuple * fntpMc;
+		RhoTuple * fntpMC;
 		RhoTuple * fntpPiMinus;
 		RhoTuple * fntpPiPlus;
 		RhoTuple * fntpProton;
 		RhoTuple * fntpAntiProton;
 		RhoTuple * fntpLambda0;
 		RhoTuple * fntpAntiLambda0;
-		RhoTuple * fntpXiMinus;
-		RhoTuple * fntpXiPlus;
-		RhoTuple * fntpXiSys;
+		RhoTuple * fntpCrossCheck;
 
 		TFile* foutput;
 
 		PndAnalysis* fAnalysis;
 
 		RhoMassParticleSelector* lambdaMassSelector;
-		RhoMassParticleSelector* xiMassSelector;
 
 		TLorentzVector fini;
 
-		ClassDef(AnalysisTask,1);
+		ClassDef(AnalysisTaskLambda0,1);
 
 
 
