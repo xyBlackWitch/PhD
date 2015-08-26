@@ -19,6 +19,7 @@
 #include "TCanvas.h"
 #include "TMath.h"
 #include <map>
+#include "common_andi.cpp"
 
 //#include "RhoTuple.h"
 //#include "RhoCandidate.h"
@@ -49,7 +50,7 @@ namespace jenny{
 
 	}
 
-	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1){
+	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
 
 			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -59,11 +60,8 @@ namespace jenny{
 			TString title = TString(histo->GetTitle());
 
 			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-			//gStyle->SetOptStat(11);
-			histo->Draw();
-
-			TF1 * fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
-			fit->Draw("SAME");
+			//gStyle->SetOptStat(0);
+			histo->Draw("COLZ");
 
 
 			if (saveoutput){
@@ -76,33 +74,56 @@ namespace jenny{
 
 		}
 
-	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
+	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false, int fittype=0){
 
-		/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
-		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
-		*/
+			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
+			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
+			*/
 
-		TString name = TString(histo->GetName());
-		TString title = TString(histo->GetTitle());
+			TString name = TString(histo->GetName());
+			TString title = TString(histo->GetTitle());
 
-		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-		//gStyle->SetOptStat(0);
-		histo->Draw("COLZ");
+			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
+			//gStyle->SetOptStat(11);
+			histo->Draw();
+
+			TF1 * fit;
+//
+			if(excludeCenter){
+				fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
+			}
+//			else if (fittype==1){
+//				fit = andi::gaussFit(histo);
+//			}
+			else{// if (fittype==2){
+				fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
+			}
+
+			fit->Draw("SAME");
+
+			if (saveoutput){
+				canvas->Print(outputdir + "root-files/" + outputname + ".root");
+				canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			}
+
+			if (close) canvas->Close();
 
 
-		if (saveoutput){
-			canvas->Print(outputdir + "root-files/" + outputname + ".root");
-			canvas->Print(outputdir + "png-files/" + outputname + ".png");
 		}
 
-		if (close) canvas->Close();
-
-
+	void CreateDrawAndSaveHistogramFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false){
+		return CreateDrawAndSaveHistogramWithFit(histo, outputdir, outputname, saveoutput, close, autorange, innerRange, outerRange,excludeCenter,1);
 	}
+
+	void CreateDrawAndSaveHistogramDoulbeFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false){
+		return CreateDrawAndSaveHistogramWithFit(histo, outputdir, outputname, saveoutput, close, autorange, innerRange, outerRange,excludeCenter,2);
+	}
+
+
 
 	  std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
 		  /** @brief  give back the order of the best chi2
-		   * @details give back the order of the best chi2!  1 means best, 2: second best (analoge for bad chi2 with negative values)
+		   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative valuesfor bad chi2 )
 		   */
 
 		  std::map<double, int> chi2_good, chi2_bad;
@@ -143,6 +164,78 @@ namespace jenny{
 
 
 		  return indexBestFit;
+	  }
+
+	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TString leg1="", TString leg2="", TString outputdir, TString outputname, bool saveoutput, bool close){
+	  // should be added to common_jenny.cpp
+
+	  	/** @brief  saves 2 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
+	  	*	@details This mehtod create 2 histograms and save it as root and png file. If you choose close, the canvas is closed after the histograms are saved
+	  	*/
+
+	  	TString name = TString(h1->GetName());
+	  	TString title = TString(h1->GetTitle());
+
+	  	h1->SetLineColor(kBlue);
+	  	h2->SetLineColor(kRed);
+
+
+	  	TLegend * legend = new TLegend(0.7,0.62,0.86,0.795, "");
+	  	legend->AddEntry(h1, leg1, "l");
+	  	legend->AddEntry(h2, leg2, "l");
+
+
+	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
+	  	gStyle->SetOptStat(0);
+	  	h1->Draw();
+	  	h2->Draw("SAME");
+	  	legend->Draw();
+
+
+	  	if (saveoutput){
+	  		canvas->Print(outputdir + "root-files/" + outputname + ".root");
+	  		canvas->Print(outputdir + "png-files/" + outputname + ".png");
+	  	}
+
+	  	if (close) canvas->Close();
+
+	  }
+
+	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TH1* &h3, TString leg1="", TString leg2="", TString leg3="", TString outputdir, TString outputname, bool saveoutput, bool close){
+	  // should be added to common_jenny.cpp
+
+	  	/** @brief  saves 3 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
+	  	*	@details This mehtod create 3 histograms and save it as root and png file. If you choose close, the canvas is closed after the histograms are saved
+	  	*/
+
+	  	TString name = TString(h1->GetName());
+	  	TString title = TString(h1->GetTitle());
+
+	  	h1->SetLineColor(kBlue);
+	  	h2->SetLineColor(kRed);
+	  	h3->SetLineColor(kBlack);
+
+	  	TLegend * legend = new TLegend(0.7,0.62,0.86,0.795, "");
+	  	legend->AddEntry(h1, leg1, "l");
+	  	legend->AddEntry(h2, leg2, "l");
+	  	legend->AddEntry(h3, leg3, "l");
+
+
+	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
+	  	gStyle->SetOptStat(0);
+	  	h1->Draw();
+	  	h2->Draw("SAME");
+	  	h3->Draw("SAME");
+	  	legend->Draw();
+
+
+	  	if (saveoutput){
+	  		canvas->Print(outputdir + "root-files/" + outputname + ".root");
+	  		canvas->Print(outputdir + "png-files/" + outputname + ".png");
+	  	}
+
+	  	if (close) canvas->Close();
+
 	  }
 
 	  std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
@@ -192,6 +285,7 @@ namespace jenny{
 
 		  return bestMassFit;
 	  }
+
 
 	  void CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
 		  /**
@@ -334,9 +428,8 @@ namespace jenny{
 
 	  void numberOfHitsInSubdetector(TString pre="", RhoCandidate *c, RhoTuple *n){
 
-		/* This void method saves the number of Hits in the MVD, STT and GEM detector
+		/* This method saves the number of Hits in the MVD, STT and GEM detector
 		 * into the RhoTuple.
-		 * Useful only for final state particle!
 		 */
 
 	  	PndPidCandidate *pidCand = (PndPidCandidate*)c->GetRecoCandidate();

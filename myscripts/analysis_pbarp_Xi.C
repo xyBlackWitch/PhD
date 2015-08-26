@@ -40,7 +40,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
   //Output File
   TString Path = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
-  TString outPath = Path;
+  TString outPath ="";// Path;
   TString OutputFile = outPath + "analysis_output.root";
   
   //Input simulation Files
@@ -327,7 +327,9 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaVtx("VtxFit_", lambda0Fit, ntpLambda0);
 
       // differenz to MCTruth
-       qa.qaMcDiff("fvtxMcDiff_", lambda0Fit, ntpLambda0);
+       qa.qaMcDiff("VtxFit_", lambda0Fit, ntpLambda0);
+       jenny::qaVtxDiff("VtxFit_", lambda0Fit, ntpLambda0);
+       jenny::qaMomRes("VtxFit_", lambda0Fit, ntpLambda0);
 
 
       // do mass fit
@@ -355,13 +357,12 @@ void analysis_pbarp_Xi(int nevts=0){
 	    	qa.qaVtx("McTruth_", dummyCand, ntpLambda0);
 	    }
 
-      jenny::qaP3("McTruth_", dl, ntpLambda0);
       qa.qaP4("McTruth_", l, ntpLambda0);
 
 
       //*** use for Xi only bestChi2Cand
 
-      if (bestVtxFitLambda0[j]==1 && bestMassFitLambda0[j]>0){
+      if (bestVtxFitLambda0[j]==1 && bestMassFitLambda0[j]>0 && tag==1){
 		  Lambda0Fit.Append(lambda0Fit);
 		  jenny::CombinedList(lambda0Fit, &CombinedPiMinus, -211);
       }
@@ -377,11 +378,8 @@ void analysis_pbarp_Xi(int nevts=0){
    }
 
     jenny::GetNotCombinedList(CombinedPiMinus, &NotCombinedPiMinus);
+    CombinedPiMinus.Cleanup();
 
-
-//     Lambda0Fit.Cleanup();
-     CombinedPiMinus.Cleanup();
-//     NotCombinedPiMinus.Cleanup();
 
 
     //***AntiLambda0 -> PiPlus + AntiProton
@@ -442,6 +440,10 @@ void analysis_pbarp_Xi(int nevts=0){
 
       ntpAntiLambda0->Column("VtxFit_HowGood", (Int_t) bestVtxFitAntiLambda0[j]);
 
+      qa.qaMcDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0)
+      jenny::qaVtxDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+      jenny::qaMomRes("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+
 
       // do mass fit
       PndKinFitter massFitterAntiLambda0(antiLambda0Fit);
@@ -482,8 +484,7 @@ void analysis_pbarp_Xi(int nevts=0){
     }
 
     jenny::GetNotCombinedList(CombinedPiPlus, &NotCombinedPiPlus);
-
-	CombinedPiPlus.Cleanup();
+    CombinedPiPlus.Cleanup();
 
 
 
@@ -519,27 +520,6 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaPoca("XiMinus_", ximinus[j], ntpXiMinus);
 
 
-      //tag Hits for final state particles
-      int tag = 0;
-      int dtag[2]= {0,0};
-
-      for (int dau=0; dau<ximinus[j]->NDaughters(); dau++){
-    	  RhoCandidate * daughter = ximinus[j]->Daughter(dau);
-    	  if (daughter->IsComposite()){
-    		  int dtag1 = jenny::tagHits(daughter->Daughter(0));
-    		  int dtag2 = jenny::tagHits(daughter->Daughter(1));
-    		  if (dtag1==1 && dtag2==1) dtag[dau]=1;
-    	  }
-    	  else{
-    		  dtag[dau] = jenny::tagHits(daughter);
-    	  }
-      }
-
-      if(dtag[0]==1 && dtag[1]==1) tag = 1;
-
-      ntpXiMinus->Column("XiMinus_HitTag", (Int_t) tag);
-
-
 
       // do vertex-fit
 
@@ -554,13 +534,13 @@ void analysis_pbarp_Xi(int nevts=0){
       ntpXiMinus->Column("VtxFit_HowGood", (Int_t) BestVtxFitXiMinus[j]);
 
       qa.qaVtx("VtxFit_", ximinusFit, ntpXiMinus);
-//      qa.Cand("VtxFit_", ximinusFit, ntpXiMinus);
+      qa.qaCand("VtxFit_", ximinusFit, ntpXiMinus);
 
 
 	  // difference to MCTruth
       qa.qaMcDiff("VtxFit_", ximinusFit, ntpXiMinus);
-
-
+      jenny::qaVtxDiff("VtxFit_", ximinusFit, ntpXiMinus);
+      jenny::qaMomRes("VtxFit_", ximinusFit, ntpXiMinus);
 
 
       // do mass fit
@@ -573,6 +553,7 @@ void analysis_pbarp_Xi(int nevts=0){
       ntpXiMinus->Column("MassFit_HowGood", (Int_t) BestMassFitXiMinus[j]);
 
       qa.qaMcDiff("MassFit_", ximinusFit_mass, ntpXiMinus);
+      jenny::qaVtxDiff("MassFit_", ximinusFit, ntpXiMinus);
 
 
       RhoCandidate * truth = ximinus[j]->GetMcTruth();
@@ -588,7 +569,8 @@ void analysis_pbarp_Xi(int nevts=0){
 
       qa.qaP4("MCTruth_", l, ntpXiMinus);
 
-      if (BestVtxFitXiMinus[j]==1 && BestMassFitXiMinus[j]>0 && tag==1){
+
+      if (BestVtxFitXiMinus[j]==1 && BestMassFitXiMinus[j]>0){
     	  XiMinusFit.Append(ximinusFit);
       }
 
@@ -609,7 +591,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
 	//*** Xi+ -> AntiLambda0 + Pi+
-	xiplus.Combine(AntiLambda0Fit,piplus);
+	xiplus.Combine(AntiLambda0Fit,NotCombinedPiPlus);
 	xiplus.Select(xiMassSelector);
 	xiplus.SetType(kaXip);
 
@@ -634,27 +616,6 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaComp("Xiplus_", xiplus[j], ntpXiPlus);
 
 
-      int tag = 0;
-      int dtag[2] = {0,0};
-
-      for (int dau=0; dau<xiplus[j]->NDaughters(); dau++){
-
-    	  RhoCandidate * daughter = xiplus[j]->Daughter(dau);
-    	  if(daughter->IsComposite()){
-    		  int dtag1 = jenny::tagHits(daughter->Daughter(0));
-    		  int dtag2 = jenny::tagHits(daughter->Daughter(1));
-       		  if(dtag1==1 && dtag2==1) dtag[dau]=1;
-    	  }
-    	  else{
-    		  dtag[dau] = jenny::tagHits(daughter);
-    	  }
-	 }
-
-      if(dtag[0]==1 && dtag[1]==1) tag=1;
-
-      ntpXiPlus->Column("XiPlus_HitTag", (Int_t) tag);
-
-
 
       //******** do vertex-fit
       PndKinVtxFitter vertexfitterxiplus (xiplus[j]);
@@ -669,6 +630,8 @@ void analysis_pbarp_Xi(int nevts=0){
 
 	  // difference to MCTruth
       qa.qaMcDiff("VtxFit_", xiplusFit, ntpXiPlus);
+      jenny::qaVtxDiff("VtxFit_", xiplusFit, ntpXiPlus);
+      jenny::qaMomRes("VtxFit_", xiplusFit, ntpXiPlus);
 
 
       //****** do mass fit
@@ -682,6 +645,8 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaVtx("MassFit_", xiplusFit_mass, ntpXiPlus);
 
       qa.qaMcDiff("MassFit_", xiplusFit_mass, ntpXiPlus);
+      jenny::qaVtxDiff("MassFit_", xiplusFit_mass, ntpXiPlus);
+      jenny::qaMomRes("MassFit_", xiplusFit_mass, ntpXiPlus);
 
       RhoCandidate * truth = xiplus[j]->GetMcTruth();
       TLorentzVector l;
@@ -696,7 +661,7 @@ void analysis_pbarp_Xi(int nevts=0){
       qa.qaP4("MCTruth_", l, ntpXiPlus);
 
 
-      if(BestVtxFitXiPlus[j]==1 && BestMassFitXiPlus[j]>0 && tag==1){
+      if(BestVtxFitXiPlus[j]==1 && BestMassFitXiPlus[j]>0){
     	  XiPlusFit.Append(xiplusFit);
       }
 
@@ -708,7 +673,7 @@ void analysis_pbarp_Xi(int nevts=0){
 	 }
 
     AntiLambda0Fit.Cleanup();
-//    BestCandAntiLambda0.Cleanup();
+    NotCombinedPiPlus.Cleanup();
 
 
 
@@ -737,12 +702,12 @@ void analysis_pbarp_Xi(int nevts=0){
 		TLorentzVector l;
 
 		if (truth != 0x0){
-//			qa.qaComp("McTruth_", truth, ntpXiSys);
+			qa.qaCand("McTruth_", truth, ntpXiSys);
 			qa.qaVtx("McTruth_", truth, ntpXiSys);
 			l = truth->P4();
 		}
 		else{
-//			qa.qaComp("McTruth_", dummyCand, ntpXiSys);
+			qa.qaCand("McTruth_", dummyCand, ntpXiSys);
 			qa.qaVtx("McTruth_", dummyCand, ntpXiSys);
 		}
 		qa.qaP4("McTruth_", l, ntpXiSys);

@@ -3,19 +3,19 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include "common_jenny.cpp"
+#include "../common_jenny.cpp"
 
 
-void analysis_pbarp_lambda0(int nevts=0){
+void analysis_pbarp_lambda0( int nevts=0, TString pre=""){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/private/puetz/mysimulations/analysis/pbarp_lambda0_antilambda0/10000_events/idealtracking/";
+  TString Path ="/private/puetz/mysimulations/test/boxgenerator/lambda0/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output_kalman.root";
+  TString OutputFile = pre + "analysis_output_angle.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -52,7 +52,7 @@ void analysis_pbarp_lambda0(int nevts=0){
   RhoTuple * ntpCrossCheck = new RhoTuple("ntpCrossCheck", "CrossCheck info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana_kalman.root","RECREATE");
+  TFile *out = TFile::Open(pre+"output_ana_angle.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -117,7 +117,7 @@ void analysis_pbarp_lambda0(int nevts=0){
     theAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
     theAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
 
-    //Get PiMinusanalysis/pbarp_lambda0_antilambda0/10000_events/idealtracking
+    //Get piminus
     for (int j=0; j<piminus.GetLength(); ++j){
 			
 			//general info about event
@@ -179,13 +179,6 @@ void analysis_pbarp_lambda0(int nevts=0){
       ntpProton->Column("ev",     (Float_t) evt);
       ntpProton->Column("cand",    (Float_t) j);
       ntpProton->Column("ncand",   (Float_t) proton.GetLength());
-  	jenny::CreateDrawAndSaveHistogram(h_vx_mc, outPath, "h_vx_mc", saveoutput, close);
-  	jenny::CreateDrawAndSaveHistogram(h_vy_mc, outPath, "h_vy_mc", saveoutput, close);
-  	jenny::CreateDrawAndSaveHistogram(h_vz_mc, outPath, "h_vz_mc", saveoutput, close);
-
-  	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
-  	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
-  	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
 
 
 
@@ -263,6 +256,7 @@ void analysis_pbarp_lambda0(int nevts=0){
 			ntpLambda0->Column("Mother", (Float_t) moth);
       
       qa.qaP4("Lambda0_", lambda0[j]->P4(), ntpLambda0);
+      qa.qaCand("Lambda0_", lambda0[j], ntpLambda0);
       qa.qaComp("Lambda0_", lambda0[j], ntpLambda0);
 //      qa.qaEventShapeShort("es_", &evsh, ntpLambda0);
 			
@@ -277,9 +271,40 @@ void analysis_pbarp_lambda0(int nevts=0){
       qa.qaFitter("VtxFit_", &vertexfitterLambda0, ntpLambda0);
 //      ntpLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFit[j]);
 	  qa.qaVtx("VtxFit_", lambda0Fit , ntpLambda0);
+	  qa.qaCand("VtxFit_", lambda0Fit, ntpLambda0);
+	  qa.qaP4("VtxFit_", lambda0Fit->P4(), ntpLambda0);
+	  qa.qaComp("VtxFit_", lambda0Fit, ntpLambda0);
+
+	  double px = lambda0Fit->P4().X();
+	  TMatrixD cov = lambda0Fit->Cov7();
+
+	  double sigma = cov(3,3);
+
 
       // differenz to MCTruth
       qa.qaMcDiff("VtxFit_", lambda0Fit, ntpLambda0);
+      jenny::qaVtxDiff("VtxFit_", lambda0Fit, ntpLambda0);
+      jenny::qaMomRes("VtxFit_", lambda0Fit, ntpLambda0);
+
+      //test direction of daughters
+      RhoCandidate * d0 = lambda0[j]->Daughter(0);
+      RhoCandidate * d1 = lambda0[j]->Daughter(1);
+
+//      if (d0 && d1){
+	  double tht_d0 = d0->GetMomentum().Theta();
+	  double phi_d0 = d0->GetMomentum().Phi();
+	  double tht_d1 = d1->GetMomentum().Theta();
+	  double phi_d1 = d1->GetMomentum().Phi();
+
+
+	  double diff_tht = tht_d0 - tht_d1;
+	  double diff_phi = phi_d0 - phi_d1;
+	  if(TMath::Abs(diff_tht)<1e-4 || TMath::Abs(diff_phi)<1e-4){
+		  cout << "nearly parallel in Theta with diff? " << diff_tht << endl;
+		  cout << "nearly parallel in Phi with diff? " << diff_phi << endl;
+	  }
+
+//      }
 
 
 
@@ -294,6 +319,8 @@ void analysis_pbarp_lambda0(int nevts=0){
       qa.qaFitter("MassFit_", &massFitterLambda0, ntpLambda0);
 //      ntpLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitLambda0[j]);
       qa.qaMcDiff("MassFit_", lambda0Fit_mass, ntpLambda0);
+      jenny::qaVtxDiff("VtxFit_", lambda0Fit, ntpLambda0);
+      jenny::qaMomRes("VtxFit_", lambda0Fit, ntpLambda0);
 
 
       // store only best fitted candidate
@@ -303,7 +330,6 @@ void analysis_pbarp_lambda0(int nevts=0){
 
       RhoCandidate * truth = lambda0[j]->GetMcTruth();
       TLorentzVector l;
-
 
 
 	    if(0x0 != truth){
@@ -382,6 +408,8 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 	  // difference to MCTruth
       qa.qaMcDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+      jenny::qaVtxDiff("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
+      jenny::qaMomRes("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
 
 
 
@@ -439,7 +467,7 @@ void analysis_pbarp_lambda0(int nevts=0){
 			ntpCrossCheck->Column("ncand",   (Float_t) crossCheck.GetLength());
 			ntpCrossCheck->Column("McTruthMatch", (bool) theAnalysis->McTruthMatch(crossCheck[j]));
 
-			qa.qaP4("", crossCheck[j]->P4();, ntpCrossCheck);
+			qa.qaP4("", crossCheck[j]->P4(), ntpCrossCheck);
 			qa.qaComp("", crossCheck[j], ntpCrossCheck);
 			qa.qaPoca("", crossCheck[j], ntpCrossCheck);
 			qa.qaEventShapeShort("es_", &evsh, ntpAntiLambda0);
@@ -457,6 +485,8 @@ void analysis_pbarp_lambda0(int nevts=0){
 			qa.qaFitter("VtxFit_", &vertexFitter_cc, ntpCrossCheck);
 			qa.qaVtx("VtxFit_", ccFit, ntpCrossCheck);
 			qa.qaMcDiff("VtxFit_", ccFit, ntpCrossCheck);
+			jenny::qaVtxDiff("VtxFit_", ccFit, ntpCrossCheck);
+			jenny::qaMomRes("VtxFit_", ccFit, ntpCrossCheck);
 
 
 
@@ -492,7 +522,9 @@ void analysis_pbarp_lambda0(int nevts=0){
 			qa.qaComp("f4c_", ccFit, ntpCrossCheck);
 
 			//difference to MC Truth
-			qa.qaMcDiff("f4cMCDiff_", ccFit, ntpCrossCheck);
+			qa.qaMcDiff("f4c_", ccFit, ntpCrossCheck);
+			jenny::qaVtxDiff("f4c_", ccFit, ntpCrossCheck);
+			jenny::qaMomRes("f4c_", ccFit, ntpCrossCheck);
 
 
 			//do kalman vertex fit
@@ -503,6 +535,9 @@ void analysis_pbarp_lambda0(int nevts=0){
 
 			qa.qaFitter("KalmanFit_", &kalmanfitter, ntpCrossCheck);
 			qa.qaVtx("KalmanFit_", kalmanFit, ntpCrossCheck);
+
+			jenny::qaVtxDiff("KalmanFit_", kalmanFit, ntpCrossCheck);
+			jenny::qaMomRes("KalmanFit_", kalmanFit, ntpCrossCheck);
 
 			//do mass fit
 			PndKinFitter massFitter_cc (ccFit);

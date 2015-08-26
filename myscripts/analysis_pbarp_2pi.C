@@ -11,13 +11,13 @@ void analysis_pbarp_2pi(int nevts=0){
   TStopwatch timer; 
 
   //Output File
-  TString Path ="";// "/private/puetz/fairsoft_mar15/pandaroot/mysimulations/test/tracking/test_2pi_100_events_second_run/bugfix/";
-  TString outPath ="";//"/private/puetz/fairsoft_mar15/pandaroot/mysimulations/test/tracking/test_2pi_100_events_second_run/bugfix/";
+  TString Path ="/private/puetz/mysimulations/test/boxgenerator/2pi_vtx_000/";
+  TString outPath ="/private/puetz/mysimulations/test/boxgenerator/2pi_vtx_000/";
  
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output_test2.root";
   
   //Input simulation Files
-  TString inPIDFile = Path + "pidideal_complete.root";
+  TString inPIDFile = Path + "pid_complete.root";
   TString inParFile = Path + "simparams.root";
   TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
   
@@ -47,7 +47,7 @@ void analysis_pbarp_2pi(int nevts=0){
   RhoTuple * ntpBeam = new RhoTuple("ntpBeam", "Beam info");
 
   //Create output file for histograms
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_test2.root","RECREATE");
 
 
   // data reader Object

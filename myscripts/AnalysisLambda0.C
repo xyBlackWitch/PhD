@@ -4,7 +4,7 @@ void AnalysisLambda0(int nevts=0, double mom=1.7, TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/private/puetz/mysimulations/analysis/pbarp_lambda0_antilambda0/10000_events/idealtracking/";
+		TString Path = "/private/puetz/mysimulations/test/boxgenerator/lambda0/10000_events/";
 		TString outPath = "";//Path;
 		TString OutputFile = outPath + "analysis_output.root";
 

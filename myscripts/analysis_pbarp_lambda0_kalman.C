@@ -3,7 +3,7 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include "common_jenny.cpp"
+#include "../common_jenny.cpp"
 
 
 void analysis_pbarp_lambda0_kalman(int nevts=0){
@@ -284,6 +284,10 @@ void analysis_pbarp_lambda0_kalman(int nevts=0){
 
       qa.qaFitter("KalmanFit_", &kalmanfitter, ntpLambda0);
       qa.qaVtx("KalmanFit_", kalmanFit, ntpLambda0);
+      qa.qaMcDiff("KalmanFit_", kalmanFit, ntpLambda0);
+      jenny::qaVtxDiff("KalmanFit_", kalmanFit, ntpLambda0);
+      jenny::qaMomRes("KalmanFit_", kalmanFit, ntpLambda0);
+
 
 
       // do mass fit

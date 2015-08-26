@@ -18,7 +18,7 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include "common_jenny.cpp"
+#include "../common_jenny.cpp"
 
 
 enum pidNumbers {
@@ -42,7 +42,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
   //Output File
   TString Path = "/private/puetz/mysimulations/test/boxgenerator/Xi/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output_test.root";
+  TString OutputFile = outPath + "analysis_output.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -81,7 +81,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
   RhoTuple * ntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana_test.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -720,14 +720,14 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
 
   ntpMC -> GetInternalTree()->Write();
   ntpPiMinus ->GetInternalTree()->Write();
-  ntpPiPlus->GetInternalTree()->Write();
+//  ntpPiPlus->GetInternalTree()->Write();
   ntpProton->GetInternalTree()->Write();
-  ntpAntiProton->GetInternalTree()->Write();
+//  ntpAntiProton->GetInternalTree()->Write();
   ntpLambda0->GetInternalTree()->Write();
-  ntpAntiLambda0->GetInternalTree()->Write();
+//  ntpAntiLambda0->GetInternalTree()->Write();
   ntpXiMinus->GetInternalTree()->Write();
-  ntpXiPlus->GetInternalTree()->Write();
-  ntpXiSys->GetInternalTree()->Write();
+//  ntpXiPlus->GetInternalTree()->Write();
+//  ntpXiSys->GetInternalTree()->Write();
 
   out->Save();
   

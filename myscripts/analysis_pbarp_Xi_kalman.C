@@ -18,7 +18,7 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include "common_jenny.cpp"
+#include "../common_jenny.cpp"
 
 
 enum pidNumbers {
@@ -322,6 +322,8 @@ void analysis_pbarp_Xi_kalman(int nevts=0){
 
 	  qa.qaFitter("KalmanFit_", &kalmanfitterLambda0, ntpLambda0);
       qa.qaVtx("KalmanFit_", kalmanFitLambda0, ntpLambda0);
+      jenny::qaVtxDiff("VtxFit_", kalmanFitLambda0, ntpLambda0);
+      jenny::qaMomRes("VtxFit_", kalmanFitLambda0, ntpLambda0);
 
 
 
@@ -547,7 +549,9 @@ void analysis_pbarp_Xi_kalman(int nevts=0){
 
 	  qa.qaFitter("KalmanFit_", &kalmanfitterximinus, ntpXiMinus);
       qa.qaVtx("KalmanFit_", kalmanFitximinus, ntpXiMinus);
-
+      qa.qaMcDiff("KalmanFit_", kalmanFitximinus, ntpXiMinus);
+      jenny::qaVtxDiff("KalmanFit_", kalmanFitximinus, ntpXiMinus);
+      jenny::qaMomRes("KalmanFit_", kalmanFitximinus, ntpXiMinus);
 
 
 

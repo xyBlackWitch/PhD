@@ -3,7 +3,7 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include "common_jenny.cpp"
+#include "../common_jenny.cpp"
 
 
 void analysis_pbarp_lambda0_boxgen(int nevts=0){
@@ -15,7 +15,7 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
   //Output File
   TString Path ="/private/puetz/mysimulations/test/boxgenerator/lambda0/10000_events/";
   TString outPath = Path;
-  TString OutputFile = outPath + "analysis_output.root";
+  TString OutputFile = outPath + "analysis_output_100.root";
   
   //Input simulation Files
   TString inPIDFile = Path + "pid_complete.root";
@@ -52,7 +52,7 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
   RhoTuple * ntpCrossCheck = new RhoTuple("ntpCrossCheck", "CrossCheck info");
 
   //Create output file 
-  TFile *out = TFile::Open(outPath+"output_ana.root","RECREATE");
+  TFile *out = TFile::Open(outPath+"output_ana_100.root","RECREATE");
 
   // data reader Object
   PndAnalysis* theAnalysis = new PndAnalysis();
@@ -60,6 +60,7 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
   
   //RhoCandLists for analysis
   RhoCandList piplus, piminus, lambda0, antiLambda0, proton, antiProton, crossCheck, Lambda0Fit, AntiLambda0Fit;
+  RhoCandList protonSelected, piminusSelected;
   RhoCandList mclist, all;
 
   RhoCandidate * dummyCand = new RhoCandidate();
@@ -71,9 +72,9 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
  
 	double m0_pbarpsystem = TDatabasePDG::Instance()->GetParticle("pbarpSystem")->Mass();
   
-  double pbarmom = 1.712;
+  double pbarmom = 3;
   double p_m0 = TDatabasePDG::Instance()->GetParticle("proton")->Mass();
-  TLorentzVector ini (0,0, pbarmom, sqrt(p_m0*p_m0+ pbarmom*pbarmom)+p_m0);
+  TLorentzVector ini (0,0, pbarmom, sqrt(m0_lambda0*m0_lambda0+ pbarmom*pbarmom)+m0_lambda0); // TLorentzVector ini (0,0, pbarmom, sqrt(p_m0*p_m0+ pbarmom*pbarmom)+p_m0);
   TVector3 beamBoost = ini.BoostVector();
   
   PndRhoTupleQA qa(theAnalysis, pbarmom);
@@ -82,7 +83,6 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
   while (theAnalysis->GetEvent() && ++evt<nevts){
 
     if ((evt%100)==0) cout << "evt "<< evt <<endl;
-    cout << "Event number: " << evt << endl;
 
     //***get MC list and store info
     theAnalysis->FillList(mclist, "McTruth");
@@ -119,29 +119,32 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
 
     //Get PiMinusanalysis/pbarp_lambda0_antilambda0/10000_events/idealtracking
     for (int j=0; j<piminus.GetLength(); ++j){
-			
-			//general info about event
-      ntpPiMinus->Column("ev",     (Float_t) evt);
-      ntpPiMinus->Column("cand",    (Float_t) j);
-      ntpPiMinus->Column("ncand",   (Float_t) piminus.GetLength());
-      
-      
-      //info about 4-vector
-      qa.qaP4("PiMinus_",piminus[j]->P4(), ntpPiMinus);
-	  qa.qaP4("PiMinus_MC_",  piminus[j]->GetMcTruth()->P4(), ntpPiMinus);
-	  qa.qaCand("PiMinus_", piminus[j], ntpPiMinus);
 
-      
-      RhoCandidate * mother = piminus[j]->GetMcTruth()->TheMother();
-      int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+		//general info about event
+		ntpPiMinus->Column("ev",     (Float_t) evt);
+		ntpPiMinus->Column("cand",    (Float_t) j);
+		ntpPiMinus->Column("ncand",   (Float_t) piminus.GetLength());
 
-      ntpPiMinus->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(piminus[j]));
-			ntpPiMinus->Column("Mother", (Int_t) moth);
-			ntpPiMinus->Column("PiMinus_CosTheta", (Float_t) piminus[j]->GetMomentum().CosTheta());
-			ntpPiMinus->Column("PiMinus_MC_CosTheta", (Float_t) piminus[j]->GetMcTruth()->GetMomentum().CosTheta());
-			
-			
-			ntpPiMinus->DumpData();
+
+		//info about 4-vector
+		qa.qaP4("PiMinus_",piminus[j]->P4(), ntpPiMinus);
+		qa.qaP4("PiMinus_MC_",  piminus[j]->GetMcTruth()->P4(), ntpPiMinus);
+		qa.qaCand("PiMinus_", piminus[j], ntpPiMinus);
+
+
+		RhoCandidate * mother = piminus[j]->GetMcTruth()->TheMother();
+		int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+
+		ntpPiMinus->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(piminus[j]));
+		ntpPiMinus->Column("Mother", (Int_t) moth);
+		ntpPiMinus->Column("PiMinus_CosTheta", (Float_t) piminus[j]->GetMomentum().CosTheta());
+		ntpPiMinus->Column("PiMinus_MC_CosTheta", (Float_t) piminus[j]->GetMcTruth()->GetMomentum().CosTheta());
+
+		int tag = jenny::tagHits(piminus[j]);
+
+		if(tag==1) piminusSelected.Append(piminus[j]);
+
+		ntpPiMinus->DumpData();
     }
 
 		//Get PiPlus
@@ -182,11 +185,11 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
 
 
 
-			//info about 4-vector
-			qa.qaP4("Proton_", proton[j]->P4(), ntpProton);
-			qa.qaP4("Proton_MC_", proton[j]->GetMcTruth()->P4(), ntpProton);
-			qa.qaCand("Proton_", proton[j], ntpProton);
-			qa.qaVtx("Proton_", proton[j], ntpProton);
+		//info about 4-vector
+		qa.qaP4("Proton_", proton[j]->P4(), ntpProton);
+		qa.qaP4("Proton_MC_", proton[j]->GetMcTruth()->P4(), ntpProton);
+		qa.qaCand("Proton_", proton[j], ntpProton);
+		qa.qaVtx("Proton_", proton[j], ntpProton);
 		
 
       RhoCandidate * mother = proton[j]->GetMcTruth()->TheMother();
@@ -197,7 +200,9 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
 			ntpProton->Column("Proton_CosTheta", (Float_t) proton[j]->GetMomentum().CosTheta());	
  			ntpProton->Column("Proton_MC_CosTheta", (Float_t) proton[j]->GetMcTruth()->GetMomentum().CosTheta());	
 
+ 			int tag = jenny::tagHits(proton[j]);
 
+			if(tag==1) protonSelected.Append(proton[j]);
 
      ntpProton->DumpData();
     }
@@ -230,7 +235,7 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
         
 			
     //***Lambda0 -> PiMinus + Proton
-    lambda0.Combine(piminus,proton);
+    lambda0.Combine(piminusSelected,protonSelected);
 	lambda0.Select(lambdaMassSelector);
     lambda0.SetType(3122);
 
@@ -264,15 +269,21 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
       // do vertex fit
 
       PndKinVtxFitter vertexfitterLambda0 (lambda0[j]);
+//      vertexfitterLambda0.AddMassConstraint(m0_lambda0);
       vertexfitterLambda0.Fit();
       RhoCandidate * lambda0Fit = lambda0[j]->GetFit();
 
       qa.qaFitter("VtxFit_", &vertexfitterLambda0, ntpLambda0);
 //      ntpLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFit[j]);
 	  qa.qaVtx("VtxFit_", lambda0Fit , ntpLambda0);
+	  qa.qaCand("VtxFit_", lambda0Fit , ntpLambda0);
+	  qa.qaComp("VtxFit_", lambda0Fit , ntpLambda0);
+
 
       // differenz to MCTruth
       qa.qaMcDiff("VtxFit_", lambda0Fit, ntpLambda0);
+      jenny::qaVtxDiff("VtxFit_", lambda0Fit , ntpLambda0);
+      jenny::qaMomRes("VtxFit_", lambda0Fit , ntpLambda0);
 
 
 
@@ -286,7 +297,15 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
 
       qa.qaFitter("MassFit_", &massFitterLambda0, ntpLambda0);
 //      ntpLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitLambda0[j]);
+	  qa.qaVtx("MassFit_", lambda0Fit_mass , ntpLambda0);
+	  qa.qaCand("MassFit_", lambda0Fit_mass , ntpLambda0);
+	  qa.qaComp("MassFit_", lambda0Fit_mass , ntpLambda0);
+
+
+      // differenz to MCTruth
       qa.qaMcDiff("MassFit_", lambda0Fit_mass, ntpLambda0);
+      jenny::qaVtxDiff("MassFit_", lambda0Fit_mass , ntpLambda0);
+      jenny::qaMomRes("MassFit_", lambda0Fit_mass , ntpLambda0);
 
 
       // store only best fitted candidate
@@ -294,20 +313,18 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
     	  Lambda0Fit.Append(lambda0Fit);
 //      }
 
-      RhoCandidate * truth = lambda0[j]->GetMcTruth();
-      TLorentzVector l;
 
+      RhoCandidate * truth = lambda0Fit->GetMcTruth();
+      TLorentzVector l;
 
 
 	    if(0x0 != truth){
 	    	l = truth->P4();
 	    	qa.qaVtx("McTruth_", truth, ntpLambda0);
-	    	dl = truth->Daughter(0)->Pos();
 	    }
 	    else{
 	    	qa.qaVtx("McTruth_", dummyCand, ntpLambda0);
 	    }
-
 
       qa.qaP4("McTruth_", l, ntpLambda0);
 
@@ -320,6 +337,10 @@ void analysis_pbarp_lambda0_boxgen(int nevts=0){
     		
 	  ntpLambda0->DumpData();
     }
+    protonSelected.Cleanup();
+    piminusSelected.Cleanup();
+
+
 
 
 
