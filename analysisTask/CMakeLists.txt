@@ -24,6 +24,7 @@ link_directories( ${LINK_DIRECTORIES})
 set(SRCS
 AnalysisTask.cxx
 AnalysisTaskLambda0.cxx
+AnalysisTaskXi1820.cxx
 )
 
 set(LINKDEF anataskjennyLinkDef.h)
