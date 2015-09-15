@@ -1,5 +1,5 @@
-#ifndef AnalysisTask_H
-#define AnalysisTask_H 1
+#ifndef AnalysisTaskXi1820_H
+#define AnalysisTaskXi1820_H 1
 
 #include "FairTask.h"
 #include "TFile.h"
@@ -15,16 +15,16 @@ class RhoCandidate;
 class RhoTuple;
 class RhoMassParticleSelector;
 
-class AnalysisTask : public FairTask
+class AnalysisTaskXi1820 : public FairTask
 {
 
 	public:
 
 		//** default constructor
-		AnalysisTask();
+		AnalysisTaskXi1820();
 
 		//** destructor
-		~AnalysisTask();
+		~AnalysisTaskXi1820();
 
 		virtual InitStatus Init();
 
@@ -100,7 +100,7 @@ class AnalysisTask : public FairTask
 
 		TLorentzVector fini;
 
-		ClassDef(AnalysisTask,1);
+		ClassDef(AnalysisTaskXi1820,1);
 
 
 
