@@ -3,7 +3,7 @@
 //class RhoCandList;
 //class RhoTuple;
 
-#include "AnalysisTask.h"
+#include "AnalysisTaskXi1820.h"
 
 // C++ headers
 #include <string>
@@ -42,16 +42,16 @@
 using std::cout;
 using std::endl;
 
-ClassImp(AnalysisTask)
+ClassImp(AnalysisTaskXi1820)
 
 //---------------Default constructor------------
-AnalysisTask::AnalysisTask():
+AnalysisTaskXi1820::AnalysisTaskXi1820():
 	FairTask("Panda Tutorial Analysis Task") {
 	}
 //------------------------------------------
 
 //--------------- destructor ----------------
-AnalysisTask::~AnalysisTask(){}
+AnalysisTaskXi1820::~AnalysisTaskXi1820(){}
 //-----------------------------------------
 
 
@@ -63,7 +63,7 @@ enum pidNumbers {
 	kXim = 23314, kaXip = -3312
 };
 
-void AnalysisTask::CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
+void AnalysisTaskXi1820::CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
 	  /**
 	   * @brief: gives back a list of already combined particles
 	   * @details: The function creates a list of already combined particles for the analysis
@@ -81,7 +81,7 @@ void AnalysisTask::CombinedList(RhoCandidate* cand, RhoCandList* combinedList, i
 
 }
 
-void AnalysisTask::GetNotCombinedList(RhoCandList combinedList, RhoCandList * candList){
+void AnalysisTaskXi1820::GetNotCombinedList(RhoCandList combinedList, RhoCandList * candList){
 	  for (int j=0; j<combinedList.GetLength(); j++){
 		  RhoCandidate * combinedCand = combinedList[j];
 		  candList->Remove(combinedCand);
@@ -89,7 +89,7 @@ void AnalysisTask::GetNotCombinedList(RhoCandList combinedList, RhoCandList * ca
 }
 
 
-void AnalysisTask::numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTuple *n){
+void AnalysisTaskXi1820::numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTuple *n){
 
 	/* This method saves the number of Hits in the MVD, STT and GEM detector
 	 * into the RhoTuple.
@@ -108,7 +108,7 @@ void AnalysisTask::numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTu
 	}
 }
 
-void AnalysisTask::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
+void AnalysisTaskXi1820::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 
 	/**@brief Tag the particle with different integers
 	 * @details Tag the particle with different integers:
@@ -133,7 +133,7 @@ void AnalysisTask::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 	n->Column(pre + "HitTag", (Int_t) tag, 0);
 }
 
-int AnalysisTask::tagHits(RhoCandidate *c){
+int AnalysisTaskXi1820::tagHits(RhoCandidate *c){
 
 	/**@brief Tag the particle with different integers
 	 * @details Tag the particle with different integers:
@@ -159,7 +159,7 @@ int AnalysisTask::tagHits(RhoCandidate *c){
 
 
 
-std::map<int,int> AnalysisTask::VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
+std::map<int,int> AnalysisTaskXi1820::VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
 	  /** @brief  give back the order of the best chi2
 	   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative valuesfor bad chi2 )
 	   */
@@ -204,7 +204,7 @@ std::map<int,int> AnalysisTask::VertexQaIndex(RhoCandList* candList, float probL
 	  return indexBestFit;
 }
 
-std::map<int,int> AnalysisTask::MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
+std::map<int,int> AnalysisTaskXi1820::MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
 	  /** @brief  give back the order of the best chi2 for MassFit
 	   * @details give back the order of the best chi2 for the MassFit!  1 means best, 2: second best (analoge for bad chi2 with negative values)
 	   */
@@ -252,7 +252,7 @@ std::map<int,int> AnalysisTask::MassFitQaIndex(RhoCandList* candList, float m0, 
 	  return bestMassFit;
 }
 
-void AnalysisTask::qaVtxDiff(TString pre, RhoCandidate * c, RhoTuple * n){
+void AnalysisTaskXi1820::qaVtxDiff(TString pre, RhoCandidate * c, RhoTuple * n){
 
 	  if(n==0) return;
 	  if(c==0) return;
@@ -286,7 +286,7 @@ void AnalysisTask::qaVtxDiff(TString pre, RhoCandidate * c, RhoTuple * n){
 	  }
 }
 
-void AnalysisTask::qaMomRes(TString pre, RhoCandidate * c, RhoTuple * n){
+void AnalysisTaskXi1820::qaMomRes(TString pre, RhoCandidate * c, RhoTuple * n){
 
 	  if(n==0 || c==0) return;
 
@@ -304,13 +304,13 @@ void AnalysisTask::qaMomRes(TString pre, RhoCandidate * c, RhoTuple * n){
 
 }
 
-InitStatus AnalysisTask::Init(){
+InitStatus AnalysisTaskXi1820::Init(){
 
 
-  ftimer;
+
 
   //*** create tuples
-  fntpMC = new RhoTuple("ntpMC", "MCTruth info");
+  fntpMc = new RhoTuple("ntpMC", "MCTruth info");
   fntpPiMinus = new RhoTuple("ntpPiMinus", "PiMinus info");
   fntpPiPlus = new RhoTuple("ntpPiPlus", "PiPlus info");
   fntpProton = new RhoTuple("ntpProton", "Proton info");
@@ -338,10 +338,10 @@ InitStatus AnalysisTask::Init(){
   lambdaMassSelector = new RhoMassParticleSelector("lambda0", fm0_lambda0, 0.3);
 
   fm0_Xi = TDatabasePDG::Instance()->GetParticle("Xi-")->Mass();
-  cout<<"Mass of Xi-: "<<m0_Xi<<endl;
-  xiMassSelector = new RhoMassParticleSelector("Xi-", m0_Xi, 0.3);
+  cout<<"Mass of Xi-: "<<fm0_Xi<<endl;
+  xiMassSelector = new RhoMassParticleSelector("Xi-", fm0_Xi, 0.3);
 
-  fm0_Xi1820 = 1823;
+  fm0_Xi1820 = 1.823;
   cout<<"Mass of Xi(1820)-: "<<fm0_Xi1820<<endl;
   xi1820MassSelector = new RhoMassParticleSelector("Xi(1820)-", fm0_Xi1820, 0.3);
 
@@ -361,7 +361,7 @@ InitStatus AnalysisTask::Init(){
 
 }
 
-void AnalysisTask::Exec(Option_t* op)
+void AnalysisTaskXi1820::Exec(Option_t* op)
 {
 	 //RhoCandLists for analysis
 	RhoCandList piplus, piminus, lambda0, antiLambda0, proton, antiProton, kaonminus, xiplus, ximinus, xiSys;
@@ -395,12 +395,12 @@ void AnalysisTask::Exec(Option_t* op)
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    theAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
-	    theAnalysis->FillList(NotCombinedPiPlus, "PionBestPlus", PidSelection);
-	    theAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
-	    theAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
-	    theAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
-	    theAnalysis->FillList(kaonMinus, "KaonBestMinus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiPlus, "PionBestPlus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
+	    fAnalysis->FillList(kaonminus, "KaonBestMinus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){
@@ -417,23 +417,26 @@ void AnalysisTask::Exec(Option_t* op)
 
 	          fntpPiPlus->Column("PiPlus_CosTheta", (Float_t) piplus[pip]->GetMomentum().CosTheta());
 
-	          RhoCandidate * mother_pip = piplus[pip]-> TheMother();
+	          RhoCandidate * mother_pip =0;
 	          RhoCandidate * truth = piplus[pip]->GetMcTruth();
 
-	          int moth_pip = (mother_pip==0x0)? 88888 : mother_pip->PdgCode();
-
-	          fntpPiPlus->Column("Mother", (Float_t) moth_pip);
 
 	          TLorentzVector l;
 	          float costheta = -999.;
 	          if(truth!=0x0){
 	        	  l=truth->P4();
+	        	  mother_pip=truth->TheMother();
 	        	  costheta = truth->GetMomentum().CosTheta();
 		          qa.qaCand("PiPlus_MC_", piplus[pip]->GetMcTruth(), fntpPiPlus);
 	          }
 	          else{
 	        	  qa.qaCand("PiPlus_MC_", dummyCand, fntpPiPlus);
 	          }
+
+	          int moth_pip = (mother_pip==0x0)? 88888 : mother_pip->PdgCode();
+
+			  fntpPiPlus->Column("Mother", (Float_t) moth_pip);
+
 
 	          qa.qaP4("PiPlus_MC_", l, fntpPiPlus);
 	          fntpPiPlus->Column("PiPlus_MC_CosTheta", (Float_t) costheta);
@@ -454,24 +457,23 @@ void AnalysisTask::Exec(Option_t* op)
 	        numberOfHitsInSubdetector("PiMinus_", piminus[pim], fntpPiMinus);
 	        tagNHits("piminus_", piminus[pim], fntpPiMinus);
 
-			RhoCandidate * mother_pim = piminus[pim]->TheMother();
+			RhoCandidate * mother_pim =0;
 			RhoCandidate * truth = piminus[pim]->GetMcTruth();
-
-			int moth_pim = (mother_pim==0x0)? 88888 : mother_pim->PdgCode();
-
-			fntpPiMinus->Column("Mother", (Float_t) moth_pim);
-
 
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
 			  l=truth->P4();
+			  mother_pim = truth->TheMother();
 			  costheta = truth->GetMomentum().CosTheta();
 			  qa.qaCand("piminus_MC_", piminus[pim]->GetMcTruth(), fntpPiMinus);
 			}
 			else{
 			  qa.qaCand("piminus_MC_", dummyCand, fntpPiMinus);
 			}
+
+			int moth_pim = (mother_pim==0x0)? 88888 : mother_pim->PdgCode();
+			fntpPiMinus->Column("Mother", (Float_t) moth_pim);
 
 			qa.qaP4("piminus_MC_", l, fntpPiMinus);
 			fntpPiMinus->Column("piminus_MC_CosTheta", (Float_t) costheta);
@@ -491,24 +493,24 @@ void AnalysisTask::Exec(Option_t* op)
 	        numberOfHitsInSubdetector("proton_", proton[prot], fntpProton);
 	        tagNHits("proton_", proton[prot], fntpProton);
 
-			RhoCandidate * mother_pip = proton[prot]-> TheMother();
+			RhoCandidate * mother_prot = 0;
 			RhoCandidate * truth = proton[prot]->GetMcTruth();
-
-			int moth_pip = (mother_pip==0x0)? 88888 : mother_pip->PdgCode();
-
-			fntpProton->Column("Mother", (Float_t) moth_pip);
 
 
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
 			  l=truth->P4();
+			  mother_prot = truth->TheMother();
 			  costheta = truth->GetMomentum().CosTheta();
 			  qa.qaCand("proton_MC_", proton[prot]->GetMcTruth(), fntpProton);
 			}
 			else{
 			  qa.qaCand("proton_MC_", dummyCand, fntpProton);
 			}
+
+			int moth_pip = (mother_prot==0x0)? 88888 : mother_prot->PdgCode();
+			fntpProton->Column("Mother", (Float_t) moth_pip);
 
 			qa.qaP4("proton_MC_", l, fntpProton);
 			fntpProton->Column("proton_MC_CosTheta", (Float_t) costheta);
@@ -528,23 +530,23 @@ void AnalysisTask::Exec(Option_t* op)
 	        numberOfHitsInSubdetector("AntiProton_", antiProton[aProt], fntpAntiProton);
 	        tagNHits("AntiProton_", antiProton[aProt], fntpAntiProton);
 
-			RhoCandidate * mother_pip = antiProton[aProt]->TheMother();
+			RhoCandidate * mother_aprot = 0;
 			RhoCandidate * truth = antiProton[aProt]->GetMcTruth();
-
-			int moth_pip = (mother_pip==0x0)? 88888 : mother_pip->PdgCode();
-
-			fntpAntiProton->Column("Mother", (Float_t) moth_pip);
 
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
 			  l=truth->P4();
+			  mother_aprot= truth->TheMother();
 			  costheta = truth->GetMomentum().CosTheta();
 			  qa.qaCand("AntiProton_MC_", antiProton[aProt]->GetMcTruth(), fntpAntiProton);
 			}
 			else{
 			  qa.qaCand("AntiProton_MC_", dummyCand, fntpAntiProton);
 			}
+
+			int moth_pip = (mother_aprot==0x0)? 88888 : mother_aprot->PdgCode();
+			fntpAntiProton->Column("Mother", (Float_t) moth_pip);
 
 			qa.qaP4("AntiProton_MC_", l, fntpAntiProton);
 			fntpAntiProton->Column("AntiProton_MC_CosTheta", (Float_t) costheta);
@@ -564,23 +566,24 @@ void AnalysisTask::Exec(Option_t* op)
 			numberOfHitsInSubdetector("kaonminus_", kaonminus[k], fntpKaonMinus);
 			tagNHits("kaonminus_", kaonminus[k], fntpKaonMinus);
 
-			RhoCandidate * mother_pip = kaonminus[k]->TheMother();
+			RhoCandidate * mother_k =0;
 			RhoCandidate * truth = kaonminus[k]->GetMcTruth();
 
-			int moth_pip = (mother_pip==0x0)? 88888 : mother_pip->PdgCode();
-
-			fntpKaonMinus->Column("Mother", (Float_t) moth_pip);
 
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
 			  l=truth->P4();
+			  mother_k =  truth->TheMother();
 			  costheta = truth->GetMomentum().CosTheta();
 			  qa.qaCand("kaonminus_MC_", kaonminus[k]->GetMcTruth(), fntpKaonMinus);
 			}
 			else{
 			  qa.qaCand("kaonminus_MC_", dummyCand, fntpKaonMinus);
 			}
+
+			int moth_pip = (mother_k==0x0)? 88888 : mother_k->PdgCode();
+			fntpKaonMinus->Column("Mother", (Float_t) moth_pip);
 
 			qa.qaP4("kaonminus_MC_", l, fntpKaonMinus);
 			fntpKaonMinus->Column("kaonminus_MC_CosTheta", (Float_t) costheta);
@@ -611,8 +614,11 @@ void AnalysisTask::Exec(Option_t* op)
 	       fntpLambda0->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(lambda0[j]));
 	       fntpLambda0->Column("Lambda0_Pdg", (Float_t) lambda0[j]->PdgCode());
 
-	 	  RhoCandidate * mother = lambda0[j]->TheMother();
-	   	  int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+	 	  RhoCandidate * mother = 0;
+	 	  RhoCandidate * truth = lambda0[j]->GetMcTruth();
+
+	 	  if(truth) mother =  truth->TheMother();
+	 	  int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 
 	 	  fntpLambda0->Column("Mother", (Float_t) moth);
 
@@ -683,7 +689,7 @@ void AnalysisTask::Exec(Option_t* op)
 	       fntpLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitLambda0[j]);
 
 
-	       RhoCandidate * truth = lambda0[j]->GetMcTruth();
+
 	       TLorentzVector l;
 
 
@@ -740,7 +746,11 @@ void AnalysisTask::Exec(Option_t* op)
 	        fntpAntiLambda0->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(antiLambda0[j]));
 	        fntpAntiLambda0->Column("AntiLambda0_Pdg", (Float_t) antiLambda0[j]->PdgCode());
 
-			RhoCandidate * mother = antiLambda0[j]->TheMother();
+			RhoCandidate * mother = 0;
+			RhoCandidate * truth = antiLambda0[j]->GetMcTruth();
+
+			if(truth) mother = truth->TheMother();
+
 			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 			fntpAntiLambda0->Column("Mother", (Float_t) moth);
 
@@ -812,7 +822,7 @@ void AnalysisTask::Exec(Option_t* op)
 	        fntpAntiLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitAntiLambda0[j]);
 
 
-	        RhoCandidate * truth = antiLambda0[j]->GetMcTruth();
+
 
 	        TLorentzVector l;
 	        if(0x0 != truth){
@@ -832,7 +842,7 @@ void AnalysisTask::Exec(Option_t* op)
 
 
 
-	        if(bestVtxFitAntiLambda0[j]==1 && bestMassFitAntiLambda0[j]>0){
+	        if(bestVtxFitAntiLambda0[j]==1 && bestMassFitAntiLambda0[j]>0 && tag==1){
 	  		  AntiLambda0Fit.Append(antiLambda0Fit);
 	  		  CombinedList(antiLambda0Fit, &CombinedPiPlus, 211);
 	        }
@@ -866,7 +876,11 @@ void AnalysisTask::Exec(Option_t* op)
 			fntpXiMinus1820->Column("XiMinus_Pdg", (Float_t) ximinus[j]->PdgCode());
 
 
-			RhoCandidate * mother = ximinus[j]->TheMother();
+			RhoCandidate * mother = 0;
+			RhoCandidate * truth = ximinus[j]->GetMcTruth();
+
+			if(truth) mother = truth->TheMother();
+
 			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 			fntpXiMinus1820->Column("Mother", (Float_t) moth);
 
@@ -936,7 +950,6 @@ void AnalysisTask::Exec(Option_t* op)
 			qaVtxDiff("MassFit_", ximinusFit, fntpXiMinus1820);
 
 
-			RhoCandidate * truth = ximinus[j]->GetMcTruth();
 			TLorentzVector l;
 
 			if(0x0 != truth){
@@ -1139,7 +1152,7 @@ void AnalysisTask::Exec(Option_t* op)
    }
 }
 
-void AnalysisTask::Finish()
+void AnalysisTaskXi1820::Finish()
 {
 
 	//Write output
