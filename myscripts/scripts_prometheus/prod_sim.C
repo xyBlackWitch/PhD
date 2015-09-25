@@ -38,6 +38,8 @@ prod_sim(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom
   //TString  Decfile        =Workdir+"/tutorials/apr13/psi2s_jpsi2pi.dec";
   //TString  Resonance      ="psi(2S)";
   
+  TString evtPdlFile = "/hera/panda/jpuetz/myscripts/evt.pdl";
+
   TString  OutputFile     = outpre+"_sim.root";
   TString  ParOutputfile  = outpre+"_par.root";
   Double_t BeamMomentum   = 15.0; // beam momentum ONLY for the scaling of the dipole field. For the generator use "mom"
@@ -184,7 +186,7 @@ prod_sim(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom
 	  primGen->AddGenerator(Dpm);
   }
   if(UseEvtGenDirect){
-      PndEvtGenDirect *EvtGen = new PndEvtGenDirect(Resonance, Decfile.Data(), mom);
+      PndEvtGenDirect *EvtGen = new PndEvtGenDirect(Resonance, Decfile.Data(), mom, -1, "", evtPdlFile.Data());
 	  EvtGen->SetStoreTree(kTRUE);
 	  primGen->AddGenerator(EvtGen);
   }	
