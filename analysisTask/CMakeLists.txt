@@ -25,6 +25,7 @@ set(SRCS
 AnalysisTask.cxx
 AnalysisTaskLambda0.cxx
 AnalysisTaskXi1820.cxx
+AnalysisTaskAntiXi1820.cxx
 )
 
 set(LINKDEF anataskjennyLinkDef.h)

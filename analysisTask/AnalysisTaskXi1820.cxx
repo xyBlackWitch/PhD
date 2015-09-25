@@ -349,7 +349,7 @@ InitStatus AnalysisTaskXi1820::Init(){
   cout<<"Mass pbar p system: "<<fm0_beam<<endl;
   
 
-  //*** lorentz vector of the finitial particle
+  //*** lorentz vector of the initial particle
   cout << "BeamMomentum: " << fmom << endl;
   double p_m0 = TDatabasePDG::Instance()->GetParticle("proton")->Mass();
   fini.SetXYZT(0,0, fmom, sqrt(p_m0*p_m0+ fmom*fmom)+p_m0);
@@ -395,12 +395,12 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
-	    fAnalysis->FillList(NotCombinedPiPlus, "PionBestPlus", PidSelection);
-	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
-	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
-	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
-	    fAnalysis->FillList(kaonminus, "KaonBestMinus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiPlus, "PionAllPlus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
+	    fAnalysis->FillList(kaonminus, "KaonAllMinus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){
@@ -785,6 +785,8 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	        // store info of vertex fit
 	        qa.qaFitter("VtxFit_", &vertexfitterAntiLambda0, fntpAntiLambda0);
 	        qa.qaVtx("VtxFit_", antiLambda0Fit, fntpAntiLambda0);
+	        qa.qaP4("VtxFit_", antiLambda0Fit->P4(), fntpAntiLambda0);
+	        qa.qaComp("VtxFit_",antiLambda0Fit, fntpAntiLambda0);
 
 	        fntpAntiLambda0->Column("VtxFit_HowGood", (Int_t) bestVtxFitAntiLambda0[j]);
 
@@ -826,11 +828,11 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 	        TLorentzVector l;
 	        if(0x0 != truth){
-	  				l = truth->P4();
-	  				qa.qaVtx("MCTruth_", truth, fntpAntiLambda0);
+				l = truth->P4();
+				qa.qaVtx("MCTruth_", truth, fntpAntiLambda0);
 	        }
 	        else{
-	      	  qa.qaVtx("McTruth_", dummyCand, fntpAntiLambda0);
+	        	qa.qaVtx("MCTruth_", dummyCand, fntpAntiLambda0);
 	        }
 
 	        qa.qaP4("MCTruth_", l, fntpAntiLambda0);
@@ -876,10 +878,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			fntpXiMinus1820->Column("XiMinus_Pdg", (Float_t) ximinus[j]->PdgCode());
 
 
-			RhoCandidate * mother = 0;
-			RhoCandidate * truth = ximinus[j]->GetMcTruth();
-
-			if(truth) mother = truth->TheMother();
+			RhoCandidate * mother = ximinus[j]->TheMother();
 
 			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 			fntpXiMinus1820->Column("Mother", (Float_t) moth);
@@ -904,7 +903,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 			qa.qaVtx("VtxFit_", ximinusFit, fntpXiMinus1820);
 			qa.qaP4("VtxFit_", ximinusFit->P4(), fntpXiMinus1820);
-//			qa.qaCand("VtxFit_", ximinusFit, fntpXiMinus1820);
+			qa.qaComp("VtxFit_", ximinusFit, fntpXiMinus1820);
 
 
 			// difference to MCTruth
@@ -949,7 +948,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			qa.qaMcDiff("MassFit_", ximinusFit_mass, fntpXiMinus1820);
 			qaVtxDiff("MassFit_", ximinusFit, fntpXiMinus1820);
 
-
+			RhoCandidate * truth = ximinus[j]->GetMcTruth();
 			TLorentzVector l;
 
 			if(0x0 != truth){
@@ -1020,6 +1019,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	      fntpXiPlus->Column("VtxFit_HowGood", (Int_t) BestVtxFitXiPlus[j]);
 	      qa.qaVtx("VtxFit_", xiplusFit, fntpXiPlus);
 	      qa.qaP4("VtxFit_", xiplusFit->P4(), fntpXiPlus);
+	      qa.qaComp("VtxFit_", xiplusFit, fntpXiPlus);
 
 		  // difference to MCTruth
 	      qa.qaMcDiff("VtxFit_", xiplusFit, fntpXiPlus);
@@ -1048,7 +1048,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 	      //****** do mass fit
 	      PndKinFitter massFitterxiplus(xiplusFit);
-	      massFitterxiplus.AddMassConstraint(fm0_Xi1820);
+	      massFitterxiplus.AddMassConstraint(fm0_Xi);
 	      massFitterxiplus.Fit();
 
 	      RhoCandidate * xiplusFit_mass = xiplusFit->GetFit();
