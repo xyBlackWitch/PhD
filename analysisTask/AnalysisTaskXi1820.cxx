@@ -77,7 +77,7 @@ void AnalysisTaskXi1820::CombinedList(RhoCandidate* cand, RhoCandList* combinedL
 	  }
 
 	  combinedList->RemoveClones();
-	  //return combinedList;
+
 
 }
 
