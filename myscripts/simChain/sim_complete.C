@@ -19,7 +19,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
 	  TString  ParOutputfile  = "simparams.root";
   }
 
-  TString evtPdlFile = "/private/puetz/myscripts/macros/evt.pdl";
+  TString evtPdlFile = "evt.pdl";
 
   TString  MediaFile      ="media_pnd.geo";
   gDebug                  = 0;
@@ -183,7 +183,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   if(UseEvtGenDirect){
 //    TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
-	TString EvtInput= "/private/puetz/mysimulations/analysis/XiMinus_1820_lambda0_K.dec";
+	TString EvtInput="/home/ikp1/puetz/panda/mysimulations/analysis/XiPlus_1820_AntiLambda0_K.dec";
     PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
     primGen->AddGenerator(EvtGen);

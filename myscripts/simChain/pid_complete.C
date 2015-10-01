@@ -1,4 +1,4 @@
-void pid_complete(TString pre="")
+void pid_complete()
 {
   // Macro created 02/10/2012 by S.Spataro
   // It loads a reconstruction file and compute PID informations
@@ -9,39 +9,27 @@ void pid_complete(TString pre="")
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
   
+  // Parameter file
+  TString parFile = "simparams.root"; // at the moment you do not need it
   
-  if (pre!=""){
-	  TString simFile = pre + "_sim_complete.root";
-	  TString parFile = pre + "_simparams.root"; // at the moment you do not need it
-	  TString digFile = pre + "_digi_complete.root";
-	  TString digiFile = "all.par";
-	  TString recoFile = pre + "_reco_complete.root";
-
-	  TString outFile = pre + "_pid_complete.root";
-  }
-  else{
-	  TString simFile = "sim_complete.root";
-	  TString parFile = "simparams.root"; // at the moment you do not need it
-	  TString digFile = "digi_complete.root";
-	  TString digiFile = "all.par";
-	  TString recoFile = "reco_complete.root";
-
-	  TString outFile = "pid_complete.root";
-  }
-
+  // Digitisation file (ascii)
+  TString digiFile = "all.par";
+  
+  // Output file
+  TString outFile = "pid_complete.root";
+  
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
     // ------------------------------------------------------------------------
   
   // -----   Reconstruction run   -------------------------------------------
   FairRunAna *fRun= new FairRunAna();
-  fRun->SetInputFile(simFile);
-  fRun->AddFriend(digFile);
-  fRun->AddFriend(recoFile);
+  fRun->SetInputFile("sim_complete.root");
+  fRun->AddFriend("digi_complete.root");
+  fRun->AddFriend("reco_complete.root");
   fRun->SetOutputFile(outFile);
   fRun->SetGenerateRunInfo(kFALSE);
   fRun->SetUseFairLinks(kTRUE);
-
   FairGeane *Geane = new FairGeane();
   fRun->AddTask(Geane);
 
@@ -72,6 +60,9 @@ void pid_complete(TString pre="")
   //corr->SetFast(kTRUE);
   //corr->SetBackPropagate(kFALSE);
   fRun->AddTask(corr);
+
+  PndPidBremCorrector *bremCorr = new PndPidBremCorrector();
+  fRun->AddTask(bremCorr);
 
   PndMcCloner *clone = new PndMcCloner();
   fRun->AddTask(clone);
