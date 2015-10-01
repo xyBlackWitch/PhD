@@ -1,0 +1,11 @@
+noPhotos
+
+Decay B+ 
+	1.0 	anti-D*0 rho+		PARTWAVE 0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+
+Decay anti-D*0
+	1.0		D0 pi0				VSS;
+Enddecay
+
+End
