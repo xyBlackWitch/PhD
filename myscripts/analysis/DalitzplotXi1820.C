@@ -26,10 +26,10 @@ void DalitzplotPbarSystem(){
 
 
 	//*** Data input
-	TString inputFile ="/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/evtOutput_Partwave01.root";
+	TString inputFile ="/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/evtOutput_Partwave01.root";
 	TFile * data = new TFile(inputFile, "READ");
 
-	TString outPath = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/";
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/";
 	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave01.root", "RECREATE");
 
 

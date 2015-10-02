@@ -27,10 +27,10 @@ void DalitzplotLambda0(){
 
 
 	//*** Data input
-	TString inputFile ="/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/lambda0/evtOuput_Partwave.root";
+	TString inputFile ="/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/lambda0/evtOuput_Partwave.root";
 	TFile * data = new TFile(inputFile, "READ");
 
-	TString outPath = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/lambda0/";
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/lambda0/";
 	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Partwave.root", "RECREATE");
 
 

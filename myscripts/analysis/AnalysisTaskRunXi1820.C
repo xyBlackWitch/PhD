@@ -4,7 +4,7 @@ void AnalysisTaskRunXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/test_run/";
+		TString Path = "/home/ikp1/puetz/panda/myscripts/simChain/";
 		TString outPath = Path;
 		TString OutputFile = outPath + "analysis_output.root";
 

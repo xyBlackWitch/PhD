@@ -27,10 +27,10 @@ void DalitzplotRhoPi(){
 
 
 	//*** Data input
-	TString inputFile ="/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/rho0pi/evtOutput_PHSP.root";
+	TString inputFile ="/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/rho0pi/evtOutput_PHSP.root";
 	TFile * data = new TFile(inputFile, "READ");
 
-	TString outPath = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/rho0pi/";
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/EvtGen/rho0pi/";
 	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_PHSP.root", "RECREATE");
 
 

@@ -27,10 +27,10 @@ void DalitzplotDs(){
 
 
 	//*** Data input
-	TString inputFile ="/private/puetz/mysimulations/test/EvtGen/Partwave/evtOutput_Ds.root";
+	TString inputFile ="/home/ikp1/puetz/panda/mysimulations/test/EvtGen/Partwave/evtOutput_Ds.root";
 	TFile * data = new TFile(inputFile, "READ");
 
-	TString outPath = "/private/puetz/mysimulations/test/EvtGen/Partwave/";
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/test/EvtGen/Partwave/";
 	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Partwave.root", "RECREATE");
 
 

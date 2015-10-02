@@ -39,7 +39,7 @@ void analysis_pbarp_Xi(int nevts=0){
 
 
   //Output File
-  TString Path = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
+  TString Path = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
   TString outPath ="";// Path;
   TString OutputFile = outPath + "analysis_output.root";
   

@@ -40,7 +40,7 @@ void analysis_pbarp_Xi_boxgen(int nevts=0){
 
 
   //Output File
-  TString Path = "/private/puetz/mysimulations/test/boxgenerator/Xi/10000_events/";
+  TString Path = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/Xi/10000_events/";
   TString outPath = Path;
   TString OutputFile = outPath + "analysis_output.root";
   

@@ -11,8 +11,8 @@ void analysis_pbarp_2pi(int nevts=0){
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/private/puetz/mysimulations/test/boxgenerator/2pi_vtx_000/";
-  TString outPath ="/private/puetz/mysimulations/test/boxgenerator/2pi_vtx_000/";
+  TString Path ="/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/2pi_vtx_000/";
+  TString outPath ="/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/2pi_vtx_000/";
  
   TString OutputFile = outPath + "analysis_output_test2.root";
   

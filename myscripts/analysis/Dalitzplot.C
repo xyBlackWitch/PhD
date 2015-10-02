@@ -21,11 +21,11 @@ void Dalitzplot(){
 
 
 	//*** Data input
-	TString inputFile = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/evtOutput_Partwave10.root";
+	TString inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/evtOutput_Partwave10.root";
 	TFile * data = new TFile(inputFile, "READ");
 
 	//*** out path
-	TString outPath = "/private/puetz/mysimulations/analysis/cascade_1820_lambda0_K/";
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/";
 	TFile * out = new TFile(outPath+"Dalitzplots_Xi1820_simpleEvtGen_Partwave10.root", "RECREATE");
 
 	//** get Data from File

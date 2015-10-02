@@ -13,7 +13,7 @@ void analysis_pbarp_lambda0( int nevts=0, TString pre=""){
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/private/puetz/mysimulations/test/boxgenerator/lambda0/10000_events/";
+  TString Path ="/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/lambda0/10000_events/";
   TString outPath = Path;
   TString OutputFile = pre + "analysis_output_angle.root";
   
