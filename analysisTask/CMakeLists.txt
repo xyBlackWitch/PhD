@@ -8,7 +8,7 @@ ${CMAKE_SOURCE_DIR}/rho/RhoBase
 ${CMAKE_SOURCE_DIR}/rho/RhoSelector
 ${CMAKE_SOURCE_DIR}/PndTools/AnalysisTools
 ${CMAKE_SOURCE_DIR}/PndTools/AnalysisTools/Fitter
-${CMAKE_SOURCE_DIR}/AnalysisTask/AnalysisTask
+${CMAKE_SOURCE_DIR}/AnalysisTask
 ${CMAKE_SOURCE_DIR}/pnddata
 ${CMAKE_SOURCE_DIR}/pnddata/PidData
 )

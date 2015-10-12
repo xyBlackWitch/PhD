@@ -292,9 +292,10 @@ InitStatus AnalysisTaskLambda0::Init(){
 	fntpCrossCheck = new RhoTuple("fntpCrossCheck", "CrossCheck info");
 
 	//Create output file
-	TString outpath;
+	TString outpath, outname;
 	outpath.Append(fOutPath);
-	foutput = TFile::Open(outpath+"output_ana.root","RECREATE");
+	outname.Append(foutname);
+	foutput = TFile::Open(outpath+outname,"RECREATE");
 
 	// data reader Object
 	fAnalysis = new PndAnalysis();

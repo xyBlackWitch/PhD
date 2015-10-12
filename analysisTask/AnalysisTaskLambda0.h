@@ -36,6 +36,10 @@ class AnalysisTaskLambda0 : public FairTask
 			fOutPath=fname;
 		}
 
+		void SetOutputName(const char* outname="output_ana.root"){
+			foutname=outname;
+		}
+
 		void SetNEvents(double nevents=0){
 			fnevts = nevents;
 		}
@@ -72,6 +76,7 @@ class AnalysisTaskLambda0 : public FairTask
 		double fm0_beam;
 
 		const char* fOutPath;
+		const char* foutname;
 
 		RhoTuple * fntpMC;
 		RhoTuple * fntpPiMinus;
