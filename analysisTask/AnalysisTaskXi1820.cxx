@@ -395,12 +395,12 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    fAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
-	    fAnalysis->FillList(NotCombinedPiPlus, "PionAllPlus", PidSelection);
-	    fAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
-	    fAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
-	    fAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
-	    fAnalysis->FillList(kaonminus, "KaonAllMinus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiPlus, "PionBestPlus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
+	    fAnalysis->FillList(kaonminus, "KaonBestMinus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){

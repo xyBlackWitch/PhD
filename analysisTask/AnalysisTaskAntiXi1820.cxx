@@ -318,8 +318,8 @@ InitStatus AnalysisTaskAntiXi1820::Init(){
   fntpKaonPlus = new RhoTuple("ntpkaonplus", "kaonplus info");
   fntpLambda0 = new RhoTuple("ntpLambda0", "Lambda0 info");
   fntpAntiLambda0 = new RhoTuple("ntpAntiLambda0", "AntiLambda0 info");
-  fntpXiMinus = new RhoTuple("ntpXiMinus1820", "XiMinus info");
-  fntpXiPlus1820 = new RhoTuple("ntpXiPlus", "XiPlus info");
+  fntpXiMinus = new RhoTuple("ntpXiMinus", "XiMinus info");
+  fntpXiPlus1820 = new RhoTuple("ntpXiPlus1820", "XiPlus info");
   fntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
   //Create output file for histograms
@@ -395,12 +395,12 @@ void AnalysisTaskAntiXi1820::Exec(Option_t* op)
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    fAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
-	    fAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
-	    fAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
-	    fAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
-	    fAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
-	    fAnalysis->FillList(kaonplus, "KaonAllPlus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiMinus, "PionBestMinus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
+	    fAnalysis->FillList(kaonplus, "KaonBestPlus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){
