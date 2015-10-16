@@ -28,7 +28,7 @@ class RhoCandidate;
 void eval_cascade(bool save=true, bool close=false){
 
 	//Input file
-	TString inPath = "/private/puetz/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/1000_events/momentum_2.7/run2/";
+	TString inPath = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/1000_events/momentum_2.7/run2/";
 	TFile * inFile = new TFile(inPath+"output_ana.root", "READ");
 
 	//Output file

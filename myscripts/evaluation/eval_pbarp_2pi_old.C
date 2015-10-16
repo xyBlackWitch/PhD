@@ -13,7 +13,7 @@ class RhoTuple;
 #include "TCanvas.h"
 
 
-void eval_pbarp_2pi(TString inputDir="/private/puetz/fairsoft_mar15/pandaroot/mysimulations/test/2pi_10000_events/", bool saveOutput = true){
+void eval_pbarp_2pi(TString inputDir="/home/ikp1/puetz/panda/fairsoft_mar15/pandaroot/mysimulations/test/2pi_10000_events/", bool saveOutput = true){
 
   TString filename_ana = inputDir + "output_ana.root";
   

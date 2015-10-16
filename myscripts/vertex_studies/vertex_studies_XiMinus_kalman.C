@@ -28,7 +28,7 @@ void vertex_studies_XiMinus_kalman(int nevts=0, bool saveoutput=true, bool close
 
 	//Paths
 
-	TString inPath = "/private/puetz/mysimulations/test/boxgenerator/Xi/500000_events_beammom_3/";
+	TString inPath = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/Xi/500000_events_beammom_3/";
 	TString outPath = inPath + "plots/";
 
 
@@ -129,14 +129,14 @@ void vertex_studies_XiMinus_kalman(int nevts=0, bool saveoutput=true, bool close
 	//**********Performance plots******************
 	//pulls for vertex
 
-	TH1D * h_pull_vx = new TH1D("h_pull_vx", "pull for x coordinate of vertex position; (x_{reco}-x_{MC})/#sigma_{x}; counts", 500, -3,3);
-	ntpXiMinus->Project("h_pull_vx", "KalmanFit_pullvx", "McTruthMatch==1");
+	TH1D * h_pull_vx = new TH1D("h_pull_vx", "pull for x coordinate of momentum; (px_{reco}-px_{MC})/#sigma_{px}; counts", 500, -5,5);
+	ntpXiMinus->Project("h_pull_vx", "KalmanFit_mcpullpx", "McTruthMatch==1");
 
-	TH1D * h_pull_vy = new TH1D("h_pull_vy", "pull for y coordinate of vertex position; (y_{reco}-y_{MC})/#sigma_{y}; counts", 500, -3,3);
-	ntpXiMinus->Project("h_pull_vy", "KalmanFit_pullvy", "McTruthMatch==1");
+	TH1D * h_pull_vy = new TH1D("h_pull_vy", "pull for y coordinate of momentum; (py_{reco}-py_{MC})/#sigma_{py}; counts", 500, -5,5);
+	ntpXiMinus->Project("h_pull_vy", "KalmanFit_mcpullpy", "McTruthMatch==1");
 
-	TH1D * h_pull_vz = new TH1D("h_pull_vz", "pull for z coordinate of vertex position; (z_{reco}-z_{MC})/#sigma_{z}; counts", 500, -3,3);
-	ntpXiMinus->Project("h_pull_vz", "KalmanFit_pullvz", "McTruthMatch==1");
+	TH1D * h_pull_vz = new TH1D("h_pull_vz", "pull for z coordinate of momentum; (pz_{reco}-pz_{MC})/#sigma_{pz}; counts", 500, -5,5);
+	ntpXiMinus->Project("h_pull_vz", "KalmanFit_mcpullpz", "McTruthMatch==1");
 
 
 	//vtx res vs p_t
@@ -184,6 +184,7 @@ void vertex_studies_XiMinus_kalman(int nevts=0, bool saveoutput=true, bool close
 	//vtx res vs tht
 
 	TH2D * h_vx_vs_tht = new TH2D("h_vx_vs_tht", " Theta vs. vertex resolution(x coordinate); #Delta x/cm; tht/rad", 200, -1,1, 200, 0,0.6);
+	h_vx_vs_tht->GetZaxis()->SetRangeUser(0,100);
 	ntpXiMinus->Project("h_vx_vs_tht", "KalmanFit_tht:(KalmanFit_vx-MCTruth_vx)", "McTruthMatch==1");
 	TH1D * h_tht_vx = h_vx_vs_tht->ProfileY("h_tht_vx", 1, -1, "o");
 	h_tht_vx->SetTitle("vertex resolution(x coordinate) vs. Theta");
@@ -216,31 +217,31 @@ void vertex_studies_XiMinus_kalman(int nevts=0, bool saveoutput=true, bool close
 	bool noAutorange =false;
 
 //	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_fit_kalman", saveoutput, close, noAutorange, 0.06, 0.5,true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_fit_kalman", saveoutput, close, noAutorange, 0.07, 1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_fit_kalman", saveoutput, close, noAutorange, 0.06, 1,true);
-
-
+//	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_fit_kalman", saveoutput, close, noAutorange, 0.07, 1, true);
+//	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_fit_kalman", saveoutput, close, noAutorange, 0.06, 1,true);
+//
+//
 //	jenny::CreateDrawAndSaveHistogram(h_vx_res, outPath, "h_vx_res_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_vy_res, outPath, "h_vy_res_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_vz_res, outPath, "h_vz_res_kalman", saveoutput, close);
-
+//
 //	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_poc_res, outPath, "h_vx_poc_res_kalman", saveoutput, close, noAutorange, 0.04, 1.5);
 //	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_poc_res, outPath, "h_vy_poc_res_kalman", saveoutput, close, noAutorange, 0.04, 1.5);
 //	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_poc_res, outPath, "h_vz_poc_res_kalman", saveoutput, close, noAutorange, 0.04, 1.5);
-
+//
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_x, outPath, "h_reco_div_mc_x_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_y, outPath, "h_reco_div_mc_y_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_mc_z, outPath, "h_reco_div_mc_z_kalman", saveoutput, close);
-
-
+//
+//
 //	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco_kalman", saveoutput, close);
 //
 //	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob_kalman", saveoutput, close);
 //
-//	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx_kalman", saveoutput, close);//, noAutorange, 0.4, 3);
-//	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy_kalman", saveoutput, close);//, noAutorange, 0.25, 3);
-//	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz_kalman", saveoutput, close);//, noAutorange, 0.4, 3);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx_kalman", saveoutput, close);//, noAutorange, 0.4, 3);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy_kalman", saveoutput, close);//, noAutorange, 0.25, 3);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz_kalman", saveoutput, close);//, noAutorange, 0.4, 3);
 //
 //	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx_kalman", saveoutput, close);
@@ -256,7 +257,7 @@ void vertex_studies_XiMinus_kalman(int nevts=0, bool saveoutput=true, bool close
 //	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p_kalman", saveoutput, close);
-//
+
 //	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx_kalman", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht_kalman", saveoutput, close);

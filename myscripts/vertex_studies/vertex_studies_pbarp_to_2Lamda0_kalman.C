@@ -20,7 +20,7 @@ class RhoTuple;
 void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, bool close=false){
 
 	//Paths
-	TString inPath = "/private/puetz/mysimulations/analysis/pbarp_lambda0_antilambda0/500000_events/";
+	TString inPath = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_lambda0_antilambda0/500000_events/";
 	TString outPath = inPath + "plots/";
 
 

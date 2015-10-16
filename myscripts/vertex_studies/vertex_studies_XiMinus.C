@@ -28,7 +28,7 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//Paths
 
-	TString inPath = "/private/puetz/mysimulations/test/boxgenerator/Xi/500000_events_beammom_3/";
+	TString inPath = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/Xi/500000_events_beammom_3/";
 	TString outPath = inPath + "plots/";
 
 
@@ -184,6 +184,7 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 	//vtx res vs tht
 
 	TH2D * h_vx_vs_tht = new TH2D("h_vx_vs_tht", " Theta vs. vertex resolution(x coordinate); #Delta x/cm; tht/rad", 200, -1,1, 200, 0,0.6);
+	h_vx_vs_tht->GetZaxis()->SetRangeUser(0,100);
 	ntpXiMinus->Project("h_vx_vs_tht", "VtxFit_tht:(VtxFit_vx-MCTruth_vx)", "McTruthMatch==1");
 	TH1D * h_tht_vx = h_vx_vs_tht->ProfileY("h_tht_vx", 1, -1, "o");
 	h_tht_vx->SetTitle("vertex resolution(x coordinate) vs. Theta");

@@ -32,7 +32,7 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//Paths
 
-	TString inPath = "/private/puetz/mysimulations/test/boxgenerator/lambda0/500000_events/";
+	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/";
 	TString outPath = inPath +"plots/";
 
 
@@ -228,54 +228,54 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 
 	bool autoRange = false;
 //
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1,1, true);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.1,1, true);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.1, 1, true);
 
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res", saveoutput, close);
 
-//	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
-//
+	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
+
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vx, outPath, "h_reco_div_Mc_vx", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vy, outPath, "h_reco_div_Mc_vy", saveoutput, close);
 //	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vz, outPath, "h_reco_div_Mc_vz", saveoutput, close);
-//
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
-//
-//
-//	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob", saveoutput, close);
+
+
+	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
+
+
+	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob", saveoutput, close);
 
 	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy", saveoutput, close);
 	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz", saveoutput, close);
 
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz", saveoutput, close);
 
 
 	if(close) exit(0);

@@ -32,7 +32,7 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 
 	//Paths
 
-	TString inPath = "/private/puetz/mysimulations/test/boxgenerator/lambda0/500000_events/";
+	TString inPath = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/lambda0/500000_events/";
 	TString outPath = inPath +"plots/";
 
 
