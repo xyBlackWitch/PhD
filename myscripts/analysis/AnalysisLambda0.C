@@ -4,7 +4,7 @@ void AnalysisLambda0(int nevts=0, double mom=1.7, TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/lambda0/5000_events/";
+		TString Path = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/"
 		TString outPath = "";//Path;
 		TString OutputFile = outPath + "analysis_output.root";
 
@@ -14,10 +14,10 @@ void AnalysisLambda0(int nevts=0, double mom=1.7, TString pre = ""){
 	}
 	else{
 		TString Path = pre;
-		TString OutputFile = Path + "_analysis_GenFit2_output.root";
+		TString OutputFile = Path + "_analysis_output.root";
 
 		//Input simulation Files
-		TString inPIDFile = Path + "_pid_GenFit2_complete.root";
+		TString inPIDFile = Path + "_pid_complete.root";
 		TString inParFile = Path + "_simparams.root";
 	}
 
@@ -45,7 +45,7 @@ void AnalysisLambda0(int nevts=0, double mom=1.7, TString pre = ""){
 	// *** HERE OUR TASK GOES!
 	AnalysisTaskLambda0 *anaTask = new AnalysisTaskLambda0();
 	anaTask->SetOutPutDir(outPath);
-	anaTask->SetOutputName("output_GenFit2_ana.root");
+	anaTask->SetOutputName("output_ana.root");
 	anaTask->SetNEvents(nevts);
 	anaTask->SetMom(mom);
 	RunAna->AddTask(anaTask);

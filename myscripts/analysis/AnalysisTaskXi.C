@@ -4,9 +4,9 @@ void AnalysisTaskXi(int nevts=0, double mom=2.7, TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
+		TString Path = "/home/ikp1/puetz/panda/myscripts/simChain/test/";
 		TString outPath = Path;
-		TString OutputFile = outPath + "analysis_output_test.root";
+		TString OutputFile = outPath + "analysis_output.root";
 
 		//Input simulation Files
 		TString inPIDFile = Path + "pid_complete.root";

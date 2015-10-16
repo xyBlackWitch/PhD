@@ -4,7 +4,7 @@ void AnalysisTaskRunAntiXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/home/ikp1/puetz/panda/myscripts/simChain/";
+		TString Path = "/home/ikp1/puetz/panda/mysimulations/analysis/anticascade_lambda0_K/test/";
 		TString outPath = Path;
 		TString OutputFile = outPath + "analysis_output.root";
 
