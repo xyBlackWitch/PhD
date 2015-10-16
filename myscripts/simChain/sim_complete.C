@@ -5,21 +5,19 @@
 // to run with different options:(e.g more events, different momentum, Geant4)
 // root  sim_complete.C"(100, "TGeant4",2)"
 
-sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString  SimEngine ="TGeant3")
+sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TString  SimEngine ="TGeant3")
 {
+  //-----User Settings:-----------------------------------------------
 
-	//-----User Settings:-----------------------------------------------
-  if (pre!=""){
-
-	  TString  OutputFile     = pre + "_sim_complete.root";
-	  TString  ParOutputfile  = pre + "_simparams.root";
+  if(pre == ""){
+	  TString  OutputFile		="sim_complete.root";
+	  TString  ParOutputfile  	="simparams.root";
   }
   else{
-	  TString  OutputFile     = "sim_complete.root";
-	  TString  ParOutputfile  = "simparams.root";
+	  TString  OutputFile 		= pre + "_sim_complete.root";
+	  TString  ParOutputfile  	=pre + "_simparams.root";
   }
 
-  TString evtPdlFile = "evt.pdl";
 
   TString  MediaFile      ="media_pnd.geo";
   gDebug                  = 0;
@@ -30,10 +28,12 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   Bool_t UseFtf 	      =kFALSE;
   Bool_t UseBoxGenerator      =kFALSE;
   
+  TString evtPdlFile = "evt.pdl";
+
   Double_t BeamMomentum = 0.; // beam momentum ONLY for the scaling of the dipole field.
   if (UseBoxGenerator)
   {
-    BeamMomentum   =mom; // ** change HERE if you run Box generator
+    BeamMomentum   =15.0; // ** change HERE if you run Box generator
   }
   else
   {
@@ -42,7 +42,6 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   //------------------------------------------------------------------
   TLorentzVector fIni(0, 0, mom, sqrt(mom*mom+9.3827203e-01*9.3827203e-01)+9.3827203e-01);
   TDatabasePDG::Instance()->AddParticle("pbarpSystem","pbarpSystem",fIni.M(),kFALSE,0.1,0, "",88888);
-//  TDatabasePDG::Instance()->AddParticle("Xi(1690)-","Xi(1690)-",1690,kFALSE,0.03,-1, "",13314);
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
@@ -155,19 +154,12 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   fRun->SetGenerator(primGen);
 	 
   if(UseBoxGenerator){	// Box Generator
-    FairBoxGenerator* boxGenLambda0 = new FairBoxGenerator(3122, 1); // 13 = muon; 1 = multipl.
-    boxGenLambda0->SetPRange(0,mom); // GeV/c
-    boxGenLambda0->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-    boxGenLambda0->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
-    boxGenLambda0->SetXYZ(0., 0., 0.); // cm
-    primGen->AddGenerator(boxGenLambda0);
-
-    FairBoxGenerator* boxGenPiMinus = new FairBoxGenerator(-211, 1); // 13 = muon; 1 = multipl.
-	boxGenPiMinus->SetPRange(0,mom); // GeV/c
-	boxGenPiMinus->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-	boxGenPiMinus->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
-	boxGenPiMinus->SetXYZ(0., 0., 0.); // cm
-	primGen->AddGenerator(boxGenPiMinus);
+    FairBoxGenerator* boxGen = new FairBoxGenerator(-3312, 1); // 13 = muon; 1 = multipl.
+    boxGen->SetPRange(mom,mom); // GeV/c
+    boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
+    boxGen->SetThetaRange(0., 30.); // Polar angle in lab system range [degree]
+    boxGen->SetXYZ(0., 0., 0.); // cm
+    primGen->AddGenerator(boxGen);
   }
   if(UseDpm){
     PndDpmDirect *Dpm= new PndDpmDirect(mom,1);
@@ -183,14 +175,13 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   if(UseEvtGenDirect){
 //    TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
-	TString EvtInput="/home/ikp1/puetz/panda/mysimulations/analysis/XiPlus_1820_AntiLambda0_K.dec";
-    PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
+	  TString EvtInput="/home/ikp1/puetz/panda/mysimulations/analysis/XiMinus_1820_lambda0_K.dec";
+//    PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
+	  PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
     primGen->AddGenerator(EvtGen);
   }
   
-  fRun->SetStoreTraj(kTRUE);
-
   //---------------------Create and Set the Field(s)----------
   PndMultiField *fField= new PndMultiField("AUTO");
   fRun->SetField(fField);
@@ -215,7 +206,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.2,  TString pre ="" , TString 
   cout << " Test passed" << endl;
   cout << " All ok " << endl;
   
-  //exit(0);
+  exit(0);
   
 };
 

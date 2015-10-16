@@ -1,4 +1,4 @@
-void pid_complete()
+void pid_complete(TString pre="")
 {
   // Macro created 02/10/2012 by S.Spataro
   // It loads a reconstruction file and compute PID informations
@@ -9,14 +9,41 @@ void pid_complete()
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
   
-  // Parameter file
-  TString parFile = "simparams.root"; // at the moment you do not need it
   
-  // Digitisation file (ascii)
-  TString digiFile = "all.par";
+  if (pre == ""){
+	  TString inputFile = "sim_complete.root";
+	  TString digFile = "digi_complete.root";
+	  TString recoFile = "reco_complete.root";
+
+
+
+	  // Parameter file
+	  TString parFile = "simparams.root"; // at the moment you do not need it
+
+	  // Digitisation file (ascii)
+	  TString digiFile = "all.par";
+
+	  // Output file
+	  TString outFile = "pid_complete.root";
+  }
   
-  // Output file
-  TString outFile = "pid_complete.root";
+  else{
+	  TString inputFile = pre + "_sim_complete.root";
+	  TString digFile = pre + "_digi_complete.root";
+	  TString recoFile = pre + "_reco_complete.root";
+
+
+
+	  // Parameter file
+	  TString parFile = pre + "_simparams.root"; // at the moment you do not need it
+
+	  // Digitisation file (ascii)
+	  TString digiFile = "all.par";
+
+	  // Output file
+	  TString outFile = pre + "_pid_complete.root";
+  }
+
   
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
@@ -24,9 +51,9 @@ void pid_complete()
   
   // -----   Reconstruction run   -------------------------------------------
   FairRunAna *fRun= new FairRunAna();
-  fRun->SetInputFile("sim_complete.root");
-  fRun->AddFriend("digi_complete.root");
-  fRun->AddFriend("reco_complete.root");
+  fRun->SetInputFile(inputFile);
+  fRun->AddFriend(digFile);
+  fRun->AddFriend(recoFile);
   fRun->SetOutputFile(outFile);
   fRun->SetGenerateRunInfo(kFALSE);
   fRun->SetUseFairLinks(kTRUE);
