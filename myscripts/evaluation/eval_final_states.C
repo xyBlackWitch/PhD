@@ -49,19 +49,19 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 	gStyle->SetStatY(0.85);
 
 	TH2D * h_pimius_pt_vs_pz = new TH2D("h_piminus_pt_vs_pz", "transversal vs. longitudinal momentum for #pi^{-}; pz/GeV/c; pt/GeV/c", 200,-1,2.5, 200,0,1);
-	ntpPiMinus->Project("h_piminus_pt_vs_pz", "piminus_MC_pt: piminus_MC_pz", "McTruthMatch && piminus_HitTag");
+	ntpPiMinus->Project("h_piminus_pt_vs_pz", "piminus_MC_pt: piminus_MC_pz", "McTruthMatch && piminus_HitTag && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_piminus_pt_vs_pz, path+"/plots/", "piminus_pt_vs_pz",save, close);
 
 	TH1D * h_piminus_costht = new TH1D("h_piminus_costht", "cos(#Theta) distribution for #pi^{-}; cos(#Theta); counts", 200, -1,1.05);
-	ntpPiMinus->Project("h_piminus_costht", "cos(piminus_tht)", "McTruthMatch && piminus_HitTag");
+	ntpPiMinus->Project("h_piminus_costht", "cos(piminus_tht)", "McTruthMatch && piminus_HitTag  && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_piminus_costht, path+"/plots/", "piminus_costht",save, close);
 
 	TH1D * h_piminus_MC_costht = new TH1D("h_piminus_MC_costht", "generated cos(#Theta) distribution for #pi^{-}; cos(#Theta); counts", 200, -1,1.05);
-	ntpPiMinus->Project("h_piminus_MC_costht", "piminus_MC_CosTheta", "McTruthMatch && piminus_HitTag");
+	ntpPiMinus->Project("h_piminus_MC_costht", "piminus_MC_CosTheta", "McTruthMatch && piminus_HitTag  && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_piminus_MC_costht, path+"/plots/", "piminus_MC_costht",save, close);
 
 	TH1D * h_piminus_number_per_evt = new TH1D("h_piminus_number_per_evt", "number of #pi^{-} per Event; # #pi^{-}/Event; counts", 7,0,7);
-	ntpPiMinus->Project("h_piminus_number_per_evt", "cand", "McTruthMatch && piminus_HitTag");
+	ntpPiMinus->Project("h_piminus_number_per_evt", "cand", "McTruthMatch && piminus_HitTag  && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_piminus_number_per_evt, path+"/plots/", "piminus_number_per_evt",save, close);
 
 
@@ -154,20 +154,20 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	//**** Get information about p   *************************************************************************
 	TH2D * h_Proton_pt_vs_pz = new TH2D("h_Proton_pt_vs_pz", "transversal vs. longitudinal momentum for p; pz/GeV/c; pt/GeV/c", 200,-0.1,2.7, 200,0,0.8);
-	ntpProton->Project("h_Proton_pt_vs_pz", "proton_MC_pt: proton_MC_pz", "McTruthMatch && proton_HitTag && Mother==3122");
+	ntpProton->Project("h_Proton_pt_vs_pz", "proton_MC_pt: proton_MC_pz", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_pt_vs_pz, path+"/plots/", "proton_pt_vs_pz",save, close);
 
 
 	TH1D * h_Proton_costht = new TH1D("h_Proton_costht", "cos(#Theta) distribution for p; cos(#Theta); counts", 200, -1,1.05);
-	ntpProton->Project("h_Proton_costht", "cos(proton_tht)", "McTruthMatch && proton_HitTag && Mother==3122");
+	ntpProton->Project("h_Proton_costht", "cos(proton_tht)", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_costht, path+"/plots/", "proton_costht",save, close);
 
 	TH1D * h_Proton_MC_costht = new TH1D("h_Proton_MC_costht", "generated cos(#Theta) distribution for p; cos(#Theta); counts", 200, -1,1.05);
-	ntpProton->Project("h_Proton_MC_costht", "proton_MC_CosTheta", "McTruthMatch && proton_HitTag && Mother==3122");
+	ntpProton->Project("h_Proton_MC_costht", "proton_MC_CosTheta", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_MC_costht, path+"/plots/", "proton_MC_costht",save, close);
 
 	TH1D * h_Proton_number_per_evt = new TH1D("h_Proton_number_per_evt", "number of p per Event; # p/Event; counts", 10,0,10);
-	ntpProton->Project("h_Proton_number_per_evt", "cand", "McTruthMatch && proton_HitTag && Mother==3122");
+	ntpProton->Project("h_Proton_number_per_evt", "cand", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_number_per_evt, path+"/plots/", "proton_number_per_evt",save, close);
 
 	//**** Get information about p+  *************************************************************************

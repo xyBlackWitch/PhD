@@ -32,18 +32,18 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//Paths
 
-	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/";
+	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/500000_events/";
 	TString outPath = inPath +"plots/";
 
 
 	//Input File
 
-	TString inputFile = inPath + "ana_total.root";
+	TString inputFile = inPath + "output_ana.root";
 
 	//open input
 	TFile * file = new TFile(inputFile, "READ");
 
-	TTree * fntpLambda = (TTree*) file->Get("fntpLambda0");
+	TTree * fntpLambda = (TTree*) file->Get("ntpLambda0");
 //	TTree * fntpMc = (TTree*) file->Get("fntpMc");
 
 
@@ -64,13 +64,13 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 	//Truth information
 //
 //	TH1D * h_vx_truth = new TH1D("h_vx_truth", "x coodinate of vertex position; x[cm]; counts", 100,-100,100);
-//	fntpLambda0->Project("h_vx_truth", "McTruth_vx", "McTruthMatch==1");
+//	fntpLambda->Project("h_vx_truth", "McTruth_vx", "McTruthMatch==1");
 //
 //	TH1D * h_vy_truth = new TH1D("h_vy_truth", "y coodinate of vertex position; y[cm]; counts", 100,-100,100);
-//	fntpLambda0->Project("h_vy_truth", "McTruth_vy", "McTruthMatch==1");
+//	fntpLambda->Project("h_vy_truth", "McTruth_vy", "McTruthMatch==1");
 //
 //	TH1D * h_vz_truth = new TH1D("h_vz_truth", "z coodinate of vertex position; z[cm]; counts", 100,-100,100);
-//	fntpLambda0->Project("h_vz_truth", "McTruth_vz", "McTruthMatch==1");
+//	fntpLambda->Project("h_vz_truth", "McTruth_vz", "McTruthMatch==1");
 
 
 	//reconstructed vertex position for lambda0
@@ -99,14 +99,14 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//resolution for reconstructed vertex position and poca for lambda0
 
-	TH1D * h_vx_poc_res = new TH1D("h_vx_poc_res", "differenz reconstructed vertex position and poca position; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vx_poc_res", "VtxFit_vx-Lambda0_pocvx", "McTruthMatch==1");
-
-	TH1D * h_vy_poc_res = new TH1D("h_vy_poc_res", "differenz reconstructed vertex position and poca position; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vy_poc_res", "VtxFit_vy-Lambda0_pocvy", "McTruthMatch==1");
-
-	TH1D * h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vz_poc_res", "VtxFit_vz-Lambda0_pocvz", "McTruthMatch==1");
+//	TH1D * h_vx_poc_res = new TH1D("h_vx_poc_res", "differenz reconstructed vertex position and poca position; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vx_poc_res", "VtxFit_vx-Lambda0_pocvx", "McTruthMatch==1");
+//
+//	TH1D * h_vy_poc_res = new TH1D("h_vy_poc_res", "differenz reconstructed vertex position and poca position; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vy_poc_res", "VtxFit_vy-Lambda0_pocvy", "McTruthMatch==1");
+//
+//	TH1D * h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vz_poc_res", "VtxFit_vz-Lambda0_pocvz", "McTruthMatch==1");
 
 
 //	//Combined histograms
@@ -147,33 +147,33 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 	//pulls for vertex
 
 	TH1D * h_pull_vx = new TH1D("h_pull_vx", "pull for x coordinate of momentum; (x_{reco}-x_{Mc})/#sigma_{x}; counts", 500, -5,5);
-	fntpLambda0->Project("h_pull_vx", "VtxFit_mcpullpx", "McTruthMatch==1");
+	fntpLambda->Project("h_pull_vx", "VtxFit_mcpullpx", "McTruthMatch==1");
 
 	TH1D * h_pull_vy = new TH1D("h_pull_vy", "pull for y coordinate of momentum; (y_{reco}-y_{Mc})/#sigma_{y}; counts", 500, -5,5);
-	fntpLambda0->Project("h_pull_vy", "VtxFit_mcpullpy", "McTruthMatch==1");
+	fntpLambda->Project("h_pull_vy", "VtxFit_mcpullpy", "McTruthMatch==1");
 
 	TH1D * h_pull_vz = new TH1D("h_pull_vz", "pull for z coordinate of momentum; (z_{reco}-z_{Mc})/#sigma_{z}; counts", 500, -5,5);
-	fntpLambda0->Project("h_pull_vz", "VtxFit_mcpullpz", "McTruthMatch==1");
+	fntpLambda->Project("h_pull_vz", "VtxFit_mcpullpz", "McTruthMatch==1");
 
 
 	//vtx res vs p_t
 
 	TH2D * h_vx_vs_pt = new TH2D("h_vx_vs_pt", " transversal momentum vs. vertex resolution(x coordinate); #Delta x/cm; pt/GeV", 200, -1,1, 200, 0,2);
-	fntpLambda0->Project("h_vx_vs_pt", "VtxFit_pt:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
+	fntpLambda->Project("h_vx_vs_pt", "VtxFit_pt:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
 	TH1D * h_pt_vx = h_vx_vs_pt->ProfileY("h_pt_vx", 1, -1, "o");
 	h_pt_vx->SetTitle("vertex resolution(x coordinate) vs. transversam momentum");
 	h_pt_vx->GetYaxis()->SetTitle("#Delta x/cm");
 	h_pt_vx->GetYaxis()->SetRangeUser(-0.8,0.8);
 
 	TH2D * h_vy_vs_pt = new TH2D("h_vy_vs_pt", "transversal momentum vs. vertex resolution (y coordinate); #Delta y/cm; p_{t}/GeV", 200, -1,1, 200, 0,2);
-	fntpLambda0->Project("h_vy_vs_pt", "VtxFit_pt:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
+	fntpLambda->Project("h_vy_vs_pt", "VtxFit_pt:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
 	TH1D * h_pt_vy = h_vy_vs_pt->ProfileY("h_pt_vy", 1, -1, "o");
 	h_pt_vy->SetTitle("vertex resolution(y coordinate) vs. transversam momentum");
 	h_pt_vy->GetYaxis()->SetTitle("#Delta y/cm");
 	h_pt_vy->GetYaxis()->SetRangeUser(-0.8,0.8);
 
 	TH2D * h_vz_vs_pt = new TH2D("h_vz_vs_pt", "transversal momentum vs. vertex resolution (z coordinate); #Delta z/cm; p_{t}/GeV", 200, -1,1, 200, 0,2);
-	fntpLambda0->Project("h_vz_vs_pt", "VtxFit_pt:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
+	fntpLambda->Project("h_vz_vs_pt", "VtxFit_pt:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 	TH1D * h_pt_vz = h_vz_vs_pt->ProfileY("h_pt_vz", 1, -1, "o");
 	h_pt_vz->SetTitle("vertex resolution(z coordinate) vs. transversam momentum");
 	h_pt_vz->GetYaxis()->SetTitle("#Delta z/cm");
@@ -182,38 +182,38 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 	//vtx res vs p_z
 
 	TH2D * h_vx_vs_pz = new TH2D("h_vx_vs_pz", "longitudinal momentum vs. vertex resolution(x coordinate); #Delta x/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
-	fntpLambda0->Project("h_vx_vs_pz", "VtxFit_pz:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
+	fntpLambda->Project("h_vx_vs_pz", "VtxFit_pz:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
 	TH2D * h_vy_vs_pz = new TH2D("h_vy_vs_pz", "longitudinal momentum vs. vertex resolution(y coordinate); #Delta y/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
-	fntpLambda0->Project("h_vy_vs_pz", "VtxFit_pz:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
+	fntpLambda->Project("h_vy_vs_pz", "VtxFit_pz:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
 	TH2D * h_vz_vs_pz = new TH2D("h_vz_vs_pz", "longitudinal momentum vs. vertex resolution(z coordinate); #Delta z/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
-	fntpLambda0->Project("h_vz_vs_pz", "VtxFit_pz:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
+	fntpLambda->Project("h_vz_vs_pz", "VtxFit_pz:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 	//vtx res vs p_z
 
 	TH2D * h_vx_vs_p = new TH2D("h_vx_vs_p", " momentum vs. vertex resolution(x coordinate); #Delta x/cm; p/GeV", 200, -1,1, 200, 0,5);
-	fntpLambda0->Project("h_vx_vs_p", "VtxFit_p:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
+	fntpLambda->Project("h_vx_vs_p", "VtxFit_p:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
 	TH2D * h_vy_vs_p = new TH2D("h_vy_vs_p", " momentum vs. vertex resolution(y coordinate); #Delta y/cm; p/GeV", 200, -1,1, 200, 0,5);
-	fntpLambda0->Project("h_vy_vs_p", "VtxFit_p:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
+	fntpLambda->Project("h_vy_vs_p", "VtxFit_p:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
 	TH2D * h_vz_vs_p = new TH2D("h_vz_vs_p", " momentum vs. vertex resolution(z coordinate); #Delta z/cm; p/GeV", 200, -1,1, 200, 0,5);
-	fntpLambda0->Project("h_vz_vs_p", "VtxFit_p:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
+	fntpLambda->Project("h_vz_vs_p", "VtxFit_p:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 
 	//vtx res vs tht
 
-	TH2D * h_vx_vs_tht = new TH2D("h_vx_vs_tht", " Theta vs. vertex resolution(x coordinate); #Delta x/cm; tht/rad", 200, -1,1, 200, 0,0.6);
-	fntpLambda0->Project("h_vx_vs_tht", "VtxFit_tht:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
+	TH2D * h_vx_vs_tht = new TH2D("h_vx_vs_tht", " Theta vs. vertex resolution(x coordinate); #Delta x/cm; tht/rad", 200, -1,1, 200, 0,3);
+	fntpLambda->Project("h_vx_vs_tht", "VtxFit_tht:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
 	TH1D * h_tht_vx = h_vx_vs_tht->ProfileY("h_tht_vx", 1, -1, "o");
 	h_tht_vx->SetTitle("vertex resolution(x coordinate) vs. Theta");
 	h_tht_vx->GetYaxis()->SetTitle("#Delta x/cm");
 
-	TH2D * h_vy_vs_tht = new TH2D("h_vy_vs_tht", " Theta vs. vertex resolution(y coordinate); #Delta y/cm; tht/rad", 200, -1,1, 200, 0,0.6);
-	fntpLambda0->Project("h_vy_vs_tht", "VtxFit_tht:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
+	TH2D * h_vy_vs_tht = new TH2D("h_vy_vs_tht", " Theta vs. vertex resolution(y coordinate); #Delta y/cm; tht/rad", 200, -1,1, 200, 0,3);
+	fntpLambda->Project("h_vy_vs_tht", "VtxFit_tht:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
 	TH1D * h_tht_vy = h_vy_vs_tht->ProfileY("h_tht_vy", 1, -1, "o");
 	h_tht_vy->SetTitle("vertex resolution(y coordinate) vs. Theta");
 	h_tht_vy->GetYaxis()->SetTitle("#Delta y/cm");
 
-	TH2D * h_vz_vs_tht = new TH2D("h_vz_vs_tht", " Theta vs. vertex resolution(z coordinate); #Delta z/cm; tht/rad", 200, -1,1, 200, 0,0.6);
-	fntpLambda0->Project("h_vz_vs_tht", "VtxFit_tht:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
+	TH2D * h_vz_vs_tht = new TH2D("h_vz_vs_tht", " Theta vs. vertex resolution(z coordinate); #Delta z/cm; tht/rad", 200, -1,1, 200, 0,3);
+	fntpLambda->Project("h_vz_vs_tht", "VtxFit_tht:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 	TH1D * h_tht_vz = h_vz_vs_tht->ProfileY("h_tht_vz", 1, -1, "o");
 	h_tht_vz->SetTitle("vertex resolution(z coordinate) vs. Theta");
 	h_tht_vz->GetYaxis()->SetTitle("#Delta z/cm");
@@ -222,60 +222,60 @@ void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//***Create Canvas and draw histogramm
 //
-//	jenny::CreateDrawAndSaveHistogram(h_vx_Mc, outPath, "h_vx_Mc", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_Mc, outPath, "h_vy_Mc", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_Mc, outPath, "h_vz_Mc", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vx_Mc, outPath, "h_vx_Mc_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_Mc, outPath, "h_vy_Mc_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_Mc, outPath, "h_vz_Mc_lambda0", saveoutput, close);
 
 	bool autoRange = false;
 //
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1,1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.1,1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_lambda0", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_lambda0", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_lambda0", saveoutput, close, autoRange, 0.1, 1, true);
 
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res_lambda0", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco_lambda0", saveoutput, close);
 
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vx, outPath, "h_reco_div_Mc_vx", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vy, outPath, "h_reco_div_Mc_vy", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vz, outPath, "h_reco_div_Mc_vz", saveoutput, close);
-
-
-	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vx, outPath, "h_reco_div_Mc_vx_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vy, outPath, "h_reco_div_Mc_vy_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vz, outPath, "h_reco_div_Mc_vz_lambda0", saveoutput, close);
 
 
-	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco_lambda0", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob_lambda0", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz_lambda0", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p", saveoutput, close);
-
-	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz_lambda0", saveoutput, close);
+//
+//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz_lambda0", saveoutput, close);
+//
+//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p_lambda0", saveoutput, close);
+//
+//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz_lambda0", saveoutput, close);
 
 
 	if(close) exit(0);

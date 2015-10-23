@@ -162,9 +162,9 @@ void eval_final_states_antiparticle(TString path="", bool save=kTRUE, bool close
 	ntpProton->Project("h_Proton_costht", "cos(proton_tht)", "McTruthMatch && proton_HitTag && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_costht, path+"/plots/", "proton_costht",save, close);
 
-	TH1D * h_Proton_MC_costht = new TH1D("h_Proton_MC_costht", "generated cos(#Theta) distribution for p; cos(#Theta); counts", 200, -1,1.05);
-	ntpProton->Project("h_Proton_MC_costht", "proton_MC_CosTheta", "McTruthMatch && proton_HitTag && Mother==3122");
-	jenny::CreateDrawAndSaveHistogram(h_Proton_MC_costht, path+"/plots/", "proton_MC_costht",save, close);
+//	TH1D * h_Proton_MC_costht = new TH1D("h_Proton_MC_costht", "generated cos(#Theta) distribution for p; cos(#Theta); counts", 200, -1,1.05);
+//	ntpProton->Project("h_Proton_MC_costht", "proton_MC_CosTheta", "McTruthMatch && proton_HitTag && Mother==3122");
+//	jenny::CreateDrawAndSaveHistogram(h_Proton_MC_costht, path+"/plots/", "proton_MC_costht",save, close);
 
 	TH1D * h_Proton_number_per_evt = new TH1D("h_Proton_number_per_evt", "number of p per Event; # p/Event; counts", 10,0,10);
 	ntpProton->Project("h_Proton_number_per_evt", "cand", "McTruthMatch && proton_HitTag && Mother==3122");

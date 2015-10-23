@@ -32,7 +32,7 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 
 	//Paths
 
-	TString inPath = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/lambda0/500000_events/";
+	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/500000_events/";
 	TString outPath = inPath +"plots/";
 
 
@@ -43,7 +43,7 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 	//open input
 	TFile * file = new TFile(inputFile, "READ");
 
-	TTree * fntpLambda = (TTree*) file->Get("fntpLambda0");
+	TTree * fntpLambda = (TTree*) file->Get("ntpLambda0");
 //	TTree * fntpMc = (TTree*) file->Get("fntpMc");
 
 
@@ -97,16 +97,16 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 	fntpLambda->Project("h_vz_res", "KalmanFit_vz-McTruth_vz", "McTruthMatch==1");
 
 
-	//resolution for reconstructed vertex position and poca for lambda0
-
-	TH1D * h_vx_poc_res = new TH1D("h_vx_poc_res", "differenz reconstructed vertex position and poca position; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vx_poc_res", "KalmanFit_vx-Lambda0_pocvx", "McTruthMatch==1");
-
-	TH1D * h_vy_poc_res = new TH1D("h_vy_poc_res", "differenz reconstructed vertex position and poca position; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vy_poc_res", "KalmanFit_vy-Lambda0_pocvy", "McTruthMatch==1");
-
-	TH1D * h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-1,1);
-	fntpLambda->Project("h_vz_poc_res", "KalmanFit_vz-Lambda0_pocvz", "McTruthMatch==1");
+//	//resolution for reconstructed vertex position and poca for lambda0
+//
+//	TH1D * h_vx_poc_res = new TH1D("h_vx_poc_res", "differenz reconstructed vertex position and poca position; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vx_poc_res", "KalmanFit_vx-Lambda0_pocvx", "McTruthMatch==1");
+//
+//	TH1D * h_vy_poc_res = new TH1D("h_vy_poc_res", "differenz reconstructed vertex position and poca position; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vy_poc_res", "KalmanFit_vy-Lambda0_pocvy", "McTruthMatch==1");
+//
+//	TH1D * h_vz_poc_res = new TH1D("h_vz_poc_res", "differenz reconstructed vertex position and poca position; z_{reco} - z_{poca}[cm]; counts", 100,-1,1);
+//	fntpLambda->Project("h_vz_poc_res", "KalmanFit_vz-Lambda0_pocvz", "McTruthMatch==1");
 
 
 //	//Combined histograms
@@ -222,60 +222,60 @@ void vertex_studies_lambda0_kalman(int nevts=0, bool saveoutput=true, bool close
 
 	//***Create Canvas and draw histogramm
 //
-//	jenny::CreateDrawAndSaveHistogram(h_vx_Mc, outPath, "h_vx_Mc_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_Mc, outPath, "h_vy_Mc_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_Mc, outPath, "h_vz_Mc_kalman", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vx_Mc, outPath, "h_vx_Mc_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vy_Mc, outPath, "h_vy_Mc_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_vz_Mc, outPath, "h_vz_Mc_kalman_lambda0", saveoutput, close);
 
 	bool autoRange = false;
 //
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_kalman", saveoutput, close, autoRange, 0.1,1, true);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_kalman", saveoutput, close, autoRange, 0.1,1, true);
-//	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_kalman", saveoutput, close, autoRange, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_kalman_lambda0", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_kalman_lambda0", saveoutput, close, autoRange, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_kalman_lambda0", saveoutput, close, autoRange, 0.1, 1, true);
 
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res_kalman", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poc_res, outPath, "h_vx_poc_res_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poc_res, outPath, "h_vy_poc_res_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poc_res, outPath, "h_vz_poc_res_kalman_lambda0", saveoutput, close);
 //
-//	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco_kalman", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vx, outPath, "h_reco_div_Mc_vx_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vy, outPath, "h_reco_div_Mc_vy_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vz, outPath, "h_reco_div_Mc_vz_kalman", saveoutput, close);
-//
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco_kalman", saveoutput, close);
-//
-//
-//	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob_kalman", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vx_reco, outPath, "h_vx_reco_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_reco, outPath, "h_vy_reco_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_reco, outPath, "h_vz_reco_kalman_lambda0", saveoutput, close);
 
-	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx_kalman", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy_kalman", saveoutput, close);
-	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz_kalman", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vx, outPath, "h_reco_div_Mc_vx_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vy, outPath, "h_reco_div_Mc_vy_kalman_lambda0", saveoutput, close);
+//	jenny::CreateDrawAndSaveHistogram(h_reco_div_Mc_vz, outPath, "h_reco_div_Mc_vz_kalman_lambda0", saveoutput, close);
+////
+//
+//	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco_kalman_lambda0", saveoutput, close);
+//
+//
+	jenny::CreateDrawAndSaveHistogram(h_chi2, outPath, "h_chi2_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_Prob, outPath, "h_Prob_kalman_lambda0", saveoutput, close);
 
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz_kalman", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz_kalman", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p_kalman", saveoutput, close);
-//
-//	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht_kalman", saveoutput, close);
-//	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz_kalman", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vx, outPath, "h_pull_vx_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vy, outPath, "h_pull_vy_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pull_vz, outPath, "h_pull_vz_kalman_lambda0", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pt, outPath, "h_vx_vs_pt_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vx, outPath, "h_pt_vx_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pt, outPath, "h_vy_vs_pt_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vy, outPath, "h_pt_vy_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pt, outPath, "h_vz_vs_pt_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_pt_vz, outPath, "h_pt_vz_kalman_lambda0", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_pz, outPath, "h_vx_vs_pz_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_pz, outPath, "h_vy_vs_pz_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_pz, outPath, "h_vz_vs_pz_kalman_lambda0", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_p, outPath, "h_vx_vs_p_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_p, outPath, "h_vy_vs_p_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_p, outPath, "h_vz_vs_p_kalman_lambda0", saveoutput, close);
+
+	jenny::CreateDrawAndSaveHistogram(h_vx_vs_tht, outPath, "h_vx_vs_tht_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vx, outPath, "h_tht_vx_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vy_vs_tht, outPath, "h_vy_vs_tht_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vy, outPath, "h_tht_vy_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_vz_vs_tht, outPath, "h_vz_vs_tht_kalman_lambda0", saveoutput, close);
+	jenny::CreateDrawAndSaveHistogram(h_tht_vz, outPath, "h_tht_vz_kalman_lambda0", saveoutput, close);
 
 	if(close) exit(0);
 

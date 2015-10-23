@@ -20,16 +20,16 @@ class RhoTuple;
 void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, bool close=false){
 
 	//Paths
-	TString inPath = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_lambda0_antilambda0/500000_events/";
+	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/500000_events/";
 	TString outPath = inPath + "plots/";
 
 
 	//Input file
-	TFile * file = new TFile(inPath + "ana_total.root", "READ");
+	TFile * file = new TFile(inPath + "output_ana.root", "READ");
 
 	//Reading data from file
 //	TTree * ntpMC = (TTree*) file->Get("ntpMC");
-	TTree * ntpBeam = (TTree*) file->Get("fntpCrossCheck");
+	TTree * ntpBeam = (TTree*) file->Get("ntpSys");
 
 	//***Projection for the Beam
 
@@ -57,26 +57,26 @@ void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, b
 
 
 	//resolution vertex position for Beam
-	TH1D * h_vx_res = new TH1D("h_vx_res", "x resolution of vertex position; #Delta x[cm]; counts", 100,-1,1);
+	TH1D * h_vx_res = new TH1D("h_vx_res", "x resolution of vertex position; #Delta x[cm]; counts", 1000,-1,1);
 	ntpBeam->Project("h_vx_res", "KalmanFit_vx-McTruth_vx", "McTruthMatch==1");
 
-	TH1D * h_vy_res = new TH1D("h_vy_res", "y resolution of vertex position; #Delta y[cm]; counts", 100,-1,1);
+	TH1D * h_vy_res = new TH1D("h_vy_res", "y resolution of vertex position; #Delta y[cm]; counts", 1000,-1,1);
 	ntpBeam->Project("h_vy_res", "KalmanFit_vy-McTruth_vy", "McTruthMatch==1");
 
-	TH1D * h_vz_res = new TH1D("h_vz_res", "z resolution of vertex position; #Delta z[cm]; counts", 100,-1.5,1.5);
+	TH1D * h_vz_res = new TH1D("h_vz_res", "z resolution of vertex position; #Delta z[cm]; counts", 1000,-1.5,1.5);
 	ntpBeam->Project("h_vz_res", "KalmanFit_vz-McTruth_vz", "McTruthMatch==1");
 
 
 
-	//resolution vertex position and poca
-	TH1D * h_vx_poca = new TH1D("h_vx_poca", "vertex position - poca for x coordinate; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
-	ntpBeam->Project("h_vx_poca", "KalmanFit_vx-pocvx", "McTruthMatch==1");
-
-	TH1D * h_vy_poca = new TH1D("h_vy_poca", "vertex position - poca for y coordinate; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
-	ntpBeam->Project("h_vy_poca", "KalmanFit_vy-pocvy", "McTruthMatch==1");
-
-	TH1D * h_vz_poca = new TH1D("h_vz_poca", "vertex position - poca for z coordinate; z_{reco} - z_{poca}[cm]; counts", 100,-1.5,1.5);
-	ntpBeam->Project("h_vz_poca", "KalmanFit_vz-pocvz", "McTruthMatch==1");
+//	//resolution vertex position and poca
+//	TH1D * h_vx_poca = new TH1D("h_vx_poca", "vertex position - poca for x coordinate; x_{reco} - x_{poca}[cm]; counts", 100,-1,1);
+//	ntpBeam->Project("h_vx_poca", "KalmanFit_vx-pocvx", "McTruthMatch==1");
+//
+//	TH1D * h_vy_poca = new TH1D("h_vy_poca", "vertex position - poca for y coordinate; y_{reco} - y_{poca}[cm]; counts", 100,-1,1);
+//	ntpBeam->Project("h_vy_poca", "KalmanFit_vy-pocvy", "McTruthMatch==1");
+//
+//	TH1D * h_vz_poca = new TH1D("h_vz_poca", "vertex position - poca for z coordinate; z_{reco} - z_{poca}[cm]; counts", 100,-1.5,1.5);
+//	ntpBeam->Project("h_vz_poca", "KalmanFit_vz-pocvz", "McTruthMatch==1");
 
 
 	//2-dimensional plots for poca and vertex
@@ -87,10 +87,10 @@ void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, b
 
 	//Goodness of fit
 
-	TH1D * h_chi2 = new TH1D("h_chi2", "#chi^{2} distribution for vertex Fit; #chi^{2}; counts", 58,0,10);
+	TH1D * h_chi2 = new TH1D("h_chi2", "#chi^{2} distribution for vertex Fit; #chi^{2}; counts", 1000,0,10);
 	ntpBeam->Project("h_chi2", "KalmanFit_chisq", "McTruthMatch==1");
 
-	TH1D * h_Prob = new TH1D("h_Prob", "Probability for vertex Fit; Prob; counts", 58,0,1.1);
+	TH1D * h_Prob = new TH1D("h_Prob", "Probability for vertex Fit; Prob; counts", 1000,0,1.1);
 	ntpBeam->Project("h_Prob", "KalmanFit_prob", "McTruthMatch==1");
 
 
@@ -132,20 +132,20 @@ void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, b
 
 	//vtx res vs p_z
 
-	TH2D * h_vx_vs_pz = new TH2D("h_vx_vs_pz", "longitudinal momentum vs. vertex resolution(x coordinate); #Delta x/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vx_vs_pz = new TH2D("h_vx_vs_pz", "longitudinal momentum vs. vertex resolution(x coordinate); #Delta x/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vx_vs_pz", "KalmanFit_pz:(KalmanFit_vx-McTruth_vx)", "McTruthMatch==1");
-	TH2D * h_vy_vs_pz = new TH2D("h_vy_vs_pz", "longitudinal momentum vs. vertex resolution(y coordinate); #Delta y/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vy_vs_pz = new TH2D("h_vy_vs_pz", "longitudinal momentum vs. vertex resolution(y coordinate); #Delta y/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vy_vs_pz", "KalmanFit_pz:(KalmanFit_vy-McTruth_vy)", "McTruthMatch==1");
-	TH2D * h_vz_vs_pz = new TH2D("h_vz_vs_pz", "longitudinal momentum vs. vertex resolution(z coordinate); #Delta z/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vz_vs_pz = new TH2D("h_vz_vs_pz", "longitudinal momentum vs. vertex resolution(z coordinate); #Delta z/cm; p_{z}/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vz_vs_pz", "KalmanFit_pz:(KalmanFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 	//vtx res vs p
 
-	TH2D * h_vx_vs_p = new TH2D("h_vx_vs_p", " momentum vs. vertex resolution(x coordinate); #Delta x/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vx_vs_p = new TH2D("h_vx_vs_p", " momentum vs. vertex resolution(x coordinate); #Delta x/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vx_vs_p", "KalmanFit_p:(KalmanFit_vx-McTruth_vx)", "McTruthMatch==1");
-	TH2D * h_vy_vs_p = new TH2D("h_vy_vs_p", " momentum vs. vertex resolution(y coordinate); #Delta y/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vy_vs_p = new TH2D("h_vy_vs_p", " momentum vs. vertex resolution(y coordinate); #Delta y/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vy_vs_p", "KalmanFit_p:(KalmanFit_vy-McTruth_vy)", "McTruthMatch==1");
-	TH2D * h_vz_vs_p = new TH2D("h_vz_vs_p", " momentum vs. vertex resolution(z coordinate); #Delta z/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vz_vs_p = new TH2D("h_vz_vs_p", " momentum vs. vertex resolution(z coordinate); #Delta z/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vz_vs_p", "KalmanFit_p:(KalmanFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 
@@ -184,7 +184,7 @@ void vertex_studies_pbarp_to_2Lamda0_kalman(int nevts=0, bool saveoutput=true, b
 
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res_kalman", saveoutput, close, autoRange, 0.1, 1, true);
 	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res_kalman", saveoutput, close, autoRange, 0.1, 1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_kalman", saveoutput, close, autoRange, 0.05, 1.5, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res_kalman", saveoutput, close, autoRange, 0.1, 1.5, true);
 
 //	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poca, outPath, "h_vx_poca_kalman", saveoutput, close);//, autoRange, 0.1, 1);
 //	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poca, outPath, "h_vy_poca_kalman", saveoutput, close);//, autoRange, 0.6, 1);

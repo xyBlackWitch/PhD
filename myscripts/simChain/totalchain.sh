@@ -23,8 +23,8 @@ if test "$4" != ""; then
 	outname=$path"/"$prefix
 fi
 
-echo sim
-root  -l -q sim_complete_boxgen.C"($nevts,$mom,\"$outname\")" >> sim.log 2>&1 
+#echo sim
+#root  -l -q sim_complete.C"($nevts,$mom,\"$outname\")" >> sim.log 2>&1 
 echo digi
 root  -l -q digi_complete.C"(\"$outname\")" >> digi.log 2>&1 
 echo reco
@@ -32,6 +32,6 @@ root  -l -q recoideal_complete.C"(\"$outname\")" >> reco.log 2>&1
 echo pid
 root  -l -q pid_complete.C"(\"$outname\")" >> pid.log 2>&1 
 #echo ana
-#root  -l -q /home/ikp1/puetz/panda/myscripts/analysis/AnalysisTaskXi.C"($nevts, $mom)" >> ana.log 2>&1
+#root  -l -q /home/ikp1/puetz/panda/myscripts/analysis/AnalysisTaskRunXi1820.C"($mom,$nevts,\"$outname\")" >> ana.log 2>&1
 echo END
 

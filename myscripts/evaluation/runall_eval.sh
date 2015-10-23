@@ -2,6 +2,7 @@
 
 path=""
 
+
 if test "$1" != ""; then
 	path=$1
 fi

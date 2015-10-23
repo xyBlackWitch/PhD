@@ -20,16 +20,16 @@ class RhoTuple;
 void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool close=false){
 
 	//Paths
-	TString inPath = "/home/ikp1/puetz/panda/mysimulations/analysis/pbarp_lambda0_antilambda0/500000_events/";
+	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/500000_events/";
 	TString outPath = inPath + "plots/";
 
 
 	//Input file
-	TFile * file = new TFile(inPath + "ana_total.root", "READ");
+	TFile * file = new TFile(inPath + "output_ana.root", "READ");
 
 	//Reading data from file
 //	TTree * ntpMC = (TTree*) file->Get("ntpMC");
-	TTree * ntpBeam = (TTree*) file->Get("fntpCrossCheck");
+	TTree * ntpBeam = (TTree*) file->Get("ntpSys");
 
 	//***Projection for the Beam
 
@@ -68,15 +68,15 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 
 
-	//resolution vertex position and poca
-	TH1D * h_vx_poca = new TH1D("h_vx_poca", "vertex position - poca for x coordinate; x_{reco} - x_{poca}[cm]; counts", 1000,-1,1);
-	ntpBeam->Project("h_vx_poca", "VtxFit_vx-pocvx", "McTruthMatch==1");
-
-	TH1D * h_vy_poca = new TH1D("h_vy_poca", "vertex position - poca for y coordinate; y_{reco} - y_{poca}[cm]; counts", 1000,-1,1);
-	ntpBeam->Project("h_vy_poca", "VtxFit_vy-pocvy", "McTruthMatch==1");
-
-	TH1D * h_vz_poca = new TH1D("h_vz_poca", "vertex position - poca for z coordinate; z_{reco} - z_{poca}[cm]; counts", 1000,-1.5,1.5);
-	ntpBeam->Project("h_vz_poca", "VtxFit_vz-pocvz", "McTruthMatch==1");
+//	//resolution vertex position and poca
+//	TH1D * h_vx_poca = new TH1D("h_vx_poca", "vertex position - poca for x coordinate; x_{reco} - x_{poca}[cm]; counts", 1000,-1,1);
+//	ntpBeam->Project("h_vx_poca", "VtxFit_vx-pocvx", "McTruthMatch==1");
+//
+//	TH1D * h_vy_poca = new TH1D("h_vy_poca", "vertex position - poca for y coordinate; y_{reco} - y_{poca}[cm]; counts", 1000,-1,1);
+//	ntpBeam->Project("h_vy_poca", "VtxFit_vy-pocvy", "McTruthMatch==1");
+//
+//	TH1D * h_vz_poca = new TH1D("h_vz_poca", "vertex position - poca for z coordinate; z_{reco} - z_{poca}[cm]; counts", 1000,-1.5,1.5);
+//	ntpBeam->Project("h_vz_poca", "VtxFit_vz-pocvz", "McTruthMatch==1");
 
 
 	//2-dimensional plots for poca and vertex
@@ -133,20 +133,20 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 	//vtx res vs p_z
 
-	TH2D * h_vx_vs_pz = new TH2D("h_vx_vs_pz", "longitudinal momentum vs. vertex resolution(x coordinate); #Delta x/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
+	TH2D * h_vx_vs_pz = new TH2D("h_vx_vs_pz", "longitudinal momentum vs. vertex resolution(x coordinate); #Delta x/cm; p_{z}/GeV", 200, -1,1, 200, 0,5);
 	ntpBeam->Project("h_vx_vs_pz", "VtxFit_pz:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
-	TH2D * h_vy_vs_pz = new TH2D("h_vy_vs_pz", "longitudinal momentum vs. vertex resolution(y coordinate); #Delta y/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
+	TH2D * h_vy_vs_pz = new TH2D("h_vy_vs_pz", "longitudinal momentum vs. vertex resolution(y coordinate); #Delta y/cm; p_{z}/GeV", 200, -1,1, 200, 0,5);
 	ntpBeam->Project("h_vy_vs_pz", "VtxFit_pz:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
-	TH2D * h_vz_vs_pz = new TH2D("h_vz_vs_pz", "longitudinal momentum vs. vertex resolution(z coordinate); #Delta z/cm; p_{z}/GeV", 200, -1,1, 200, 0,3);
+	TH2D * h_vz_vs_pz = new TH2D("h_vz_vs_pz", "longitudinal momentum vs. vertex resolution(z coordinate); #Delta z/cm; p_{z}/GeV", 200, -1,1, 200, 0,5);
 	ntpBeam->Project("h_vz_vs_pz", "VtxFit_pz:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 	//vtx res vs p_z
 
-	TH2D * h_vx_vs_p = new TH2D("h_vx_vs_p", " momentum vs. vertex resolution(x coordinate); #Delta x/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vx_vs_p = new TH2D("h_vx_vs_p", " momentum vs. vertex resolution(x coordinate); #Delta x/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vx_vs_p", "VtxFit_p:(VtxFit_vx-McTruth_vx)", "McTruthMatch==1");
-	TH2D * h_vy_vs_p = new TH2D("h_vy_vs_p", " momentum vs. vertex resolution(y coordinate); #Delta y/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vy_vs_p = new TH2D("h_vy_vs_p", " momentum vs. vertex resolution(y coordinate); #Delta y/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vy_vs_p", "VtxFit_p:(VtxFit_vy-McTruth_vy)", "McTruthMatch==1");
-	TH2D * h_vz_vs_p = new TH2D("h_vz_vs_p", " momentum vs. vertex resolution(z coordinate); #Delta z/cm; p/GeV", 200, -1,1, 200, 0.5,2.5);
+	TH2D * h_vz_vs_p = new TH2D("h_vz_vs_p", " momentum vs. vertex resolution(z coordinate); #Delta z/cm; p/GeV", 200, -1,1, 200, 0.5,5);
 	ntpBeam->Project("h_vz_vs_p", "VtxFit_p:(VtxFit_vz-McTruth_vz)", "McTruthMatch==1");
 
 
@@ -182,13 +182,13 @@ void vertex_studies_pbarp_to_2Lamda0(int nevts=0, bool saveoutput=true, bool clo
 
 	bool autoRange = false;
 
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.1, 1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.1, 1, true);
-	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.1, 1.5, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vx_res, outPath, "h_vx_res", saveoutput, close, autoRange, 0.01, 1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vy_res, outPath, "h_vy_res", saveoutput, close, autoRange, 0.01, 1, true);
+	jenny::CreateDrawAndSaveHistogramWithFit(h_vz_res, outPath, "h_vz_res", saveoutput, close, autoRange, 0.01, 1.5, true);
 
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poca, outPath, "h_vx_poca", saveoutput, close);//, autoRange, 0.1, 1);
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poca, outPath, "h_vy_poca", saveoutput, close);//, autoRange, 0.6, 1);
-	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poca, outPath, "h_vz_poca", saveoutput, close);//, autoRange, 0.5, 15);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vx_poca, outPath, "h_vx_poca", saveoutput, close);//, autoRange, 0.1, 1);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vy_poca, outPath, "h_vy_poca", saveoutput, close);//, autoRange, 0.6, 1);
+//	jenny::CreateDrawAndSaveHistogramDoubleFit(h_vz_poca, outPath, "h_vz_poca", saveoutput, close);//, autoRange, 0.5, 15);
 
 //
 //	jenny::CreateDrawAndSaveHistogram(h_vxy_vz_reco, outPath, "h_vxy_vz_reco", saveoutput, close);
