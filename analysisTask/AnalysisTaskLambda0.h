@@ -70,6 +70,7 @@ class AnalysisTaskLambda0 : public FairTask
 		TStopwatch ftimer;
 
 		double fnevts;
+		int fEvtCount;
 
 		double fmom;
 		double fm0_lambda0;
@@ -85,7 +86,7 @@ class AnalysisTaskLambda0 : public FairTask
 		RhoTuple * fntpAntiProton;
 		RhoTuple * fntpLambda0;
 		RhoTuple * fntpAntiLambda0;
-		RhoTuple * fntpCrossCheck;
+		RhoTuple * fntpSys;
 
 		TFile* foutput;
 

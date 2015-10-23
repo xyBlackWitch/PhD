@@ -96,10 +96,12 @@ void AnalysisTaskXi1820::numberOfHitsInSubdetector(TString pre, RhoCandidate *c,
 	 */
 
 	PndPidCandidate *pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+
 	if(pidCand){
 		n->Column(pre + "MvdHits", (Int_t) pidCand->GetMvdHits(), 0);
 		n->Column(pre + "SttHits", (Int_t) pidCand->GetSttHits(), 0);
 		n->Column(pre + "GemHits", (Int_t) pidCand->GetGemHits(), 0);
+
 	}
 	else{
 		n->Column(pre + "MvdHits", (Int_t) -999, 0);
@@ -499,18 +501,10 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	        numberOfHitsInSubdetector("proton_", proton[prot], fntpProton);
 	        tagNHits("proton_", proton[prot], fntpProton);
 
-			RhoCandidate * mother_prot;
 			RhoCandidate * truth = proton[prot]->GetMcTruth();
-			if (truth) mother_prot = truth->TheMother();
 
-			int moth_prot;
-			if (mother_prot==0x0){
-			  moth_prot = 88888;
-			}
-			else
-			  moth_prot = mother_prot->PdgCode();
 
-			fntpProton->Column("Mother", (Float_t) moth_prot);
+			fntpProton->Column("MC_Mother_PDG", (Int_t) truth->TheMother()->PdgCode(), -999999);
 
 			TLorentzVector l;
 			float costheta = -999.;
@@ -633,10 +627,9 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	       fntpLambda0->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(lambda0[j]));
 	       fntpLambda0->Column("Lambda0_Pdg", (Float_t) lambda0[j]->PdgCode());
 
-	 	  RhoCandidate * mother = lambda0[j]->TheMother();
-	   	  int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 
-	 	  fntpLambda0->Column("Mother", (Float_t) moth);
+
+
 
 	       qa.qaP4("Lambda0_", lambda0[j]->P4(), fntpLambda0);
 	       qa.qaComp("Lambda0_", lambda0[j], fntpLambda0);
@@ -661,6 +654,10 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	       PndKinVtxFitter vertexfitterLambda0 (lambda0[j]);
 	       vertexfitterLambda0.Fit();
 	       RhoCandidate * lambda0Fit = lambda0[j]->GetFit();
+
+	       RhoCandidate * mother = lambda0Fit->TheMother();
+	       int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+	       fntpLambda0->Column("Mother", (Float_t) moth);
 
 
 	       // store info of vertex fit
@@ -765,10 +762,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	       fntpAntiLambda0->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(antiLambda0[j]));
 	       fntpAntiLambda0->Column("antiLambda0_Pdg", (Float_t) antiLambda0[j]->PdgCode());
 
-	 	  RhoCandidate * mother = antiLambda0[j]->TheMother();
-	   	  int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 
-	 	  fntpAntiLambda0->Column("Mother", (Float_t) moth);
 
 	       qa.qaP4("antiLambda0_", antiLambda0[j]->P4(), fntpAntiLambda0);
 	       qa.qaComp("antiLambda0_", antiLambda0[j], fntpAntiLambda0);
@@ -794,6 +788,10 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	       vertexfitterantiLambda0.Fit();
 	       RhoCandidate * antiLambda0Fit = antiLambda0[j]->GetFit();
 
+	       RhoCandidate * mother = antiLambda0Fit->TheMother();
+	       int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+
+	       fntpAntiLambda0->Column("Mother", (Float_t) moth);
 
 	       // store info of vertex fit
 	       qa.qaFitter("VtxFit_", &vertexfitterantiLambda0, fntpAntiLambda0);
@@ -897,10 +895,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			fntpXiMinus1820->Column("XiMinus_Pdg", (Float_t) ximinus[j]->PdgCode());
 
 
-			RhoCandidate * mother = ximinus[j]->TheMother();
 
-			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-			fntpXiMinus1820->Column("Mother", (Float_t) moth);
 
 			qa.qaP4("XiMinus_", ximinus[j]->P4(), fntpXiMinus1820);
 			qa.qaComp("XiMinus_", ximinus[j], fntpXiMinus1820);
@@ -914,6 +909,10 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			vertexfitterXiMinus.Fit();
 			RhoCandidate * ximinusFit = ximinus[j]->GetFit();
 
+			RhoCandidate * mother = ximinusFit->TheMother();
+
+			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+			fntpXiMinus1820->Column("Mother", (Float_t) moth);
 
 			// store info of vertex-fit
 
@@ -1020,9 +1019,6 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			fntpXiPlus->Column("xiplus_Pdg", (Float_t) xiplus[j]->PdgCode());
 
 
-			RhoCandidate * mother = xiplus[j]->TheMother();
-			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-			fntpXiPlus->Column("Mother", (Float_t) moth);
 
 			qa.qaP4("xiplus_", xiplus[j]->P4(), fntpXiPlus);
 			qa.qaComp("xiplus_", xiplus[j], fntpXiPlus);
@@ -1036,6 +1032,10 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			vertexfitterxiplus.Fit();
 			RhoCandidate * xiplusFit = xiplus[j]->GetFit();
 
+
+			RhoCandidate * mother = xiplusFit->TheMother();
+			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
+			fntpXiPlus->Column("Mother", (Float_t) moth);
 
 			// store info of vertex-fit
 
@@ -1132,13 +1132,9 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 	 		fntpXiSys->Column("ev",     (Float_t) fEvtCount);
 	 		fntpXiSys->Column("cand",    (Float_t) syscand);
-	 		fntpXiSys->Column("ncand",   (Float_t) ximinus.GetLength());
+	 		fntpXiSys->Column("ncand",   (Float_t) xiSys.GetLength());
 	 		fntpXiSys->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(xiSys[syscand]));
 
-
-	 		RhoCandidate * mother = xiSys[syscand]->TheMother();
-	 		int moth = (mother==0x0) ? 88888 : mother->PdgCode();
-	 		fntpXiSys->Column("Mother", (Float_t) moth);
 
 
 	 		qa.qaP4("XiSys_", xiSys[syscand]->P4(), fntpXiSys);
