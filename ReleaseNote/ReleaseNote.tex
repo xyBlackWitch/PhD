@@ -1,0 +1,147 @@
+\documentclass[a4paper, 11pt, twoside]{scrreprt}
+\usepackage[inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,includeheadfoot]{geometry}
+
+%\usepackage[utf8]{inputenc} %fuer Linux
+\usepackage[latin1]{inputenc}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage[USenglish]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{nameref}
+\usepackage[bf]{caption}
+\usepackage[hyphens]{url}
+\usepackage{multirow}
+\usepackage{C://Users/Guinivere/Documents/GitHub/PhD/ReleaseNote/jenny}
+% \def\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\g \do\h\do\i\do\j\do\k\do\l%
+% \do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v \do\w\do\x\do\y\do\z\do\0%
+% \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\-}%+
+\usepackage[breaklinks=true]{hyperref}
+\usepackage[title, titletoc]{appendix}
+
+
+
+
+\usepackage{fancyhdr}
+
+
+
+\fancypagestyle{empty}{
+        \fancyhead{} % clear all header fields
+        \fancyfoot{} % clear all header fields
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plain}{
+        \fancyhead{} % clear all header fields
+        \fancyfoot{} % clear all footer fields
+        \fancyfoot[LE,RO]{\thepage}
+        \fancyfoot[LO]{{\small Jennifer P\"{u}tz}}
+        \fancyfoot[RE]{{\small Forschungszentrum J\"{ü}lich}}
+        \renewcommand{\footrulewidth}{0.4pt}
+}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+\fancyhead[LE]{\bfseries \slshape \nouppercase \leftmark} %\bfseries
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO]{{\scriptsize Jennifer P\"{u}tz}}
+\fancyfoot[RE]{{\scriptsize Forschungszentrum J\"{u}lich}}
+
+
+
+\renewcommand{\theequation}{\thesection .\arabic{equation}}
+\renewcommand{\thefootnote}{[\arabic{footnote}]}
+\renewcommand{\footnotesize}{\scriptsize}
+%\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\appendixname}{Anhang}
+
+
+
+\setlength{\footnotesep}{8pt}
+\setlength{\headheight}{1.1\baselineskip}
+
+
+\begin{document}
+	\pagestyle{fancy}
+	\begin{titlepage}
+		\thispagestyle{empty}
+		\begin{center}
+			\textbf{\Huge{Study of Excited \cascade Baryons in \pbarpSystem-Collisions with \panda}}\vspace{1cm}\\
+			\Large{Author:}\vspace{0.3cm}\\
+			\LARGE{Jennifer 
+			      P\"{u}tz\vspace{2cm}}
+		\end{center}\vspace{1cm}
+
+	\end{titlepage}
+	\thispagestyle{empty}
+	\cleardoublepage
+	
+	%
+	\pagenumbering{Roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\chapter{Motivation}
+	
+	
+	%\begin{appendices}
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang A} %\bfseries
+	%\renewcommand{\thesection}{\Alph{section}}
+	%\setcounter{section}{0}
+	%\chapter*{Anhang}
+	%\addcontentsline{toc}{chapter}{ }
+	%\section{Verwendete Datens\"atze}
+	%\renewcommand{\thetable}{\thesection.\arabic{table}}
+	%\input{anhang_verwendete_datensaetze}
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+	%\chapter*{}
+	%\section{BDT-Eingangsvariablen}
+	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang B} %\bfseries
+	  %\input{anhang_variablen}
+	  %\subsection{Variablen vor BDT-Schnitt}
+	    %\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+		%\input{anhang_variablen_vor_cut}
+	  %\subsection{Variablen nach BDT-Schnitt}\label{sec:nach_cut}
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+	    %\input{anhang_variablen_nach_cut}
+	%\newpage
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase Vergleich gewichtetes und ungewichtetes CORSIKA} %\bfseries
+	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang C} %\bfseries
+	%\chapter*{}
+	%\section*{C. Vergleich gewichtetes und ungewichtetes CORSIKA}
+	  %\addcontentsline{toc}{section}{C. Vergleich gewichtetes und ungewichtetes CORSIKA}
+	  %\renewcommand{\thefigure}{C.\arabic{figure}}
+	  %\input{anhang_vergleich_corsika}
+	%\newpage
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang C} 
+	%\chapter*{}
+	%\section{Vergleich von PPC- und Photonics-Datensätze}\label{sec:ppcvergleich}
+	%\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+	%\setcounter{figure}{0}
+	%\input{anhang_vergleich_ppc}
+	%\end{appendices}
+	%
+	%\clearpage
+	%\phantomsection
+	%\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}	
+	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
+	%\fancyhead[LE]{\bfseries \slshape \nouppercase \leftmark} %\bfseries
+	%\listoffigures	
+	%\listoftables
+	%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+ 	%\fancyhead[RO]{} %\bfseries
+ 	%\fancyhead[LE]{\bfseries \slshape \nouppercase Literaturverzeichnis} %\bfseries
+	%\bibliography{literaturverzeichnis}
+	%\bibliographystyle{alpha}
+	%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+
+
+\end{document}
