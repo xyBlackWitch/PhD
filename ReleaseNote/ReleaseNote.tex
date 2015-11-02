@@ -3,6 +3,7 @@
 
 %\usepackage[utf8]{inputenc} %fuer Linux
 \usepackage[latin1]{inputenc}
+
 \usepackage{textcomp}
 \usepackage[T1]{fontenc}
 \usepackage[USenglish]{babel}
@@ -13,7 +14,10 @@
 \usepackage[bf]{caption}
 \usepackage[hyphens]{url}
 \usepackage{multirow}
-\usepackage{C://Users/Guinivere/Documents/GitHub/PhD/ReleaseNote/jenny}
+
+%\usepackage{C://Users/Guinivere/Documents/GitHub/PhD/ReleaseNote/jenny}
+\usepackage{jenny}
+
 % \def\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\g \do\h\do\i\do\j\do\k\do\l%
 % \do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v \do\w\do\x\do\y\do\z\do\0%
 % \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\-}%+
@@ -39,7 +43,7 @@
         \fancyfoot{} % clear all footer fields
         \fancyfoot[LE,RO]{\thepage}
         \fancyfoot[LO]{{\small Jennifer P\"{u}tz}}
-        \fancyfoot[RE]{{\small Forschungszentrum J\"{ü}lich}}
+        \fancyfoot[RE]{{\small Forschungszentrum J\"{u}lich}}
         \renewcommand{\footrulewidth}{0.4pt}
 }
 \pagestyle{fancy}
@@ -72,13 +76,15 @@
 		\begin{center}
 			\textbf{\Huge{Study of Excited \cascade Baryons in \pbarpSystem-Collisions with \panda}}\vspace{1cm}\\
 			\Large{Author:}\vspace{0.3cm}\\
-			\LARGE{Jennifer 
-			      P\"{u}tz\vspace{2cm}}
+			\LARGE{\underline{Jennifer 
+			      P\"{u}tz}, Albrecht Gillitzer, James Ritman\vspace{2cm}}
 		\end{center}\vspace{1cm}
 
 	\end{titlepage}
 	\thispagestyle{empty}
-	\cleardoublepage
+	%\cleardoublepage
+	\chapter*{Abstract}
+		\input{abstract.tex}
 	
 	%
 	\pagenumbering{Roman}
@@ -89,6 +95,13 @@
 
 	\chapter{Motivation}
 	
+	\chapter{Event generation}
+		\input{eventgeneration.tex}
+	
+	\chapter{Analysis}
+	
+	\chapter{Background}
+	
 	
 	%\begin{appendices}
 	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
@@ -97,36 +110,6 @@
 	%\setcounter{section}{0}
 	%\chapter*{Anhang}
 	%\addcontentsline{toc}{chapter}{ }
-	%\section{Verwendete Datens\"atze}
-	%\renewcommand{\thetable}{\thesection.\arabic{table}}
-	%\input{anhang_verwendete_datensaetze}
-	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
-	%\chapter*{}
-	%\section{BDT-Eingangsvariablen}
-	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang B} %\bfseries
-	  %\input{anhang_variablen}
-	  %\subsection{Variablen vor BDT-Schnitt}
-	    %\renewcommand{\thefigure}{\thesection.\arabic{figure}}
-		%\input{anhang_variablen_vor_cut}
-	  %\subsection{Variablen nach BDT-Schnitt}\label{sec:nach_cut}
-	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
-	    %\input{anhang_variablen_nach_cut}
-	%\newpage
-	%\fancyhead[RO]{\bfseries \slshape \nouppercase Vergleich gewichtetes und ungewichtetes CORSIKA} %\bfseries
-	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang C} %\bfseries
-	%\chapter*{}
-	%\section*{C. Vergleich gewichtetes und ungewichtetes CORSIKA}
-	  %\addcontentsline{toc}{section}{C. Vergleich gewichtetes und ungewichtetes CORSIKA}
-	  %\renewcommand{\thefigure}{C.\arabic{figure}}
-	  %\input{anhang_vergleich_corsika}
-	%\newpage
-	%\fancyhead[RO]{\bfseries \slshape \nouppercase \rightmark} %\bfseries
-	%\fancyhead[LE]{\bfseries \slshape \nouppercase Anhang C} 
-	%\chapter*{}
-	%\section{Vergleich von PPC- und Photonics-Datensätze}\label{sec:ppcvergleich}
-	%\renewcommand{\thefigure}{\thesection.\arabic{figure}}
-	%\setcounter{figure}{0}
-	%\input{anhang_vergleich_ppc}
 	%\end{appendices}
 	%
 	%\clearpage
