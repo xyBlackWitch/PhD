@@ -1,8 +1,8 @@
 \documentclass[a4paper, 11pt, twoside]{scrreprt}
 \usepackage[inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,includeheadfoot]{geometry}
 
-\usepackage[utf8]{inputenc} %fuer Linux
-%\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc} %fuer Linux
+\usepackage[latin1]{inputenc}
 
 \usepackage{textcomp}
 \usepackage[T1]{fontenc}
@@ -14,6 +14,8 @@
 \usepackage[bf]{caption}
 \usepackage[hyphens]{url}
 \usepackage{multirow}
+\usepackage{listings}
+\usepackage{color}
 
 %\usepackage{C://Users/Guinivere/Documents/GitHub/PhD/ReleaseNote/jenny}
 \usepackage{jenny}
@@ -23,10 +25,6 @@
 % \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\-}%+
 \usepackage[breaklinks=true]{hyperref}
 \usepackage[title, titletoc]{appendix}
-
-
-
-
 \usepackage{fancyhdr}
 
 
@@ -85,9 +83,11 @@
 	%\cleardoublepage
 	\chapter*{Abstract}
 		\input{abstract.tex}
+		\thispagestyle{empty}
 	
-	%
+	
 	\pagenumbering{Roman}
+	\setcounter{page}{0}
 	\tableofcontents
 	\newpage
 	\pagenumbering{arabic}
@@ -99,6 +99,7 @@
 		\input{eventgeneration.tex}
 	
 	\chapter{Analysis}
+		\input{analysis.tex}
 	
 	\chapter{Background}
 	
@@ -122,9 +123,9 @@
 	%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
  	%\fancyhead[RO]{} %\bfseries
  	%\fancyhead[LE]{\bfseries \slshape \nouppercase Literaturverzeichnis} %\bfseries
-	%\bibliography{literaturverzeichnis}
-	%\bibliographystyle{alpha}
-	%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+	\bibliography{literature}
+	\bibliographystyle{ieeetr}
+	\addcontentsline{toc}{chapter}{Literature}
 
 
 \end{document}
