@@ -1,0 +1,27 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.30)  30 OCT 2015 15:03
+entering extended mode
+**jenny.sty
+(jenny.sty
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+
+LaTeX Warning: You have requested package `',
+               but the package provides `jenny'.
+
+Package: jenny 2015/07/08 v2.3 jenny basic definition package (PEB,DPC)
+)
+! Emergency stop.
+<*> jenny.sty
+             
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 9 strings out of 493673
+ 93 string characters out of 3143137
+ 52455 words of memory out of 3000000
+ 3456 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 7i,0n,6p,85b,10s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!

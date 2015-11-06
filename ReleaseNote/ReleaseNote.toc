@@ -1,0 +1,17 @@
+\select@language {USenglish}
+\contentsline {chapter}{\numberline {1}Motivation}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Event generation}{2}{chapter.2}
+\contentsline {chapter}{\numberline {3}Analysis}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Final state particle}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Reconstruction of $\relax \mathversion {bold}{\Lambda }^0$ and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Lambda }^0}$}{5}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Combination}{5}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Fitting}{7}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Reconstruction of $\relax \mathversion {bold}{\Xi }$ and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Xi }}$}{7}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Combination}{7}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Fitting}{7}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Reconstruction of $\relax \mathversion {bold}{\Xi }$(1820) and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Xi }}$(1820)}{7}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Combination}{7}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Fitting}{7}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Reconstruction of hole chain}{7}{section.3.5}
+\contentsline {chapter}{\numberline {4}Background}{8}{chapter.4}
+\contentsline {chapter}{Literature}{9}{chapter*.10}
