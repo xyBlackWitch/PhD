@@ -48,6 +48,18 @@ Here is all the stuff of the analysis!
 	\subsection{Fitting}
 	
 		- fitting particles to common vertex with PndKinVtxFitter
+	
+		- $\chi^{2}$ and $\chi^{2}$-Probability distiribution shown in figure \ref{fig:lambda_chi2}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{./plots/lambda0/lambda0_chisqrt.pdf}
+				\includegraphics [width=0.50\textwidth]{./plots/lambda0/lambda0_prob.pdf}
+			\caption{upper: $\chi^{2}$ distribution; lower: $\chi^{2}$ probability distribution}
+			\label{fig:lambda_chi2}
+		\end{figure}
+		
+		- features in probability distribution are not coming from vertex fitting. There is still a problem with covariance matrices.
 		
 		- fit information are given to PndKinFitter with mass constraint
 		
@@ -70,11 +82,11 @@ Here is all the stuff of the analysis!
 		
 		\begin{figure}
 			\centering
-				\includegraphics[width=1.1\textwidth]{./plots/lambda0_m_diffcuts.pdf}
+				\includegraphics[width=1.1\textwidth]{./plots/lambda0/lambda0_m_diffcuts.pdf}
 			\caption{Mass distribution of \lam for different cuts}
 			\label{fig:lambda0_massdiffcuts}
 			
-				\includegraphics[width=1.1\textwidth]{./plots/antiLambda0_m_diffcuts.pdf}
+				\includegraphics[width=1.1\textwidth]{./plots/antilambda0/antiLambda0_m_diffcuts.pdf}
 			\caption{Mass distribution of \alam for different cuts}
 			\label{fig:antilambda0_massdiffcuts}
 		\end{figure}
@@ -83,7 +95,7 @@ Here is all the stuff of the analysis!
 		
 		\begin{figure}
 			\centering
-				\includegraphics[width=0.8\textwidth]{./plots/lambda0_m_masscut2.pdf}
+				\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}
 			\caption{Mass fit with a double gaussian fit}
 			\label{fig:lambda0_massfit}
 		\end{figure}
