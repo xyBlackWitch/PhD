@@ -5,30 +5,63 @@ Here is all the stuff of the analysis!
 	
 	-reconstructed in Detector
 	
-	-only particles with more then 3 hits either in one of the subdetectors (reason: 3 hits define circle; fourth hit point gives a validation for track hypothesis)
+	-only particles with more then 3 hits either in any of the tracking detectors MVD, STT or GEM 
+	
+	-reason: 3 hits define circle; fourth hit point gives a validation for track hypothesis
 	
 	- ideal PID (reason!!!)
 	
-	-reco efficiency in table \ref{tab:finalstate_recoeff}
+	-reco efficiency in table \ref{tab:finalstate_recoeff} see also figure \ref{fig:finalstate_recoeff}
 	
 	\begin{table}
 		\centering
-		\caption{reco efficiency and momentum resolution}
+		\caption{reco efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade}
 		\label{tab:finalstate_recoeff}
 		\begin{tabular}{lll}
 			\hline
 			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
 			\hline
 			\hline
-			\piminus &  & \\
-			\piplusone(\anticascade) &  & \\
-			\piplustwo(\alam) &  &\\
-			\kminus&  &\\
+			\piminus & 83.48 & 1.53\\
+			\piplusone(\anticascade) &  80.93& 1.38 \\
+			\piplustwo(\alam) &  83.07& 1.49\\
+			\kminus&  78.59& 1.58\\
+			p &  84.39&\\
+			\antiproton & 78.25 & 1.61\\\hline
+			 
+		\end{tabular}
+	\end{table}
+	
+	-for c.c. channel see table \ref{tab:finalstate_recoeff_cc}
+	
+	\begin{table}
+		\centering
+		\caption{reco efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
+		\label{tab:finalstate_recoeff_cc}
+		\begin{tabular}{lll}
+			\hline
+			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
+			\hline
+			\hline
+			\piplus &  & \\
+			\piminusone(\cascade) &  &  \\
+			\piminustwo(\lam) &  & \\
+			\kplus&  & \\
 			p &  &\\
 			\antiproton &  &\\\hline
 			 
 		\end{tabular}
 	\end{table}
+	
+	\begin{figure}
+	
+		\centering
+		%\includegraphics[width=0.8\textwidth]{./plots/finalstates/number_of_final_state_particles.pdf}
+		\caption{Reconstruction efficiency for final state particles. The x axis shows the particle type. 
+				On the y axis is shown the fraction of reconstructed particles, like it is shown in table \ref{tab:finalstate_recoeff}}
+		\label{fig:finalstate_recoeff}
+	
+	\end{figure}
 	
 
 	
@@ -76,6 +109,7 @@ Here is all the stuff of the analysis!
 		
 		-if there is more than one particle, choose best candidate
 		
+		
 	\subsection{Results}
 	
 		- mass distribution for different cuts see figure \ref{fig:lambda0_massdiffcuts} and figure \ref{fig:antilambda0_massdiffcuts}
@@ -100,22 +134,55 @@ Here is all the stuff of the analysis!
 			\label{fig:lambda0_massfit}
 		\end{figure}
 		
-		- result of massfit $\mt{m} = \left(1.116 \pm 0.002\right)$ \massunit
+		- result of massfit $\mt{m} = \left(1.116 \pm 3.5\cdot 10^{-5}\right)$ \massunit
+		
+		- small error seems to come from wrong covariance matrices.
+		
+		- transverse vs longitudinal momentumg shown in figure \ref{fig:lambda0_pt_vs_pz}
+		
+		\begin{figure}
+			
+			\centering
+			%\includegraphics[width=0.8\textwidth]{./plots/lambda0/}
+			\caption{The plots shows the transverse against the longuitudinal momentum for \lam}
+			\label{fig:lambda0_pt_vs_pz}
+		
+		\end{figure}
+		
+		-the reconstruction efficiency for \lam is $123\%$ and for \alam $123\%$
+		
+		-reason: \lam is emitted by \excitedcascade which has a very little decay length; lambda decay length is $\textnormal{c}\tau = 7.98 \unit{cm}$ \cite{PDG}; 
+		\lam decays in MVD detector; high precision for reconstructed finale state particles; \alam is produced by \anticascade which has a decay length of 
+		c$\tau = 4.91 \unit{cm}$; \alam is produced deep in MVD, so that final state particles coming from \alam are produced at the edge of the MVD detector.
+		See figure \ref{fig:lambda0_antilambda0_decay_vtx}
+		
+		\begin{figure}
+		
+			\centering
+			%\includegraphics[width=1.\textwidth]{./plots/lambda0/lambda0_decay_vtx.pdf}
+			%\includegraphics[width=1.\textwidth]{./plots/antilambda0/antiLambda0_decay_vtx.pdf}
+			\caption{Upper plot shows the decay vertex of \lam; lower plot shows decay vertex of \alam}
+			\label{fig:lambda0_antilambda0_decay_vtx}
+		
+		\end{figure}
+		
+		
+		
+		
 	
 \section{Reconstruction of $\boldmath{\Xi}$ and $\boldmath{\bar{\Xi}}$}
 	\subsection{Combination}
 	
 		-similar scheme for \lam and \alam
 		
-		-daughter particles for \anticascade: \antiproton and \piplus here \piplusone
+		-daughter particles for \anticascade: \alam and \piplus here \piplusone
 		
-		-daughter particles for \cascade:  \lam and \piminus meson here \piplusone
+		-daughter particles for \cascade:  \lam and \piminus meson here \piminusone
 		
 		-using best candidate from \lam and \alam
 		
-		-\piplus and \piminus with more than 3 Hits in one subdetector 
-		
-		-performing a mass window cut with width of $0.3$\massunit 
+		-performing a mass window cut with width of $0.3$\massunit means $m_{\Xi} \pm 0.15$ \massunit with $m_{\Xi} = 1.32171$ \massunit \cite{PDG}
+		 
 		
 		
 	\subsection{Fitting}
@@ -123,8 +190,6 @@ Here is all the stuff of the analysis!
 		- fitting particles to common vertex with PndKinVtxFitter
 		
 		- fit information are given to PndKinFitter with mass constraint
-		
-		- only select particles with prob bigger than 0.01 for both fitters
 		
 		- scheme in figure \ref{fig:anticascade_scheme}
 		
@@ -135,7 +200,80 @@ Here is all the stuff of the analysis!
 			\label{fig:anticascade_scheme}
 		\end{figure}
 		
+		- only select particles with prob bigger than 0.01 for both fitters (figure \ref{fig:XiPlus_prob})
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{./plots/Xi/XiPlus_prob.pdf}
+			\caption{$\chi^{2}$ probalility for \anticascade reconstruction}
+			\label{fig:XiPlus_prob}
+		\end{figure}
+		
+		
 		-if there is more than one particle, choose best candidate
+		
+		-vertex resolution shown in table \ref{tab:XiPlus_vtxres}
+		
+		\begin{table}
+			\centering
+			\caption{Vertex resolution for \anticascade and \cascade (c.c. channel)}
+			\label{tab:XiPlus_vtxres}
+			\begin{tabular}{ccc}
+				\hline
+				position & \anticascade & cascade \\\hline
+				\hline
+				x & & \\
+				y & & \\
+				z & & \\
+				\hline
+				    
+			\end{tabular}
+		\end{table}
+		
+	\subsection{Results}
+	
+	- mass distribution for different cuts see figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiPlus_m_diffcuts.pdf}
+			\caption{Mass distribution of \anticascade for different cuts}
+			\label{fig:XiPlus_massdiffcuts}
+			
+				%\includegraphics[width=1.1\textwidth]{./plots/Xi/XiMinus_m_diffcuts.pdf}
+			\caption{Mass distribution of \cascade for different cuts}
+			\label{fig:XiMinus_massdiffcuts}
+		\end{figure}
+		
+		-performing a doulbe gaussian fit on cutted mass for \anticascade and \cascade (example see figure \ref{fig:XiPlus_massfit}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
+			\caption{Mass fit with a double gaussian fit}
+			\label{fig:XiPlus_massfit}
+		\end{figure}
+		
+		- result of massfit $\mt{m} = \left( 1.3721716 \pm 9.2\cdot 10^{-5}\right)$ \massunit
+		
+		- small error seems to come from wrong covariance matrices.
+		
+		- transverse vs longitudinal momentumg shown in figure \ref{fig:Xi_pt_vs_pz}
+		
+		\begin{figure}
+			
+			\centering
+			%\includegraphics[width=0.8\textwidth]{./plots/Xi/}
+			\caption{The plots shows the transverse against the longuitudinal momentum for \anticascade}
+			\label{fig:Xi_pt_vs_pz}
+		
+		\end{figure}
+		
+		-the reconstruction efficiency for \anticascade is $123\%$ and for \cascade $123\%$
+		
+	
+	
+	
 
 \section{Reconstruction of $\boldmath{\Xi}$(1820) and $\boldmath{\bar{\Xi}}$(1820)}
 		\subsection{Combination}
