@@ -26,7 +26,7 @@ Here is all the stuff of the analysis!
 			\piplusone(\anticascade) &  80.93& 1.38 \\
 			\piplustwo(\alam) &  83.07& 1.49\\
 			\kminus&  78.59& 1.58\\
-			p &  84.39&\\
+			p &  84.39& 1.61\\
 			\antiproton & 78.25 & 1.61\\\hline
 			 
 		\end{tabular}
@@ -56,7 +56,7 @@ Here is all the stuff of the analysis!
 	\begin{figure}
 	
 		\centering
-		%\includegraphics[width=0.8\textwidth]{./plots/finalstates/number_of_final_state_particles.pdf}
+		\includegraphics[width=0.8\textwidth]{./plots/finalstate/reco_efficiency.pdf}
 		\caption{Reconstruction efficiency for final state particles. The x axis shows the particle type. 
 				On the y axis is shown the fraction of reconstructed particles, like it is shown in table \ref{tab:finalstate_recoeff}}
 		\label{fig:finalstate_recoeff}
@@ -143,13 +143,13 @@ Here is all the stuff of the analysis!
 		\begin{figure}
 			
 			\centering
-			%\includegraphics[width=0.8\textwidth]{./plots/lambda0/}
+			\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}
 			\caption{The plots shows the transverse against the longuitudinal momentum for \lam}
 			\label{fig:lambda0_pt_vs_pz}
 		
 		\end{figure}
 		
-		-the reconstruction efficiency for \lam is $123\%$ and for \alam $123\%$
+		-the reconstruction efficiency for \lam is $50.33\%$ and for \alam $41.46\%$ 
 		
 		-reason: \lam is emitted by \excitedcascade which has a very little decay length; lambda decay length is $\textnormal{c}\tau = 7.98 \unit{cm}$ \cite{PDG}; 
 		\lam decays in MVD detector; high precision for reconstructed finale state particles; \alam is produced by \anticascade which has a decay length of 
@@ -159,8 +159,8 @@ Here is all the stuff of the analysis!
 		\begin{figure}
 		
 			\centering
-			%\includegraphics[width=1.\textwidth]{./plots/lambda0/lambda0_decay_vtx.pdf}
-			%\includegraphics[width=1.\textwidth]{./plots/antilambda0/antiLambda0_decay_vtx.pdf}
+			\includegraphics[width=1.\textwidth]{./plots/lambda0/lambda0_decay_vtx.pdf}
+			\includegraphics[width=1.\textwidth]{./plots/antilambda0/antiLambda0_decay_vtx.pdf}
 			\caption{Upper plot shows the decay vertex of \lam; lower plot shows decay vertex of \alam}
 			\label{fig:lambda0_antilambda0_decay_vtx}
 		
@@ -220,15 +220,35 @@ Here is all the stuff of the analysis!
 			\label{tab:XiPlus_vtxres}
 			\begin{tabular}{ccc}
 				\hline
-				position & \anticascade & cascade \\\hline
+				position & \anticascade & cascade(from c.c.) \\\hline
 				\hline
-				x & & \\
-				y & & \\
-				z & & \\
+				x & $0.03282 \pm 0.00017$ & \\
+				y & $0.03326 \pm 0.00017$ & \\
+				z & $0.12054 \pm 0.00058$ & \\
 				\hline
 				    
 			\end{tabular}
 		\end{table}
+		
+		-vertex resolution is determined by using a double Gaussian fit; "inner" $\sigma$ is vertex resolution, see figure \ref{fig:xi_vtxres_x} 
+		and figure \ref{fig:xi_vtxres_yz}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_vtxres_x.pdf}
+			\caption{Vertex resolution of x position for \anticascade}
+			\label{fig:xi_vtxres_x}
+			
+		\end{figure}
+		
+		\begin{figure}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}}
+			\caption{left plot: Vertex resolution of y position for \anticascade; right plot: Vertex resolution of z position for \anticascade.}
+			\label{fig:xi_vtxres_yz}
+			
+		\end{figure}
+		
 		
 	\subsection{Results}
 	

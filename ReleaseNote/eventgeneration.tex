@@ -77,13 +77,23 @@ add  p Particle Xi(1820)- 23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 -3 3 0
 add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 3 3 0.0000000e+00 -23314
 \end{lstlisting}
 
-- plot of transverse momentum against longitudinal momentum in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_ximinus1820_pt_vs_pz} (implement boxes)
+- plot of transverse momentum against longitudinal momentum in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_xi_pt_vs_pz} (implement boxes)
+
+\begin{figure}
+	\subfigure[\lam]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/Lambda0_MC_pt_vs_pz.pdf}}
+	\subfigure[\alam]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/AntiLambda0_MC_pt_vs_pz.pdf}}
+	\caption{Figure a) shows transversal against the longitudinal momentum distribution for \lam. Figure b) 
+			transversal versus longitudinal momentum distribution for \alam.}
+	\label{fig:MC_lambda0_pt_vs_pz}
+\end{figure}
+
 
 \begin{figure}
 	\subfigure[\anticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_MC_pt_vs_pz.pdf}}
-	\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}}
-	\caption{Figure a) shows transversal against the longitudinal momentum distribution for \anticascade. Figure b) exchange!!!!}
-	\label{fig:MC_lambda0_pt_vs_pz}
+	\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_MC_pt_vs_pz.pdf}}
+	\caption{Figure a) shows transversal against the longitudinal momentum distribution for \anticascade. Figure b) 
+			transversal versus longitudinal momentum distribution for \excitedcascade.}
+	\label{fig:MC_xi_pt_vs_pz}
 \end{figure}
 
 - Dalitz plots for simulation figure \ref{fig:eventgeneration_dalitz}
