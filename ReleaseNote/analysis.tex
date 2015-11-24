@@ -142,8 +142,8 @@ Here is all the stuff of the analysis!
 		
 		\begin{figure}
 			
-			\centering
-			\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/antiLambda0_pt_vs_pz_cut.pdf}}
 			\caption{The plots shows the transverse against the longuitudinal momentum for \lam}
 			\label{fig:lambda0_pt_vs_pz}
 		
@@ -260,7 +260,7 @@ Here is all the stuff of the analysis!
 			\caption{Mass distribution of \anticascade for different cuts}
 			\label{fig:XiPlus_massdiffcuts}
 			
-				%\includegraphics[width=1.1\textwidth]{./plots/Xi/XiMinus_m_diffcuts.pdf}
+				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiMinus_m_diffcuts.pdf}
 			\caption{Mass distribution of \cascade for different cuts}
 			\label{fig:XiMinus_massdiffcuts}
 		\end{figure}
@@ -278,18 +278,17 @@ Here is all the stuff of the analysis!
 		
 		- small error seems to come from wrong covariance matrices.
 		
-		- transverse vs longitudinal momentumg shown in figure \ref{fig:Xi_pt_vs_pz}
+		- transverse vs longitudinal momentumg for \anticascade and \cascade is shown in figure \ref{fig:XiPlus_pt_vs_pz} 
 		
 		\begin{figure}
-			
-			\centering
-			%\includegraphics[width=0.8\textwidth]{./plots/Xi/}
-			\caption{The plots shows the transverse against the longuitudinal momentum for \anticascade}
-			\label{fig:Xi_pt_vs_pz}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_pt_vs_pz_cut.pdf}}
+			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiMinus_pt_vs_pz_cut.pdf}}
+			\caption{The plots shows the transverse against the longuitudinal momentum for \anticascade and \cascade}
+			\label{fig:XiPlus_pt_vs_pz}
 		
 		\end{figure}
 		
-		-the reconstruction efficiency for \anticascade is $123\%$ and for \cascade $123\%$
+		-the reconstruction efficiency for \anticascade is $18.39\%$ and for \cascade $18.64\%$
 		
 	
 	
@@ -369,3 +368,34 @@ Here is all the stuff of the analysis!
 		\caption{Scheme for 4-Constraint Fit}
 		\label{fig:fourconstraintfit}
 	\end{figure}
+	
+	- table \ref{tab:non-finalstate_efficiency} shows summary of reconstruction efficiency for non-final state particles
+	
+	- dalitz plot is shown in figure \ref{fig:reco_dalitzplot}
+	
+	\begin{figure}
+		\centering
+		%\includegrahpics[width=0.8\textwidth]{./plots/Dalitzplot.pdf}
+		\caption{Dalitz plot for reconstructed particles}
+		\label{fig:reco_dalitzplot}
+	
+	\end{figure}
+	
+	\begin{table}
+		\caption{reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade}
+		\label{tab:non-finalstate_efficiency}
+		
+		\begin{tabular}{lcc}
+		
+			\hline
+			particle & reco efficiency in $\%$ & dp/p in $\%$ \\\hline
+			\hline
+			\lam & & \\
+			\alam & & \\
+			\anticascade & & \\
+			\excitedcascade & & \\
+			\anticascade \cascade system & & \\\hline
+			 	
+		\end{tabular}
+	\end{table}
+	
