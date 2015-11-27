@@ -66,7 +66,7 @@ Here is all the stuff of the analysis!
 
 	
 \section{Reconstruction of $\boldmath{\Lambda}^0$ and $\boldmath{\bar{\Lambda}^0}$}
-	\subsection{Combination}
+	\subsection*{Combination}
 		-only final state particle with more than 3 Hits
 		
 		-daughter particles for \lam: proton an \piminus meson
@@ -78,7 +78,7 @@ Here is all the stuff of the analysis!
 		-performing a mass window cut with width of $0.3$\massunit 
 		
 		
-	\subsection{Fitting}
+	\subsection*{Fitting}
 	
 		- fitting particles to common vertex with PndKinVtxFitter
 	
@@ -110,7 +110,7 @@ Here is all the stuff of the analysis!
 		-if there is more than one particle, choose best candidate
 		
 		
-	\subsection{Results}
+	\subsection*{Results}
 	
 		- mass distribution for different cuts see figure \ref{fig:lambda0_massdiffcuts} and figure \ref{fig:antilambda0_massdiffcuts}
 		
@@ -171,7 +171,7 @@ Here is all the stuff of the analysis!
 		
 	
 \section{Reconstruction of $\boldmath{\Xi}$ and $\boldmath{\bar{\Xi}}$}
-	\subsection{Combination}
+	\subsection*{Combination}
 	
 		-similar scheme for \lam and \alam
 		
@@ -185,7 +185,7 @@ Here is all the stuff of the analysis!
 		 
 		
 		
-	\subsection{Fitting}
+	\subsection*{Fitting}
 	
 		- fitting particles to common vertex with PndKinVtxFitter
 		
@@ -250,7 +250,7 @@ Here is all the stuff of the analysis!
 		\end{figure}
 		
 		
-	\subsection{Results}
+	\subsection*{Results}
 	
 	- mass distribution for different cuts see figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts}
 		
@@ -295,7 +295,7 @@ Here is all the stuff of the analysis!
 	
 
 \section{Reconstruction of $\boldmath{\Xi}$(1820) and $\boldmath{\bar{\Xi}}$(1820)}
-		\subsection{Combination}
+		\subsection*{Combination}
 
 		
 		-daughter particles for \excitedcascade: \lam and \kminus meson
@@ -309,13 +309,11 @@ Here is all the stuff of the analysis!
 		-performing a mass window cut with width of $0.3$\massunit 
 		
 		
-	\subsection{Fitting}
+	\subsection*{Fitting}
 	
 		- fitting particles to common vertex with PndKinVtxFitter
 		
-		- fit information are given to PndKinFitter with mass constraint
-		
-		- only select particles with prob bigger than 0.01 for both fitters
+		- only select particles with prob bigger than 0.01
 		
 		- scheme in figure \ref{fig:excitedcascade_scheme}
 		
@@ -327,10 +325,42 @@ Here is all the stuff of the analysis!
 		\end{figure}
 		
 		-if there is more than one particle, choose best candidate
+		
+		- $\chi^{2}$ probability distribution for vertex fit shown in figure \ref{fig:xi1820_prob}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_prob.pdf}
+			\caption{$\chi^{2}$ probability distribution of kinematic vertex fit for \excitedcascade.}
+			\label{fig:xi1820_prob}
+		\end{figure}
+		
+	\subsection*{Results}
+	
+	- mass for different cuts see figure \ref{fig:xi1820_mass_diffcuts}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_diffcuts.pdf}
+		\caption{Mass distribution for \excitedcascade for the different cuts}
+		\label{fig:xi1820_mass_diffcuts}
+	
+	\end{figure}
+	
+	- mass fit figure \ref{fig:xi1820_massfit}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
+		\caption{Mass distribution after all cuts for \excitedcascade.}
+		\label{fig:xi1820_massfit}
+	
+	\end{figure}
+	
 	
 \section{Reconstruction of hole chain}
 
-	\subsection{combination}
+	\subsection*{combination}
 	
 	-using best candidate from \excitedcascade and \anticascade
 	
@@ -339,7 +369,7 @@ Here is all the stuff of the analysis!
 	-mass window of $0.3$\massunit
 	
 	
-	\subsection{Fitting}
+	\subsection*{Fitting}
 	
 	-use PndKinFitter with four momentum constrained
 	
@@ -375,13 +405,14 @@ Here is all the stuff of the analysis!
 	
 	\begin{figure}
 		\centering
-		%\includegrahpics[width=0.8\textwidth]{./plots/Dalitzplot.pdf}
+		\includegraphics[width=0.8\textwidth]{./plots/pbarp/Dalitzplot_reco.pdf}
 		\caption{Dalitz plot for reconstructed particles}
 		\label{fig:reco_dalitzplot}
 	
 	\end{figure}
 	
 	\begin{table}
+		\centering
 		\caption{reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade}
 		\label{tab:non-finalstate_efficiency}
 		
