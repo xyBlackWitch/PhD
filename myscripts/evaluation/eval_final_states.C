@@ -48,7 +48,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 	gStyle->SetStatX(0.85);
 	gStyle->SetStatY(0.85);
 
-	TH2D * h_pimius_pt_vs_pz = new TH2D("h_piminus_pt_vs_pz", "transversal vs. longitudinal momentum for #pi^{-}; pz/GeV/c; pt/GeV/c", 200,-1,2.5, 200,0,1);
+	TH2D * h_pimius_pt_vs_pz = new TH2D("h_piminus_pt_vs_pz", "Transverse vs. longitudinal momentum for #pi^{-}; pz/GeV/c; pt/GeV/c", 200,-1,2.5, 200,0,1);
 	ntpPiMinus->Project("h_piminus_pt_vs_pz", "piminus_MC_pt: piminus_MC_pz", "McTruthMatch && piminus_HitTag && Mother==3122");
 	jenny::CreateDrawAndSaveHistogram(h_piminus_pt_vs_pz, path+"/plots/", "piminus_pt_vs_pz",save, close);
 
@@ -68,7 +68,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//**** Get information about pi+(AntiLambda0) ********************************************************************
 
 
-	TH2D * h_piplus_Al0_pt_vs_pz = new TH2D("h_piplus_Al0_pt_vs_pz", "transversal vs. longitudinal momentum for #pi^{+}(#bar{#Lambda}^{0}); pz/GeV/c; pt/GeV/c", 200,-0.1,0.7, 200,0,0.2);
+	TH2D * h_piplus_Al0_pt_vs_pz = new TH2D("h_piplus_Al0_pt_vs_pz", "Transverse vs. longitudinal momentum for #pi^{+}(#bar{#Lambda}^{0}); pz/GeV/c; pt/GeV/c", 200,-0.1,0.7, 200,0,0.2);
 	ntpPiPlus->Project("h_piplus_Al0_pt_vs_pz", "piplus_MC_pt: piplus_MC_pz", "McTruthMatch && piplus_HitTag && Mother==-3122");
 	jenny::CreateDrawAndSaveHistogram(h_piplus_Al0_pt_vs_pz, path+"/plots/", "piplus_Al0_pt_vs_pz",save, close);
 
@@ -90,7 +90,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//**** Get information about pi+(Xi+) ********************************************************************
 
 
-	TH2D * h_piplus_XiPlus_pt_vs_pz = new TH2D("h_piplus_XiPlus_pt_vs_pz", "transversal vs. longitudinal momentum for #pi^{+}(#bar{#Xi}); pz/GeV/c; pt/GeV/c", 200,-0.1,1, 200,0,0.3);
+	TH2D * h_piplus_XiPlus_pt_vs_pz = new TH2D("h_piplus_XiPlus_pt_vs_pz", "Transverse vs. longitudinal momentum for #pi^{+}(#bar{#Xi}); pz/GeV/c; pt/GeV/c", 200,-0.1,1, 200,0,0.3);
 	ntpPiPlus->Project("h_piplus_XiPlus_pt_vs_pz", "piplus_MC_pt: piplus_MC_pz", "McTruthMatch && piplus_HitTag && Mother==-3312");
 	jenny::CreateDrawAndSaveHistogram(h_piplus_XiPlus_pt_vs_pz, path+"/plots/", "piplus_XiPlus_pt_vs_pz",save, close);
 
@@ -112,7 +112,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//**** Get information about K- or K+ *************************************************************************
 
 	if (ntpKaonMinus!=0x0){
-		TH2D * h_KaonMinus_pt_vs_pz = new TH2D("h_KaonMinus_pt_vs_pz", "transversal vs. longitudinal momentum for K^{-}; pz/GeV/c; pt/GeV/c", 200,-0.5,2.1, 200,0,0.7);
+		TH2D * h_KaonMinus_pt_vs_pz = new TH2D("h_KaonMinus_pt_vs_pz", "Transverse vs. longitudinal momentum for K^{-}; pz/GeV/c; pt/GeV/c", 200,-0.5,2.1, 200,0,0.7);
 		ntpKaonMinus->Project("h_KaonMinus_pt_vs_pz", "kaonminus_MC_pt: kaonminus_MC_pz", "McTruthMatch && kaonminus_HitTag");
 		jenny::CreateDrawAndSaveHistogram(h_KaonMinus_pt_vs_pz, path+"/plots/", "kaonminus_pt_vs_pz",save, close);
 
@@ -130,7 +130,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 		jenny::CreateDrawAndSaveHistogram(h_KaonMinus_number_per_evt, path+"/plots/", "kaonminus_number_per_evt",save, close);
 	}
 	else if(ntpKaonPlus!=0x0){
-		TH2D * h_KaonPlus_pt_vs_pz = new TH2D("h_KaonPlus_pt_vs_pz", "transversal vs. longitudinal momentum for K^{-}; pz/GeV/c; pt/GeV/c", 200,0,2.1, 200,0,0.7);
+		TH2D * h_KaonPlus_pt_vs_pz = new TH2D("h_KaonPlus_pt_vs_pz", "Transverse vs. longitudinal momentum for K^{-}; pz/GeV/c; pt/GeV/c", 200,0,2.1, 200,0,0.7);
 		ntpKaonPlus->Project("h_KaonPlus_pt_vs_pz", "kaonplus_MC_pt: kaonplus_MC_pz", "McTruthMatch && kaonplus_HitTag");
 		jenny::CreateDrawAndSaveHistogram(h_KaonPlus_pt_vs_pz, path+"/plots/", "KaonPlus_pt_vs_pz",save, close);
 
@@ -153,7 +153,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 
 	//**** Get information about p   *************************************************************************
-	TH2D * h_Proton_pt_vs_pz = new TH2D("h_Proton_pt_vs_pz", "transversal vs. longitudinal momentum for p; pz/GeV/c; pt/GeV/c", 200,-0.1,2.7, 200,0,0.8);
+	TH2D * h_Proton_pt_vs_pz = new TH2D("h_Proton_pt_vs_pz", "Transverse vs. longitudinal momentum for p; pz/GeV/c; pt/GeV/c", 200,-0.1,2.7, 200,0,0.8);
 	ntpProton->Project("h_Proton_pt_vs_pz", "proton_MC_pt: proton_MC_pz", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 	jenny::CreateDrawAndSaveHistogram(h_Proton_pt_vs_pz, path+"/plots/", "proton_pt_vs_pz",save, close);
 
@@ -172,7 +172,7 @@ void eval_final_states(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	//**** Get information about p+  *************************************************************************
 
-	TH2D * h_antiProton_pt_vs_pz = new TH2D("h_antiProton_pt_vs_pz", "transversal vs. longitudinal momentum for #bar{p}; pz/GeV/c; pt/GeV/c", 200,0.4,2.8, 200,0,0.7);
+	TH2D * h_antiProton_pt_vs_pz = new TH2D("h_antiProton_pt_vs_pz", "Transverse vs. longitudinal momentum for #bar{p}; pz/GeV/c; pt/GeV/c", 200,0.4,2.8, 200,0,0.7);
 	ntpAntiProton->Project("h_antiProton_pt_vs_pz", "AntiProton_MC_pt: AntiProton_MC_pz", "McTruthMatch && AntiProton_HitTag && Mother==-3122");
 	jenny::CreateDrawAndSaveHistogram(h_antiProton_pt_vs_pz, path+"/plots/", "AntiProton_pt_vs_pz",save, close);
 

@@ -39,7 +39,7 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 	//open input
 	TFile * file = new TFile(inputFile, "READ");
 
-	TTree * ntpXiMinus = (TTree*) file->Get("ntpXiMinus");
+	TTree * ntpXiMinus = (TTree*) file->Get("fntpXiMinus");
 //	TTree * ntpMC = (TTree*) file->Get("ntpMC");
 
 	//****Projection for XiMinus
@@ -71,13 +71,13 @@ void vertex_studies_XiMinus(int nevts=0, bool saveoutput=true, bool close=false)
 
 	//resolution of reconstructed vertex position
 
-	TH1D* h_vx_res = new TH1D("h_vx_res", "x resolution of the vertex position; #Delta_{x}[cm]; counts", 1000,-0.5,0.5);
+	TH1D* h_vx_res = new TH1D("h_vx_res", "x resolution of the vertex position; #Delta_{x}[cm]; counts", 500,-0.5,0.5);
 	ntpXiMinus->Project("h_vx_res", "VtxFit_vx-MCTruth_vx", "McTruthMatch==1 ");
 
-	TH1D* h_vy_res = new TH1D("h_vy_res", "y resolution of the vertex position; #Delta_{y}[cm]; counts", 1000,-0.5,0.5);
+	TH1D* h_vy_res = new TH1D("h_vy_res", "y resolution of the vertex position; #Delta_{y}[cm]; counts", 500,-0.5,0.5);
 	ntpXiMinus->Project("h_vy_res", "VtxFit_vy-MCTruth_vy", "McTruthMatch==1 ");
 
-	TH1D* h_vz_res = new TH1D("h_vz_res", "z resolution of the vertex position; #Delta_{z}[cm]; counts", 1000,-0.5,0.5);
+	TH1D* h_vz_res = new TH1D("h_vz_res", "z resolution of the vertex position; #Delta_{z}[cm]; counts", 500,-0.5,0.5);
 	ntpXiMinus->Project("h_vz_res", "VtxFit_vz-MCTruth_vz", "McTruthMatch==1");
 
 

@@ -27,23 +27,23 @@ class RhoTuple;
 
 
 
-void vertex_studies_lambda0(int nevts=0, bool saveoutput=true, bool close=false){
+void vertex_studies_lambda0(bool saveoutput=true, bool close=false){
 
 
 	//Paths
 
-	TString inPath = "~/panda/mysimulations/analysis/pbarp_lambda0_antilambda0_beammom_3GeV/500000_events/";
+	TString inPath = "~/panda/mysimulations/test/boxgenerator/lambda0/500000_events/";
 	TString outPath = inPath +"plots/";
 
 
 	//Input File
 
-	TString inputFile = inPath + "output_ana.root";
+	TString inputFile = inPath + "ana_total.root";
 
 	//open input
 	TFile * file = new TFile(inputFile, "READ");
 
-	TTree * fntpLambda = (TTree*) file->Get("ntpLambda0");
+	TTree * fntpLambda = (TTree*) file->Get("fntpLambda0");
 //	TTree * fntpMc = (TTree*) file->Get("fntpMc");
 
 

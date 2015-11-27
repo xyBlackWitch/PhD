@@ -45,7 +45,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed();
+  gRandom->SetSeed(2704);
   
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();
@@ -185,6 +185,8 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //---------------------Create and Set the Field(s)----------
   PndMultiField *fField= new PndMultiField("AUTO");
   fRun->SetField(fField);
+
+  //---------------------Store trajectory---------------------
   fRun->SetStoreTraj(kTRUE);
   
   // EMC Hit producer

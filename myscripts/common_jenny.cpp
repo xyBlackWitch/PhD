@@ -19,14 +19,16 @@
 #include "TCanvas.h"
 #include "TMath.h"
 #include <map>
+#include "TDatabasePDG"
 #include "common_andi.cpp"
+#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/PandaSmartLabel.C"
 
 //#include "RhoTuple.h"
 //#include "RhoCandidate.h"
 
 namespace jenny{
 
-	void CreateDrawAndSaveHistogram(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
+	void CreateDrawAndSaveHistogram(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool prelim=false){
 
 		/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -35,14 +37,30 @@ namespace jenny{
 		TString name = TString(histo->GetName());
 		TString title = TString(histo->GetTitle());
 
-		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-		gStyle->SetOptStat(11);
+		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+		gStyle->SetOptStat(1111);
+		gStyle->SetOptFit(0);
+		gStyle->SetStatY(0.85);
+		gStyle->SetStatX(0.85);
+		gStyle->SetStatW(0.15);
+		gStyle->SetStatH(0.15);
+
+
+		histo->GetXaxis()->SetLabelSize(0.045);
+		histo->GetXaxis()->SetTitleSize(0.05);
+		histo->GetXaxis()->SetTitleOffset(0.90);
+		histo->GetYaxis()->SetLabelSize(0.045);
+		histo->GetYaxis()->SetTitleSize(0.05);
+		histo->GetYaxis()->SetTitleOffset(0.80);
 		histo->Draw();
+
+		if(prelim) PandaSmartLabel();
 
 
 		if (saveoutput){
 			canvas->Print(outputdir + "root-files/" + outputname + ".root");
 			canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
 		}
 
 		if (close) canvas->Close();
@@ -50,7 +68,7 @@ namespace jenny{
 
 	}
 
-	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
+	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool prelim=false){
 
 			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -59,14 +77,28 @@ namespace jenny{
 			TString name = TString(histo->GetName());
 			TString title = TString(histo->GetTitle());
 
-			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-			//gStyle->SetOptStat(0);
+			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+			gStyle->SetOptStat(0);
+			gStyle->SetStatY(0.85);
+			gStyle->SetStatX(0.85);
+			gStyle->SetStatW(0.15);
+			gStyle->SetStatH(0.15);
+
+			histo->GetXaxis()->SetLabelSize(0.045);
+			histo->GetXaxis()->SetTitleSize(0.05);
+			histo->GetXaxis()->SetTitleOffset(0.90);
+			histo->GetYaxis()->SetLabelSize(0.045);
+			histo->GetYaxis()->SetTitleSize(0.05);
+			histo->GetYaxis()->SetTitleOffset(0.80);
+
 			histo->Draw("COLZ");
+			if(prelim) PandaSmartLabel();
 
 
 			if (saveoutput){
 				canvas->Print(outputdir + "root-files/" + outputname + ".root");
 				canvas->Print(outputdir + "png-files/" + outputname + ".png");
+				canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
 			}
 
 			if (close) canvas->Close();
@@ -80,11 +112,27 @@ namespace jenny{
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
 			*/
 
+			Double_t parameters[6] = {0.,0.,0.,0.,0.,0.};
 			TString name = TString(histo->GetName());
 			TString title = TString(histo->GetTitle());
 
-			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
-			//gStyle->SetOptStat(11);
+			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+			gStyle->SetOptStat(1000000001);
+			gStyle->SetOptFit(111);
+			gStyle->SetFitFormat("5.8g");
+			gStyle->SetStatY(0.9);
+			gStyle->SetStatX(0.9);
+			gStyle->SetStatW(0.35);
+			gStyle->SetStatH(0.45);
+
+			histo->GetXaxis()->SetLabelSize(0.045);
+			histo->GetXaxis()->SetTitleSize(0.05);
+			histo->GetXaxis()->SetTitleOffset(0.90);
+			histo->GetYaxis()->SetLabelSize(0.045);
+			histo->GetYaxis()->SetTitleSize(0.05);
+			histo->GetYaxis()->SetTitleOffset(0.80);
+
+
 			histo->Draw();
 
 			TF1 * fit;
@@ -92,18 +140,24 @@ namespace jenny{
 			if(excludeCenter){
 				fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
 			}
-//			else if (fittype==1){
-//				fit = andi::gaussFit(histo);
-//			}
-			else{// if (fittype==2){
+			else if (fittype==1){
+				fit = andi::gaussFit(histo);
+			}
+			else if (fittype==2){
 				fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
 			}
-
+			else{
+				std::cout << "Type of fit is not defined"<< std::endl;
+			}
+			fit->SetLineColor(kRed);
+			fit->SetLineStyle(7);
+			fit->SetLineWidth(3);
 			fit->Draw("SAME");
 
 			if (saveoutput){
 				canvas->Print(outputdir + "root-files/" + outputname + ".root");
 				canvas->Print(outputdir + "png-files/" + outputname + ".png");
+				canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
 			}
 
 			if (close) canvas->Close();
@@ -115,11 +169,46 @@ namespace jenny{
 		return CreateDrawAndSaveHistogramWithFit(histo, outputdir, outputname, saveoutput, close, autorange, innerRange, outerRange,excludeCenter,1);
 	}
 
-	void CreateDrawAndSaveHistogramDoulbeFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false){
+	void CreateDrawAndSaveHistogramDoulbeFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange=0.1 , double outerRange=1, bool excludeCenter=false){
 		return CreateDrawAndSaveHistogramWithFit(histo, outputdir, outputname, saveoutput, close, autorange, innerRange, outerRange,excludeCenter,2);
 	}
 
+	void GetFitParameterDoubleFit(TH1* &histo, bool autorange = true, double innerRange=0.1 , double outerRange=1, bool excludeCenter=false){
 
+		Double_t parameter[6] = {0,0,0,0,0,0};
+		TF1 * fit;
+
+		if(excludeCenter){
+			fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
+		}
+		else{
+			fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
+		}
+
+		fit->GetParameters(&parameter[0]);
+		//return parameter;
+	}
+
+	void GetFitParameterErrorDoubleFit(TH1* &histo, bool autorange = true, double innerRange=0.1 , double outerRange=1, bool excludeCenter=false){
+
+			Double_t errors[6] = {0,0,0,0,0,0};
+			TF1 * fit;
+
+			if(excludeCenter){
+				fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
+			}
+			else{
+				fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
+			}
+
+			for (int i=0; i<6; i++){
+
+				errors[i]=fit->GetParError(i);
+			}
+
+
+			//return parameter;
+		}
 
 	  std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
 		  /** @brief  give back the order of the best chi2
@@ -166,7 +255,7 @@ namespace jenny{
 		  return indexBestFit;
 	  }
 
-	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TString leg1="", TString leg2="", TString outputdir, TString outputname, bool saveoutput, bool close){
+	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TString leg1="", TString leg2="", TString outputdir, TString outputname, bool saveoutput, bool close, bool prelim=false){
 	  // should be added to common_jenny.cpp
 
 	  	/** @brief  saves 2 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
@@ -185,23 +274,27 @@ namespace jenny{
 	  	legend->AddEntry(h2, leg2, "l");
 
 
-	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
+	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
 	  	gStyle->SetOptStat(0);
+
 	  	h1->Draw();
 	  	h2->Draw("SAME");
 	  	legend->Draw();
+
+	  	if(prelim) PandaSmartLabel("Lprel");
 
 
 	  	if (saveoutput){
 	  		canvas->Print(outputdir + "root-files/" + outputname + ".root");
 	  		canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
 	  	}
 
 	  	if (close) canvas->Close();
 
 	  }
 
-	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TH1* &h3, TString leg1="", TString leg2="", TString leg3="", TString outputdir, TString outputname, bool saveoutput, bool close){
+	  void CreateDrawAndSaveNHistograms(TH1* &h1, TH1* &h2, TH1* &h3, TString leg1="", TString leg2="", TString leg3="", TString outputdir, TString outputname, bool saveoutput, bool close,bool prelim=false){
 	  // should be added to common_jenny.cpp
 
 	  	/** @brief  saves 3 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
@@ -221,17 +314,19 @@ namespace jenny{
 	  	legend->AddEntry(h3, leg3, "l");
 
 
-	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,800,500);
+	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
 	  	gStyle->SetOptStat(0);
 	  	h1->Draw();
 	  	h2->Draw("SAME");
 	  	h3->Draw("SAME");
 	  	legend->Draw();
+	  	if(prelim) PandaSmartLabel();
 
 
 	  	if (saveoutput){
 	  		canvas->Print(outputdir + "root-files/" + outputname + ".root");
 	  		canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
 	  	}
 
 	  	if (close) canvas->Close();
@@ -286,6 +381,57 @@ namespace jenny{
 		  return bestMassFit;
 	  }
 
+
+	  std::map<int,int> FourConstraintFitQaIndex(RhoCandList* candList, double mom=0, float probLimit=0.01){
+	 		  /** @brief  give back the order of the best chi2 for MassFit
+	 		   * @details give back the order of the best chi2 for the MassFit!  1 means best, 2: second best (analoge for bad chi2 with negative values)
+	 		   */
+
+	 		  if(mom==0) std::cout << "Initial 4 mometum is missing for 4C fit" << std::endl;
+
+	 		  double p_m0 = TDatabasePDG::Instance()->GetParticle("proton")->Mass();
+	 		  TLorentzVector ini (0,0, mom, sqrt(p_m0*p_m0+ mom*mom)+p_m0);
+	 		  
+	 		  std::map<double, int> chi2_good, chi2_bad;
+
+	 		  for (int i=0; i<candList->GetLength(); i++){
+
+	 			  PndKinFitter fitter4C(candList->Get(i));
+	 			  fitter4c.Add4MomConstraint(ini);
+	 			  fitter4C.Fit();
+
+	 			  bool failedchi2 = TMath::IsNaN(fitter4C.GetChi2());
+	 			  bool failedprob = TMath::IsNaN(fitter4C.GetProb());
+
+	 			  if(!failedchi2 && !failedprob){
+
+	 				  if (fitter4C.GetProb() > probLimit){
+	 					  chi2_good[fitter4C.GetChi2()]=i;
+	 				  }
+	 				  else{
+	 					  chi2_bad[fitter4C.GetChi2()]=i;
+	 				  }
+	 			  }
+	 		  }
+
+	 		  std::map<double,int>::iterator is_good, is_bad;
+	 		  std::map<int,int> best4CFit;
+
+	 		  int run =0;
+
+	 		  for (is_good = chi2_good.begin(); is_good != chi2_good.end(); is_good++, run++){
+	 			  best4CFit[is_good->second] = run + 1;
+	 		  }
+
+	 		  int run = 0;
+
+	 		  for (is_bad = chi2_bad.begin(); is_bad != chi2_bad.end(); is_bad++, run++){
+	 			  best4CFit[is_bad->second] = - (run + 1);
+	 		  }
+
+
+	 		  return best4CFit;
+	 	  }
 
 	  void CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
 		  /**

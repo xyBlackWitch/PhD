@@ -47,26 +47,30 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	//**** Get information about XiMinus ********************************************************************************
 	if(ntpXiMinus!=0X0){
-		TH2D * h_xi_pt_vs_pz = new TH2D("h_xi_pt_vs_pz", "Transversal vs. longitudinal momentum for #Xi^{-}; p_{z}/GeV/c; p_{t}/GeV/c", 200,-0.5,3.1,200,0,0.8);
-		ntpXiMinus->Project("h_xi_pt_vs_pz", "McTruth_pt: McTruth_pz", "McTruthMatch");
+		TH2D * h_xi_pt_vs_pz = new TH2D("h_xi_pt_vs_pz", "Transverse vs. longitudinal momentum for #Xi^{-}; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.5,200,0,0.8);
+		ntpXiMinus->Project("h_xi_pt_vs_pz", "MCTruth_pt: MCTruth_pz", "McTruthMatch");
 		jenny::CreateDrawAndSaveHistogram(h_xi_pt_vs_pz, path+"/plots/", "XiMinus_pt_vs_pz", save, close);
+
+		TH2D * h_xi_pt_vs_pz_cut = new TH2D("h_xi_pt_vs_pz_cut", "Transverse vs. longitudinal momentum for #Xi^{-} after cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.5,200,0,0.8);
+		ntpXiMinus->Project("h_xi_pt_vs_pz_cut", "MCTruth_pt: MCTruth_pz", "McTruthMatch" +vtxcut + masscut);
+		jenny::CreateDrawAndSaveHistogram(h_xi_pt_vs_pz_cut, path+"/plots/", "XiMinus_pt_vs_pz_cut", save, close);
 
 		gStyle->SetOptStat(0);
 
-		TH1D * h_xi_m_nocut = new TH1D("h_xi_m_nocut", "Mass distribution for #Xi^{-}; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_xi_m_nocut = new TH1D("h_xi_m_nocut", "Mass distribution for #Xi^{-}; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiMinus->Project("h_xi_m_nocut", "VtxFit_m", "McTruthMatch");
 
-		TH1D * h_xi_m_vtxcut = new TH1D("h_xi_m_vtxcut", "Mass distribution for #Xi^{-} with vtxcut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_xi_m_vtxcut = new TH1D("h_xi_m_vtxcut", "Mass distribution for #Xi^{-} with vtxcut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiMinus->Project("h_xi_m_vtxcut", "VtxFit_m", "McTruthMatch "+vtxcut);
 
-		TH1D * h_xi_m_masscut = new TH1D("h_xi_m_masscut", "Mass distribution for #Xi^{-} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_xi_m_masscut = new TH1D("h_xi_m_masscut", "Mass distribution for #Xi^{-} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiMinus->Project("h_xi_m_masscut", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
 
-		jenny::CreateDrawAndSaveNHistograms(h_xi_m_nocut, h_xi_m_vtxcut, h_xi_m_masscut, "no cut", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "XiMinus_m_diffcuts", save, close);
+		jenny::CreateDrawAndSaveNHistograms(h_xi_m_nocut, h_xi_m_vtxcut, h_xi_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "XiMinus_m_diffcuts", save, close);
 
 		gStyle->SetOptStat(1111);
 
-		TH1D * h_xi_m_masscut2 = new TH1D("h_xi_m_masscut2", "Mass distribution for #Xi^{-} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_xi_m_masscut2 = new TH1D("h_xi_m_masscut2", "Mass distribution for #Xi^{-} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiMinus->Project("h_xi_m_masscut2", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m_masscut2, path+"/plots/", "XiMinus_m_masscut2", save, close, false, 0.01,0.1, true);
 
@@ -86,11 +90,11 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 		ntpXiMinus->Project("h_xi_costht", "cos(VtxFit_tht)","McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogram(h_xi_costht, path+"/plots/", "XiMinus_costht", save, close);
 
-		TH1D * h_xi_tht = new TH1D("h_xi_tht", "#Theta distribution for #Xi^{-}; #Theta/rad; counts", 500,0,3);
+		TH1D * h_xi_tht = new TH1D("h_xi_tht", "#Theta distribution for #Xi^{-}; #Theta/rad; counts", 500,0,0.5);
 		ntpXiMinus->Project("h_xi_tht", "VtxFit_tht","McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogram(h_xi_tht, path+"/plots/", "XiMinus_tht", save, close);
 
-		TH1D * h_xi_chisq = new TH1D("h_xi_chisq", "#chi^{2} distribution for #Xi^{-}; #chi^{2}; counts", 500,0,3);
+		TH1D * h_xi_chisq = new TH1D("h_xi_chisq", "#chi^{2} distribution for #Xi^{-}; #chi^{2}; counts", 500,0,10);
 		ntpXiMinus->Project("h_xi_chisq", "VtxFit_chisq","McTruthMatch ");
 		jenny::CreateDrawAndSaveHistogram(h_xi_chisq, path+"/plots/", "XiMinus_chisq", save, close);
 
@@ -106,25 +110,29 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		//**** Get information about XiPlus ****************************************************************************
 
-		TH2D * h_axi_pt_vs_pz = new TH2D("h_axi_pt_vs_pz", "Transversal vs. longitudinal momentum for #bar{#Xi}; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.1,200,0,0.7);
+		TH2D * h_axi_pt_vs_pz = new TH2D("h_axi_pt_vs_pz", "Transverse vs. longitudinal momentum for #bar{#Xi}; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,4,200,0,0.7);
 		ntpXiPlus->Project("h_axi_pt_vs_pz", "MCTruth_pt: MCTruth_pz", "McTruthMatch");
 		jenny::CreateDrawAndSaveHistogram(h_axi_pt_vs_pz, path+"/plots/", "XiPlus_pt_vs_pz", save, close);
 
+		TH2D * h_axi_pt_vs_pz_cut = new TH2D("h_axi_pt_vs_pz_cut", "Transverse vs. longitudinal momentum for #bar{#Xi} after cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,4,200,0,0.7);
+		ntpXiPlus->Project("h_axi_pt_vs_pz_cut", "MCTruth_pt: MCTruth_pz", "McTruthMatch"+vtxcut+masscut);
+		jenny::CreateDrawAndSaveHistogram(h_axi_pt_vs_pz_cut, path+"/plots/", "XiPlus_pt_vs_pz_cut", save, close);
+
 		gStyle->SetOptStat(0);
-		TH1D * h_axi_m_nocut = new TH1D("h_axi_m_nocut", "Mass distribution for #bar{#Xi}; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_axi_m_nocut = new TH1D("h_axi_m_nocut", "Mass distribution for #bar{#Xi}; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiPlus->Project("h_axi_m_nocut", "VtxFit_m", "McTruthMatch");
 
-		TH1D * h_axi_m_vtxcut = new TH1D("h_axi_m_vtxcut", "Mass distribution for #bar{#Xi} with vtxcut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_axi_m_vtxcut = new TH1D("h_axi_m_vtxcut", "Mass distribution for #bar{#Xi} with vtxcut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiPlus->Project("h_axi_m_vtxcut", "VtxFit_m", "McTruthMatch "+vtxcut);
 
-		TH1D * h_axi_m_masscut = new TH1D("h_axi_m_masscut", "Mass distribution for #bar{#Xi} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_axi_m_masscut = new TH1D("h_axi_m_masscut", "Mass distribution for #bar{#Xi} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiPlus->Project("h_axi_m_masscut", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
 
-		jenny::CreateDrawAndSaveNHistograms(h_axi_m_nocut, h_axi_m_vtxcut, h_axi_m_masscut, "no cut", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "VtxFit_m_diffcuts", save, close);
+		jenny::CreateDrawAndSaveNHistograms(h_axi_m_nocut, h_axi_m_vtxcut, h_axi_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "VtxFit_m_diffcuts", save, close);
 
 		gStyle->SetOptStat(1111);
 
-		TH1D * h_axi_m_masscut2 = new TH1D("h_axi_m_masscut2", "Mass distribution for #bar{#Xi} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.2,1.4);
+		TH1D * h_axi_m_masscut2 = new TH1D("h_axi_m_masscut2", "Mass distribution for #bar{#Xi} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiPlus->Project("h_axi_m_masscut2", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_m_masscut2, path+"/plots/", "XiPlus_m_masscut", save, close, false, 0.01,0.1, true);
 
@@ -145,7 +153,7 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 		ntpXiPlus->Project("h_axi_costht", "cos(VtxFit_tht)","McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogram(h_axi_costht, path+"/plots/", "XiPlus_costht", save, close);
 
-		TH1D * h_axi_tht = new TH1D("h_axi_tht", "#Theta distribution for #bar{#Xi}; #Theta/rad; counts", 500,0,3);
+		TH1D * h_axi_tht = new TH1D("h_axi_tht", "#Theta distribution for #bar{#Xi}; #Theta/rad; counts", 500,0,0.5);
 		ntpXiPlus->Project("h_axi_tht", "VtxFit_tht","McTruthMatch "+vtxcut+masscut);
 		jenny::CreateDrawAndSaveHistogram(h_axi_tht, path+"/plots/", "XiPlus_tht", save, close);
 

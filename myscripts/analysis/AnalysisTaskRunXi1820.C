@@ -4,7 +4,7 @@ void AnalysisTaskRunXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "~/panda/mysimulations/analysis/pbarp_Xiplus_Ximinus/idealtracking/10000_events/";
+		TString Path = "";
 		TString outPath = Path;
 		TString OutputFile = outPath + "analysis_output.root";
 
@@ -15,6 +15,7 @@ void AnalysisTaskRunXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
 	else{
 		TString Path = pre;
 		TString OutputFile = Path + "_analysis_output.root";
+		TString outPath = Path + "_";
 
 		//Input simulation Files
 		TString inPIDFile = Path + "_pid_complete.root";

@@ -5,7 +5,7 @@
 // to run with different options:(e.g more events, different momentum, Geant4)
 // root  sim_complete.C"(100, "TGeant4",2)"
 
-prod_sim(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom = 0., TString Resonance="pbarpSystem0" )
+prod_sim(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom = 0., TString Resonance="pbarpSystem" )
 {
 	if (outpre=="" || Decfile=="" || mom==0.) 
 	{
@@ -218,4 +218,4 @@ prod_sim(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom
   //exit(0);
 
 }  
-  
+ 

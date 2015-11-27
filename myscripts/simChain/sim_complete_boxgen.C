@@ -154,7 +154,7 @@ sim_complete_boxgen(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="",
   fRun->SetGenerator(primGen);
 	 
   if(UseBoxGenerator){	// Box Generator
-    FairBoxGenerator* boxGen = new FairBoxGenerator(111, 1); // 13 = muon; 1 = multipl.
+    FairBoxGenerator* boxGen = new FairBoxGenerator(3122, 1); // 13 = muon; 1 = multipl.
     boxGen->SetPRange(mom,mom); // GeV/c
     boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
     boxGen->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]

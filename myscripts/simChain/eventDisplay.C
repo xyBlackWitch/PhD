@@ -1,14 +1,25 @@
 
 
-eventDisplay()
+eventDisplay(TString pre = "")
 {
+
     //-----User Settings:-----------------------------------------------
   TString  SimEngine      ="TGeant3"; 
-  TString  InputFile     ="sim_complete.root";
-  TString  DigiFile		 ="digi_complete.root";
-  TString  RecoFile      ="reco_complete.root";
-  TString  ParFile       ="simparams.root";
 
+  if (pre==""){
+
+	  TString  InputFile     ="sim_complete.root";
+	  TString  DigiFile		 ="digi_complete.root";
+	  TString  RecoFile      ="reco_complete.root";
+	  TString  ParFile       ="simparams.root";
+
+  }
+  else{
+	  TString  InputFile     = pre +"_sim_complete.root";
+	  TString  DigiFile		 = pre +"_digi_complete.root";
+	  TString  RecoFile      = pre +"_reco_complete.root";
+	  TString  ParFile       = pre +"_simparams.root";
+  }
   Bool_t enablePointDraw = kTRUE;
   Bool_t enableHitDraw = kTRUE;
   Bool_t enableTrackDraw = kTRUE;

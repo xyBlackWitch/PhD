@@ -48,31 +48,31 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//**** Get information about Lambda0 ********************************************************************************
 
 	//*** pt vs pz
-	TH2D * h_l0_pt_vs_pz = new TH2D("h_l0_pt_vs_pz", "Transversal vs. longitudinal momentum for #Lambda^{0}; p_{z}/GeV/c; p_{t}/GeV/c", 200,-0.5,3.9,200,0,0.8);
+	TH2D * h_l0_pt_vs_pz = new TH2D("h_l0_pt_vs_pz", "Transverse vs. longitudinal momentum for #Lambda^{0}; p_{z}/GeV/c; p_{t}/GeV/c", 200,-0.5,3.9,200,0,0.8);
 	ntpLambda0->Project("h_l0_pt_vs_pz", "McTruth_pt: McTruth_pz", "McTruthMatch && Lambda0_HitTag");
 	jenny::CreateDrawAndSaveHistogram(h_l0_pt_vs_pz, path+"/plots/", "lambda0_pt_vs_pz", save, close);
 
-	TH2D * h_l0_pt_vs_pz_cut = new TH2D("h_l0_pt_vs_pz_cut", "Transversal vs. longitudinal momentum for #Lambda^{0} with cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,-0.5,3.9,200,0,0.8);
+	TH2D * h_l0_pt_vs_pz_cut = new TH2D("h_l0_pt_vs_pz_cut", "Transverse vs. longitudinal momentum for #Lambda^{0} with cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,-0.5,3.9,200,0,0.8);
 	ntpLambda0->Project("h_l0_pt_vs_pz_cut", "McTruth_pt: McTruth_pz", "McTruthMatch && Lambda0_HitTag" + vtxcut+masscut);
 	jenny::CreateDrawAndSaveHistogram(h_l0_pt_vs_pz_cut, path+"/plots/", "lambda0_pt_vs_pz_cut", save, close);
 
 	gStyle->SetOptStat(0);
 
 	//*** mass distribution
-	TH1D * h_l0_m_nocut = new TH1D("h_l0_m_nocut", "Mass distribution for #Lambda^{0}; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_l0_m_nocut = new TH1D("h_l0_m_nocut", "Mass distribution for #Lambda^{0}; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpLambda0->Project("h_l0_m_nocut", "VtxFit_m", "McTruthMatch && Lambda0_HitTag");
 
-	TH1D * h_l0_m_vtxcut = new TH1D("h_l0_m_vtxcut", "Mass distribution for #Lambda^{0} with vtxcut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_l0_m_vtxcut = new TH1D("h_l0_m_vtxcut", "Mass distribution for #Lambda^{0} with vtxcut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpLambda0->Project("h_l0_m_vtxcut", "VtxFit_m", "McTruthMatch && Lambda0_HitTag "+vtxcut);
 
-	TH1D * h_l0_m_masscut = new TH1D("h_l0_m_masscut", "Mass distribution for #Lambda^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_l0_m_masscut = new TH1D("h_l0_m_masscut", "Mass distribution for #Lambda^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpLambda0->Project("h_l0_m_masscut", "VtxFit_m", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
 
-	jenny::CreateDrawAndSaveNHistograms(h_l0_m_nocut, h_l0_m_vtxcut, h_l0_m_masscut, "no cut", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "lambda0_m_diffcuts", save, close);
+	jenny::CreateDrawAndSaveNHistograms(h_l0_m_nocut, h_l0_m_vtxcut, h_l0_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "lambda0_m_diffcuts", save, close);
 
 	gStyle->SetOptStat(1111);
 
-	TH1D * h_l0_m_masscut2 = new TH1D("h_l0_m_masscut2", "Mass distribution for #Lambda^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_l0_m_masscut2 = new TH1D("h_l0_m_masscut2", "Mass distribution for #Lambda^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpLambda0->Project("h_l0_m_masscut2", "VtxFit_m", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
 	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_l0_m_masscut2, path+"/plots/", "lambda0_m_masscut2", save, close, false, 0.01,0.1, true);
 
@@ -114,11 +114,11 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//**** Get information about AntiLambda0 ****************************************************************************
 
 	//*** pt vs pz
-	TH2D * h_al0_pt_vs_pz = new TH2D("h_al0_pt_vs_pz", "Transversal vs. longitudinal momentum for #bar{#Lambda}^{0}; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.1,200,0,0.7);
+	TH2D * h_al0_pt_vs_pz = new TH2D("h_al0_pt_vs_pz", "Transverse vs. longitudinal momentum for #bar{#Lambda}^{0}; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.1,200,0,0.7);
 	ntpAntiLambda0->Project("h_al0_pt_vs_pz", "McTruth_pt: McTruth_pz", "McTruthMatch && antiLambda0_HitTag");
 	jenny::CreateDrawAndSaveHistogram(h_al0_pt_vs_pz, path+"/plots/", "antiLambda0_pt_vs_pz", save, close);
 
-	TH2D * h_al0_pt_vs_pz_cut = new TH2D("h_al0_pt_vs_pz_cut", "Transversal vs. longitudinal momentum for #bar{#Lambda}^{0} with cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.1,200,0,0.7);
+	TH2D * h_al0_pt_vs_pz_cut = new TH2D("h_al0_pt_vs_pz_cut", "Transverse vs. longitudinal momentum for #bar{#Lambda}^{0} with cut; p_{z}/GeV/c; p_{t}/GeV/c", 200,0.5,3.1,200,0,0.7);
 	ntpAntiLambda0->Project("h_al0_pt_vs_pz_cut", "McTruth_pt: McTruth_pz", "McTruthMatch && antiLambda0_HitTag"+vtxcut+masscut);
 	jenny::CreateDrawAndSaveHistogram(h_al0_pt_vs_pz_cut, path+"/plots/", "antiLambda0_pt_vs_pz_cut", save, close);
 
@@ -126,20 +126,20 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	//*** mass distribution
 
-	TH1D * h_al0_m_nocut = new TH1D("h_al0_m_nocut", "Mass distribution for #bar{#Lambda}^{0}; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_al0_m_nocut = new TH1D("h_al0_m_nocut", "Mass distribution for #bar{#Lambda}^{0}; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpAntiLambda0->Project("h_al0_m_nocut", "VtxFit_m", "McTruthMatch && antiLambda0_HitTag");
 
-	TH1D * h_al0_m_vtxcut = new TH1D("h_al0_m_vtxcut", "Mass distribution for #bar{#Lambda}^{0} with vtxcut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_al0_m_vtxcut = new TH1D("h_al0_m_vtxcut", "Mass distribution for #bar{#Lambda}^{0} with vtxcut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpAntiLambda0->Project("h_al0_m_vtxcut", "VtxFit_m", "McTruthMatch && antiLambda0_HitTag "+vtxcut);
 
-	TH1D * h_al0_m_masscut = new TH1D("h_al0_m_masscut", "Mass distribution for #bar{#Lambda}^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_al0_m_masscut = new TH1D("h_al0_m_masscut", "Mass distribution for #bar{#Lambda}^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpAntiLambda0->Project("h_al0_m_masscut", "VtxFit_m", "McTruthMatch && antiLambda0_HitTag "+vtxcut+masscut);
 
-	jenny::CreateDrawAndSaveNHistograms(h_al0_m_nocut, h_al0_m_vtxcut, h_al0_m_masscut, "no cut", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "antiLambda0_m_diffcuts", save, close);
+	jenny::CreateDrawAndSaveNHistograms(h_al0_m_nocut, h_al0_m_vtxcut, h_al0_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "antiLambda0_m_diffcuts", save, close);
 
 	gStyle->SetOptStat(1111);
 
-	TH1D * h_al0_m_masscut2 = new TH1D("h_al0_m_masscut2", "Mass distribution for #bar{#Lambda}^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1,1.2);
+	TH1D * h_al0_m_masscut2 = new TH1D("h_al0_m_masscut2", "Mass distribution for #bar{#Lambda}^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.07,1.16);
 	ntpAntiLambda0->Project("h_al0_m_masscut2", "VtxFit_m", "McTruthMatch && antiLambda0_HitTag "+vtxcut+masscut);
 	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_al0_m_masscut2, path+"/plots/", "antiLambda0_m_masscut", save, close, false, 0.01, 0.1, true);
 

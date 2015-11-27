@@ -85,7 +85,7 @@ void pid_complete(TString pre="")
   corr->SetInputIDBranch2("FtsIdealGenTrackID");
   //corr->SetDebugMode(kTRUE);
   //corr->SetFast(kTRUE);
-  //corr->SetBackPropagate(kFALSE);
+  corr->SetBackPropagate(kFALSE);
   fRun->AddTask(corr);
 
   PndPidBremCorrector *bremCorr = new PndPidBremCorrector();

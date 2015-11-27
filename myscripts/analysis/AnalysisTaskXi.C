@@ -4,7 +4,7 @@ void AnalysisTaskXi(int nevts=0, double mom=2.7, TString pre = ""){
 
 	//Output File
 	if (pre==""){
-		TString Path = "/home/ikp1/puetz/panda/myscripts/simChain/test/";
+		TString Path = "/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/Xi/10000_events/";
 		TString outPath = Path;
 		TString OutputFile = outPath + "analysis_output.root";
 
