@@ -1,6 +1,16 @@
-first key words!!!!
+To study excited \cascade baryons the simulation of signal events is needed.
+For this study 1.5 million signal events have been generated.
+The decay channel for the simulation is shown in figure \ref{fig:eventgeneration_decaychannel}. 
 
-- parameter for evt generation table \ref{tab:eventgeneration_parameter}
+\begin{figure}[htbp]
+	\centering
+			\includegraphics[width=1.00\textwidth]{./plots/DecayChannelXi1820.png}
+	\caption{Simulated decay channel}
+	\label{fig:eventgeneration_decaychannel}
+\end{figure}
+
+For the charge conjungated channel were also 1.5 million signal events generated.
+The parameter which are used for the event generation are shown in table \ref{tab:eventgeneration_parameter}.
 
 \begin{table}[htbp]
 	\caption{Parameter for event generation}
@@ -19,11 +29,11 @@ first key words!!!!
 	\end{tabular}
 \end{table}
 
-- beam momentum: 100 MeV over threshold
+The chosen beam momentum value is 100 MeV over the production threshold of \excitedcascade and \anticascade.
+The production cross section is expected to be of the same order ($\sim \mu\unit{b}$) as for \cascade \cite{PANDAphysics2009}.\\
+\vspace{11pt} 
 
-- assumed: highest cross section (Quelle!!!!!!)
- 
-- Software Framework: Pandaroot \ref{tab:eventgeneration_software}
+The used software versions for Pandaroot and the external software is listed in table \ref{tab:eventgeneration_software} 
 
 \begin{table}[htb]
 	\centering
@@ -42,19 +52,17 @@ first key words!!!!
 			 
 	\end{tabular}
 \end{table}
-		
-- for signal: 1.5 Mio events
 
-- decay channel shown in picture \ref{fig:eventgeneration_decaychannel}
 
-\begin{figure}[htbp]
-	\centering
-			\includegraphics[width=1.00\textwidth]{./plots/DecayChannelXi1820.png}
-	\caption{Simulated decay channel}
-	\label{fig:eventgeneration_decaychannel}
-\end{figure}
+The \excitedcascade was not defined in the evt.pdl file. 
+The Lines in the code sniplet \ref{lst:eventgeneration_evtpdl} shown how the particle was added to the file.
+As the properties of \excitedcascade I am using the values which are shown in table \ref{tab:eventgeneration_Xivalues}.
+These values are taken from \cite{PDG}.
 
-- add particle to evt.pdl (code sniplet \ref{lst:eventgeneration_evtpdl} with values table \ref{tab:eventgeneration_Xivalues} from \cite{PDG} (Source!!!!)
+\begin{lstlisting}[caption={sniplet from evt.pdl}\label{lst:eventgeneration_evtpdl}, captionpos=t,breaklines=true]
+add  p Particle Xi(1820)- 23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 -3 3 0.0000000e+00 23314
+add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 3 3 0.0000000e+00 -23314
+\end{lstlisting}
 
 \begin{table}[tb]
 	\centering
@@ -72,12 +80,9 @@ first key words!!!!
 	\end{tabular}
 \end{table}
 
-\begin{lstlisting}[caption={sniplet from evt.pdl}\label{lst:eventgeneration_evtpdl}, captionpos=t,breaklines=true]
-add  p Particle Xi(1820)- 23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 -3 3 0.0000000e+00 23314
-add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 3 3 0.0000000e+00 -23314
-\end{lstlisting}
+The generated transverse momentum against the longitudinal momentum for \lam, \alam, \anticascade and \excitedcascade is 
+presented in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_xi_pt_vs_pz}.\\
 
-- plot of transverse momentum against longitudinal momentum in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_xi_pt_vs_pz} (implement boxes)
 
 \begin{figure}
 	\subfigure[\lam]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/Lambda0_MC_pt_vs_pz.pdf}}
@@ -96,7 +101,8 @@ add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 
 	\label{fig:MC_xi_pt_vs_pz}
 \end{figure}
 
-- Dalitz plots for simulation figure \ref{fig:eventgeneration_dalitz}
+Figure \ref{fig:eventgeneration_dalitz} shows the Dalitz plot for the \lam, \kminus and \anticascade final states for 
+the channel \pbarpSystem $\rightarrow$ \excitedcascade \anticascade. 
 
 \begin{figure}
 	\centering

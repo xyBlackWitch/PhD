@@ -1,17 +1,16 @@
-Here is all the stuff of the analysis!
+To reconstruct all the simulated particles we start with the final state particles and go backwards through the reaction chain.
 
 \section{Final state particle}
-	-final state particle: proton, antiproton, \piminus, \piplus, \kminus and \kplus mesons
-	
-	-reconstructed in Detector
-	
-	-only particles with more then 3 hits either in any of the tracking detectors MVD, STT or GEM 
-	
-	-reason: 3 hits define circle; fourth hit point gives a validation for track hypothesis
-	
-	- ideal PID (reason!!!)
-	
-	-reco efficiency in table \ref{tab:finalstate_recoeff} see also figure \ref{fig:finalstate_recoeff}
+	The selected final state particle are protons, antiproton, \piminus, \piplus, \kminus and \kplus mesons.
+	For the reconstruction of these final state particles I used an ideal tracking. 
+	To make the selection a bit more realistic only particles with more than 3 hits in any inner tracking detector (MVD, STT and GEM)
+	are selected.
+	The selection criterion is chosen because three hits are defining a cirlce.
+	A fourth hit point is than a validation of the track hypothesis.\\
+	The particle identification (PID) is also ideal. 
+	The selection criterion is set to 'best'.\\
+	\vspace{11pt} 
+	The reconstruction  efficieny for the final state particle is shown in table \ref{tab:finalstate_recoeff} and figure \ref{fig:finalstate_recoeff}.
 	
 	\begin{table}
 		\centering
@@ -32,7 +31,7 @@ Here is all the stuff of the analysis!
 		\end{tabular}
 	\end{table}
 	
-	-for c.c. channel see table \ref{tab:finalstate_recoeff_cc}
+	Table \ref{tab:finalstate_recoeff_cc} shows the reconstruction efficiency for the c.c. channel.
 	
 	\begin{table}
 		\centering
@@ -67,38 +66,38 @@ Here is all the stuff of the analysis!
 	
 \section{Reconstruction of $\boldmath{\Lambda}^0$ and $\boldmath{\bar{\Lambda}^0}$}
 	\subsection*{Combination}
-		-only final state particle with more than 3 Hits
+		For the reconstruction of 
 		
-		-daughter particles for \lam: proton an \piminus meson
-		
-		-daughter particles for \alam: \antiproton and \piplus here \piplustwo 
-		
-		-for c.c. chain: \lam: proton and \piminustwo; \alam: \antiproton and \piplus 
-		
-		-performing a mass window cut with width of $0.3$\massunit 
+		\begin{itemize}
+			\item \lam a proton and a \piminus meson are combined and
+			\item for the reconstruction of \alam a \antiproton and a \piplus are combined.
+		\end{itemize}
+		 
+		After the combination of the daughter particles a mass window cut is performed.
+		Only those particles are chosen which have a mass within $0.3$\massunit.
 		
 		
 	\subsection*{Fitting}
-	
-		- fitting particles to common vertex with PndKinVtxFitter
-	
-		- $\chi^{2}$ and $\chi^{2}$-Probability distiribution shown in figure \ref{fig:lambda_chi2}
+		A vertex constraint fit with the PndKinVertexFitter is performed on the selected particle.
+		This means that the tracks of the daughter particles are fitted to a common vertex point.  
+		The \chisq and \chisq-Probability distiribution of the vertex fit for \lam is shown in figure \ref{fig:lambda_chi2}.
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.50\textwidth]{./plots/lambda0/lambda0_chisqrt.pdf}
 				\includegraphics [width=0.50\textwidth]{./plots/lambda0/lambda0_prob.pdf}
-			\caption{upper: $\chi^{2}$ distribution; lower: $\chi^{2}$ probability distribution}
+			\caption{upper: \chisq distribution; lower: \chisq probability distribution}
 			\label{fig:lambda_chi2}
 		\end{figure}
 		
-		- features in probability distribution are not coming from vertex fitting. There is still a problem with covariance matrices.
-		
-		- fit information are given to PndKinFitter with mass constraint
-		
-		- only select particles with prob bigger than 0.01 for both fitters
-		
-		- scheme in figure \ref{fig:lambda_scheme}
+		In the \chisq-probability distribution one can see a increasing number of events for probabilites going to one.
+		These feature is not coming from vertex fitting.
+		There is still a problem with covariance matrices which causes the effect.
+		\vspace{11pt}\\
+		The fit information coming from the vertex fit are used to perform a mass contraint fit with the kinematic fitter PndKinFitter.
+		After using both fitter the selection criterion is set. 
+		One select only those particles which have a probabiltiy greater than $1\%$ in both fitter.
+		A scheme which shows how the events are selected can be found in figure \ref{fig:lambda_scheme}. 
 		
 		\begin{figure}
 			\centering
@@ -107,13 +106,13 @@ Here is all the stuff of the analysis!
 			\label{fig:lambda_scheme}
 		\end{figure}
 		
-		-if there is more than one particle, choose best candidate
+		If there is more than one candidate left after the cuts the best fitted candidate is chosen.
 		
 		
 	\subsection*{Results}
+		This subsection presents the results for the \lam and \alam selection with the selection criteria introduced above.
+		The mass distributions for different cuts are shown in figure \ref{fig:lambda0_massdiffcuts} and figure \ref{fig:antilambda0_massdiffcuts}.
 	
-		- mass distribution for different cuts see figure \ref{fig:lambda0_massdiffcuts} and figure \ref{fig:antilambda0_massdiffcuts}
-		
 		\begin{figure}
 			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/lambda0/lambda0_m_diffcuts.pdf}
@@ -125,18 +124,20 @@ Here is all the stuff of the analysis!
 			\label{fig:antilambda0_massdiffcuts}
 		\end{figure}
 		
-		-performing a doulbe gaussian fit on cutted mass for \lam and \alam (example see figure \ref{fig:lambda0_massfit}
+		The reconstructed mass can be derived by performing a doulbe gaussian fit on the cutted mass.
+		The mass distribution and the double gausssian fit are exemplarily shown for \lam in figure \ref{fig:lambda0_massfit}
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}
-			\caption{Mass fit with a double gaussian fit}
+			\caption{Mass distribution -- blue line -- for \lam fitted with a double gaussian fit shown as red dashed line.}
 			\label{fig:lambda0_massfit}
 		\end{figure}
 		
-		- result of massfit $\mt{m} = \left(1.116 \pm 3.5\cdot 10^{-5}\right)$ \massunit
+		The mean value of the inner gaussian fit is the reconstructed mass.
+		The result for \lam is $\mt{m}_{\Lambda^0} = \left(1.116 \pm 3.5\cdot 10^{-5}\right)$ \massunit and for \alam: $\mt{m}_{\bar{\Lambda}^0} = \left(1.116 \pm 1\cdot 10^{-5}\right)$\massunit. 
+		The small fit errors could be a result from the wrong covariance matrices. But this has to be checked. 
 		
-		- small error seems to come from wrong covariance matrices.
 		
 		- transverse vs longitudinal momentumg shown in figure \ref{fig:lambda0_pt_vs_pz}
 		
@@ -205,7 +206,7 @@ Here is all the stuff of the analysis!
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.50\textwidth]{./plots/Xi/XiPlus_prob.pdf}
-			\caption{$\chi^{2}$ probalility for \anticascade reconstruction}
+			\caption{\chisq probalility for \anticascade reconstruction}
 			\label{fig:XiPlus_prob}
 		\end{figure}
 		
@@ -326,12 +327,12 @@ Here is all the stuff of the analysis!
 		
 		-if there is more than one particle, choose best candidate
 		
-		- $\chi^{2}$ probability distribution for vertex fit shown in figure \ref{fig:xi1820_prob}
+		- \chisq probability distribution for vertex fit shown in figure \ref{fig:xi1820_prob}
 		
 		\begin{figure}
 			\centering
 			\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_prob.pdf}
-			\caption{$\chi^{2}$ probability distribution of kinematic vertex fit for \excitedcascade.}
+			\caption{\chisq probability distribution of kinematic vertex fit for \excitedcascade.}
 			\label{fig:xi1820_prob}
 		\end{figure}
 		
