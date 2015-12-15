@@ -282,27 +282,14 @@ To reconstruct all the simulated particles we start with the final state particl
 	
 
 \section{Reconstruction of $\boldmath{\Xi}$(1820) and $\boldmath{\bar{\Xi}}$(1820)}
-		\subsection*{Combination}
+		\subsection*{Selection}
 
-		
-		-daughter particles for \excitedcascade: \lam and \kminus meson
-		
-		-daughter particles for \excitedanticascade: \alam and \kplus 
-		
-		-using best candidate from \lam and \alam
-		
-		-\kplus and \kminus with more than 3 Hits in one subdetector 
-		
-		-performing a mass window cut with width of $0.3$\massunit 
-		
-		
-	\subsection*{Fitting}
-	
-		- fitting particles to common vertex with PndKinVtxFitter
-		
-		- only select particles with prob bigger than 0.01
-		
-		- scheme in figure \ref{fig:excitedcascade_scheme}
+		For the reconstruction of \excitedcascade one combine \lam and \kminus meson and for \excitedanticascade \alam and \kplus using the
+		best candidate from \lam and \alam and \kplus and \kminus with more than 3 hits in one of the inner tracking detectors.
+		After the combination of the particles a mass window cut with width of $0.3$\massunit is performed. 
+		The daughter particles are fitted then to a common vertex point with the PndKinVtxFitter.
+		Only those candidates for \excitedcascade (\excitedanticascade) are selected which have a fit probability of more then $1\%$.
+		The selection scheme is shown in figure \ref{fig:excitedcascade_scheme}. 
 		
 		\begin{figure}
 			\centering
@@ -311,9 +298,9 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:excitedcascade_scheme}
 		\end{figure}
 		
-		-if there is more than one particle, choose best candidate
 		
-		- \chisq probability distribution for vertex fit shown in figure \ref{fig:xi1820_prob}
+		The \chisq probability distribution for the vertex fit is shown in figure \ref{fig:xi1820_prob}.
+		The distribution is again not flat but increases for values up to one. 
 		
 		\begin{figure}
 			\centering
@@ -322,9 +309,13 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:xi1820_prob}
 		\end{figure}
 		
+		If there is more than one particle the best candidate is chosen.
+		
 	\subsection*{Results}
 	
-	- mass for different cuts see figure \ref{fig:xi1820_mass_diffcuts}
+	After performing the vertex fit and cut on the probability value, the mass for \excitedcascade and \excitedanticascade
+	can be determined by fitting the mass with a double Gaussian fit. 
+	Figure \ref{fig:xi1820_mass_diffcuts} shows the mass distribution for both particles after each cut.
 	
 	\begin{figure}
 		\centering
@@ -333,43 +324,50 @@ To reconstruct all the simulated particles we start with the final state particl
 		\label{fig:xi1820_mass_diffcuts}
 	
 	\end{figure}
-	
-	- mass fit figure \ref{fig:xi1820_massfit}
+	The mass fit is exemplarily shown for the \excitedcascade in figure \ref{fig:xi1820_massfit}. 
 	
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
 		\caption{Mass distribution after all cuts for \excitedcascade.}
 		\label{fig:xi1820_massfit}
+	\end{figure}
+	The mass values for the \excitedcascade is fitted to $1 \pm 1$\massunit and for \excitedanticascade to $1 \pm 1 $\massunit.
+	These values are close to the input value.
+	Figure \ref{fig:xi1820_pt_vs_pz} shows the two dimensional momentum distribution. For both subplots the x axis shows the longitudinal momentum
+	and on the y axis there is shown the transverse momentum.
 	
+	\begin{figure}
+		\centering
+		\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_pt_vs_pz_cut.pdf}}
+		\subfigure[\excitedanticascade]{}
+		\caption{Both plots show the longitudinal versus the transverse momentum of the excited cascade baryon.}
+		\label{fig:xi1820_pt_vs_pz}
 	\end{figure}
 	
+	The reconstructed distributions are in good agreement with the distribution comming from the simulated events which are 
+	shown in figure \ref{fig:MC_xi_pt_vs_pz} (b).
 	
 \section{Reconstruction of hole chain}
 
-	\subsection*{combination}
+	\subsection*{Selection}
 	
-	-using best candidate from \excitedcascade and \anticascade
-	
-	-for c.c : \excitedanticascade and \cascade
-	
-	-mass window of $0.3$\massunit
-	
-	
-	\subsection*{Fitting}
-	
-	-use PndKinFitter with four momentum constrained
-	
-	-initial four momentum vector is 
+	To reconstruct the hole reaction chain \excitedcascade and \anticascade are combined.
+	This is also done with \excitedanticascade and \cascade for the charge conjugated channel.
+	For the event selection now it is use a excluding method. 
+	The four momentum vector of the daughter particles is fitted to the initial for momentum vector  
+
 	\begin{center}
 		\begin{equation}\nonumber
 			\left(\mt{p}_x,\, \mt{p}_y,\, \mt{p}_z,\, \mt{E} \right) = \left(0,\, 0,\, 4.6,\, 5.63 \right)
 		\end{equation}
 	\end{center}
-	
-	
-	-if probability is better than $1\%$ keep candidate
-	
+	of the \pbarpSystem.	
+	This fit is performed with the PndKinFitter.
+	After the four momentum fit there were only those candidates selected which have a \chisq probability of more than $1\%$.
+	The \chisq probablitity is shown in figure \ref{fig:xisys_prob}. 
+	The red line denotes the cut value.
+
 	\begin{figure}
 		\centering
 		%\includegraphics
@@ -377,8 +375,8 @@ To reconstruct all the simulated particles we start with the final state particl
 		\label{fig:xisys_prob}
 	\end{figure}
 	
-	-scheme shown in figure \ref{fig:fourconstraintfit}
-	
+	The selection scheme is shown in figure \ref{fig:fourconstraintfit}
+	 
 	\begin{figure}
 		\centering
 			\includegraphics[width=0.50\textwidth]{./plots/combineCascadeSys.pdf}
@@ -386,17 +384,9 @@ To reconstruct all the simulated particles we start with the final state particl
 		\label{fig:fourconstraintfit}
 	\end{figure}
 	
-	- table \ref{tab:non-finalstate_efficiency} shows summary of reconstruction efficiency for non-final state particles
+	\subsection*{Results}
 	
-	- dalitz plot is shown in figure \ref{fig:reco_dalitzplot}
-	
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{./plots/pbarp/Dalitzplot_reco.pdf}
-		\caption{Dalitz plot for reconstructed particles}
-		\label{fig:reco_dalitzplot}
-	
-	\end{figure}
+	The results of the reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}.
 	
 	\begin{table}
 		\centering
@@ -416,4 +406,16 @@ To reconstruct all the simulated particles we start with the final state particl
 			 	
 		\end{tabular}
 	\end{table}
+	
+	How good the reconstruction works is shown in figure \ref{fig:reco_dalitzplot}.
+	This plot shows the dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
+	Compared with the dalitz plot of the simulated particles which is shown in figure \ref{fig:eventgeneration_dalitz} the reconstruction seems to be good.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{./plots/pbarp/Dalitzplot_reco.pdf}
+		\caption{Dalitz plot for reconstructed particles}
+		\label{fig:reco_dalitzplot}
+	
+	\end{figure}
 	
