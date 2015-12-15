@@ -1,0 +1,11 @@
+\select@language {USenglish}
+\contentsline {chapter}{\numberline {1}Event generation}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Analysis}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Final state particle}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Reconstruction of $\relax \mathversion {bold}{\Lambda }^0$ and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Lambda }^0}$}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Reconstruction of $\relax \mathversion {bold}{\Xi }$ and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Xi }}$}{9}{section.2.3}
+\contentsline {section}{\numberline {2.4}Reconstruction of $\relax \mathversion {bold}{\Xi }$(1820) and $\relax \mathversion {bold}{\mathaccentV {bar}016{\Xi }}$(1820)}{15}{section.2.4}
+\contentsline {section}{\numberline {2.5}Reconstruction of hole chain}{21}{section.2.5}
+\contentsline {chapter}{\numberline {3}Background}{23}{chapter.3}
+\contentsline {chapter}{\numberline {4}Conclusion}{24}{chapter.4}
+\contentsline {chapter}{Literature}{25}{chapter*.44}
