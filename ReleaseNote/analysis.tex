@@ -42,12 +42,12 @@ To reconstruct all the simulated particles we start with the final state particl
 			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
 			\hline
 			\hline
-			\piplus &  & \\
-			\piminusone(\cascade) &  &  \\
-			\piminustwo(\lam) &  & \\
-			\kplus&  & \\
-			p &  &\\
-			\antiproton &  &\\\hline
+			\piplus &  82.9625&   1.54131\\
+			\piminusone(\cascade) & 80.395&   1.37697  \\
+			\piminustwo(\lam) &  82.6867&   1.48918\\
+			\kplus& 83.2709&   1.57882 \\
+			p &  80.7079&   1.55197\\
+			\antiproton &  80.9253&   1.60091\\\hline
 			 
 		\end{tabular}
 	\end{table}
@@ -179,7 +179,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		 
 		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
 		After the mass window cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
-		And again these information are given into the mass constraint fitter. 
+		And again these information is used to perform the mass constraint fitter. 
 		
 		\begin{figure}
 			\centering
@@ -188,7 +188,7 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:anticascade_scheme}
 		\end{figure}
 		
-		Only these particles are selected which have a probability of more than $1\,\%$ in both fitter. 
+		Only those particles are selected which have a \chisq probability of more than $1\,\%$ in both fitter. 
 		Figure \ref{fig:XiPlus_prob} shows exemplarily the cut on the vertex fit probability.
 		
 		\begin{figure}
@@ -202,7 +202,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		
 		
 	\subsection*{Results}
-		The vertex resolution after all cuts is shown in table table \ref{tab:XiPlus_vtxres}. 
+		The vertex resolution after all cuts is shown in table \ref{tab:XiPlus_vtxres}. 
 		
 		\begin{table}
 			\centering
@@ -210,19 +210,19 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{tab:XiPlus_vtxres}
 			\begin{tabular}{ccc}
 				\hline
-				position & \anticascade & cascade(from c.c.) \\\hline
+				position & \anticascade & \cascade(from c.c.) \\\hline
 				\hline
-				x & $0.03282 \pm 0.00017$ & \\
-				y & $0.03326 \pm 0.00017$ & \\
-				z & $0.12054 \pm 0.00058$ & \\
+				x/cm & $0.052$ & $0.056$\\
+				y/cm & $0.052$ & $0.052$\\
+				z/cm & $0.192$ & $0.2$\\
 				\hline
 				    
 			\end{tabular}
 		\end{table}
 		
-		It is determined by performing a Gaussian fit to the peak of the distribution.
-		The sigma of the fit gives the vertex resolution.
-		Figure \ref{fig:xi_vtxres_x} and Figure \ref{fig:xi_vtxres_yz} show the vertex resolution with the Gaussian fit. 
+		It is determined by calculating the full width at half maximum (FWHM) of the distribution.
+		The advantage of using this method to calculated the vertex resolution is that the FWHM is independent of distribution shape.
+		Figure \ref{fig:xi_vtxres_x} and Figure \ref{fig:xi_vtxres_yz} show the vertex resolution. 
 		
 		\begin{figure}
 			\centering
@@ -233,8 +233,8 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{figure}
 		
 		\begin{figure}
-			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
-			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}}
+			\subfigure[Vertex resolution for y coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
+			\subfigure[Vertex resolution for z coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}}
 			\caption{left plot: Vertex resolution of y position for \anticascade; right plot: Vertex resolution of z position for \anticascade.}
 			\label{fig:xi_vtxres_yz}
 			
@@ -255,7 +255,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{figure}
 		
 		After using all cuts on the mass distribution the reconstructed mass of \cascade and \anticascade can be determined by a double Gaussian fit.
-		This is exemplarily shown in figure \ref{fig:XiPlus_massfit}.
+		This is exemplarily shown for the \cascade in figure \ref{fig:XiPlus_massfit}.
 		
 		\begin{figure}
 			\centering
@@ -312,8 +312,44 @@ To reconstruct all the simulated particles we start with the final state particl
 		If there is more than one particle the best candidate is chosen.
 		
 	\subsection*{Results}
+	The vertex resolution for \excitedcascade and \excitedanticascade is summarized in table \ref{tab:Xi1820_vtxres}.
 	
-	After performing the vertex fit and cut on the probability value, the mass for \excitedcascade and \excitedanticascade
+	\begin{table}
+		\centering
+		\caption{Vertex resolution for \excitedcascade and \excitedanticascade.}
+		\label{tab:Xi1820_vtxres}
+		\begin{tabular}{ccc}
+			\hline
+			position & \excitedcascade & \excitedanticascade (from c.c.) \\
+			\hline
+			\hline
+			x/cm & 0.028 & 0.028\\
+			y/cm & 0.028 & 0.028\\
+			z/cm & 0.1 & 0.1\\
+			\hline
+			 
+		\end{tabular}
+	\end{table}
+	
+	Here again the vertex resolution is calculated with the FWHM. 
+	This is exemplarily shown for \excitedcascade in figure \ref{fig:Xi1820_vtxx} and figure \ref{fig:Xi1820_vtxyz}.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_x.pdf}
+		\caption{Vertex resolution of the x coordinate for \excitedcascade.}
+		\label{fig:Xi1820_vtxx}
+	\end{figure}
+	
+	 \begin{figure}
+		\centering
+		\subfigure[Vertex resolution of the y coordinate for \excitedcascade.]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_y.pdf}}
+		\subfigure[Vertex resolution of the z coordinate for \excitedcascade.]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_z.pdf}}
+		\caption{Figure a) shows the vertex resolution for the y coordinate and figure b) for the z coordinate of \excitedcascade}
+		\label{fig:Xi1820_vtxyz}
+	\end{figure}
+	
+	After performing the both fits and cut on the probability values, the mass for \excitedcascade and \excitedanticascade
 	can be determined by fitting the mass with a double Gaussian fit. 
 	Figure \ref{fig:xi1820_mass_diffcuts} shows the mass distribution for both particles after each cut.
 	
@@ -340,7 +376,7 @@ To reconstruct all the simulated particles we start with the final state particl
 	\begin{figure}
 		\centering
 		\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_pt_vs_pz_cut.pdf}}
-		\subfigure[\excitedanticascade]{}
+		\subfigure[\excitedanticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiPlus1820_pt_vs_pz_cut.pdf}}
 		\caption{Both plots show the longitudinal versus the transverse momentum of the excited cascade baryon.}
 		\label{fig:xi1820_pt_vs_pz}
 	\end{figure}
@@ -386,7 +422,8 @@ To reconstruct all the simulated particles we start with the final state particl
 	
 	\subsection*{Results}
 	
-	The results of the reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}.
+	The results of the reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}
+	and tabel \ref{tab:non-finalstate_efficiency_cc}.
 	
 	\begin{table}
 		\centering
@@ -398,11 +435,30 @@ To reconstruct all the simulated particles we start with the final state particl
 			\hline
 			particle & reco efficiency in $\%$ & dp/p in $\%$ \\\hline
 			\hline
-			\lam & & \\
-			\alam & & \\
-			\anticascade & & \\
-			\excitedcascade & & \\
-			\anticascade \cascade system & & \\\hline
+			\lam & 50.3278&   1.50497 \\
+			\alam & 41.4625&   1.45024\\
+			\anticascade & 18.389&   1.2889\\
+			\excitedcascade & 32.0245&   2.67691 \\
+			\excitedcascade \anticascade system & 4.69293&   1.03214\\\hline
+			 	
+		\end{tabular}
+	\end{table}
+	
+		\begin{table}
+		\centering
+		\caption{reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
+		\label{tab:non-finalstate_efficiency_cc}
+		
+		\begin{tabular}{lcc}
+		
+			\hline
+			particle & reco efficiency in $\%$ & dp/p in $\%$ \\\hline
+			\hline
+			\lam & 42.4693&   1.45429 \\
+			\alam & 48.9991&   1.50196\\
+			\cascade & 18.6405&   2.29877\\
+			\excitedanticascade & 33.2238&   1.31081\\
+			\excitedanticascade \cascade system & 4.87227&   1.03127\\\hline
 			 	
 		\end{tabular}
 	\end{table}
