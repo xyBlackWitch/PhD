@@ -9,10 +9,10 @@ The decay channel for the simulation is shown in figure \ref{fig:eventgeneration
 	\label{fig:eventgeneration_decaychannel}
 \end{figure}
 
-For the charge conjungated channel were also 1.5 million signal events generated.
-The parameter which are used for the event generation are shown in table \ref{tab:eventgeneration_parameter}.
+For the charge conjungated channel further 1.5 million events were generated.
+The used parameters for the event generation are shown in table \ref{tab:eventgeneration_parameter}.
 
-\begin{table}[htbp]
+\begin{table}[tbp]
 	\caption{Parameter for event generation}
 	\label{tab:eventgeneration_parameter}
 	\centering
@@ -29,13 +29,13 @@ The parameter which are used for the event generation are shown in table \ref{ta
 	\end{tabular}
 \end{table}
 
-The chosen beam momentum value is 100 MeV over the production threshold of \excitedcascade and \anticascade.
-The production cross section is expected to be of the same order ($\sim \mu\unit{b}$) as for \cascade \cite{PANDAphysics2009}.\\
+The chosen beam momentum of $p_{\bar{\mt{p}}} = 4.6\unit{GeV/c}$ is 100 MeV above the production threshold of \excitedcascade and \anticascade.
+The production cross section is expected to be of the same order ($\sim \mu\mt{b}$) as for \cascade \cite{PANDAphysics2009}.\\
 \vspace{11pt} 
 
-The used software versions for Pandaroot and the external software is listed in table \ref{tab:eventgeneration_software} 
+The used software versions for Pandaroot and the external software package is listed in table \ref{tab:eventgeneration_software} 
 
-\begin{table}[htb]
+\begin{table}[tb]
 	\centering
 	\caption{Used software versions}
 	\label{tab:eventgeneration_software}
@@ -54,19 +54,18 @@ The used software versions for Pandaroot and the external software is listed in 
 \end{table}
 
 
-The \excitedcascade was not defined in the evt.pdl file. 
-The Lines in the code sniplet \ref{lst:eventgeneration_evtpdl} shown how the particle was added to the file.
-As the properties of \excitedcascade I am using the values which are shown in table \ref{tab:eventgeneration_Xivalues}.
-These values are taken from \cite{PDG}.
+Since now \excitedcascade was not defined in the evt.pdl file. 
+The Lines in the code sniplet \ref{lst:eventgeneration_evtpdl} show how the particle is added to the file.
+The properties of \excitedcascade comming from \cite{PDG} are written down in table \ref{tab:eventgeneration_Xivalues}.
 
 \begin{lstlisting}[caption={sniplet from evt.pdl}\label{lst:eventgeneration_evtpdl}, captionpos=t,breaklines=true]
 add  p Particle Xi(1820)- 23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 -3 3 0.0000000e+00 23314
 add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 3 3 0.0000000e+00 -23314
 \end{lstlisting}
 
-\begin{table}[tb]
+\begin{table}[htbp]
 	\centering
-	\caption{Values for \excitedcascade and \excitedanticascade from \cite{PDG}}
+	\caption{Properties of \excitedcascade and \excitedanticascade. The values are taken from \cite{PDG}}
 	\label{tab:eventgeneration_Xivalues}
 	\begin{tabular}{lllllll}
 		\hline
@@ -87,8 +86,8 @@ presented in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_xi_pt_vs_pz}.\
 \begin{figure}
 	\subfigure[\lam]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/Lambda0_MC_pt_vs_pz.pdf}}
 	\subfigure[\alam]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/AntiLambda0_MC_pt_vs_pz.pdf}}
-	\caption{Figure a) shows transversal against the longitudinal momentum distribution for \lam. Figure b) 
-			transversal versus longitudinal momentum distribution for \alam.}
+	\caption{Figure a) shows the transverse momentum on the y axis against the longitudinal momentum on the x axis for \lam. Figure b) 
+			shows the same distribution for \alam.}
 	\label{fig:MC_lambda0_pt_vs_pz}
 \end{figure}
 
