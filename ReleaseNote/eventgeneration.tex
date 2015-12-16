@@ -9,7 +9,7 @@ The decay channel for the simulation is shown in figure \ref{fig:eventgeneration
 	\label{fig:eventgeneration_decaychannel}
 \end{figure}
 
-For the charge conjungated channel further 1.5 million events were generated.
+For the charge conjugated channel further 1.5 million events were generated.
 The used parameters for the event generation are shown in table \ref{tab:eventgeneration_parameter}.
 
 \begin{table}[tbp]
@@ -55,10 +55,10 @@ The used software versions for Pandaroot and the external software package is li
 
 
 Since now \excitedcascade was not defined in the evt.pdl file. 
-The Lines in the code sniplet \ref{lst:eventgeneration_evtpdl} show how the particle is added to the file.
-The properties of \excitedcascade comming from \cite{PDG} are written down in table \ref{tab:eventgeneration_Xivalues}.
+The Lines in the code snippet \ref{lst:eventgeneration_evtpdl} show how the particle is added to the file.
+The properties of \excitedcascade coming from \cite{PDG} are written down in table \ref{tab:eventgeneration_Xivalues}.
 
-\begin{lstlisting}[caption={sniplet from evt.pdl}\label{lst:eventgeneration_evtpdl}, captionpos=t,breaklines=true]
+\begin{lstlisting}[caption={snippet from evt.pdl}\label{lst:eventgeneration_evtpdl}, captionpos=t,breaklines=true]
 add  p Particle Xi(1820)- 23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 -3 3 0.0000000e+00 23314
 add  p Particle anti-Xi(1820)+ -23314 1.8230000e+00 2.4000000e-02 2.0000000e-01 3 3 0.0000000e+00 -23314
 \end{lstlisting}
@@ -95,18 +95,18 @@ presented in figure \ref{fig:MC_lambda0_pt_vs_pz}% -- \ref{fig:MC_xi_pt_vs_pz}.\
 \begin{figure}
 	\subfigure[\anticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_MC_pt_vs_pz.pdf}}
 	\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_MC_pt_vs_pz.pdf}}
-	\caption{Figure a) shows transversal against the longitudinal momentum distribution for \anticascade. Figure b) 
-			transversal versus longitudinal momentum distribution for \excitedcascade.}
+	\caption{Figure a) shows transverse against the longitudinal momentum distribution for \anticascade. Figure b) 
+			transverse versus longitudinal momentum distribution for \excitedcascade.}
 	\label{fig:MC_xi_pt_vs_pz}
 \end{figure}
 
-Figure \ref{fig:eventgeneration_dalitz} shows the Dalitz plot for the \lam, \kminus and \anticascade final states for 
+Figure \ref{fig:eventgeneration_Dalitz} shows the Dalitz plot for the \lam, \kminus and \anticascade final states for 
 the channel \pbarpSystem $\rightarrow$ \excitedcascade \anticascade. 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\textwidth]{./plots/Dalitzplot_MC.pdf}
 	\caption{Dalitz plot for simulation. On x axis is the mass square of \lam  and \kminus and on the y axis there is the mass square of \anticascade and \kminus}
-	\label{fig:eventgeneration_dalitz}
+	\label{fig:eventgeneration_Dalitz}
 \end{figure}
 

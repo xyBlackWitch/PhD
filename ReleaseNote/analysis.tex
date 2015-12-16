@@ -5,12 +5,12 @@ To reconstruct all the simulated particles we start with the final state particl
 	For the reconstruction of these final state particles I used an ideal tracking. 
 	To make the selection a bit more realistic only particles with more than 3 hits in any inner tracking detector (MVD, STT and GEM)
 	are selected.
-	The selection criterion is chosen because three hits are defining a cirlce.
+	The selection criterion is chosen because three hits are defining a circle.
 	A fourth hit point is than a validation of the track hypothesis.\\
 	The particle identification (PID) is also ideal. 
 	The selection criterion is set to 'best'.\\
 	\vspace{11pt} 
-	The reconstruction  efficieny for the final state particle is shown in table \ref{tab:finalstate_recoeff} and figure \ref{fig:finalstate_recoeff}.
+	The reconstruction  efficiency for the final state particle is shown in table \ref{tab:finalstate_recoeff} and figure \ref{fig:finalstate_recoeff}.
 	
 	\begin{table}
 		\centering
@@ -77,9 +77,9 @@ To reconstruct all the simulated particles we start with the final state particl
 		Only those particles are chosen which have a mass within $0.3$\massunit.
 		
 		
-		A vertex constraint fit with the PndKinVertexFitter is performed on the selected particle.
+		A vertex constraint fit with the PndKinVtxFitter is performed on the selected particle.
 		This means that the tracks of the daughter particles are fitted to a common vertex point.  
-		The \chisq and \chisq-Probability distiribution of the vertex fit for \lam is shown in figure \ref{fig:lambda_chi2}.
+		The \chisq and \chisq-Probability distribution of the vertex fit for \lam is shown in figure \ref{fig:lambda_chi2}.
 		
 		\begin{figure}
 			\centering
@@ -89,13 +89,13 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:lambda_chi2}
 		\end{figure}
 		
-		In the \chisq-probability distribution one can see a increasing number of events for probabilites going to one.
+		In the \chisq-probability distribution one can see a increasing number of events for probabilities going to one.
 		These feature is not coming from vertex fitting.
 		There is still a problem with covariance matrices which causes the effect.
 		\vspace{11pt}\\
-		The fit information coming from the vertex fit are used to perform a mass contraint fit with the kinematic fitter PndKinFitter.
+		The fit information coming from the vertex fit are used to perform a mass constraint fit with the kinematic fitter PndKinFitter.
 		After using both fitter the selection criterion is set. 
-		One select only those particles which have a probabiltiy greater than $1\%$ in both fitter.
+		One select only those particles which have a probability greater than $1\%$ in both fitter.
 		A scheme which shows how the events are selected can be found in figure \ref{fig:lambda_scheme}. 
 		
 		\begin{figure}
@@ -123,17 +123,17 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:antilambda0_massdiffcuts}
 		\end{figure}
 		
-		The reconstructed mass can be derived by performing a doulbe gaussian fit on the cutted mass.
-		The mass distribution and the double gausssian fit are exemplarily shown for \lam in figure \ref{fig:lambda0_massfit}
+		The reconstructed mass can be derived by performing a double Gaussian fit on the cut mass.
+		The mass distribution and the double Gaussian fit are exemplarily shown for \lam in figure \ref{fig:lambda0_massfit}
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}
-			\caption{Mass distribution -- blue line -- for \lam fitted with a double gaussian fit shown as red dashed line.}
+			\caption{Mass distribution -- blue line -- for \lam fitted with a double Gaussian fit shown as red dashed line.}
 			\label{fig:lambda0_massfit}
 		\end{figure}
 		
-		The mean value of the inner gaussian fit is the reconstructed mass.
+		The mean value of the inner Gaussian fit is the reconstructed mass.
 		The result for \lam is $\mt{m}_{\Lambda^0} = \left(1.116 \pm 3.5\cdot 10^{-5}\right)$ \massunit and for \alam: $\mt{m}_{\bar{\Lambda}^0} = \left(1.116 \pm 1\cdot 10^{-5}\right)$\massunit. 
 		The small fit errors could be a result from the wrong covariance matrices. 
 		But this has to be checked. 
@@ -143,7 +143,7 @@ To reconstruct all the simulated particles we start with the final state particl
 			
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}}
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/antiLambda0_pt_vs_pz_cut.pdf}}
-			\caption{The plots shows the transverse against the longuitudinal momentum for \lam}
+			\caption{The plots shows the transverse against the longitudinal momentum for \lam}
 			\label{fig:lambda0_pt_vs_pz}
 		
 		\end{figure}
@@ -153,7 +153,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		In addition the decay length of \lam and \alam is $\textnormal{c}\tau = 7.98 \unit{cm}$.
 		If one sum this number up the final state particles of \alam are produced more downstream than the final state particles of \lam.
 		This can be also seen in figure \ref{fig:lambda0_antilambda0_decay_vtx}.
-		The finale state particles coming from \alam are produced at the edge of the MVD detector so that the reconsturction efficiency get worse.
+		The finale state particles coming from \alam are produced at the edge of the MVD detector so that the reconstruction efficiency get worse.
 		
 		\begin{figure}
 		
@@ -175,7 +175,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		For \anticascade are \alam and \piplusone recombined and for \cascade in the c.c. channel \lam and \piminusone.
 		Now it is distinguished between the to \piplus (\piminus) particle and use only those particles which have not already been combined.
 		After combining the daughter particles it is performed a mass window cut with width of $0.3$\massunit 
-		arraound the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
+		around the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
 		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
 		After the mass window cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
@@ -194,7 +194,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.50\textwidth]{./plots/Xi/XiPlus_prob.pdf}
-			\caption{\chisq probalility for \anticascade reconstruction}
+			\caption{\chisq probability for \anticascade reconstruction}
 			\label{fig:XiPlus_prob}
 		\end{figure}
 			
@@ -260,7 +260,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
-			\caption{Mass fit with a double gaussian fit}
+			\caption{Mass fit with a double Gaussian fit}
 			\label{fig:XiPlus_massfit}
 		\end{figure}
 		The result of the mass fit is for \anticascade $\mt{m} = \left( 1.3721716 \pm 9.2\cdot 10^{-5}\right)$ \massunit 
@@ -270,7 +270,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\subfigure[\anticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_pt_vs_pz_cut.pdf}}
 			\subfigure[\cascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiMinus_pt_vs_pz_cut.pdf}}
-			\caption{The plots shows the transverse against the longuitudinal momentum for \anticascade and \cascade}
+			\caption{The plots shows the transverse against the longitudinal momentum for \anticascade and \cascade}
 			\label{fig:XiPlus_pt_vs_pz}
 		
 		\end{figure}
@@ -381,7 +381,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\label{fig:xi1820_pt_vs_pz}
 	\end{figure}
 	
-	The reconstructed distributions are in good agreement with the distribution comming from the simulated events which are 
+	The reconstructed distributions are in good agreement with the distribution coming from the simulated events which are 
 	shown in figure \ref{fig:MC_xi_pt_vs_pz} (b).
 	
 \section{Reconstruction of hole chain}
@@ -401,7 +401,7 @@ To reconstruct all the simulated particles we start with the final state particl
 	of the \pbarpSystem.	
 	This fit is performed with the PndKinFitter.
 	After the four momentum fit there were only those candidates selected which have a \chisq probability of more than $1\%$.
-	The \chisq probablitity is shown in figure \ref{fig:xisys_prob}. 
+	The \chisq probability is shown in figure \ref{fig:xisys_prob}. 
 	The red line denotes the cut value.
 
 	\begin{figure}
@@ -423,7 +423,7 @@ To reconstruct all the simulated particles we start with the final state particl
 	\subsection*{Results}
 	
 	The results of the reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}
-	and tabel \ref{tab:non-finalstate_efficiency_cc}.
+	and table \ref{tab:non-finalstate_efficiency_cc}.
 	
 	\begin{table}
 		\centering
@@ -463,15 +463,15 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{tabular}
 	\end{table}
 	
-	How good the reconstruction works is shown in figure \ref{fig:reco_dalitzplot}.
-	This plot shows the dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
-	Compared with the dalitz plot of the simulated particles which is shown in figure \ref{fig:eventgeneration_dalitz} the reconstruction seems to be good.
+	How good the reconstruction works is shown in figure \ref{fig:reco_Dalitzplot}.
+	This plot shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
+	Compared with the Dalitz plot of the simulated particles which is shown in figure \ref{fig:eventgeneration_Dalitz} the reconstruction seems to be good.
 	
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.8\textwidth]{./plots/pbarp/Dalitzplot_reco.pdf}
 		\caption{Dalitz plot for reconstructed particles}
-		\label{fig:reco_dalitzplot}
+		\label{fig:reco_Dalitzplot}
 	
 	\end{figure}
 	
