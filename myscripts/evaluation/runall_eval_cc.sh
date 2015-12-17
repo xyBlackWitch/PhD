@@ -8,8 +8,8 @@ if test "$1" != ""; then
 fi
 
 
-echo evaluation of final states
-root -l -q eval_final_states_antiparticle.C"(\"$path\")"
+#echo evaluation of final states
+#root -l -q eval_final_states_antiparticle.C"(\"$path\")"
 
 echo evaluation of Lambda0 and AntiLambda0
 root -l -q eval_lambda0.C"(\"$path\")"

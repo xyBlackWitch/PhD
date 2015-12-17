@@ -76,15 +76,15 @@ void eval_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi(1820)^{-}; x-x_{MC}; counts", 500,-1,1);
 		ntpXiMinus1820->Project("h_xi_vtxres_x", "VtxFit_diffvx", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_x, path+"/plots/", "XiMinus1820_vtxres_x", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_x, path+"/plots/", "XiMinus1820_vtxres_x", save, close);
 
 		TH1D * h_xi_vtxres_y = new TH1D("h_xi_vtxres_y", "resolution for y coordinate of vertex for #Xi(1820)^{-}; y-y_{MC}; counts", 500,-1,1);
 		ntpXiMinus1820->Project("h_xi_vtxres_y", "VtxFit_diffvy", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_y, path+"/plots/", "XiMinus1820_vtxres_y", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_y, path+"/plots/", "XiMinus1820_vtxres_y", save, close);
 
 		TH1D * h_xi_vtxres_z = new TH1D("h_xi_vtxres_z", "resolution for z coordinate of vertex for #Xi(1820)^{-}; z-z_{MC}; counts", 500,-1,1);
 		ntpXiMinus1820->Project("h_xi_vtxres_z", "VtxFit_diffvz", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_z, path+"/plots/", "XiMinus1820_vtxres_z", save, close, false, 0.01, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_z, path+"/plots/", "XiMinus1820_vtxres_z", save, close);
 
 		TH1D * h_xi_costht = new TH1D("h_xi_costht", "cos(#Theta) distribution for #Xi(1820)^{-}; cos(#Theta); counts", 500,-1,1.01);
 		ntpXiMinus1820->Project("h_xi_costht", "cos(VtxFit_tht)","McTruthMatch "+vtxcut);
@@ -100,7 +100,7 @@ void eval_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_prob = new TH1D("h_xi_prob", "probability distribution for #Xi(1820)^{-}; prob; counts", 500,0,1);
 		ntpXiMinus1820->Project("h_xi_prob", "VtxFit_prob","McTruthMatch ");
-		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiMinus1820_prob", save, close);
+		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiMinus1820_prob", save, close,true);
 	}
 
 
@@ -135,15 +135,15 @@ void eval_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_axi_vtxres_x = new TH1D("h_axi_vtxres_x", "resolution for x coordinate of vertex for #bar{#Xi}(1820); x-x_{MC}; counts", 500,-1,1);
 		ntpXiPlus1820->Project("h_axi_vtxres_x", "VtxFit_diffvx", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_x, path+"/plots/", "XiPlus1820_vtxres_x", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_x, path+"/plots/", "XiPlus1820_vtxres_x", save, close);
 
 		TH1D * h_axi_vtxres_y = new TH1D("h_axi_vtxres_y", "resolution for y coordinate of vertex for #bar{#Xi}(1820); y-y_{MC}; counts", 500,-1,1);
 		ntpXiPlus1820->Project("h_axi_vtxres_y", "VtxFit_diffvy", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_y, path+"/plots/", "XiPlus1820_vtxres_y", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_y, path+"/plots/", "XiPlus1820_vtxres_y", save, close);
 
 		TH1D * h_axi_vtxres_z = new TH1D("h_axi_vtxres_z", "resolution for z coordinate of vertex for #bar{#Xi}(1820); z-z_{MC}; counts", 500,-1,1);
 		ntpXiPlus1820->Project("h_axi_vtxres_z", "VtxFit_diffvz", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_z, path+"/plots/", "XiPlus1820_vtxres_z", save, close, false, 0.05,1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_z, path+"/plots/", "XiPlus1820_vtxres_z", save, close);
 
 
 		TH1D * h_axi_costht = new TH1D("h_axi_costht", "cos(#Theta) distribution for #bar{#Xi}(1820); cos(#Theta); counts", 500,-1,1.01);
@@ -160,7 +160,7 @@ void eval_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_prob = new TH1D("h_xi_prob", "probability distribution for #bar{#Xi}(1820); prob; counts", 500,0,1);
 		ntpXiPlus1820->Project("h_xi_prob", "VtxFit_prob","McTruthMatch ");
-		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiPlus1820_prob", save, close);
+		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiPlus1820_prob", save, close, true);
 	}
 	else {
 		cout << "No particle of kind Xi(1820)- or Xi(1820)+!" << endl;

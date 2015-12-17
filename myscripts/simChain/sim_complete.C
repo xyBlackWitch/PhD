@@ -45,7 +45,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed(2704);
+  gRandom->SetSeed(1810);
   
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();
@@ -175,7 +175,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   if(UseEvtGenDirect){
 //    TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
-	  TString EvtInput="/home/ikp1/puetz/panda/mysimulations/analysis/XiMinus_1820_lambda0_K.dec";
+	  TString EvtInput="./test/XiMinus_1820_lambda0_K.dec";
 //    PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
 	  PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);

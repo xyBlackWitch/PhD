@@ -44,26 +44,27 @@ void eval_MC(TString path="", bool save=kTRUE, bool close=kFALSE){
 //	TH1D * h_aXi_tht = new TH1D("h_aXi_tht", "angle distribution for #bar{#Xi}; #theta/rad; coutns", 500,0,3);
 //	ntpMC->Project("h_aXi_tht", "tht", "pdg==-3312 && moth==0");
 //	jenny::CreateDrawAndSaveHistogram(h_aXi_tht, path+"/plots/", "XiPlus_MC_tht", save, close);
-//
+
 //	//**********************XiMinus1820*****************************
 //	cout << "Creating histograms for XiMinus1820" << endl;
 //
 //	TH2D * h_Xi1820_pt_vs_pz = new TH2D("h_Xi1820_pt_vs_pz", "transverse vs longitudinal momentum for #Xi(1820); pz/GeV/c; pt/GeV/c", 200,0,4,200,0,0.7);
 //	ntpMC->Project("h_Xi1820_pt_vs_pz", "sqrt(px**2+py**2):pz", "pdg==23314 && moth==0");
 //	jenny::CreateDrawAndSaveHistogram(h_Xi1820_pt_vs_pz, path+"/plots/", "XiMinus1820_MC_pt_vs_pz", save, close);
-
+//
 //	TH1D * h_Xi1820_tht = new TH1D("h_Xi1820_tht", "#theta distribution for #Xi(1820); #theta/rad; counts", 500,0,1);
 //	ntpMC->Project("h_Xi1820_tht", "tht", "pdg==23314 && moth==0");
 //	jenny::CreateDrawAndSaveHistogram(h_Xi1820_tht, path+"/plots/", "XiMinus1820_MC_tht", save, close);
 
-//	//**********************Lambda0*********************************
-//	cout << "Creating histograms for Lambda0" << endl;
-//
-//	TH2D * h_l0_pt_vs_pz = new TH2D("h_l0_pt_vs_pz", "transversal vs longitudinal momentum for #Lambda^{0}; pz/GeV/c; pt/GeV/c", 200,0,4,200,0,0.8);
-//	ntpMC->Project("h_l0_pt_vs_pz", "sqrt(px**2+py**2):pz", "pdg==3122 && moth==1");
-//	jenny::CreateDrawAndSaveHistogram(h_l0_pt_vs_pz, path+"/plots/", "Lambda0_MC_pt_vs_pz", save, close);
 
-//	TH1D * h_l0_tht = new TH1D("h_l0_tht", "transversal vs longitudinal momentum for #bar{#Xi}; pz/GeV/c; pt/GeV/c", 500,0,3);
+//	//**********************Lambda0*********************************
+	cout << "Creating histograms for Lambda0" << endl;
+
+	TH2D * h_l0_pt_vs_pz = new TH2D("h_l0_pt_vs_pz", "transversal vs longitudinal momentum for #Lambda^{0}; pz/GeV/c; pt/GeV/c", 200,0,4,200,0,0.8);
+	ntpMC->Project("h_l0_pt_vs_pz", "sqrt(px**2+py**2):pz", "pdg==3122 && moth==1");
+	jenny::CreateDrawAndSaveHistogram(h_l0_pt_vs_pz, path+"/plots/", "Lambda0_MC_pt_vs_pz", save, close);
+//
+//	TH1D * h_l0_tht = new TH1D("h_l0_tht", "transversal vs longitudinal momentum for #Lambda^{0}; pz/GeV/c; pt/GeV/c", 500,0,3);
 //	ntpMC->Project("h_l0_tht", "tht", "pdg==3122 && moth==1");
 //	jenny::CreateDrawAndSaveHistogram(h_l0_tht, path+"/plots/", "Lambda0_MC_pt_vs_pz", save, close);
 //
@@ -74,7 +75,7 @@ void eval_MC(TString path="", bool save=kTRUE, bool close=kFALSE){
 	ntpMC->Project("h_al0_pt_vs_pz", "sqrt(px**2+py**2):pz", "pdg==-3122 && moth==2");
 	jenny::CreateDrawAndSaveHistogram(h_al0_pt_vs_pz, path+"/plots/", "AntiLambda0_MC_pt_vs_pz", save, close);
 //
-//	TH1D * h_al0_tht = new TH1D("h_al0_tht", "transversal vs longitudinal momentum for #bar{#Xi}; pz/GeV/c; pt/GeV/c", 500,0,3);
+//	TH1D * h_al0_tht = new TH1D("h_al0_tht", "transversal vs longitudinal momentum for #bar{#Lambda}^{0}; pz/GeV/c; pt/GeV/c", 500,0,3);
 //	ntpMC->Project("h_al0_tht", "tht", "pdg==-3122 && moth==2");
 //	jenny::CreateDrawAndSaveHistogram(h_al0_tht, path+"/plots/", "AntiLambda0_MC_pt_vs_pz", save, close);
 

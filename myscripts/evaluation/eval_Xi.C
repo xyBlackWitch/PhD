@@ -72,19 +72,19 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_m_masscut2 = new TH1D("h_xi_m_masscut2", "Mass distribution for #Xi^{-} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiMinus->Project("h_xi_m_masscut2", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m_masscut2, path+"/plots/", "XiMinus_m_masscut2", save, close, false, 0.01,0.1, true);
+		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m_masscut2, path+"/plots/", "XiMinus_m_masscut", save, close, false, 0.01,0.1);
 
 		TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi^{-}; x-x_{MC}; counts", 500,-1,1);
 		ntpXiMinus->Project("h_xi_vtxres_x", "VtxFit_diffvx", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_x, path+"/plots/", "XiMinus_vtxres_x", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_x, path+"/plots/", "XiMinus_vtxres_x", save, close);
 
 		TH1D * h_xi_vtxres_y = new TH1D("h_xi_vtxres_y", "resolution for y coordinate of vertex for #Xi^{-}; y-y_{MC}; counts", 500,-1,1);
 		ntpXiMinus->Project("h_xi_vtxres_y", "VtxFit_diffvy", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_y, path+"/plots/", "XiMinus_vtxres_y", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_y, path+"/plots/", "XiMinus_vtxres_y", save, close);
 
 		TH1D * h_xi_vtxres_z = new TH1D("h_xi_vtxres_z", "resolution for z coordinate of vertex for #Xi^{-}; z-z_{MC}; counts", 500,-1,1);
 		ntpXiMinus->Project("h_xi_vtxres_z", "VtxFit_diffvz", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_vtxres_z, path+"/plots/", "XiMinus_vtxres_z", save, close, false, 0.03, 1);//, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_z, path+"/plots/", "XiMinus_vtxres_z", save, close);
 
 		TH1D * h_xi_costht = new TH1D("h_xi_costht", "cos(#Theta) distribution for #Xi^{-}; cos(#Theta); counts", 500,-1,1.05);
 		ntpXiMinus->Project("h_xi_costht", "cos(VtxFit_tht)","McTruthMatch "+vtxcut+masscut);
@@ -100,7 +100,7 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_prob = new TH1D("h_xi_prob", "probapility distribution for #Xi^{-}; prob; counts", 500,0,1);
 		ntpXiMinus->Project("h_xi_prob", "VtxFit_prob","McTruthMatch ");
-		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiMinus_prob", save, close);
+		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiMinus_prob", save, close,true);
 	}
 
 
@@ -128,7 +128,7 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 		TH1D * h_axi_m_masscut = new TH1D("h_axi_m_masscut", "Mass distribution for #bar{#Xi} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.26,1.38);
 		ntpXiPlus->Project("h_axi_m_masscut", "VtxFit_m", "McTruthMatch "+vtxcut+masscut);
 
-		jenny::CreateDrawAndSaveNHistograms(h_axi_m_nocut, h_axi_m_vtxcut, h_axi_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "VtxFit_m_diffcuts", save, close);
+		jenny::CreateDrawAndSaveNHistograms(h_axi_m_nocut, h_axi_m_vtxcut, h_axi_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "XiPlus_m_diffcuts", save, close);
 
 		gStyle->SetOptStat(1111);
 
@@ -138,15 +138,15 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_axi_vtxres_x = new TH1D("h_axi_vtxres_x", "resolution for x coordinate of vertex for #bar{#Xi}; x-x_{MC}; counts", 500,-1,1);
 		ntpXiPlus->Project("h_axi_vtxres_x", "VtxFit_diffvx", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_x, path+"/plots/", "XiPlus_vtxres_x", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_x, path+"/plots/", "XiPlus_vtxres_x", save, close);
 
 		TH1D * h_axi_vtxres_y = new TH1D("h_axi_vtxres_y", "resolution for y coordinate of vertex for #bar{#Xi}; y-y_{MC}; counts", 500,-1,1);
 		ntpXiPlus->Project("h_axi_vtxres_y", "VtxFit_diffvy", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_y, path+"/plots/", "XiPlus_vtxres_y", save, close, false, 0.1, 1, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_y, path+"/plots/", "XiPlus_vtxres_y", save, close);
 
 		TH1D * h_axi_vtxres_z = new TH1D("h_axi_vtxres_z", "resolution for z coordinate of vertex for #bar{#Xi}; z-z_{MC}; counts", 500,-2,2);
 		ntpXiPlus->Project("h_axi_vtxres_z", "VtxFit_diffvz", "McTruthMatch "+vtxcut+masscut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_vtxres_z, path+"/plots/", "XiPlus_vtxres_z", save, close, false, 0.05,2, true);
+		jenny::CreateDrawAndSaveHistogramFWHM(h_axi_vtxres_z, path+"/plots/", "XiPlus_vtxres_z", save, close);
 
 
 		TH1D * h_axi_costht = new TH1D("h_axi_costht", "cos(#Theta) distribution for #bar{#Xi}; cos(#Theta); counts", 500,-1,1.05);
@@ -164,7 +164,7 @@ void eval_Xi(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_prob = new TH1D("h_xi_prob", "probability distribution for #bar{#Xi}; prob; counts", 500,0,1);
 		ntpXiPlus->Project("h_xi_prob", "VtxFit_prob","McTruthMatch ");
-		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiPlus_prob", save, close);
+		jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiPlus_prob", save, close, true);
 	}
 	else {
 		cout << "No particle of kind Xi- or Xi+!" << endl;

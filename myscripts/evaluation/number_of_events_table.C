@@ -13,6 +13,7 @@ class RhoTuple;
 #include "TTree.h"
 #include "TH1.h"
 #include "/home/ikp1/puetz/panda/myscripts/common_jenny.cpp"
+#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/PandaSmartLabel.C"
 
 void number_of_events_table(TString inFile=""){
 
@@ -263,19 +264,22 @@ void number_of_events_table(TString inFile=""){
 
 	cout << "XiSys|   " <<  XiSys_uncut << "|   " <<  XiSys << "(" << ratio_XiSys_cut*100 << ")|   " << ratio_XiSys_mc*100 << "|   " << paramxisys[2]*100 << endl;
 
+	gStyle->SetOptStat(0);
+	gStyle->SetFrameFillStyle(0);
 
-//	TCanvas *c = new TCanvas("c","c", 0,0, 800,500);
-//
-//	TH1D * reco = new TH1D("reco", "fraction of reconstructed final state particles; particle type; reco efficiency in %", 5,0,5);
-//	reco->Fill("#pi^{-}", ratio_piminus_mc*100);
-//	reco->Fill("#pi^{+}", (ratio_piplus_mc+ratio_piplus2_mc)/2*100);
-//	reco->Fill("K^{-}", ratio_kaonMinus_mc*100);
-//	reco->Fill("p", ratio_proton_mc*100);
-//	reco->Fill("#bar{p}", ratio_AntiProton_mc*100);
-//
-//
-//	gStyle->SetOptStat(0);
-//	reco->GetYaxis()->SetRangeUser(0,100);
-//	reco->Draw();
+	TCanvas *c = new TCanvas("c","c", 0,0, 800,500);
+
+	TH1D * reco = new TH1D("reco", "fraction of reconstructed final state particles; particle type; reco efficiency in %", 5,0,5);
+	reco->Fill("#pi^{-}", ratio_piminus_mc*100);
+	reco->Fill("#pi^{+}", (ratio_piplus_mc+ratio_piplus2_mc)/2*100);
+	reco->Fill("K^{-}", ratio_kaonMinus_mc*100);
+	reco->Fill("p", ratio_proton_mc*100);
+	reco->Fill("#bar{p}", ratio_AntiProton_mc*100);
+
+
+	reco->GetYaxis()->SetRangeUser(0,100);
+	reco->Draw();
+	PandaSmartLabel("Lprel");
+
 
 }

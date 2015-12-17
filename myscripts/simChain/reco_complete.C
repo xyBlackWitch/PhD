@@ -87,7 +87,7 @@ void reco_complete(TString pre="")
   
   PndSttMvdGemTracking * SttMvdGemTracking = new PndSttMvdGemTracking(0);
   //SttMvdGemTracking->SetPdgFromMC();
-  SttMvdGemTracking->SetPersistence(kTRUE);
+  SttMvdGemTracking->SetPersistence(kFALSE);
   fRun->AddTask(SttMvdGemTracking);
   
   PndMCTrackAssociator* trackMC = new PndMCTrackAssociator();

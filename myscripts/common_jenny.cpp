@@ -28,7 +28,7 @@
 
 namespace jenny{
 
-	void CreateDrawAndSaveHistogram(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool prelim=false){
+	void CreateDrawAndSaveHistogram(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool log=false){
 
 		/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -38,6 +38,7 @@ namespace jenny{
 		TString title = TString(histo->GetTitle());
 
 		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+		gStyle->SetFrameFillStyle(0);
 		gStyle->SetOptStat(1111);
 		gStyle->SetOptFit(0);
 		gStyle->SetStatY(0.85);
@@ -54,7 +55,9 @@ namespace jenny{
 		histo->GetYaxis()->SetTitleOffset(0.80);
 		histo->Draw();
 
-		if(prelim) PandaSmartLabel();
+		if(log) canvas->SetLogy();
+
+		PandaSmartLabel("Lprel");
 
 
 		if (saveoutput){
@@ -78,6 +81,7 @@ namespace jenny{
 			TString title = TString(histo->GetTitle());
 
 			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+			gStyle->SetFrameFillStyle(0);
 			gStyle->SetOptStat(0);
 			gStyle->SetStatY(0.85);
 			gStyle->SetStatX(0.85);
@@ -92,7 +96,8 @@ namespace jenny{
 			histo->GetYaxis()->SetTitleOffset(0.80);
 
 			histo->Draw("COLZ");
-			if(prelim) PandaSmartLabel();
+//			if(prelim)
+			PandaSmartLabel("Lprelfront");
 
 
 			if (saveoutput){
@@ -106,7 +111,78 @@ namespace jenny{
 
 		}
 
-	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false, int fittype=0){
+	void CreateDrawAndSaveHistogramFWHM(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool log=false){
+
+		/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
+		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
+		*/
+
+		TString name = TString(histo->GetName());
+		TString title = TString(histo->GetTitle());
+
+		gStyle->SetFrameFillStyle(0);
+
+		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+
+		gStyle->SetOptStat(1111);
+		gStyle->SetOptFit(0);
+		gStyle->SetStatY(0.85);
+		gStyle->SetStatX(0.85);
+		gStyle->SetStatW(0.15);
+		gStyle->SetStatH(0.15);
+
+
+		histo->GetXaxis()->SetLabelSize(0.045);
+		histo->GetXaxis()->SetTitleSize(0.05);
+		histo->GetXaxis()->SetTitleOffset(0.90);
+		histo->GetYaxis()->SetLabelSize(0.045);
+		histo->GetYaxis()->SetTitleSize(0.05);
+		histo->GetYaxis()->SetTitleOffset(1.11);
+		histo->Draw();
+
+		//***** FWHM ******
+
+		double max = histo->GetMaximum();
+
+		int bin1 = histo->FindFirstBinAbove(max/2);
+		int bin2 = histo->FindLastBinAbove(max/2);
+
+		double lowerbin =  histo->GetBinCenter(bin1);
+		double upperbin = histo->GetBinCenter(bin2) ;
+
+		double FWHM =  upperbin - lowerbin;
+
+		TPave * fwhm = new TPave(lowerbin, 0, upperbin, max/2, 0);
+		fwhm->SetFillColor(kCyan-10);
+		fwhm->SetFillStyle(3001);
+		fwhm->Draw();
+
+		TPaveText * text = new TPaveText(0.2,2000,1,4000);
+		TString name = TString::Format("FWHM  %.4f", FWHM);
+		text->InsertText(name);
+		text->SetFillColor(kWhite);
+		text->SetTextFont(4);
+		text->SetTextSize(30);
+		text->SetTextAlign(12);
+		text->Draw("SAME");
+
+		if(log) canvas->SetLogy();
+
+		PandaSmartLabel("Lprel");
+
+
+		if (saveoutput){
+			canvas->Print(outputdir + "root-files/" + outputname + ".root");
+			canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
+		}
+
+		if (close) canvas->Close();
+
+
+	}
+
+	void CreateDrawAndSaveHistogramWithFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool autorange = true, double innerRange = 0.1 , double outerRange=1, bool excludeCenter=false, int fittype=2){
 
 			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
@@ -118,6 +194,7 @@ namespace jenny{
 
 			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
 			gStyle->SetOptStat(1000000001);
+			gStyle->SetFrameFillStyle(0);
 			gStyle->SetOptFit(111);
 			gStyle->SetFitFormat("5.8g");
 			gStyle->SetStatY(0.9);
@@ -141,7 +218,7 @@ namespace jenny{
 				fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
 			}
 			else if (fittype==1){
-				fit = andi::gaussFit(histo);
+				fit = gaussFit(histo, innerRange);
 			}
 			else if (fittype==2){
 				fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
@@ -153,6 +230,9 @@ namespace jenny{
 			fit->SetLineStyle(7);
 			fit->SetLineWidth(3);
 			fit->Draw("SAME");
+//			if(prelim)
+			PandaSmartLabel("Lprel");
+
 
 			if (saveoutput){
 				canvas->Print(outputdir + "root-files/" + outputname + ".root");
@@ -281,7 +361,8 @@ namespace jenny{
 	  	h2->Draw("SAME");
 	  	legend->Draw();
 
-	  	if(prelim) PandaSmartLabel("Lprel");
+//	  	if(prelim)
+	  	PandaSmartLabel("Lprel");
 
 
 	  	if (saveoutput){
@@ -300,6 +381,8 @@ namespace jenny{
 	  	/** @brief  saves 3 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
 	  	*	@details This mehtod create 3 histograms and save it as root and png file. If you choose close, the canvas is closed after the histograms are saved
 	  	*/
+
+		gStyle->SetFrameFillStyle(0);
 
 	  	TString name = TString(h1->GetName());
 	  	TString title = TString(h1->GetTitle());
@@ -320,7 +403,8 @@ namespace jenny{
 	  	h2->Draw("SAME");
 	  	h3->Draw("SAME");
 	  	legend->Draw();
-	  	if(prelim) PandaSmartLabel();
+//	  	if(prelim)
+	  	PandaSmartLabel();
 
 
 	  	if (saveoutput){
@@ -458,6 +542,24 @@ namespace jenny{
 		  }
 	  }
 
+		TF1 * gaussFit(TH1 * hist, double inner) {
+			Double_t parameters[6] = {0,0,0,0,0,0};
+			gStyle->SetOptFit(1);
+
+			double center =0;// hist->GetMean();
+
+			TF1 * fit = new TF1("fit", "gaus", center-inner, center+inner );
+
+			hist->Fit(fit, "Q0R");
+			fit->GetParameters(&parameters[0]);
+			fit->SetParameters(parameters);
+			fit->SetParName(0, "Const.");
+			fit->SetParName(1, "Mean");
+			fit->SetParName(2, "Sigma");
+
+			return fit;
+		}
+
 	  TF1 * doubleGaussFit(TH1 * hist, bool autorange, double inner, double outer){
 		  /**
 		   * @brief performes a double gaussian Fit
@@ -480,7 +582,7 @@ namespace jenny{
 		  TF1 * fit2 = new TF1("fit2", "gaus", center-outer, center+outer );
 
 		  hist->Fit(fit2, "Q0R");
-		  fit1->GetParameters(&parameters[3]);
+		  fit2->GetParameters(&parameters[3]);
 
 		  TF1 * fitproper = new TF1("fitproper", "gaus(0)+gaus(3)", center-outer, center+outer);
 		  fitproper->SetParameters(parameters);

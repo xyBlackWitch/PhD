@@ -1,6 +1,6 @@
 /**
-* @file DalitzplotPbarSystem.C
-* @mainpage DalitzplotPbarSystem.C Analysis macro to create Dalitzplots from simple EvtGen
+* @file DalitzplotXi1820.C
+* @mainpage DalitzplotXi1820.C Analysis macro to create Dalitzplots from simple EvtGen
 *
 * @author Jennifer Puetz (jennifer.puetz@fz-juelich.de)
 * @date 2015
@@ -22,40 +22,36 @@ enum id{
 };
 
 
-void DalitzplotPbarSystem(){
+void DalitzplotXi1820(){
 
 
 	//*** Data input
-	TString inputFile ="/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/evtOutput_Partwave01.root";
+	TString inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/output_ana.root";
 	TFile * data = new TFile(inputFile, "READ");
 
-	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/";
-	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave01.root", "RECREATE");
+	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/plots";
+	TFile * out = new TFile(outPath+"/root-files/Dalitzplot_MC.root", "RECREATE");
 
 
-	TTree * sim = (TTree*) data->Get("ntp");
+	TTree * sim = (TTree*) data->Get("ntpMC");
 	int nevents = sim->GetEntriesFast();
 
 
-	TH2D * dalitz_aXilk = new TH2D("dalitz_aXilk", "Dalitz plot for Partwave model; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 200,2.5,3.8,200,3.2,4.6);
-//	TH2D * dalitz_aXilk = new TH2D("dalitz_aXilk", "Dalitz plot; m^{2}(#bar{#Xi}, #Lambda^{0})/GeV^{2}/c^{4}; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}",200,5.8,7.3, 200,3.2,3.8);
-	TH1D * mass = new TH1D("mass", "Mass distribution of #Xi(1820)^{-}; m/GeV/c^{2}; counts", 200, 1.61, 1.94);
-	TH1D * massXibar = new TH1D("massXibar", "Mass distribution for #bar{#Xi}; m/GeV/c^{2}; counts", 200, 1.2, 1.4);
+	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,3.8,150,3.2,4.6);
 
 	gStyle->SetOptStat(0);
 
-	TLorentzVector laXi, lk, lla, lXi1820;
-	TLorentzVector PaXiK, PlaK, PaXil;
-	TLorentzVector test;
+	TLorentzVector lXi, lk, lla, lXi1820;
+	TLorentzVector PXiK, PlaK, PXil;
 
 	for (int n=0; n<nevents; n++){
 
 		sim->GetEntry(n);
 
-		double Eaxi = sim->GetLeaf("E")->GetValue(xi);
-		double Ek = sim->GetLeaf("E")->GetValue(kaon);
-		double Ela = sim->GetLeaf("E")->GetValue(lambda0);
-		double EXi1820 = sim->GetLeaf("E")->GetValue(xi1820);
+		double Eaxi = sim->GetLeaf("e")->GetValue(xi);
+		double Ek = sim->GetLeaf("e")->GetValue(kaon);
+		double Ela = sim->GetLeaf("e")->GetValue(lambda0);
+		double EXi1820 = sim->GetLeaf("e")->GetValue(xi1820);
 
 		double Pxaxi = sim->GetLeaf("px")->GetValue(xi);
 		double Pxk = sim->GetLeaf("px")->GetValue(kaon);
@@ -72,57 +68,34 @@ void DalitzplotPbarSystem(){
 		double Pzla = sim->GetLeaf("pz")->GetValue(lambda0);
 		double PzXi1820 = sim->GetLeaf("pz")->GetValue(xi1820);
 
-		laXi.SetPxPyPzE(Pxaxi, Pyaxi, Pzaxi, Eaxi);
+		lXi.SetPxPyPzE(Pxaxi, Pyaxi, Pzaxi, Eaxi);
 		lk.SetPxPyPzE(Pxk, Pyk, Pzk, Ek);
 		lla.SetPxPyPzE(Pxla, Pyla, Pzla, Ela);
 		lXi1820.SetPxPyPzE(PxXi1820, PyXi1820, PzXi1820, EXi1820);
 
 
-		PaXiK = laXi + lk;
+		PXiK = lXi + lk;
 		PlaK = lla + lk;
-		PaXil = laXi + lla;
+		PXil = lXi + lla;
 
-//		cout << "laXi: " << endl;
-//		laXi.Print();
-//		cout<< " LXi1820: " << endl;
-//		lXi1820.Print();
-//
-//		test = lXi1820 + laXi;
-//
-//		cout << "sum:" << endl;
-//
-//		test.Print();
 
-		dalitz_aXilk->Fill(PlaK.M2(),PaXiK.M2());
-		mass->Fill(lXi1820.M());
-		massXibar->Fill(laXi.M());
+		dalitz_Xilk->Fill(PlaK.M2(),PXiK.M2());
 
 	}
 
 	out->cd();
 
-	dalitz_aXilk->Write();
+	dalitz_Xilk->Write();
 
 	out->Save();
 
-
-	TCanvas * c_mass = new TCanvas("c_mass", "Mass distribution Partwave01 model", 0,0,1000,900);
-//	c->Divide(2,1);
-
-//	c->cd(1);
-	mass->Draw();
-
-	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Partwave01.pdf");
-	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Partwave01.png");
-
-	TCanvas * c = new TCanvas("c", "Dalitz plot Partwave01 model", 0,0,1000,900);
-//	c->cd(2);
-	dalitz_aXilk->Draw("COLZ");
+//
+	TCanvas * c = new TCanvas("c", "Dalitz plot PHSP model", 0,0,1500,1000);
+//	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
+	dalitz_Xilk->Draw("COLZ");
 
 	//****write histograms
-
-	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave01.pdf");
-	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave01.png");
+	c->Print(outPath+"/png-files/Dalitzplots_MC.png");
 
 
 }

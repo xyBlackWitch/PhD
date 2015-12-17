@@ -69,7 +69,6 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 	ntpLambda0->Project("h_l0_m_masscut", "VtxFit_m", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
 
 	jenny::CreateDrawAndSaveNHistograms(h_l0_m_nocut, h_l0_m_vtxcut, h_l0_m_masscut, "mass window", "VtxFit_prob>0.01", "VtxFit_prob>0.01 && MassFit_prob>0.01", path+"/plots/", "lambda0_m_diffcuts", save, close);
-
 	gStyle->SetOptStat(1111);
 
 	TH1D * h_l0_m_masscut2 = new TH1D("h_l0_m_masscut2", "Mass distribution for #Lambda^{0} with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.07,1.16);
@@ -79,15 +78,15 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 	//*** vertex resolution
 	TH1D * h_l0_vtxres_x = new TH1D("h_l0_vtxres_x", "resolution for x coordinate of vertex for #Lambda^{0}; x-x_{MC}; counts", 500,-1,1.05);
 	ntpLambda0->Project("h_l0_vtxres_x", "VtxFit_diffvx", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_l0_vtxres_x, path+"/plots/", "lambda0_vtxres_x", save, close, false, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_l0_vtxres_x, path+"/plots/", "lambda0_vtxres_x", save, close);
 
 	TH1D * h_l0_vtxres_y = new TH1D("h_l0_vtxres_y", "resolution for y coordinate of vertex for #Lambda^{0}; y-y_{MC}; counts", 500,-1,1.05);
 	ntpLambda0->Project("h_l0_vtxres_y", "VtxFit_diffvy", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_l0_vtxres_y, path+"/plots/", "lambda0_vtxres_y", save, close, false, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_l0_vtxres_y, path+"/plots/", "lambda0_vtxres_y", save, close);
 
 	TH1D * h_l0_vtxres_z = new TH1D("h_l0_vtxres_z", "resolution for z coordinate of vertex for #Lambda^{0}; z-z_{MC}; counts", 500,-1,1.05);
 	ntpLambda0->Project("h_l0_vtxres_z", "VtxFit_diffvz", "McTruthMatch && Lambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_l0_vtxres_z, path+"/plots/", "lambda0_vtxres_z", save, close, false, 0.03, 1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_l0_vtxres_z, path+"/plots/", "lambda0_vtxres_z", save, close);
 
 	//*** angular distribution
 	TH1D * h_l0_costht = new TH1D("h_l0_costht", "cos(#Theta) distribution for #Lambda^{0}; cos(#Theta); counts", 500,-1,1.05);
@@ -102,12 +101,12 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_l0_chi2 = new TH1D("h_l0_chi2", "#chi^{2} distribution for #Lambda^{0}; #chi^2; counts", 500,0,100);
 	ntpLambda0->Project("h_l0_chi2", "VtxFit_chisq");
-	jenny::CreateDrawAndSaveHistogram(h_l0_chi2, path+"/plots/", "h_l0_chi2", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_l0_chi2, path+"/plots/", "h_l0_chi2", save, close,true);
 
 
 	TH1D * h_l0_prob = new TH1D("h_l0_prob", "propability distribution for #Lambda^{0}; prob; counts", 500,0,1);
 	ntpLambda0->Project("h_l0_prob", "VtxFit_prob");
-	jenny::CreateDrawAndSaveHistogram(h_l0_prob, path+"/plots/", "h_l0_prob", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_l0_prob, path+"/plots/", "h_l0_prob", save, close, true);
 
 
 
@@ -148,15 +147,15 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_al0_vtxres_x = new TH1D("h_al0_vtxres_x", "resolution for x coordinate of vertex for #bar{#Lambda}^{0}; x-x_{MC}; counts", 500,-1,1.05);
 	ntpAntiLambda0->Project("h_al0_vtxres_x", "VtxFit_diffvx", "McTruthMatch && antiLambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_al0_vtxres_x, path+"/plots/", "antiLambda0_vtxres_x", save, close, false, 0.1, 1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_al0_vtxres_x, path+"/plots/", "antiLambda0_vtxres_x", save, close);
 
 	TH1D * h_al0_vtxres_y = new TH1D("h_al0_vtxres_y", "resolution for y coordinate of vertex for #bar{#Lambda}^{0}; y-y_{MC}; counts", 500,-1,1.05);
 	ntpAntiLambda0->Project("h_al0_vtxres_y", "VtxFit_diffvy", "McTruthMatch && antiLambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_al0_vtxres_y, path+"/plots/", "antiLambda0_vtxres_y", save, close, false, 0.08, 1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_al0_vtxres_y, path+"/plots/", "antiLambda0_vtxres_y", save, close);
 
 	TH1D * h_al0_vtxres_z = new TH1D("h_al0_vtxres_z", "resolution for z coordinate of vertex for #bar{#Lambda}^{0}; z-z_{MC}; counts", 500,-1,1.05);
 	ntpAntiLambda0->Project("h_al0_vtxres_z", "VtxFit_diffvz", "McTruthMatch && antiLambda0_HitTag "+vtxcut+masscut);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_al0_vtxres_z, path+"/plots/", "antiLambda0_vtxres_z", save, close, false, 0.1,1, true);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_al0_vtxres_z, path+"/plots/", "antiLambda0_vtxres_z", save, close);
 
 	//*** angular distribution
 	TH1D * h_al0_costht = new TH1D("h_al0_costht", "cos(#Theta) distribution for #bar{#Lambda}^{0}; cos(#Theta); counts", 500,-1,1.05);
@@ -171,9 +170,9 @@ void eval_lambda0(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_al0_chi2 = new TH1D("h_al0_chi2", "#chi^{2} distribution for #bar{#Lambda}^{0}; #chi^2; counts", 500,0,100);
 	ntpAntiLambda0->Project("h_al0_chi2", "VtxFit_chisq");
-	jenny::CreateDrawAndSaveHistogram(h_al0_chi2, path+"/plots/", "h_al0_chi2", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_al0_chi2, path+"/plots/", "h_al0_chi2", save, close,true);
 
 	TH1D * h_al0_prob = new TH1D("h_al0_prob", "propability distribution for #bar{#Lambda}^{0}; prob; counts", 500,0,1);
 	ntpAntiLambda0->Project("h_al0_prob", "VtxFit_prob");
-	jenny::CreateDrawAndSaveHistogram(h_al0_prob, path+"/plots/", "h_al0_prob", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_al0_prob, path+"/plots/", "h_al0_prob", save, close, true);
 }

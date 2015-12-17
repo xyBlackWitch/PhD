@@ -67,15 +67,15 @@ void eval_XiSys(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi(1820)^{+}#Xi^{-}-System; x-x_{MC}; counts", 500,-0.02,0.02);
 	ntpXiSys->Project("h_xi_vtxres_x", "4CFit_diffvx", "McTruthMatch "+cut);
-	jenny::CreateDrawAndSaveHistogram(h_xi_vtxres_x, path+"/plots/", "XiSys_vtxres_x", save, close);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_x, path+"/plots/", "XiSys_vtxres_x", save, close);
 
 	TH1D * h_xi_vtxres_y = new TH1D("h_xi_vtxres_y", "resolution for y coordinate of vertex for #Xi(1820)^{+}#Xi^{-}-System; y-y_{MC}; counts", 500,-0.02,0.02);
 	ntpXiSys->Project("h_xi_vtxres_y", "4CFit_diffvy", "McTruthMatch "+cut);
-	jenny::CreateDrawAndSaveHistogram(h_xi_vtxres_y, path+"/plots/", "XiSys_vtxres_y", save, close);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_y, path+"/plots/", "XiSys_vtxres_y", save, close);
 
 	TH1D * h_xi_vtxres_z = new TH1D("h_xi_vtxres_z", "resolution for z coordinate of vertex for #Xi(1820)^{+}#Xi^{-}-System; z-z_{MC}; counts", 500,-0.02,0.02);
 	ntpXiSys->Project("h_xi_vtxres_z", "4CFit_diffvz", "McTruthMatch "+cut);
-	jenny::CreateDrawAndSaveHistogram(h_xi_vtxres_z, path+"/plots/", "XiSys_vtxres_z", save, close);
+	jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_z, path+"/plots/", "XiSys_vtxres_z", save, close);
 
 	TH1D * h_xi_costht = new TH1D("h_xi_costht", "cos(#Theta) distribution for #Xi(1820)^{+}#Xi^{-}-System; cos(#Theta); counts", 500,-1,1.01);
 	ntpXiSys->Project("h_xi_costht", "cos(4cFit_tht)","McTruthMatch "+cut);
@@ -87,10 +87,10 @@ void eval_XiSys(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_xi_chisq = new TH1D("h_xi_chisq", "#chi^{2} distribution for #Xi(1820)^{+}#Xi^{-}-System; #chi^{2}; counts", 500,0,100);
 	ntpXiSys->Project("h_xi_chisq", "4CFit_chisq","McTruthMatch ");
-	jenny::CreateDrawAndSaveHistogram(h_xi_chisq, path+"/plots/", "XiSys_chisq", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_xi_chisq, path+"/plots/", "XiSys_chisq", save, close,true);
 
 	TH1D * h_xi_prob = new TH1D("h_xi_prob", "probability distribution for #Xi(1820)^{+}#Xi^{-}-System; prob; counts", 500,0,1);
 	ntpXiSys->Project("h_xi_prob", "4CFit_prob","McTruthMatch ");
-	jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiSys_prob", save, close);
+	jenny::CreateDrawAndSaveHistogram(h_xi_prob, path+"/plots/", "XiSys_prob", save, close, true);
 
 }
