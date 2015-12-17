@@ -1105,7 +1105,7 @@ void AnalysisTaskAntiXi1820::Exec(Option_t* op)
 			qa.qaP4("MCTruth_", l, fntpXiPlus1820);
 
 
-			if (BestVtxFitxiplus[j]==1 && BestMassFitxiplus[j]>0){
+			if (BestVtxFitxiplus[j]==1){
 				XiPlusFit.Append(xiplusFit);
 			}
 

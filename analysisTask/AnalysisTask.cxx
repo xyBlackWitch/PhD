@@ -447,6 +447,9 @@ void AnalysisTask::Exec(Option_t* op)
 	        qa.qaP4("piminus_", piminus[pim]->P4(), fntpPiMinus);
 	        qa.qaCand("piminus_", piminus[pim], fntpPiMinus);
 
+	        TLorentzVector mom = piminus[pim]->P4();
+	        TMatrixD cov = piminus[pim]->Cov7();
+
 	        numberOfHitsInSubdetector("PiMinus_", piminus[pim], fntpPiMinus);
 	        tagNHits("piminus_", piminus[pim], fntpPiMinus);
 
@@ -463,12 +466,16 @@ void AnalysisTask::Exec(Option_t* op)
 
 			fntpPiMinus->Column("Mother", (Float_t) moth_pim);
 
+			double pull = -999.;
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
 			  l=truth->P4();
 			  costheta = truth->GetMomentum().CosTheta();
 			  qa.qaCand("piminus_MC_", piminus[pim]->GetMcTruth(), fntpPiMinus);
+			  TLorentzVector momdiff = l - mom;
+			  pull = momdiff.Px()/sqrt(cov[3][3]);
+
 			}
 			else{
 			  qa.qaCand("piminus_MC_", dummyCand, fntpPiMinus);
@@ -476,6 +483,7 @@ void AnalysisTask::Exec(Option_t* op)
 
 			qa.qaP4("piminus_MC_", l, fntpPiMinus);
 			fntpPiMinus->Column("piminus_MC_CosTheta", (Float_t) costheta);
+			fntpPiMinus->Column("piminus_pullpx", (Double_t) pull);
 
 	        fntpPiMinus->DumpData();
 	    }

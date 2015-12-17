@@ -503,8 +503,16 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 			RhoCandidate * truth = proton[prot]->GetMcTruth();
 
+			RhoCandidate * mother_prot;
+			if (truth) mother_prot = truth->TheMother();
+			int moth_prot;
+			if (mother_prot==0x0){
+			  moth_prot = 88888;
+			}
+			else
+			  moth_prot = mother_prot->PdgCode();
 
-			fntpProton->Column("MC_Mother_PDG", (Int_t) truth->TheMother()->PdgCode(), -999999);
+			fntpProton->Column("MC_Mother_PDG", (Float_t) moth_prot);
 
 			TLorentzVector l;
 			float costheta = -999.;
@@ -980,7 +988,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 			qa.qaP4("MCTruth_", l, fntpXiMinus1820);
 
 
-			if (BestVtxFitXiMinus[j]==1 && BestMassFitXiMinus[j]>0){
+			if (BestVtxFitXiMinus[j]==1){
 				XiMinusFit.Append(ximinusFit);
 			}
 
