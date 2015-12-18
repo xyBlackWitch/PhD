@@ -1,0 +1,9 @@
+*.aux
+*.log
+ReleaseNote/cmd.exe.lnk
+ReleaseNote/ReleaseNote.blg
+*.toc
+ReleaseNote/cmd.exe.lnk
+ReleaseNote/cmd.exe.lnk
+ReleaseNote/ReleaseNote.out
+*.lnk
