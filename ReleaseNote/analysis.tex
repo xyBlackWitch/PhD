@@ -2,7 +2,7 @@ To reconstruct all the simulated particles we start with the final state particl
 
 \section{Final state particle}
 	The selected final state particle are protons, antiproton, \piminus, \piplus, \kminus and \kplus mesons.
-	For the reconstruction of these final state particles I used an ideal tracking. 
+	For the reconstruction of these particles an ideal tracking was used. 
 	To make the selection a bit more realistic only particles with more than 3 hits in any inner tracking detector (MVD, STT and GEM)
 	are selected.
 	The selection criterion is chosen because three hits are defining a circle.
@@ -65,15 +65,9 @@ To reconstruct all the simulated particles we start with the final state particl
 	
 \section{Reconstruction of $\Lambda^0$ and $\bar{\Lambda}^0$}
 	\subsection*{Selection}
-		For the reconstruction of 
-		
-		\begin{itemize}
-			\item \lam a proton and a \piminus meson are combined and
-			\item for the reconstruction of \alam a \antiproton and a \piplus are combined.
-		\end{itemize}
-		 
-		After the combination of the daughter particles a mass window cut is performed.
-		Only those particles are chosen which have a mass within $0.3$\massunit.
+		For the reconstruction of \lam a proton and a \piminus meson are combined and for the reconstruction of \alam a \antiproton and a \piplus are combined.		 
+		After combining the daughter particles a mass window cut is performed.
+		Only those particles are chosen which have a mass within a window of $0.3$\massunit which means $1.116\pm 0.15$\massunit.
 		
 		
 		A vertex constraint fit with the PndKinVtxFitter is performed on the selected particle.
@@ -99,30 +93,34 @@ To reconstruct all the simulated particles we start with the final state particl
 		
 		\begin{figure}
 			\centering
-				\includegraphics[width=0.50\textwidth]{./plots/combineLambda0.pdf}
+				\includegraphics[width=0.45\textwidth]{./plots/combineLambda0.pdf}
 			\caption{propose Scheme for \lam reconstruction}
 			\label{fig:lambda_scheme}
 		\end{figure}
 		
-		If there is more than one candidate left after the cuts the best fitted candidate is chosen.
+		If there is more than one candidate left after these cuts, the best fitted candidate is chosen.
 		
 		
 	\subsection*{Results}
-		This subsection presents the results for the \lam and \alam selection with the selection criteria introduced above.
+		In this paragraph the results for the \lam and \alam selection are presented.
 		The mass distributions for different cuts are shown in figure \ref{fig:lambda0_massdiffcuts} and figure \ref{fig:antilambda0_massdiffcuts}.
 	
 		\begin{figure}
 			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/lambda0/lambda0_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \lam for different cuts}
+			\caption{\propose Mass distribution of \lam after the mass window cut in blue, after the vertex fit cut in red and after all cuts in black.}
 			\label{fig:lambda0_massdiffcuts}
+		\end{figure}
 			
+		\begin{figure}
+			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/antilambda0/antiLambda0_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \alam for different cuts}
+			\caption{\propose Mass distribution of \alam for different cuts. The blue line shows the the distribution after the mass window cut, the red 
+					line after the vertex cut and the black line describes the distribution after all cuts.}
 			\label{fig:antilambda0_massdiffcuts}
 		\end{figure}
 		
-		The reconstructed mass can be derived by performing a double Gaussian fit on the cut mass.
+		The reconstructed mass can be determined by performing a double Gaussian fit on mass after all cuts.
 		The mass distribution and the double Gaussian fit are exemplarily shown for \lam in figure \ref{fig:lambda0_massfit}
 		
 		\begin{figure}
@@ -142,24 +140,27 @@ To reconstruct all the simulated particles we start with the final state particl
 			
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}}
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/antiLambda0_pt_vs_pz_cut.pdf}}
-			\caption{\propose The plots shows the transverse against the longitudinal momentum for \lam}
+			\caption{\propose Figure a) shows the transverse against the longitudinal momentum for \lam. Figure b) hows the same distribution for \alam.}
 			\label{fig:lambda0_pt_vs_pz}
 		
 		\end{figure}
 		After all cuts the reconstruction efficiency for \lam is $50.33\%$ and for \alam $41.46\%$.
 		The difference of the reconstruction efficiency of \lam and \alam is caused by the difference between the decay length of their mother particles.
-		\lam is emitted by the \excitedcascade which has a very short decay length while the decay length of \cascade and \anticascade is c$\tau = 4.91 \unit{cm}$ \cite{PDG}.
-		In addition the decay length of \lam and \alam is $\textnormal{c}\tau = 7.98 \unit{cm}$.
-		If one sum this number up the final state particles of \alam are produced more downstream than the final state particles of \lam.
+		\lam is emitted by the \excitedcascade which has a very short decay length while the decay length of \cascade and \anticascade is 
+		c$\tau = 4.91 \unit{cm}$ \cite{PDG}.
+		The decay length of \lam and \alam is $\textnormal{c}\tau = 7.98 \unit{cm}$, so that the final state particles of \alam are produced more downstream 
+		than the final state particles of \lam.
 		This can be also seen in figure \ref{fig:lambda0_antilambda0_decay_vtx}.
-		The finale state particles coming from \alam are produced at the edge of the MVD detector so that the reconstruction efficiency get worse.
+		The finale state particles coming from \alam are produced at the edge of the MVD detector so that the reconstruction efficiency for this particles get worse.
 		
 		\begin{figure}
 		
 			\centering
 			\includegraphics[width=1.\textwidth]{./plots/lambda0/lambda0_decay_vtx.pdf}
 			\includegraphics[width=1.\textwidth]{./plots/antilambda0/antiLambda0_decay_vtx.pdf}
-			\caption{\propose Upper plot shows the decay vertex of \lam; lower plot shows decay vertex of \alam}
+			\caption{\propose The upper plot shows the decay vertex position of \lam and the lower plot shows the decay vertex position of \alam. 
+					The x axis of both plots shows the distance of the decay vertex from the interaction point. The y axes show the radius of the decay vertex.
+					The black horizontal and verticle lines mark the borders of the MVD.}
 			\label{fig:lambda0_antilambda0_decay_vtx}
 		
 		\end{figure}
@@ -170,15 +171,15 @@ To reconstruct all the simulated particles we start with the final state particl
 	
 \section{Reconstruction of $\Xi$ and $\bar{\Xi}$}
 	\subsection*{Selection}
-		The reconstruction of \cascade and \anticascade fellow a similar scheme like for \lam and \alam.
+		The reconstruction of \cascade and \anticascade follows a similar scheme like the reconstruction of \lam and \alam.
 		For \anticascade are \alam and \piplusone recombined and for \cascade in the c.c. channel \lam and \piminusone.
 		Now it is distinguished between the to \piplus (\piminus) particle and use only those particles which have not already been combined.
-		After combining the daughter particles it is performed a mass window cut with width of $0.3$\massunit 
-		around the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
+		After combining the daughter particles a mass window cut is performed with width of $0.3$\massunit around 
+		the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
 		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
 		After the mass window cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
-		And again these information is used to perform the mass constraint fitter. 
+		And again these information is used to perform the mass constraint fit. 
 		
 		\begin{figure}
 			\centering
@@ -197,7 +198,7 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:XiPlus_prob}
 		\end{figure}
 			
-		If there is more than one candidate left after all cuts the best candidate is chosen.
+		If there is more than one candidate left after all cuts, the best candidate is chosen.
 		
 		
 	\subsection*{Results}
@@ -220,7 +221,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{table}
 		
 		It is determined by calculating the full width at half maximum (FWHM) of the distribution.
-		The advantage of using this method to calculated the vertex resolution is that the FWHM is independent of distribution shape.
+		The advantage of using this method for calculating the vertex resolution is that the FWHM is independent of distribution shape.
 		Figure \ref{fig:xi_vtxres_x} and Figure \ref{fig:xi_vtxres_yz} show the vertex resolution. 
 		
 		\begin{figure}
@@ -234,22 +235,28 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\subfigure[Vertex resolution for y coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
 			\subfigure[Vertex resolution for z coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}}
-			\caption{\propose left plot: Vertex resolution of y position for \anticascade; right plot: Vertex resolution of z position for \anticascade.}
+			\caption{\propose The left plot shows the vertex resolution of y position for \anticascade. The right plot shows the vertex
+					 resolution of z position for \anticascade.}
 			\label{fig:xi_vtxres_yz}
 			
 		\end{figure}
 	
-		The mass distribution for the different cuts is shown in figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts}. 
-		The vertex fitter cut reduces the number of events most and the width of the mass distribution gets smaller.
+		The mass distribution for the different cuts is shown in figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts}.
+		The number of events is strongly reduced by the cut on the vertex fit probability. 
+		The width of the mass distribution gets smaller. 
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiPlus_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \anticascade for different cuts}
+			\caption{\propose Mass distribution of \anticascade for different cuts: the mass window cut is shown in blue, the vertex fit cut is shown in red 
+					and the distribution after all cuts is shown in black.}
 			\label{fig:XiPlus_massdiffcuts}
-			
+		\end{figure}
+		
+		\begin{figure}
+			\centering		
 				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiMinus_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \cascade for different cuts}
+			\caption{\propose Mass distribution of \cascade for different cuts: mass window cut in blue, vertex fit cut in red and all cuts in black.}
 			\label{fig:XiMinus_massdiffcuts}
 		\end{figure}
 		
@@ -259,11 +266,12 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
-			\caption{\propose Mass fit with a double Gaussian fit}
+			\caption{\propose The plot shows the mass distributian (blue line) after all cuts. 
+					A double Gaussian fit (red dashed line) is performed to determine the reconstructed mass for the \anticascade. }
 			\label{fig:XiPlus_massfit}
 		\end{figure}
-		The result of the mass fit is for \anticascade $\mt{m} = \left( 1.3721716 \pm 9.2\cdot 10^{-5}\right)$ \massunit 
-		and for \cascade $\mt{m} = \left( 1\pm 1\cdot 10^{-5}\right)$ \massunit.
+		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.321716 \pm 9.2\cdot 10^{-6}\right)}$ \massunit 
+		and for \cascade \\ ${\mt{m} = \left( 1.3216474 \pm 9.3\cdot 10^{-6}\right)}$\massunit.
 		The two dimensional momentum distribution for \anticascade and \cascade is shown in figure \ref{fig:XiPlus_pt_vs_pz} 
 		
 		\begin{figure}
@@ -284,7 +292,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\subsection*{Selection}
 
 		For the reconstruction of \excitedcascade one combine \lam and \kminus meson and for \excitedanticascade \alam and \kplus using the
-		best candidate from \lam and \alam and \kplus and \kminus with more than 3 hits in one of the inner tracking detectors.
+		best candidate from \lam and \alam.
 		After the combination of the particles a mass window cut with width of $0.3$\massunit is performed. 
 		The daughter particles are fitted then to a common vertex point with the PndKinVtxFitter.
 		Only those candidates for \excitedcascade (\excitedanticascade) are selected which have a fit probability of more then $1\%$.
@@ -348,14 +356,14 @@ To reconstruct all the simulated particles we start with the final state particl
 		\label{fig:Xi1820_vtxyz}
 	\end{figure}
 	
-	After performing the both fits and cut on the probability values, the mass for \excitedcascade and \excitedanticascade
-	can be determined by fitting the mass with a double Gaussian fit. 
+	After performing both fits and cut on the probability values, the mass for \excitedcascade and \excitedanticascade
+	can be determined by fitting with a double Gaussian function. 
 	Figure \ref{fig:xi1820_mass_diffcuts} shows the mass distribution for both particles after each cut.
 	
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_diffcuts.pdf}
-		\caption{\propose Mass distribution for \excitedcascade for the different cuts}
+		\caption{\propose Mass distribution for \excitedcascade after the mass window cut in blue and after the vertex fit probability cut in red.}
 		\label{fig:xi1820_mass_diffcuts}
 	
 	\end{figure}
@@ -364,10 +372,11 @@ To reconstruct all the simulated particles we start with the final state particl
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
-		\caption{\propose Mass distribution after all cuts for \excitedcascade.}
+		\caption{\propose Mass distribution (blue line) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as red dashed line.}
 		\label{fig:xi1820_massfit}
 	\end{figure}
-	The mass values for the \excitedcascade is fitted to $1 \pm 1$\massunit and for \excitedanticascade to $1 \pm 1 $\massunit.
+	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = 1.8229 \pm 3.81 \cdot 10^{-5}$ \massunit
+	 and for \excitedanticascade to $m_{\bar{\Xi}^{*}} = 1.823 \pm 3.73\cdot 10^{-5}$ \massunit.
 	These values are close to the input value.
 	Figure \ref{fig:xi1820_pt_vs_pz} shows the two dimensional momentum distribution. For both subplots the x axis shows the longitudinal momentum
 	and on the y axis there is shown the transverse momentum.
@@ -383,14 +392,15 @@ To reconstruct all the simulated particles we start with the final state particl
 	The reconstructed distributions are in good agreement with the distribution coming from the simulated events which are 
 	shown in figure \ref{fig:MC_xi_pt_vs_pz} (b).
 	
-\section{Reconstruction of hole chain}
+\section{Reconstruction of the hole reaction chain}
 
 	\subsection*{Selection}
 	
 	To reconstruct the hole reaction chain \excitedcascade and \anticascade are combined.
 	This is also done with \excitedanticascade and \cascade for the charge conjugated channel.
-	For the event selection now it is use a excluding method. 
-	The four momentum vector of the daughter particles is fitted to the initial for momentum vector  
+	For this reconstruction the event selection is done with a exclusive method.
+	The resulting four-momentum vector of both daughter particles --  here \excitedcascade 
+	and \anticascade and there c.c. particles -- is fitted to the initial for momentum vector  
 
 	\begin{center}
 		\begin{equation}\nonumber
@@ -399,14 +409,14 @@ To reconstruct all the simulated particles we start with the final state particl
 	\end{center}
 	of the \pbarpSystem.	
 	This fit is performed with the PndKinFitter.
-	After the four momentum fit there were only those candidates selected which have a \chisq probability of more than $1\%$.
+	After the four-momentum fit only those candidates are selected which have a \chisq probability of more than $1\%$.
 	The \chisq probability is shown in figure \ref{fig:xisys_prob}. 
 	The red line denotes the cut value.
 
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\textwidth]{./plots/pbarp/XiSys_prob.pdf}
-		\caption{\propose 4-constraint fit probability}
+		\caption{\propose 4-constraint fit probability. The red line denotes the cut value of $1\%$.}
 		\label{fig:xisys_prob}
 	\end{figure}
 	
@@ -462,9 +472,8 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{tabular}
 	\end{table}
 	
-	How good the reconstruction works is shown in figure \ref{fig:reco_Dalitzplot}.
-	This plot shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
-	Compared with the Dalitz plot of the simulated particles which is shown in figure \ref{fig:eventgeneration_Dalitz} the reconstruction seems to be good.
+	Figure \ref{fig:reco_Dalitzplot} shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
+	Compared with the Dalitz plot of the simulated particles shown in figure \ref{fig:eventgeneration_Dalitz} the reconstruction seems to be good.
 	
 	\begin{figure}
 		\centering
