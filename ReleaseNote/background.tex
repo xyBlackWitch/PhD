@@ -35,7 +35,7 @@ The number of reconstructed Background events is shown in table \ref{tab:bg_reco
 
 \begin{table}
 	\centering
-	\caption{Number of reconstructed background events}
+	\caption{Number of reconstructed background events for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade }
 	\label{tab:bg_reco_without_scaling}
 	\begin{tabular}{lc}
 		\hline
@@ -43,51 +43,61 @@ The number of reconstructed Background events is shown in table \ref{tab:bg_reco
 		\hline
 		\hline
 		&\\
-		\pbarpSystem $\rightarrow$ \excitedcascade \anticascade &\\
-		\lam & \\
-		\alam & \\
-		\anticascade & \\
-		\excitedcascade & \\
-		\excitedcascade \anticascade & \\
+		%\pbarpSystem $\rightarrow$ \excitedcascade \anticascade &\\
+		\lam & 264,142\\
+		\alam & 124,068\\
+		\anticascade & 3,062\\
+		\excitedcascade & 298\\
+		\excitedcascade \anticascade & 0\\
 		\hline
-		\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & \\
-		\lam & \\
-		\alam & \\
-		\cascade & \\
-		\excitedanticascade & \\
-		\excitedanticascade \cascade &\\
-		\hline
+		 
+		%\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & \\
+		%\lam & \\
+		%\alam & \\
+		%\cascade & \\
+		%\excitedanticascade & \\
+		%\excitedanticascade \cascade &\\
+		%\hline
 		  
 	\end{tabular}
 \end{table}
 Multiplying the number of background events with the corresponding scaling factor make them comparable with the number of signal events.
 The comparison between signal and background events is shown in table \ref{bg_compared_reco_with_scaling}.
+The significance is given by
+\begin{equation}
+	\nonumber
+	S = \frac{N^{2}_\mt{sig}}{N_\mt{sig}+N_\mt{bg}},
+\end{equation}
+where $N_\mt{bg}$ is scaled with $B$.
 
 \begin{table}
 	\centering
-	\caption{\propose The number of background events compared to the number of signal events}
+	\caption{\propose The number of background events compared to the number of signal events for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade.}
 	\label{bg_compared_reco_with_scaling}
-	\begin{tabular}{lcc}
+	\begin{tabular}{lccc}
 		\hline
-		Particle & $N_\mt{sig}$ & $N_\mt{bg} \cdot B$ \\
+		Particle & $N_\mt{sig}$ & $N_\mt{bg} \cdot B$ & $S$\\
 		\hline
 		\hline
-		& &\\
-		\pbarpSystem $\rightarrow$ \excitedcascade \anticascade & &\\
-		\lam & & \\
-		\alam & & \\
-		\anticascade & & \\
-		\excitedcascade & & \\
-		\excitedcascade \anticascade & & \\
+		& & &\\
+		%\pbarpSystem $\rightarrow$ \excitedcascade \anticascade & & &\\
+		\lam & 786,243 &$ 264,142 \cdot B_{\Lambda^0}$& 298.85\\
+		\alam & 711,820 & $124,068 \cdot B_{\bar{\Lambda}^0}$ & 521.32\\
+		\anticascade & 302,681 & $3,062 \cdot B_{\bar{\Xi}}$ & 3770.26\\
+		\excitedcascade &490,672  & $298 \cdot B_{\Xi\left(1820\right)}$& 85,191.23\\
+		\excitedcascade \anticascade &  74523 & 0 & \\
 		\hline
-		\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & & \\
-		\lam & & \\
-		\alam & & \\
-		\cascade & & \\
-		\excitedanticascade & & \\
-		\excitedanticascade \cascade & &\\
-		\hline
+		 
+		%\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & & &\\
+		%\lam & & &\\
+		%\alam & & &\\
+		%\cascade & & &\\
+		%\excitedanticascade & & &\\
+		%\excitedanticascade \cascade & & &\\
+		%\hline
 		  
 	\end{tabular}
 \end{table}
+The number of simulated background events is too small to make a useful comparison between the number of signal and background events.
+Further background studies for this reaction chain and its charged conjugated channel have to be done as a next step.
 	
