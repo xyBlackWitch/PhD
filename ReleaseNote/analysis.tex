@@ -9,7 +9,8 @@ To reconstruct all the simulated particles we start with the final state particl
 	A fourth hit point is than a validation of the track hypothesis.\\
 	The particle identification (PID) is also ideal. 
 	The selection criterion is set to 'best'.\vspace{11pt} \\
-	The reconstruction  efficiency for the final state particle is shown in table \ref{tab:finalstate_recoeff} and figure \ref{fig:finalstate_recoeff}.
+	The reconstruction efficiency for the final state particle is shown in table \ref{tab:finalstate_recoeff} and figure \ref{fig:finalstate_recoeff}.
+	All reconstruction efficiencies are calculated with the MC matched particles.
 	
 	\begin{table}
 		\centering
@@ -41,12 +42,12 @@ To reconstruct all the simulated particles we start with the final state particl
 			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
 			\hline
 			\hline
-			\piplus &  82.9625&   1.54131\\
-			\piminusone(\cascade) & 80.395&   1.37697  \\
-			\piminustwo(\lam) &  82.6867&   1.48918\\
-			\kplus& 83.2709&   1.57882 \\
-			p &  80.7079&   1.55197\\
-			\antiproton &  80.9253&   1.60091\\\hline
+			\piplus &  82.96&   1.54\\
+			\piminusone(\cascade) & 80.40&   1.38  \\
+			\piminustwo(\lam) &  82.69&   1.49\\
+			\kplus& 83.27&   1.58 \\
+			p &  80.71&   1.55\\
+			\antiproton &  80.93&   1.60\\\hline
 			 
 		\end{tabular}
 	\end{table}
@@ -72,19 +73,18 @@ To reconstruct all the simulated particles we start with the final state particl
 		
 		A vertex constraint fit with the PndKinVtxFitter is performed on the selected particle.
 		This means that the tracks of the daughter particles are fitted to a common vertex point.  
-		The \chisq and \chisq-Probability distribution of the vertex fit for \lam is shown in figure \ref{fig:lambda_chi2}.
+		The \chisq and \chisq-probability distribution of the vertex fit for \lam is shown in figure \ref{fig:lambda_chi2}.
 		
 		\begin{figure}
 			\centering
-				\includegraphics[width=0.50\textwidth]{./plots/lambda0/lambda0_chisqrt.pdf}
+				\includegraphics[width=0.50\textwidth]{./plots/lambda0/lambda0_chi2.pdf}
 				\includegraphics [width=0.50\textwidth]{./plots/lambda0/lambda0_prob.pdf}
-			\caption{\propose upper: \chisq distribution; lower: \chisq probability distribution}
+			\caption{\propose The upper plot shows the  \chisq distribution and the lower plot shows the \chisq-probability distribution for the \lam vertex fit.}
 			\label{fig:lambda_chi2}
 		\end{figure}
 		
-		In the \chisq-probability distribution one can see a increasing number of events for probabilities going to one.
-		These feature is not coming from vertex fitting.
-		There is still a problem with covariance matrices which causes the effect.
+		In the \chisq-probability distribution one can see an increasing number of events for probabilities going to one.
+		These feature is not coming from vertex fitting, which was test with the poormantracks algorithm of Ralf Kliemt. 
 		\vspace{11pt}\\
 		The fit information coming from the vertex fit are used to perform a mass constraint fit with the kinematic fitter PndKinFitter.
 		After using both fitter the selection criterion is set. 
@@ -108,7 +108,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		\begin{figure}
 			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/lambda0/lambda0_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \lam after the mass window cut in blue, after the vertex fit cut in red and after all cuts in black.}
+			\caption{\propose Mass distribution of \lam after the mass window cut (blue), after the vertex fit cut (red) and after all cuts (black).}
 			\label{fig:lambda0_massdiffcuts}
 		\end{figure}
 			
@@ -120,7 +120,7 @@ To reconstruct all the simulated particles we start with the final state particl
 			\label{fig:antilambda0_massdiffcuts}
 		\end{figure}
 		
-		The reconstructed mass can be determined by performing a double Gaussian fit on mass after all cuts.
+		The reconstructed mass can be determined by performing a double Gaussian fit on the mass distribution after all cuts.
 		The mass distribution and the double Gaussian fit are exemplarily shown for \lam in figure \ref{fig:lambda0_massfit}
 		
 		\begin{figure}
@@ -131,16 +131,14 @@ To reconstruct all the simulated particles we start with the final state particl
 		\end{figure}
 		
 		The mean value of the inner Gaussian fit is the reconstructed mass.
-		The result for \lam is $\mt{m}_{\Lambda^0} = \left(1.116 \pm 3.5\cdot 10^{-5}\right)$ \massunit and for \alam: $\mt{m}_{\bar{\Lambda}^0} = \left(1.116 \pm 1\cdot 10^{-5}\right)$\massunit. 
-		The small fit errors could be a result from the wrong covariance matrices. 
-		But this has to be checked. 
+		The result for \lam is $\mt{m}_{\Lambda^0} = \left(1.1158 \pm 0.0022\right)$\massunit and for \alam: $\mt{m}_{\bar{\Lambda}^0} = \left(1.1159 \pm 0.0022\right)$\massunit. 
 		Figure \ref{fig:lambda0_pt_vs_pz} shows the transverse momentum versus the longitudinal momentum.
 				
 		\begin{figure}
 			
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/lambda0/lambda0_pt_vs_pz_cut.pdf}}
 			\subfigure[]{\includegraphics[width=0.49\textwidth]{./plots/antilambda0/antiLambda0_pt_vs_pz_cut.pdf}}
-			\caption{\propose Figure a) shows the transverse against the longitudinal momentum for \lam. Figure b) hows the same distribution for \alam.}
+			\caption{\propose Figure a) shows the transverse against the longitudinal momentum for \lam. Figure b) shows the same distribution for \alam.}
 			\label{fig:lambda0_pt_vs_pz}
 		
 		\end{figure}
@@ -174,7 +172,7 @@ To reconstruct all the simulated particles we start with the final state particl
 		The reconstruction of \cascade and \anticascade follows a similar scheme like the reconstruction of \lam and \alam.
 		For \anticascade are \alam and \piplusone recombined and for \cascade in the c.c. channel \lam and \piminusone.
 		Now it is distinguished between the to \piplus (\piminus) particle and use only those particles which have not already been combined.
-		After combining the daughter particles a mass window cut is performed with width of $0.3$\massunit around 
+		After combining the daughter particles a mass window cut is performed with a width of $0.3$\massunit around 
 		the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
 		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
@@ -270,8 +268,8 @@ To reconstruct all the simulated particles we start with the final state particl
 					A double Gaussian fit (red dashed line) is performed to determine the reconstructed mass for the \anticascade. }
 			\label{fig:XiPlus_massfit}
 		\end{figure}
-		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.321716 \pm 9.2\cdot 10^{-6}\right)}$ \massunit 
-		and for \cascade \\ ${\mt{m} = \left( 1.3216474 \pm 9.3\cdot 10^{-6}\right)}$\massunit.
+		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.32172 \pm 0.00396\right)}$ \massunit 
+		and for \cascade \\ ${\mt{m} = \left( 1.3216 \pm 0.004\right)}$\massunit.
 		The two dimensional momentum distribution for \anticascade and \cascade is shown in figure \ref{fig:XiPlus_pt_vs_pz} 
 		
 		\begin{figure}
@@ -291,7 +289,7 @@ To reconstruct all the simulated particles we start with the final state particl
 \section{Reconstruction of $\Xi$(1820) and $\bar{\Xi}$(1820)}
 		\subsection*{Selection}
 
-		For the reconstruction of \excitedcascade one combine \lam and \kminus meson and for \excitedanticascade \alam and \kplus using the
+		For the reconstruction of \excitedcascade one combines \lam with the \kminus meson and for \excitedanticascade \alam and \kplus using the
 		best candidate from \lam and \alam.
 		After the combination of the particles a mass window cut with width of $0.3$\massunit is performed. 
 		The daughter particles are fitted then to a common vertex point with the PndKinVtxFitter.
@@ -398,9 +396,9 @@ To reconstruct all the simulated particles we start with the final state particl
 	
 	To reconstruct the hole reaction chain \excitedcascade and \anticascade are combined.
 	This is also done with \excitedanticascade and \cascade for the charge conjugated channel.
-	For this reconstruction the event selection is done with a exclusive method.
+	For this reconstruction the event selection is done with an exclusive method.
 	The resulting four-momentum vector of both daughter particles --  here \excitedcascade 
-	and \anticascade and there c.c. particles -- is fitted to the initial for momentum vector  
+	and \anticascade and there c.c. particles -- is fitted with the constraint to match to the initial for momentum vector  
 
 	\begin{center}
 		\begin{equation}\nonumber
@@ -444,11 +442,11 @@ To reconstruct all the simulated particles we start with the final state particl
 			\hline
 			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
 			\hline
-			\lam & 50.3278&   1.50497 \\
-			\alam & 41.4625&   1.45024\\
-			\anticascade & 18.389&   1.2889\\
-			\excitedcascade & 32.0245&   2.67691 \\
-			\excitedcascade \anticascade system & 4.69293&   1.03214\\\hline
+			\lam & 50.33&   1.50 \\
+			\alam & 41.46&   1.45\\
+			\anticascade & 18.39&   1.29\\
+			\excitedcascade & 32.02&   2.68 \\
+			\excitedcascade \anticascade system & 4.69&   1.03\\\hline
 			 	
 		\end{tabular}
 	\end{table}
@@ -463,11 +461,11 @@ To reconstruct all the simulated particles we start with the final state particl
 			\hline
 			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
 			\hline
-			\lam & 42.4693&   1.45429 \\
-			\alam & 48.9991&   1.50196\\
-			\cascade & 18.6405&   2.29877\\
-			\excitedanticascade & 33.2238&   1.31081\\
-			\excitedanticascade \cascade system & 4.87227&   1.03127\\\hline
+			\lam & 42.47&   1.45 \\
+			\alam & 49.0&   1.50\\
+			\cascade & 18.64&   2.30\\
+			\excitedanticascade & 33.22&   1.31\\
+			\excitedanticascade \cascade system & 4.87&   1.03\\\hline
 			 	
 		\end{tabular}
 	\end{table}
