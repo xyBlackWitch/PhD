@@ -1,16 +1,17 @@
-To study excited \cascade baryons the simulation of signal events is needed.
-For this study\\ 1.5 million signal events have been generated.
-The decay channel for the simulation is shown in figure \ref{fig:eventgeneration_decaychannel}. 
+To study excited \cascade baryons the simulation of a sufficient number of signal events is needed.
+For this study 1.5 million signal events were generated with the event generator EvtGen.
+The reaction and decay tree selected for the simulation is shown in figure \ref{fig:eventgeneration_decaychannel}.
+If not otherwise specified, the charged conjugate process is implicitly included in the following. 
 
 \begin{figure}[htbp]
 	\centering
 			\includegraphics[width=1.00\textwidth]{./plots/DecayChannelXi1820.png}
-	\caption{Simulated decay channel}
+	\caption{Reaction and decay tree selected for the simulation.}
 	\label{fig:eventgeneration_decaychannel}
 \end{figure}
 
-For the charge conjugated channel another 1.5 million events were generated.
-Table \ref{tab:eventgeneration_parameter} shows the parameters which are used for the event generation.
+For the charge conjugate channel another 1.5 million events were generated.
+Table \ref{tab:eventgeneration_parameter} shows the parameters used for the event generation.
 
 \begin{table}[tbp]
 	\caption{Parameter for event generation}
@@ -29,11 +30,17 @@ Table \ref{tab:eventgeneration_parameter} shows the parameters which are used fo
 	\end{tabular}
 \end{table}
 
-The PHPS model is used for the production, because other models are not tested yet. 
-But this is not effecting the strategy for this study.
+For the production reaction \pbarpSystem $\rightarrow$ \excitedcascade\anticascade the PHSP model, 
+generating an isotropic angular distribution, was used,
+because a more realistic treatment has not yet been implemented in EvtGen. 
+This simplification does not affect the strategy used for this study.
 
-The chosen beam momentum of $p_{\bar{\mt{p}}} = 4.6\unit{GeV/c}$ is 100 MeV above the production threshold of \excitedcascade and \anticascade.
-The production cross section is expected to be of the same order ($\sim \mu\mt{b}$) as for \cascade \cite{PANDAphysics2009}.\\
+The chosen beam momentum $p_{\bar{\mt{p}}} = 4.6\unit{GeV/c}$ corresponds to a center-of-mass energy 
+of 100 MeV above the production threshold of \excitedcascade and \anticascade.
+The production cross section is expected to be of the same order ($\sim \mu\mt{b}$) as for ground 
+state \cascade production in \pbarpSystem $\rightarrow$ \cascade\anticascade \cite{PANDAphysics2009}.
+This expectation is based on ground state and excited state single strange hyperons production data in \pbarpSystem collisions \cite{CERN}.
+\\
 \vspace{11pt} 
 
 The used software versions for PandaRoot and the external software package is listed in table \ref{tab:eventgeneration_software} 
