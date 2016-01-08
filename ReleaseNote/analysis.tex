@@ -4,7 +4,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	The selected final state particle are protons, anti-protons, \piminus, \piplus, \kminus and \kplus mesons.
 	For the reconstruction of these particles an ideal tracking was used.
 	Ideal tracking means that the hit points caused by a particle track are grouped based on the generated particle information. 
-	To achieve a more realistic reconstruction efficiency only particles with more than 3 hits in any inner tracking detector (MVD, STT and GEM)
+	To achieve a more realistic reconstruction efficiency only particles with at least 4 hits in any inner tracking detector (MVD, STT and GEM)
 	are selected.
 	The selection criterion is chosen because three hits are needed to defining a circle.
 	A fourth hit point is then a validation of the track hypothesis.\\
@@ -17,17 +17,17 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\centering
 		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade}
 		\label{tab:finalstate_recoeff}
-		\begin{tabular}{lll}
+		\begin{tabular}{lllll}
 			\hline
-			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
+			final state & N/$\%$ & $\sigma_N^{\mt{stat.}}/\%$ &$\frac{\sigma p}{p}/\%$ & $\sigma_\frac{\sigma p}{p}/\%$ \\
 			\hline
 			\hline
-			\piminus & 83.48 & 1.53\\
-			\piplusone(\anticascade) &  80.93& 1.38 \\
-			\piplustwo(\alam) &  83.07& 1.49\\
-			\kminus&  78.59& 1.58\\
-			p &  84.39& 1.61\\
-			\antiproton & 78.25 & 1.61\\\hline
+			\piminus & 83.48 & $10^{-8}$& 1.53 & $3\cdot 10^{-3}$\\
+			\piplusone(\anticascade) &  80.93& $10^{-8}$& 1.38 & $3\cdot 10^{-3}$ \\
+			\piplustwo(\alam) &  83.07& $10^{-8}$&1.49 & $3\cdot 10^{-3}$\\
+			\kminus&  78.59& $10^{-8}$& 1.58 & $3\cdot 10^{-3}$\\
+			p &  84.39& $10^{-8}$& 1.61 & $4\cdot 10^{-3}$\\
+			\antiproton & 78.25 &$10^{-8}$& 1.45 & $4\cdot 10^{-3}$\\\hline
 			 
 		\end{tabular}
 	\end{table}
@@ -38,17 +38,17 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\centering
 		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
 		\label{tab:finalstate_recoeff_cc}
-		\begin{tabular}{lll}
+		\begin{tabular}{lllll}
 			\hline
-			final state & N/$\%$ & $\frac{\sigma p}{p}/\%$ \\
+			final state & N/$\%$ & $\sigma_N^{\mt{stat.}}/\%$ &$\frac{\sigma p}{p}/\%$ & $\sigma_\frac{\sigma p}{p}/\%$ \\
 			\hline
 			\hline
-			\piplus &  82.96&   1.54\\
-			\piminusone(\cascade) & 80.40&   1.38  \\
-			\piminustwo(\lam) &  82.69&   1.49\\
-			\kplus& 83.27&   1.58 \\
-			p &  80.71&   1.55\\
-			\antiproton &  80.93&   1.60\\\hline
+			\piplus &  82.96& $10^{-8}$&  1.54 & $2\cdot 10^{-3}$\\
+			\piminusone(\cascade) & 80.40& $10^{-8}$&   1.38 & $2\cdot 10^{-3}$  \\
+			\piminustwo(\lam) &  82.69&  $10^{-8}$& 1.49& $3\cdot 10^{-3}$\\
+			\kplus& 83.27& $10^{-8}$&  1.58 & $3\cdot 10^{-3}$\\
+			p &  80.71& $10^{-8}$&  1.55& $4\cdot 10^{-3}$\\
+			\antiproton &  80.93& $10^{-8}$&  1.60 & $4\cdot 10^{-3}$\\\hline
 			 
 		\end{tabular}
 	\end{table}
@@ -65,13 +65,13 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 
 	
-\section{Reconstruction of $\Lambda$ and $\bar{\Lambda}$}
+\section{Reconstruction of $\Lambda$ and $\bar{\Lambda}$}\label{subsec:lambda}
 	\subsection*{Selection}
 		For the reconstruction of \lam hyperons a proton and a \piminus meson are combined and for the reconstruction 
 		of \alam a \antiproton and a \piplus are combined.		 
 		After combining the daughter particles a mass cut is performed.
 		Only those candidates are chosen which have a mass within a window of $0.3$\massunit symmetric to the nominal 
-		\lam mass, i.e., a mass within $M= 1.116\pm 0.15$\massunit.
+		\lam mass, i.e., a mass within $m= 1.116\pm 0.15$\massunit.
 		
 		
 		A vertex constraint fit with the PndKinVtxFitter is performed on the selected candidate.
@@ -92,7 +92,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		A mass contraint fit is performed on the fitted candidate.
 		For this mass constraint fit the kinematic fitter PndKinFitter is used.
 		After using both fitters the selection criterion is set. 
-		One select only those particles which have a probability larger than $1\%$ in both fitter.
+		Only those particles which have a probability larger than $1\%$ in both fitters are selected.
 		A scheme which shows how the events are selected can be found in figure \ref{fig:lambda_scheme}. 
 		
 		\begin{figure}
@@ -135,8 +135,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\end{figure}
 		
 		The peak position of the Gaussian fit is taken as the value of the reconstructed mass.
-		The reconstructed masses are $\mt{m}_{\Lambda^0} = \left(1.1158 \pm 0.0022\right)$\massunit and 
-		$\mt{m}_{\bar{\Lambda}^0} = \left(1.1159 \pm 0.0022\right)$\massunit for \lam and \alam, respectively. 
+		The reconstructed masses are $\mt{m}_{\Lambda} = \left(1.1158 \pm 0.0021\right)$\massunit and 
+		$\mt{m}_{\bar{\Lambda}} = \left(1.1158 \pm 0.0021\right)$\massunit for \lam and \alam, respectively. 
 		Figure \ref{fig:lambda0_pt_vs_pz} shows the transverse momentum versus the longitudinal momentum.
 				
 		\begin{figure}
@@ -147,14 +147,15 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			\label{fig:lambda0_pt_vs_pz}
 		
 		\end{figure}
-		After all cuts the reconstruction efficiency is $50.33\%$ for \lam and $41.46\%$ for \alam.
+		After all cuts the reconstruction efficiency is $40.48\%$ for \lam and $33.42\%$ for \alam.
 		The difference in the reconstruction efficiencies for \lam and \alam is caused by the different decay lengths of their mother particles.
 		\lam is emitted by the \excitedcascade which has a very short decay length while the decay length of \anticascade is 
 		c$\tau = 4.91 \unit{cm}$ \cite{PDG}.
 		The decay length of \lam and \alam is $\textnormal{c}\tau = 7.98 \unit{cm}$, so that the final state particles of \alam are produced more downstream 
 		than the final state particles of \lam.
 		This can be also seen in figure \ref{fig:lambda0_antilambda0_decay_vtx}.
-		The finale state particles of \alam are produced at the edge of the MVD detector so that the reconstruction efficiency for these particles is reduced.
+		The final state particles of \alam are produced at the edge of the MVD detector so that the reconstruction efficiency for these particles is reduced.
+		An extension of the MVD with two more discs the so-called "Lambda-Discs" might improve the reconstruction efficienies for \lam and \alam.
 		
 		\begin{figure}
 		
@@ -175,15 +176,20 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 \section{Reconstruction of \cascade and \anticascade}
 	\subsection*{Selection}
-		The reconstruction of \cascade and \anticascade follows a similar scheme like the reconstruction of \lam and \alam.
-		For \anticascade are \alam and \piplusone recombined and for \cascade in the charge conjugate. channel \lam and \piminusone.
-		Now it is distinguished between the to \piplus (\piminus) particle and use only those particles which have not already been combined.
-		After combining the daughter particles a mass window cut is performed with a width of $0.3$\massunit around 
+		The reconstruction of \cascade and \anticascade follows a scheme similar to the reconstruction of \lam and \alam.
+		For \anticascade \alam and \piplus are recombined, for \cascade in the charge conjugate channel \lam and \piminus.
+		In case of the correct selection oth the \piminus or \piplus candidate as daughter particle of \lam or \alam, respectively,
+		only one \piminus or \piplus candidate remains within the primary particles of the reaction chain, which must be the duaghter 
+		particle of \cascade or \anticascade, respectively.
+		The correct selection of the \lam and \alam daughter pions is assured by the choice of the best fitted \lam and \alam candidates, 
+		as discribed in section \ref{subsec:lambda}.
+		The pions associated to the \lam and \alam decay are removed from the pion candidate lists used for the reconstruction of \cascade and \anticascade
+		After combining the daughter particles a mass cut is performed corresponding to a window with a width of $0.3$\massunit symmetric around 
 		the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
 		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
-		After the mass window cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
-		And again these information is used to perform the mass constraint fit. 
+		After the mass cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
+		The resulting candidates are used to perform the mass constraint fit. 
 		
 		\begin{figure}
 			\centering
@@ -192,17 +198,18 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			\label{fig:anticascade_scheme}
 		\end{figure}
 		
-		Only those particles are selected which have a \chisq probability of more than $1\,\%$ in both fitter. 
-		Figure \ref{fig:XiPlus_prob} shows exemplarily the cut on the vertex fit probability.
+		Only those particles are selected which have a probability of more than $1\,\%$ in both fitters. 
+		Figure \ref{fig:XiPlus_prob} shows exemplarily the cut on the vertex fit probability for \anticascade.
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.50\textwidth]{./plots/Xi/XiPlus_prob.pdf}
-			\caption{\propose \chisq probability for \anticascade reconstruction}
+			\caption{\propose probability distribution for \anticascade reconstruction.}
 			\label{fig:XiPlus_prob}
 		\end{figure}
 			
-		If there is more than one candidate left after all cuts, the best candidate is chosen.
+		If there is more than one candidate left after all cuts, e.g. due to additional pions produced in secondary interactions, the candidate with the 
+		lowest \chisq is chosen.
 		
 		
 	\subsection*{Results}
@@ -218,41 +225,44 @@ To reconstruct all the particles involved in the reaction we start with the fina
 				\hline
 				x/cm & $0.052$ & $0.056$\\
 				y/cm & $0.052$ & $0.052$\\
-				z/cm & $0.192$ & $0.2$\\
+				z/cm & $0.19$ & $0.2$\\
 				\hline
 				    
 			\end{tabular}
 		\end{table}
 		
 		It is determined by calculating the full width at half maximum (FWHM) of the distribution.
-		The advantage of using this method for calculating the vertex resolution is that the FWHM is independent of distribution shape.
-		Figure \ref{fig:xi_vtxres_x} and Figure \ref{fig:xi_vtxres_yz} show the vertex resolution. 
+		The advantage of using this method for calculating the vertex resolution is that the FWHM is independent of the shape of the distribution.
+		Figures \ref{fig:xi_vtxres_xy} and \ref{fig:xi_vtxres_z} show the vertex resolution distribution. 
+		
+
+		
+		\begin{figure}
+			\subfigure[Vertex resolution for x coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_x.pdf}}
+			\subfigure[Vertex resolution for y coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
+			\caption{\propose The left plot shows the vertex resolution in the x coordinate for \anticascade. The right plot shows the vertex
+					 resolution of in the y coordinate for \anticascade.}
+			\label{fig:xi_vtxres_xy}
+			
+		\end{figure}
 		
 		\begin{figure}
 			\centering
-			\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_vtxres_x.pdf}
-			\caption{\propose Vertex resolution of x position for \anticascade}
-			\label{fig:xi_vtxres_x}
-			
-		\end{figure}
-		
-		\begin{figure}
-			\subfigure[Vertex resolution for y coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_y.pdf}}
-			\subfigure[Vertex resolution for z coordinate]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}}
-			\caption{\propose The left plot shows the vertex resolution of y position for \anticascade. The right plot shows the vertex
-					 resolution of z position for \anticascade.}
-			\label{fig:xi_vtxres_yz}
+			\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_vtxres_z.pdf}
+			\caption{\propose Vertex resolution of in the z coordinate for \anticascade candidates.}
+			\label{fig:xi_vtxres_z}
 			
 		\end{figure}
 	
-		The mass distribution for the different cuts is shown in figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts}.
+		The mass distribution obtained with the different cuts is shown in figure \ref{fig:XiPlus_massdiffcuts} and figure \ref{fig:XiMinus_massdiffcuts} 
+		for \anticascade and \cascade, respectively.
 		The number of events is strongly reduced by the cut on the vertex fit probability. 
-		The width of the mass distribution gets smaller. 
+		The width of the mass distribution is reduced. 
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiPlus_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \anticascade for different cuts: the mass window cut is shown in blue, the vertex fit cut is shown in red 
+			\caption{\propose Mass distribution of the \anticascade for different cuts: the mass cut is shown in blue, the vertex fit cut is shown in red 
 					and the distribution after all cuts is shown in black.}
 			\label{fig:XiPlus_massdiffcuts}
 		\end{figure}
@@ -260,7 +270,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering		
 				\includegraphics[width=1.1\textwidth]{./plots/Xi/XiMinus_m_diffcuts.pdf}
-			\caption{\propose Mass distribution of \cascade for different cuts: mass window cut in blue, vertex fit cut in red and all cuts in black.}
+			\caption{\propose Mass distribution of the \cascade for different cuts: the mass cut is shown in blue, the vertex fit cut is shown in red 
+					and the distribution after all cuts is shown in black.}
 			\label{fig:XiMinus_massdiffcuts}
 		\end{figure}
 		
@@ -270,23 +281,23 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
-			\caption{\propose The plot shows the mass distribution (blue line) after all cuts. 
-					A double Gaussian fit (red dashed line) is performed to determine the reconstructed mass for the \anticascade. }
+			\caption{\propose The plot shows the mass distribution (blue histogram) after all cuts. 
+					A double Gaussian fit (red dashed line) is performed to determine the mean reconstructed mass for the \anticascade. }
 			\label{fig:XiPlus_massfit}
 		\end{figure}
-		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.32172 \pm 0.00396\right)}$ \massunit 
-		and for \cascade \\ ${\mt{m} = \left( 1.3216 \pm 0.004\right)}$\massunit.
+		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.322 \pm 0.004\right)}$ \massunit 
+		and for \cascade \\ ${\mt{m} = \left( 1.322 \pm 0.004\right)}$\massunit.
 		The two dimensional momentum distribution for \anticascade and \cascade is shown in figure \ref{fig:XiPlus_pt_vs_pz} 
 		
 		\begin{figure}
 			\subfigure[\anticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_pt_vs_pz_cut.pdf}}
 			\subfigure[\cascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiMinus_pt_vs_pz_cut.pdf}}
-			\caption{\propose The plots shows the transverse against the longitudinal momentum for \anticascade and \cascade}
+			\caption{\propose The plots shows the transverse versus the longitudinal momentum for \anticascade and \cascade}
 			\label{fig:XiPlus_pt_vs_pz}
 		
 		\end{figure}
 		
-		The reconstruction efficiency for \anticascade is $18.39\%$ and for \cascade $18.64\%$.
+		The reconstruction efficiency for \anticascade is $18.4\%$ and for \cascade $18.6\%$.
 		
 	
 	
@@ -295,10 +306,10 @@ To reconstruct all the particles involved in the reaction we start with the fina
 \section{Reconstruction of \excitedcascade and \excitedanticascade}
 		\subsection*{Selection}
 
-		For the reconstruction of \excitedcascade one combines \lam with the \kminus meson and for \excitedanticascade \alam and \kplus using the
-		best candidate from \lam and \alam.
-		After the combination of the particles a mass window cut with width of $0.3$\massunit is performed. 
-		The daughter particles are fitted then to a common vertex point with the PndKinVtxFitter.
+		For the reconstruction of \excitedcascade one combines the \lam candidate with the \kminus meson candidate and for \excitedanticascade \alam and \kplus, using the
+		fit candidates \lam and \alam.
+		After the combination of the particles a mass cut with a width of $0.3$\massunit symmetric to the nominal \excitedcascade mass is performed. 
+		The daughter particles are  then fitted to a common vertex point with the PndKinVtxFitter.
 		Only those candidates for \excitedcascade (\excitedanticascade) are selected which have a fit probability of more then $1\%$.
 		The selection scheme is shown in figure \ref{fig:excitedcascade_scheme}. 
 		
@@ -310,17 +321,17 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\end{figure}
 		
 		
-		The \chisq probability distribution for the vertex fit is shown in figure \ref{fig:xi1820_prob}.
-		The distribution is again not flat but increases for values up to one. 
+		The probability distribution for the vertex fit is shown in figure \ref{fig:xi1820_prob}.
+		Again the distribution is not flat but increases for values close to one. 
 		
 		\begin{figure}
 			\centering
 			\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_prob.pdf}
-			\caption{\propose \chisq probability distribution of kinematic vertex fit for \excitedcascade.}
+			\caption{\propose probability distribution of the kinematic vertex fit for \excitedcascade candidates.}
 			\label{fig:xi1820_prob}
 		\end{figure}
 		
-		If there is more than one particle the best candidate is chosen.
+		If there is more than one particle the fit candidate with the smalles \chisq is chosen.
 		
 	\subsection*{Results}
 	The vertex resolution for \excitedcascade and \excitedanticascade is summarized in table \ref{tab:Xi1820_vtxres}.
@@ -342,22 +353,24 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\end{tabular}
 	\end{table}
 	
-	Here again the vertex resolution is calculated with the FWHM. 
-	This is exemplarily shown for \excitedcascade in figure \ref{fig:Xi1820_vtxx} and figure \ref{fig:Xi1820_vtxyz}.
+	Here again the vertex resolution is measured using the FWHM of the distribution. 
+	This is exemplarily shown for \excitedcascade in figure \ref{fig:Xi1820_vtxxy} and \ref{fig:Xi1820_vtxz}.
 	
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.7\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_x.pdf}
-		\caption{\propose Vertex resolution of the x coordinate for \excitedcascade.}
-		\label{fig:Xi1820_vtxx}
-	\end{figure}
+	
 	
 	 \begin{figure}
 		\centering
+		\subfigure[Vertex resolution of the x coordinate for \excitedcascade.]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_x.pdf}}
 		\subfigure[Vertex resolution of the y coordinate for \excitedcascade.]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_y.pdf}}
-		\subfigure[Vertex resolution of the z coordinate for \excitedcascade.]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_z.pdf}}
-		\caption{\propose Figure a) shows the vertex resolution for the y coordinate and figure b) for the z coordinate of \excitedcascade}
-		\label{fig:Xi1820_vtxyz}
+		\caption{\propose Figure a) shows the vertex resolution for the x coordinate and figure b) for the y coordinate of \excitedcascade}
+		\label{fig:Xi1820_vtxxy}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{./plots/Xi1820/XiMinus1820_vtxres_z.pdf}
+		\caption{\propose Vertex resolution in the z coordinate for \excitedcascade.}
+		\label{fig:Xi1820_vtxz}
 	\end{figure}
 	
 	After performing both fits and cut on the probability values, the mass for \excitedcascade and \excitedanticascade
@@ -367,34 +380,36 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_diffcuts.pdf}
-		\caption{\propose Mass distribution for \excitedcascade after the mass window cut in blue and after the vertex fit probability cut in red.}
+		\caption{\propose Mass distribution for \excitedcascade after the mass cut in blue and after the vertex fit probability cut in red.}
 		\label{fig:xi1820_mass_diffcuts}
 	
 	\end{figure}
-	The mass fit is exemplarily shown for the \excitedcascade in figure \ref{fig:xi1820_massfit}. 
+	As an example the mass fit is shown for the \excitedcascade in figure \ref{fig:xi1820_massfit}. 
 	
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
-		\caption{\propose Mass distribution (blue line) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as red dashed line.}
+		\caption{\propose Mass distribution (blue histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.}
 		\label{fig:xi1820_massfit}
 	\end{figure}
-	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = 1.8229 \pm 3.81 \cdot 10^{-5}$ \massunit
-	 and for \excitedanticascade to $m_{\bar{\Xi}^{*}} = 1.823 \pm 3.73\cdot 10^{-5}$ \massunit.
+	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = \left(1.8229 \pm 3.81 \cdot 10^{-5})\right$ \massunit
+	 and for \excitedanticascade to $m_{\bar{\Xi}^{*}} = \left(1.823 \pm 3.73\cdot 10^{-5}\right)$ \massunit.
 	These values are close to the input value.
-	Figure \ref{fig:xi1820_pt_vs_pz} shows the two dimensional momentum distribution. For both subplots the x axis shows the longitudinal momentum
-	and on the y axis there is shown the transverse momentum.
+	Figure \ref{fig:xi1820_pt_vs_pz} shows the two-dimensional momentum distribution of $p_\mt{t}$ versus $p_\mt{z}$.
 	
 	\begin{figure}
 		\centering
 		\subfigure[\excitedcascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiMinus1820_pt_vs_pz_cut.pdf}}
 		\subfigure[\excitedanticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi1820/XiPlus1820_pt_vs_pz_cut.pdf}}
-		\caption{\propose Both plots show the longitudinal versus the transverse momentum of the excited cascade baryon.}
+		\caption{\propose Both plots show the longitudinal versus the transverse momentum of the excited cascade baryon and its antiparticle, respectively.}
 		\label{fig:xi1820_pt_vs_pz}
 	\end{figure}
 	
-	The reconstructed distributions are in good agreement with the distribution coming from the simulated events which are 
+	The reconstructed distributions are in good agreement with the distribution obtained for the generated events which are 
 	shown in figure \ref{fig:MC_xi_pt_vs_pz} (b).
+	
+	
+	
 	
 \section{Reconstruction of the whole reaction chain}
 
@@ -404,17 +419,17 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	This is also done with \excitedanticascade and \cascade for the charge conjugated channel.
 	For this reconstruction the event selection is done with an exclusive method.
 	The resulting four-momentum vector of both daughter particles --  here \excitedcascade 
-	and \anticascade and there charge conjugate. particles -- is fitted with the constraint to match to the initial for momentum vector  
+	and \anticascade and there charge conjugate. particles -- is fitted with the constraint to match to the initial four momentum vector  
 
 	\begin{center}
 		\begin{equation}\nonumber
-			\left(\mt{p}_x,\, \mt{p}_y,\, \mt{p}_z,\, \mt{E} \right) = \left(0,\, 0,\, 4.6,\, 5.63 \right)
+			\left(\mt{p}_x,\, \mt{p}_y,\, \mt{p}_z,\, \mt{E} \right) = \left(0,\, 0,\, 4.6,\, 5.63 \right) \unit{GeV}
 		\end{equation}
 	\end{center}
-	of the \pbarpSystem.	
+	of the \pbarpSystem entrance channel.	
 	This fit is performed with the PndKinFitter.
-	After the four-momentum fit only those candidates are selected which have a \chisq probability of more than $1\%$.
-	The \chisq probability is shown in figure \ref{fig:xisys_prob}. 
+	After the four-momentum fit only those candidates are selected which have a probability of more than $1\%$.
+	The probability is shown in figure \ref{fig:xisys_prob}. 
 	The red line denotes the cut value.
 
 	\begin{figure}
@@ -435,7 +450,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 	\subsection*{Results}
 	
-	The results of the reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}
+	The obtained reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}
 	and table \ref{tab:non-finalstate_efficiency_cc}.
 	
 	\begin{table}
@@ -448,18 +463,18 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			\hline
 			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
 			\hline
-			\lam & 50.33&   1.50 \\
-			\alam & 41.46&   1.45\\
-			\anticascade & 18.39&   1.29\\
-			\excitedcascade & 32.02&   2.68 \\
-			\excitedcascade \anticascade system & 4.69&   1.03\\\hline
+			\lam & 40.5&   1.40 \\
+			\alam & 33.4&   1.49\\
+			\anticascade & 18.4&   1.29\\
+			\excitedcascade & 32.0&   2.68 \\
+			\excitedcascade \anticascade system & 4.7&   1.03\\\hline
 			 	
 		\end{tabular}
 	\end{table}
 	
 		\begin{table}
 		\centering
-		\caption{\propose reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
+		\caption{\propose Reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
 		\label{tab:non-finalstate_efficiency_cc}
 		
 		\begin{tabular}{lcc}
@@ -467,22 +482,23 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			\hline
 			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
 			\hline
-			\lam & 42.47&   1.45 \\
-			\alam & 49.0&   1.50\\
-			\cascade & 18.64&   2.30\\
-			\excitedanticascade & 33.22&   1.31\\
-			\excitedanticascade \cascade system & 4.87&   1.03\\\hline
+			\lam & 32.8 &   1.44 \\
+			\alam & 40.8 &   1.46\\
+			\cascade & 18.6&   2.30\\
+			\excitedanticascade & 33.2&   1.31\\
+			\excitedanticascade \cascade system & 4.9&   1.03\\\hline
 			 	
 		\end{tabular}
 	\end{table}
 	
-	Figure \ref{fig:reco_Dalitzplot} shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction. 
-	Compared with the Dalitz plot of the simulated particles shown in figure \ref{fig:eventgeneration_Dalitz} the reconstruction seems to be good.
+	Figure \ref{fig:reco_Dalitzplot} shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction before the 4-C kinematic fit. 
+	Figure \ref{fig:reco_Dalitzplot} should be compared with the Dalitz plot of the generated particles shown in figure \ref{fig:eventgeneration_Dalitz}
+	in order to assess the quality of the reconstruction procedure.
 	
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.8\textwidth]{./plots/pbarp/Dalitzplot_reco.pdf}
-		\caption{\propose Dalitz plot for reconstructed particles}
+		\caption{\propose Dalitz plot for reconstructed \anticascade\lam\kminus final state.}
 		\label{fig:reco_Dalitzplot}
 	
 	\end{figure}

@@ -1,15 +1,17 @@
-For background studies 15 million events are simulated with the Dual Parton Model based generator DPM.
-To make the selected events of background and signal comparable a scaling factor is needed.
+For background studies 15 million events have simulated with the Dual Parton Model based generator DPM.
+To compare the number of selected events of background and signal, a scaling factor is needed.
 This scaling factor can be calculated with the number of generated events and the cross section of signal and background.
 \begin{equation}
-		B = \frac{N_\mt{sig}/\left(\sigma_\mt{sig}\right)}{N_\mt{bg}/\sigma_\mt{bg}},
+		B = \frac{N^{\mt{gen}}_\mt{sig}/\sigma_\mt{sig}}{N^{\mt{gen}}_\mt{bg}/\sigma_\mt{bg}},
 \label{eq:bg_scaling}
 \end{equation}
-where $N_\mt{sig}$ is the number of generated signal events and $N_\mt{bg}$ the number of generated background events.
-The cross section are given by $\sigma_\mt{sig} = 1\,\mu\mt{b}$ and $\sigma_\mt{bg} = 50\unit{mb}$ \cite{PANDAphysics2009}.
-The scaling factor for the channel \pbarpSystem $\rightarrow$ \excitedcascade \anticascade is $B=5000$.
+where $N^\mt{gen}_\mt{sig}$ is the number of generated signal events and $N^\mt{gen}_\mt{bg}$ the number of generated background events.
+The signal and background cross sections are given by $\sigma_\mt{sig} = 1\,\mu\mt{b}$ and $\sigma_\mt{bg} = 50\unit{mb}$ \cite{PANDAphysics2009}, respectively.
+The scaling factor is $B=5000$ for the channel \pbarpSystem $\rightarrow$ \excitedcascade \anticascade.
 %In table \ref{tab:bg_scaling} the scaling factor is shown for the channel \pbarpSystem $\rightarrow$ \excitedcascade \anticascade.
 The scaling factor for the c.c. channel is the same. 
+This means that the number of reconstructed events in the background sample surviving all cuts applied to the reconstruction of the signal events 
+has to be multiplied by a factor 5000 in order to deduce the achieved signal-to-background ratio. 
 
 %\begin{table}
 %	\centering
@@ -30,8 +32,8 @@ The scaling factor for the c.c. channel is the same.
 %	 \end{tabular}
 %\end{table}
 
-All background events are reconstructed like the signal events. 
-The number of reconstructed Background events is shown in table \ref{tab:bg_reco_without_scaling}.
+All background events are subject to the same reconstruction procedure including all cuts for the signal events. 
+The number of reconstructed background events is shown in table \ref{tab:bg_reco_without_scaling}.
 
 \begin{table}
 	\centering
@@ -61,18 +63,16 @@ The number of reconstructed Background events is shown in table \ref{tab:bg_reco
 		  
 	\end{tabular}
 \end{table}
-Multiplying the number of background events with the scaling factor make them comparable with the number of signal events.
 The comparison between signal and background events is shown in table \ref{bg_compared_reco_with_scaling}.
 The significance is given by
 \begin{equation}
-	S = \frac{N^{2}_\mt{sig}}{N_\mt{sig}+N_\mt{bg}},
+	S = \frac{N^{2}_\mt{sig}}{N_\mt{sig}+N_\mt{bg}\cdot B}.
 	\label{eq:significance}
 \end{equation}
-where $N_\mt{bg}$ is scaled with $B$.
 
 \begin{table}
 	\centering
-	\caption{\propose The number of background events scaled with $B$ compared to the number of signal events for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade.
+	\caption{\propose The number of background events scaled with factor $B$ compared to the number of signal events for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade.
 		The significance is calculated with equation \ref{eq:significance}.}
 	\label{bg_compared_reco_with_scaling}
 	\begin{tabular}{lccc}
@@ -86,7 +86,7 @@ where $N_\mt{bg}$ is scaled with $B$.
 		\alam & 711,820 & $620.341 \cdot 10^{6}$ & 815.85\\
 		\anticascade & 302,681 & $15.31 \cdot 10^{6}$ & 5,868.03\\
 		\excitedcascade &490,672  & $1.49 \cdot 10^{6}$& 121,544.21\\
-		\excitedcascade \anticascade &  74,523 & 0 & < 69,837.37\\
+		\excitedcascade \anticascade &  74,523 & 0 & > 69,837.37\\
 		\hline
 		 
 		%\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & & &\\
@@ -99,7 +99,12 @@ where $N_\mt{bg}$ is scaled with $B$.
 		  
 	\end{tabular}
 \end{table}
-Because there are no background events left, it is only possible to estimate a upper limit for the significance.
-For one background event which is scaled with $B$ the significance is less than 69,837.37.
-Further background studies for this reaction chain and its charged conjugated channel have to be done as a next step.
+Because none of the background events survives the cuts applied to reconstruct the signal, it is only possible to estimate a lower limit for the significance.
+For one background event scaled by the factor $B$ the significance is at least 69,837.37.
+The signal-to-background ratio is for this estimation
+\begin{equation}
+	\nonumber
+	\frac{N_\mt{sig}}{N_\mt{bg}} = \frac{74,523} {5000} = 14.9 : 1
+\end{equation}
+To get a higher statistic more background events have to be generated.
 	
