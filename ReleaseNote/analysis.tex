@@ -87,7 +87,11 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\end{figure}
 		
 		In the probability distribution one can see an increasing number of events for probabilities approaching a value of one.
-		This feature is not the vertex fit itself, as was shown by tests based on the so-called "poormantrack" algorithm \cite{RalfKliemt}.
+		To understand the origin of this behaviour the vertex fitter was tested with the "poormantrack" algorithm [4]. 
+		This algorithm creates simple particle tracks without using any detector information.
+        The particle tracks were fitted to a common vertex point with the PndKinVtxFitter.
+        These tests have shown that the behaviour of the probability distribution is not caused by the PndKinVtxFitter code, 
+        but its origin is still unknown.
 		\vspace{11pt}\\
 		A mass constraint fit is performed on the fitted candidate.
 		For this mass constraint fit the kinematic fitter PndKinFitter is used.
@@ -130,7 +134,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}
-			\caption{\propose Mass distribution (blue histogram) for \lam fitted with a double Gaussian fit (red dashed line).}
+			\caption{\propose Mass distribution (black histogram) for \lam fitted with a double Gaussian fit (red dashed line).}
 			\label{fig:lambda0_massfit}
 		\end{figure}
 		
@@ -187,7 +191,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		After combining the daughter particles a mass cut is performed corresponding to a window with a width of $0.3$\massunit symmetric around 
 		the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
-		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme} 
+		The fitting scheme is the same as for \lam and \alam and is shown in figure \ref{fig:anticascade_scheme}.
 		After the mass cut the daughter particles are fitted to a common vertex with the PndKinVtxFitter.
 		The resulting candidates are used to perform the mass constraint fit. 
 		
@@ -281,7 +285,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
-			\caption{\propose The plot shows the mass distribution (blue histogram) after all cuts. 
+			\caption{\propose The plot shows the mass distribution (black histogram) after all cuts. 
 					A double Gaussian fit (red dashed line) is performed to determine the mean reconstructed mass for the \anticascade. }
 			\label{fig:XiPlus_massfit}
 		\end{figure}
@@ -389,7 +393,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
-		\caption{\propose Mass distribution (blue histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.}
+		\caption{\propose Mass distribution (black histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.}
 		\label{fig:xi1820_massfit}
 	\end{figure}
 	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = \left(1.8229 \pm 3.81 \cdot 10^{-5})\right)$ \massunit
@@ -419,7 +423,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	This is also done with \excitedanticascade and \cascade for the charge conjugated channel.
 	For this reconstruction the event selection is done with an exclusive method.
 	The resulting four-momentum vector of both daughter particles --  here \excitedcascade 
-	and \anticascade and there charge conjugate. particles -- is fitted with the constraint to match to the initial four momentum vector  
+	and \anticascade and their charge conjugate particles -- is fitted with the constraint to match to the initial four momentum vector  
 
 	\begin{center}
 		\begin{equation}\nonumber
