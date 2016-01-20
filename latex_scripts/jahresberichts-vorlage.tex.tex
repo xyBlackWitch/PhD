@@ -1,0 +1,251 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SAMPLE:TEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[fleqn,twocolumn,a4paper]{ikpar}
+\usepackage{times,mathptm}
+\pagestyle{empty}
+
+\begin{document}
+\parindent=0pt
+\frenchspacing
+
+\title{{\bf
+Are the Darmstadt Modes Scissors Modes?}}
+\author{D. Zawischa*
+and J. Speth
+}
+\maketitle
+The Darmstadt modes
+\cite{r1}
+have been searched for
+because modes of the scissors
+type had been predicted \cite{r3,r4},
+and in spite of rather big
+discrepancies between the findings and the predictions they
+have been called scissors modes.
+Results of microscopic calculations
+essentially agree with each other and also with experimental
+data. But their interpretation is not evident. This motivated
+investigations of classical and semiclassical models \cite{r14,r17,r17a}.
+\par
+\medskip
+
+The nuclear density is parameterized by a Fermi function with radius
+$R(\theta,\phi)$
+and the nuclear shape by
+%
+\begin{equation} R(\theta, \phi) =  R_0 \,\left(1+{\delta\over 2} \cos (2\theta) +{\delta
+\over 6}\right)
+\label{(13)}\end{equation}
+which defines the nuclear deformation parameter $\delta$.
+We assume that $N=Z$ only to keep the expressions simple;
+for the same reason we only consider isovector modes.
+Instead of restricting ourselves to pure rotations (described by the
+rotational angle $\alpha$ and angular velocity $\dot\alpha$),
+we include as a second degree of
+freedom a quadru\-pole mode with distortion parameter $\chi$.
+Denoting by ${\bf u}$ the displacement of a fluid element from
+its equilibrium position, we assume
+the velocity of a fluid element of proton matter at
+${\bf  r}$ to be
+\begin{equation}
+{\bf \dot u}({\bf r},t)={\bf  \dot r}({\bf  r},t)
+= \dot\alpha\,(0,-z,y) + \dot\chi\,(0,z,y).
+\label{(2)}\end{equation}
+In any eigenmode of the nucleus $\alpha$ and $\chi$ are proportional, so
+$\alpha=\alpha_0\,Q,\quad \chi=\chi_0\,Q
+$
+with the normal
+coordinate $Q$.
+\par
+The kinetic energy of the
+motion is obtained as in the classical case.
+The contributions of protons and
+neutrons are equal for $N=Z$, and their sum is simply
+\begin{equation}
+T={1\over 2} \left (\dot\alpha^2 I_1 + 2\dot\alpha\dot\chi (I_3-I_1)
++ \dot\chi^2 I_1\right )
+\label{(9)}\end{equation}
+where $I_1$ is the total rigid body
+moment of inertia around the $x$-axis, $I_3$ that
+around the $z$-axis.\par
+The restoring force is derived from the asymmetry energy which
+can be written \cite{r7,r20} in the form of an integral involving
+$\delta\rho = \delta\rho^{\rm p} -\delta\rho^{\rm n}$
+We have for small amplitude motion $\delta\rho
+=-{\bf  u}
+\cdot \nabla (\rho^{\rm p}+\rho^{\rm n}) %.\label{(11)}
+$
+which finally yields the restoring potential in the form
+\begin{equation}V_{\rm asy}(\alpha,\chi)=
+{1\over 2}C[\chi
+-\delta^\prime\alpha]^2\label{(17)}\end{equation}
+where  $\delta'=\delta/(1+\delta/6)\approx\delta$.
+This result is remarkable:
+the two modes which we consider are coupled
+with each other and are therefore not the normal modes of the system,
+and, moreover, one of the normal modes can be obtained by inspection:
+If rotation and vibration occur
+in the special mixture given by
+\begin{equation} \chi=\delta^\prime\,\alpha , \label{(18)}\end{equation}
+from eq. (\ref{(17)}) we see that
+there is no restoring force. The reason is that the flow is tangential
+to the nuclear surface,
+and no separation of protons and neutrons occurs.
+Thus classically
+one of the normal modes is a zero energy mode which can not be excited.
+\par
+\begin{figure}[h]
+\vskip 9cm
+\caption{Streamline picture of the
+current distribution of the zero energy
+eigenmode of the classical nonspherical drop.
+Full lines: protons, dotted lines: neutrons (or vice versa).
+}
+\end{figure}
+Up to now we have completely ignored the fact that
+the moving fluid is made up of fermions.
+In a vibrating nucleus, the
+time dependent velocity field distorts the many-body wave function.
+In order to always remain in the lowest energy state
+at any deformation, particles occupying
+single particle states which move upwards in the Nilsson level scheme
+would have to make transitions to energetically more favourable states.
+It is assumed that in the nuclear fluid the collective
+motion is so fast that these transitions do not occur \cite{Bertsch}.
+To account for this in an
+averaged way the Thomas-Fermi approximation can be applied.
+This concept has been worked out in detail by Holzwarth et al.
+\cite{r15}.
+\par
+\begin{table*}
+\caption{
+Energies and magnetic dipole strengths for the two
+normal modes in different models but with the same set
+of parameters. In the rigid rotor model, the high energy mode is
+impossible.
+The second row refers to the model without quantum corrections,
+the data being obtained from eqs. (\protect\ref{(34)}) to
+(\protect\ref{(40)})
+with $D=0$, whereas for the NFD results in the last line
+the value of $D$ determined by eq. (\protect\ref{(30)}) has been used.}
+\par\bigskip
+\hfill\vbox{{\halign
+{\quad#\quad\hfil&\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad
+&\quad\hfil#\hfil\quad&\quad\hfil#\hfil\quad\cr
+\noalign{\smallskip\hrule\smallskip}
+&\multispan2 \hfil Low energy mode\hfil& \multispan2\hfil
+High energy mode\hfil\cr
+\noalign{\smallskip\hrule\smallskip}
+&$\hbar\omega$ (MeV)&$B$(M1)$\uparrow$ ($\mu_{\rm N}^2$)
+&$\hbar\omega$ (MeV)&$B$(M1)$\uparrow$ ($\mu_{\rm N}^2$)\cr
+\noalign{\smallskip\hrule\smallskip}
+Rigid Rotors Model: &5.05&20.1&---&---\cr
+Classical model: &0&0&20.6&4.94\cr
+Nuclear Fluid Dyn. &2.59&10.0&23.8&3.19\cr
+\noalign{\smallskip\hrule\smallskip}
+}}}\hfill\break\par
+\end{table*}
+One obtains $\Delta T_{\rm F}$ and from this
+\begin{equation}
+V_{\rm elast}(\alpha,\chi)=\Delta T_{\rm F}=
+{1\over 2}D\, \chi^2.\label{(30)}\end{equation}
+where the force constant $D$ is defined. \par
+Proceeding in standard fashion we get the equations of motion.
+Putting
+\begin{equation}\pmatrix{\alpha\cr\chi\cr}=
+\pmatrix{\alpha _0\cr\chi _0\cr}\,Q_0\,e^{i\omega t}
+\label{(32)}\end{equation}
+we get a set of eigenvalue equations.
+The eigenfrequencies are\begin{equation}\omega _1^2\approx {D\over I_1}
+\cdot{{\delta^{\prime 2}}\over{1+{D/C}}}
+\qquad\hbox{and}\qquad\omega_2^2\approx {{C+D}\over{I_1}}
+\label{(34)}\end{equation}
+Thus, since $D\ne 0$, the low frequency mode now has a finite frequency.
+The corresponding normal modes are
+\begin{equation} (\alpha_0,\chi_0)=(\alpha_0,\,\,\delta^\prime C(C+D)^{-1}\cdot\alpha_0)
+\label{(35)}\end{equation}
+and
+\begin{equation} (\alpha_0,\chi_0)=
+(\delta^\prime D(C+D)^{-1}\cdot \chi_0,\,\,\chi_0)\label{(35b)}\end{equation}
+for the low energy and
+for the high energy mode, respectively, where we have arbitrarily normalized
+such that the larger component is 1. From (\ref{(34)}, \ref{(35)}) and
+(\ref{(35b)}), by putting
+$D=0$, we recover the former results of the classical model.
+\par
+The normal vibrations can be quantized in the usual way, to obtain
+the transition strength to
+\begin{equation}
+B({\rm M}1)\!\!\uparrow\,
+={{3I_1\hbar\omega}\over{16\pi\hbar^2}}{{(\alpha_0-\delta^\prime\chi_0)^2}
+\over{\alpha_0^2+\chi_0^2-2\delta^\prime\alpha_0\chi_0}}
+\label{(40)}\end{equation}
+This formula encompasses the rigid rotor model (setting $\alpha_0=1$,
+$\chi_0=0$).
+\par
+\par
+We use $A=164$, $\delta=0.256$,
+and the other parameters exactly as in \cite{r20}.
+In the evaluation of the moments of inertia assume
+a sharp nuclear surface.
+We get $D/C=0.36$, and the energies and transition strengths as given
+in the last row of table 1.
+\par
+We get essentially the same proportionality of the $B({\rm M}1)$-value
+and excitation energy as in the two rotor model, so
+too much transition
+strength is obtained by a factor of $\approx 2$ (if we compare with
+the total strength at low energy). In the microscopic calculation,
+pairing strongly quenches the strength.
+Pairing effects are missing in
+our semiclassical treatment.
+\par
+The flow pattern of the low energy
+mode differs only very slightly from
+that of the classical zero mode, fig. 1, cf. eq. (\ref{(18)}) and (\ref{(35)}).
+It is remarkable that it exhibits some of the features
+which have been found in the transition densities calculated
+microscopically \cite{r14,r13},
+viz. that at the surface the flow is almost tangential.
+It is not small in the inside of the nucleus.
+The M1 form factor derived
+from this current density deviates only
+very little from the corresponding rigid rotor result, so that
+there is almost no improvement of the agreement with experimental
+data.
+\par
+\par\bigskip
+%----------------------------------------------------------------
+
+\begin{thebibliography}{99}
+\bibitem{r1} D. Bohle, A. Richter, W. Steffen, A.E.L. Dieperink, N. Lo Iudice,
+F. Palumbo, and O. Scholten, Phys. Lett. B {\bf 137}, 27 (1984)
+\bibitem{r3} N. Lo Iudice and F. Palumbo, Phys. Rev. Lett. {\bf 41}, 1532 (1978);
+ Nucl. Phys. A326, 193 (1979);
+\bibitem{r4} R.R. Hilton,
+Z. Phys. A {\bf 316}, 121 (1984) and references cited there
+\bibitem{r14} D. Zawischa and J. Speth, Z. Physik {\bf A 339}, 97 (1991)
+\bibitem{r17} D. Zawischa and J. Speth, Proc. of the Workshop on Nuclear
+Shapes and Nuclear Structure at Low Excitation Energy, Carg
+June 3 -- 7, 1991. Plenum, 1992;
+\bibitem{r17a} D. Zawischa and J. Speth,
+to be published in Nuclear Physics A (Proceedings of the International
+Nuclear Physics Conference, Wiesbaden 1992)
+\bibitem{r7} R. Nojarov, Z. Bochnacki, and A. Faessler,
+ Z. Phys. A {\bf 324}, 289 (1986)
+\bibitem{r20} N. Lo Iudice, F. Palumbo, A. Richter, and H.J. W\"ortche,
+Phys. Rev. C {\bf 42}, 241 (1990)
+\bibitem{Bertsch} G.F. Bertsch, Ann. Phys. (N.Y.) {\bf 86}, 138 (1974)
+\bibitem{r15} G. Holzwarth and G. Eckart, Z. Physik {\bf A 284}, 291 (1978)%
+, Nucl. Phys. {\bf A325}, 1 (1979)
+\bibitem{r13} J. Speth  and D. Zawischa, Phys. Lett. B {\bf 211}, 247 (1988)
+and B {\bf 219}, 529 (1989)
+\end{thebibliography}
+\medskip
+* Institut f\"ur Theoretische Physik,
+Universit\"at Hannover,
+W-3000 Hannover, Germany\par
+\vfill
+\end{document}
+
