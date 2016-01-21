@@ -66,7 +66,7 @@ The number of reconstructed background events is shown in table \ref{tab:bg_reco
 The comparison between signal and background events is shown in table \ref{bg_compared_reco_with_scaling}.
 The significance is given by
 \begin{equation}
-	S = \frac{N^{2}_\mt{sig}}{N_\mt{sig}+N_\mt{bg}\cdot B}.
+	S = \frac{N_\mt{sig}}{\sqrt{N_\mt{sig}+N_\mt{bg}\cdot B}}.
 	\label{eq:significance}
 \end{equation}
 
@@ -82,11 +82,11 @@ The significance is given by
 		\hline
 		& & &\\
 		%\pbarpSystem $\rightarrow$ \excitedcascade \anticascade & & &\\
-		\lam & 786,243 &$ 1.321 \cdot 10^{9}$& 467.68\\
-		\alam & 711,820 & $620.341 \cdot 10^{6}$ & 815.85\\
-		\anticascade & 302,681 & $15.31 \cdot 10^{6}$ & 5,868.03\\
-		\excitedcascade &490,672  & $1.49 \cdot 10^{6}$& 121,544.21\\
-		\excitedcascade \anticascade &  74,523 & 0 & > 69,837.37\\
+		\lam & 786,243 &$ 1.321 \cdot 10^{9}$& 21.65\\
+		\alam & 711,820 & $620.341 \cdot 10^{6}$ & 28.56\\
+		\anticascade & 302,681 & $15.31 \cdot 10^{6}$ & 76.60\\
+		\excitedcascade &490,672  & $1.49 \cdot 10^{6}$& 348.63\\
+		\excitedcascade \anticascade &  74,523 & 0 & > 264.27\\
 		\hline
 		 
 		%\pbarpSystem $\rightarrow$ \cascade \excitedanticascade & & &\\
@@ -100,11 +100,14 @@ The significance is given by
 	\end{tabular}
 \end{table}
 Because none of the background events survives the cuts applied to reconstruct the signal, it is only possible to estimate a lower limit for the significance.
-For one background event scaled by the factor $B$ the significance is at least 69,837.37.
+For one background event scaled by the factor $B$ the significance is at least 264.27.
 The signal-to-background ratio is for this estimation
 \begin{equation}
 	\nonumber
 	\frac{N_\mt{sig}}{N_\mt{bg}} = \frac{74,523} {5000} = 14.9 : 1
 \end{equation}
-To get a higher statistic more background events have to be generated.
+The values for the significance are unrealistically high since they are obtained from ideal tracking and ideal particle identification.
+For the final numbers one have to expect a more realistic software.
+Additionally for a more precise statement more background studies have to be done.
+ 
 	

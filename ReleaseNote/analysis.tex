@@ -19,7 +19,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\label{tab:finalstate_recoeff}
 		\begin{tabular}{lllll}
 			\hline
-			final state & N/$\%$ & $\sigma_N^{\mt{stat.}}/\%$ &$\frac{\sigma p}{p}/\%$ & $\sigma_\frac{\sigma p}{p}/\%$ \\
+			final state & N$\left[\%\right]$ & $\sigma_N^{\mt{stat.}}\left[\%\right]$ &$\frac{\sigma p}{p}\left[\%\right]$ & $\sigma_\frac{\sigma p}{p}\left[\%\right]$ \\
 			\hline
 			\hline
 			\piminus & 83.48 & $10^{-8}$& 1.53 & $3\cdot 10^{-3}$\\
@@ -40,7 +40,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\label{tab:finalstate_recoeff_cc}
 		\begin{tabular}{lllll}
 			\hline
-			final state & N/$\%$ & $\sigma_N^{\mt{stat.}}/\%$ &$\frac{\sigma p}{p}/\%$ & $\sigma_\frac{\sigma p}{p}/\%$ \\
+			final state & N$\left[\%\right]$ & $\sigma_N^{\mt{stat.}}\left[\%\right]$ &$\frac{\sigma p}{p}\left[\%\right]$ & $\sigma_\frac{\sigma p}{p}\left[\%\right]$ \\
 			\hline
 			\hline
 			\piplus &  82.96& $10^{-8}$&  1.54 & $2\cdot 10^{-3}$\\
@@ -134,7 +134,9 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/lambda0/lambda0_m_masscut2.pdf}
-			\caption{\propose Mass distribution (black histogram) for \lam fitted with a double Gaussian fit (red dashed line).}
+			\caption{\propose Mass distribution (blue histogram) for \lam fitted with a double Gaussian fit (red dashed line). 
+			The inner Gaussian fit is shown as blue dashed line and the outer Gaussian fit as black dashed line.}
+		
 			\label{fig:lambda0_massfit}
 		\end{figure}
 		
@@ -285,8 +287,9 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.8\textwidth]{./plots/Xi/XiPlus_m_masscut.pdf}
-			\caption{\propose The plot shows the mass distribution (black histogram) after all cuts. 
-					A double Gaussian fit (red dashed line) is performed to determine the mean reconstructed mass for the \anticascade. }
+			\caption{\propose The plot shows the mass distribution (blue histogram) after all cuts. 
+					A double Gaussian fit (red dashed line) is performed to determine the mean reconstructed mass for the \anticascade. 
+					The inner Gaussian fit is shown as blue dashed line and the outer Gaussian fit as black dashed line.}
 			\label{fig:XiPlus_massfit}
 		\end{figure}
 		The result of the mass fit is for \anticascade ${\mt{m} = \left( 1.322 \pm 0.004\right)}$ \massunit 
@@ -296,7 +299,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{figure}
 			\subfigure[\anticascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiPlus_pt_vs_pz_cut.pdf}}
 			\subfigure[\cascade]{\includegraphics[width=0.49\textwidth]{./plots/Xi/XiMinus_pt_vs_pz_cut.pdf}}
-			\caption{\propose The plots shows the transverse versus the longitudinal momentum for \anticascade and \cascade}
+			\caption{\propose The plots shows the transverse versus the longitudinal momentum for \anticascade and \cascade after vertex fit and mass fit.}
 			\label{fig:XiPlus_pt_vs_pz}
 		
 		\end{figure}
@@ -358,7 +361,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	\end{table}
 	
 	Here again the vertex resolution is measured using the FWHM of the distribution. 
-	This is exemplarily shown for \excitedcascade in figure \ref{fig:Xi1820_vtxxy} and \ref{fig:Xi1820_vtxz}.
+	This is shown for \excitedcascade in figure \ref{fig:Xi1820_vtxxy} and \ref{fig:Xi1820_vtxz}.
 	
 	
 	
@@ -393,7 +396,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.\textwidth]{./plots/Xi1820/XiMinus1820_m_masscut.pdf}
-		\caption{\propose Mass distribution (black histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.}
+		\caption{\propose Mass distribution (blue histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.
+		The inner Gaussian fit is shown as blue dashed line and the outer Gaussian fit as black dashed line.}
 		\label{fig:xi1820_massfit}
 	\end{figure}
 	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = \left(1.823 \pm 0.014)\right)$ \massunit
@@ -465,7 +469,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{tabular}{lcc}
 		
 			\hline
-			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
+			particle & reco. efficiency [$\%$] & dp/p [$\%$] \\\hline
 			\hline
 			\lam & 40.5&   1.40 \\
 			\alam & 33.4&   1.49\\
@@ -484,7 +488,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\begin{tabular}{lcc}
 		
 			\hline
-			particle & reco. efficiency in $\%$ & dp/p in $\%$ \\\hline
+			particle & reco. efficiency [$\%$] & dp/p [$\%$] \\\hline
 			\hline
 			\lam & 32.8 &   1.44 \\
 			\alam & 40.8 &   1.46\\
