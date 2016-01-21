@@ -6,7 +6,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	Ideal tracking means that the hit points caused by a particle track are grouped based on the generated particle information. 
 	To achieve a more realistic reconstruction efficiency only particles with at least 4 hits in any inner tracking detector (MVD, STT and GEM)
 	are selected.
-	The selection criterion is chosen because three hits are needed to defining a circle.
+	The selection criterion is chosen because three hits are needed to define a circle.
 	A fourth hit point is then a validation of the track hypothesis.\\
 	The particle identification (PID) is also ideal meaning that the true particle gets the probability $P=1$, the others $P=0$. 
 	The selection criterion is set to 'best'.\vspace{11pt} \\
@@ -90,8 +90,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		To understand the origin of this behaviour the vertex fitter was tested with the "poormantrack" algorithm [4]. 
 		This algorithm creates simple particle tracks without using any detector information.
         The particle tracks were fitted to a common vertex point with the PndKinVtxFitter.
-        These tests have shown that the behaviour of the probability distribution is not caused by the PndKinVtxFitter code, 
-        but its origin is still unknown.
+        These tests have shown that the behaviour of the probability distribution is not caused by the PndKinVtxFitter code. 
+        The origin of this behaviour is still under investigation.
 		\vspace{11pt}\\
 		A mass constraint fit is performed on the fitted candidate.
 		For this mass constraint fit the kinematic fitter PndKinFitter is used.
@@ -187,7 +187,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		particle of \cascade or \anticascade, respectively.
 		The correct selection of the \lam and \alam daughter pions is assured by the choice of the best fitted \lam and \alam candidates, 
 		as described in section \ref{subsec:lambda}.
-		The pions associated to the \lam and \alam decay are removed from the pion candidate lists used for the reconstruction of \cascade and \anticascade
+		The pions associated to the \lam and \alam decay are removed from the pion candidate lists used for the reconstruction of \cascade and \anticascade .
 		After combining the daughter particles a mass cut is performed corresponding to a window with a width of $0.3$\massunit symmetric around 
 		the \cascade mass $m_{\Xi} = 1.32171$ \massunit \cite{PDG}.
 		 
@@ -396,8 +396,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 		\caption{\propose Mass distribution (black histogram) after all cuts for \excitedcascade. The performed double Gaussian fit is shown as the red dashed line.}
 		\label{fig:xi1820_massfit}
 	\end{figure}
-	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = \left(1.8229 \pm 3.81 \cdot 10^{-5})\right)$ \massunit
-	 and for \excitedanticascade to $m_{\bar{\Xi}^{*}} = \left(1.823 \pm 3.73\cdot 10^{-5}\right)$ \massunit.
+	The mass value for the \excitedcascade is fitted to $m_{\Xi^{*}} = \left(1.823 \pm 0.014)\right)$ \massunit
+	 and for \excitedanticascade to $m_{\bar{\Xi}^{*}} = \left(1.823 \pm 0.014\right)$ \massunit.
 	These values are close to the input value.
 	Figure \ref{fig:xi1820_pt_vs_pz} shows the two-dimensional momentum distribution of $p_\mt{t}$ versus $p_\mt{z}$.
 	
