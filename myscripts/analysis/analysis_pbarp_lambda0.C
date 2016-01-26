@@ -13,13 +13,13 @@ void analysis_pbarp_lambda0( int nevts=0, TString pre=""){
   TStopwatch timer; 
 
   //Output File
-  TString Path ="/home/ikp1/puetz/panda/mysimulations/test/boxgenerator/lambda0/10000_events/";
+  TString Path ="~/panda/mysimulations/test/lambdaDisc/";
   TString outPath = Path;
-  TString OutputFile = pre + "analysis_output_angle.root";
+  TString OutputFile = pre + "analysis_output.root";
   
   //Input simulation Files
-  TString inPIDFile = Path + "pid_complete.root";
-  TString inParFile = Path + "simparams.root";
+  TString inPIDFile = Path + "Mproton_ldd_0_8_1_pid.root";
+  TString inParFile = Path + "Mproton_ldd_0_8_1_par.root";
   TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
   
   //Initialization
@@ -180,6 +180,9 @@ void analysis_pbarp_lambda0( int nevts=0, TString pre=""){
       ntpProton->Column("cand",    (Float_t) j);
       ntpProton->Column("ncand",   (Float_t) proton.GetLength());
 
+      jenny::numberOfHitsInSubdetector("proton_", proton[j], ntpProton);
+	  jenny::tagNHits("proton_", proton[j], ntpProton);
+
 
 
 			//info about 4-vector
@@ -194,8 +197,8 @@ void analysis_pbarp_lambda0( int nevts=0, TString pre=""){
      
       ntpProton->Column("MCTruthMatch", (bool) theAnalysis->McTruthMatch(proton[j]));
       ntpProton->Column("Mother", (Int_t) moth);
-			ntpProton->Column("Proton_CosTheta", (Float_t) proton[j]->GetMomentum().CosTheta());	
- 			ntpProton->Column("Proton_MC_CosTheta", (Float_t) proton[j]->GetMcTruth()->GetMomentum().CosTheta());	
+      ntpProton->Column("Proton_CosTheta", (Float_t) proton[j]->GetMomentum().CosTheta());
+      ntpProton->Column("Proton_MC_CosTheta", (Float_t) proton[j]->GetMcTruth()->GetMomentum().CosTheta());
 
 
 

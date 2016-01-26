@@ -15,6 +15,8 @@
 #include "TH2.h"
 #include "TCanvas.h"
 #include "TLorentzVector.h"
+#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/PandaSmartLabel.C"
+#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/setPandaStyle.C"
 
 enum id{
 	pbarp = 0, xi1820 = 1, xi=2,
@@ -83,6 +85,8 @@ void DalitzplotXi1820(){
 
 	}
 
+	setPandaStyle();
+
 	out->cd();
 
 	dalitz_Xilk->Write();
@@ -94,8 +98,11 @@ void DalitzplotXi1820(){
 //	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
 	dalitz_Xilk->Draw("COLZ");
 
+	PandaSmartLabel("L");
+
 	//****write histograms
 	c->Print(outPath+"/png-files/Dalitzplots_MC.png");
+	c->Print(outPath+"/pdf-files/Dalitzplots_MC.pdf");
 
 
 }

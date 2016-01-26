@@ -1,5 +1,5 @@
 
-void AnalysisTaskRunXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
+void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 	TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
 
 	//Output File
