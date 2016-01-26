@@ -181,7 +181,7 @@ sim_complete(Int_t nEvents = 1000, Float_t mom = 1.8, TString prefix ="",  TStri
   if(UseEvtGenDirect){
     //TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
     //EvtInput+="/Ana_llbar/llbarLE.dec";
-    TString EvtInput="/home/ikp1/puetz/panda/mysimulations/analysis/XiMinus_1820_lambda0_K.dec";
+    TString EvtInput="../test/XiMinus_1820_lambda0_K.dec";
     //PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
     PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
