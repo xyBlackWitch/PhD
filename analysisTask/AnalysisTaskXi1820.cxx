@@ -1144,7 +1144,6 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 	 		fntpXiSys->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(xiSys[syscand]));
 
 
-
 	 		qa.qaP4("XiSys_", xiSys[syscand]->P4(), fntpXiSys);
 	 		qa.qaComp("XiSys_", xiSys[syscand], fntpXiSys);
 	  		qa.qaPoca("XiSys_", xiSys[syscand], fntpXiSys);
@@ -1152,15 +1151,68 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 	 		RhoCandidate *  truth = xiSys[syscand]->GetMcTruth();
 	 		TLorentzVector l;
+	 		TLorentzVector l0;
+	 		TLorentzVector l1;
+	 		TLorentzVector l0l0;
+	 		TLorentzVector l0l1;
+	 		TLorentzVector l1l0;
+			TLorentzVector l1l1;
 
 	 		if (truth != 0x0){
 	 			qa.qaVtx("McTruth_", truth, fntpXiSys);
 	 			l = truth->P4();
+
+	 			RhoCandidate * d0 = truth->Daughter(0);
+	 			RhoCandidate * d1 = truth->Daughter(1);
+
+	 			l1 = d1->P4();
+	 			l0 = d0->P4();
+
+	 			int d0_pdg =d0->PdgCode();
+	 			int d1_pdg =d1->PdgCode();
+
+	 			RhoCandidate * d0d0 = d0->Daughter(0);
+	 			RhoCandidate * d0d1 = d0->Daughter(1);
+	 			RhoCandidate * d1d0 = d1->Daughter(0);
+				RhoCandidate * d1d1 = d1->Daughter(1);
+
+	 			l0l0 = d0d0->P4();
+	 			l0l1 = d0d1->P4();
+	 			l1l0 = d1d0->P4();
+				l1l1 = d1d1->P4();
+
+	 			int d0d0_pdg = d0d0->PdgCode();
+	 			int d0d1_pdg = d0d1->PdgCode();
+	 			int d1d0_pdg = d1d0->PdgCode();
+	 			int d1d1_pdg = d1d1->PdgCode();
+
+		 		fntpXiSys->Column("McTruth_d0_pdg",   (Int_t) d0_pdg);
+		 		fntpXiSys->Column("McTruth_d0d0_pdg",   (Int_t) d0d0_pdg);
+				fntpXiSys->Column("McTruth_d0d1_pdg",   (Int_t) d0d1_pdg);
+		 		fntpXiSys->Column("McTruth_d1_pdg",   (Int_t) d1_pdg);
+		 		fntpXiSys->Column("McTruth_d0d0_pdg",   (Int_t) d1d0_pdg);
+				fntpXiSys->Column("McTruth_d0d1_pdg",   (Int_t) d1d1_pdg);
+
+
+
 	 		}
 	 		else{
 	 			qa.qaVtx("McTruth_", dummyCand, fntpXiSys);
+		 		fntpXiSys->Column("McTruth_d0_pdg",   0);
+		 		fntpXiSys->Column("McTruth_d0d0_pdg",   0);
+				fntpXiSys->Column("McTruth_d0d1_pdg",   0);
+		 		fntpXiSys->Column("McTruth_d1_pdg",   0);
+		 		fntpXiSys->Column("McTruth_d0d0_pdg",   0);
+				fntpXiSys->Column("McTruth_d0d1_pdg",   0);
 	 		}
 	 		qa.qaP4("McTruth_", l, fntpXiSys);
+	 		qa.qaP4("McTruth_d0_", l0, fntpXiSys);
+	 		qa.qaP4("McTruth_d0d0_", l0l0, fntpXiSys);
+			qa.qaP4("McTruth_d0d1_", l0l1, fntpXiSys);
+			qa.qaP4("McTruth_d1_", l1, fntpXiSys);
+	 		qa.qaP4("McTruth_d1d0_", l1l0, fntpXiSys);
+			qa.qaP4("McTruth_d1d1_", l1l1, fntpXiSys);
+
 
 	 		//4C-Fitter
 
