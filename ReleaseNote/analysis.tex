@@ -15,7 +15,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 	\begin{table}
 		\centering
-		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade. The errors are pure statistical errors.}
+		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarp $\rightarrow$ \excitedcascade \anticascade. The errors are pure statistical errors.}
 		\label{tab:finalstate_recoeff}
 		\begin{tabular}{lllll}
 			\hline
@@ -36,7 +36,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 	\begin{table}
 		\centering
-		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade. The errors are pure statistical errors.}
+		\caption{\propose Reconstruction efficiency and momentum resolution for \pbarp $\rightarrow$ \excitedanticascade \cascade. The errors are pure statistical errors.}
 		\label{tab:finalstate_recoeff_cc}
 		\begin{tabular}{lllll}
 			\hline
@@ -432,7 +432,7 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			\left(\mt{p}_x,\, \mt{p}_y,\, \mt{p}_z,\, \mt{E} \right) = \left(0,\, 0,\, 4.6,\, 5.63 \right) \unit{GeV}
 		\end{equation}
 	\end{center}
-	of the \pbarpSystem entrance channel.	
+	of the \pbarp entrance channel.	
 	This fit is performed with the PndKinFitter.
 	After the four-momentum fit only those candidates are selected which have a probability of more than $1\%$.
 	The probability is shown in figure \ref{fig:xisys_prob}. 
@@ -456,13 +456,13 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 	\subsection*{Results}
 	
-	The obtained reconstruction efficiency for all non-final state particles is shown in table \ref{tab:non-finalstate_efficiency}
-	and table \ref{tab:non-finalstate_efficiency_cc}.
+	The obtained reconstruction efficiency for all intermediate state particles is shown in table \ref{tab:intermediatestate_efficiency}
+	and table \ref{tab:intermediatestate_efficiency_cc}.
 	
 	\begin{table}
 		\centering
-		\caption{\propose reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedcascade \anticascade}
-		\label{tab:non-finalstate_efficiency}
+		\caption{\propose reconstruction efficiency for intermediate state particles for \pbarp $\rightarrow$ \excitedcascade \anticascade}
+		\label{tab:intermediatestate_efficiency}
 		
 		\begin{tabular}{lcc}
 		
@@ -480,8 +480,8 @@ To reconstruct all the particles involved in the reaction we start with the fina
 	
 		\begin{table}
 		\centering
-		\caption{\propose Reconstruction efficiency for non-final state particles for \pbarpSystem $\rightarrow$ \excitedanticascade \cascade}
-		\label{tab:non-finalstate_efficiency_cc}
+		\caption{\propose Reconstruction efficiency for intermediate state particles for \pbarp $\rightarrow$ \excitedanticascade \cascade}
+		\label{tab:intermediatestate_efficiency_cc}
 		
 		\begin{tabular}{lcc}
 		
@@ -496,6 +496,51 @@ To reconstruct all the particles involved in the reaction we start with the fina
 			 	
 		\end{tabular}
 	\end{table}
+	The total numbers of intermediate state particles in \mychannel and \myccchannel are shown in table \ref{tab:nsig} and \ref{tab:nsig_cc}. 
+	
+	\begin{table}
+		\centering
+		\caption{number of intermediate state particles for \mychannel including the branching ratios BR(\decay{\lam}{\piminus}{p}) $=0.639$, BR(\decay{\cascade}{\lam}{\piminus})
+		 $= 0.999$ and BR(\decay{\excitedcascade}{\lam}{\kminus}) $ =1$.}
+		 \label{tab:nsig}
+		 
+		 \begin{tabular}{lc}
+		 	\hline
+		 	particle & $N_{\mt{sig}}$ \\\hline
+		 	\hline
+		 	\lam & 387,993 \\
+		 	\alam & 320,316 \\
+		 	\anticascade & 176,840 \\
+		 	\excitedcascade & 306,955 \\
+		 	\excitedcascade \anticascade &  28,714\\\hline
+		 	
+		 \end{tabular}
+	\end{table}
+	 
+	 \begin{table}
+		\centering
+		\caption{number of intermediate state particles for \mychannel including the branching ratios BR(\decay{\alam}{\piplus}{\antiproton}) $=0.639$, BR(\decay{\anticascade}{\alam}{\piplus})
+		 $= 0.999$ and BR(\decay{\excitedanticascade}{\alam}{\kplus}) $=1$.}
+		 \label{tab:nsig_cc}
+		 
+		 \begin{tabular}{lc}
+		 	\hline
+		 	particle & $N_{\mt{sig}}$ \\\hline
+		 	\hline
+		 	\lam & 314,807 \\
+		 	\alam & 390,660 \\ 
+		 	\cascade & 173,510 \\ 
+		 	\excitedanticascade & 318,450 \\
+		 	\excitedanticascade \cascade &  29,811\\\hline 
+		 	
+		 \end{tabular}
+	\end{table}
+	
+	 
+	
+	These numbers are including the branching ratios for the single decays from \cite{PDG}: BR(\decay{\lam}{\piminus}{p}) $=0.639$ 
+	and BR(\decay{\cascade}{\lam}{\piminus}) $= 0.999$. 
+	For \excitedcascade the branching ratio is assumed to be BR(\decay{\excitedcascade}{\lam}{\kminus}) $=1$. 
 	
 	Figure \ref{fig:reco_Dalitzplot} shows the Dalitz plot for the \anticascade, \lam and \kminus final states after the reconstruction before the 4-C kinematic fit. 
 	Figure \ref{fig:reco_Dalitzplot} should be compared with the Dalitz plot of the generated particles shown in figure \ref{fig:eventgeneration_Dalitz}
