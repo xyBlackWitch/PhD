@@ -1,0 +1,20 @@
+This log file should be a documentation for the changes during my Phd thesis.
+
+2016:
+
+15.02.: 
+	 background.tex in folder ReleaseNote:
+		- change N_sig in table 4.2
+		- N_sig/N_bg = 12.4 : 1 -> 11.73:1
+		- N_bg * B for Xi(1820)Xi+ 0 -> <6000
+
+22.02.:
+	updated trunk revision on local machine: 28555 -> 28931
+	PndTool: dev merged with trunk revision 28931
+
+23.02.:
+	covariance matrices variated with +- 10% -> no effect
+	change of values in Realease Note
+
+24.02.:
+	simulation of 500k events for pbar p -> mu+ mu- with p= 3GeV/c
