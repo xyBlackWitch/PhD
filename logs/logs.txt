@@ -18,3 +18,13 @@ This log file should be a documentation for the changes during my Phd thesis.
 
 24.02.:
 	simulation of 500k events for pbar p -> mu+ mu- with p= 3GeV/c
+	
+07.03.:
+	trunk on prometheus rev28555 -> rev 28931
+	PndTools on prometheus from trunk (reason: fitter are now included in trunk)
+	
+08.03.:
+	Working station trunk rev 28931 -> rev 28958 (uncommented: folder master)
+	Prometheus trunk rev 28931 -> rev 28958 (uncommented: folder master)
+	simulation of 50000 evts for pbar p -> Xi(1820) Anti-Xi with GenFit2
+	simulation of 5000 for pbar p -> pbar p 2piminus 2piplus each for ideal and real pattern recognition
