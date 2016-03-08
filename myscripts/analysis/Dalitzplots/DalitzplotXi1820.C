@@ -17,6 +17,7 @@
 #include "TLorentzVector.h"
 #include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/PandaSmartLabel.C"
 #include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/setPandaStyle.C"
+#include "../../common_jenny.cpp"
 
 enum id{
 	pbarp = 0, xi1820 = 1, xi=2,
@@ -40,7 +41,7 @@ void DalitzplotXi1820(){
 
 
 	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,3.8,150,3.2,4.6);
-
+	TH1D * h_lk = new TH1D("h_lk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; counts", 150,2.5,3.8);
 	gStyle->SetOptStat(0);
 
 	TLorentzVector lXi, lk, lla, lXi1820;
@@ -82,6 +83,7 @@ void DalitzplotXi1820(){
 
 
 		dalitz_Xilk->Fill(PlaK.M2(),PXiK.M2());
+		h_lk->Fill(PlaK.M2());
 
 	}
 
@@ -93,10 +95,14 @@ void DalitzplotXi1820(){
 
 	out->Save();
 
-//
+
 	TCanvas * c = new TCanvas("c", "Dalitz plot PHSP model", 0,0,1500,1000);
 //	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
 	dalitz_Xilk->Draw("COLZ");
+
+	TCanvas *c2 = new TCanvas("c2", "Projection on X axis Dalitz plot PHSP model", 0,0,1500,1000);
+	h_lk->Draw();
+
 
 	PandaSmartLabel("L");
 

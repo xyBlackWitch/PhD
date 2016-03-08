@@ -16,7 +16,7 @@ void pid_complete_GenFit2(TString pre="")
   TString digiFile = "all.par";
   
   // Output file
-  TString outFile = pre+"_pid_complete.root";
+  TString outFile = pre+"_pid_complete_genfi2.root";
   
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
@@ -26,7 +26,7 @@ void pid_complete_GenFit2(TString pre="")
   FairRunAna *fRun= new FairRunAna();
   fRun->SetInputFile(pre+"_sim_complete.root");
   fRun->AddFriend(pre+"_digi_complete.root");
-  fRun->AddFriend(pre+"_reco_complete.root");
+  fRun->AddFriend(pre+"_reco_complete_genfit2.root");
   fRun->SetOutputFile(outFile);
   fRun->SetGenerateRunInfo(kFALSE);
   fRun->SetUseFairLinks(kTRUE);

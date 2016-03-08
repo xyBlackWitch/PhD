@@ -23,13 +23,13 @@ if test "$4" != ""; then
 	outname=$path"/"$prefix
 fi
 
-#echo sim
-#root  -l -q sim_complete.C"($nevts,$mom,\"$outname\")" >> sim$prefix.log 2>&1 
-#echo digi
-#root  -l -q digi_complete.C"(\"$outname\")" >> digi$prefix.log 2>&1 
+echo sim
+root  -l -q sim_complete.C"($nevts,$mom,\"$outname\")" >> sim$prefix.log 2>&1 
+echo digi
+root  -l -q digi_complete.C"(\"$outname\")" >> digi$prefix.log 2>&1 
 echo reco
-root  -l -q reco_complete_GenFit2.C"(\"$outname\")" >> reco$prefix.log 2>&1
-#echo pid
-#root  -l -q pid_complete_Genfit2.C"(\"$outname\")" >> pid$prefix.log 2>&1 
+root  -l -q recoideal_GenFit2_complete.C"(\"$outname\")" >> reco$prefix.log 2>&1
+echo pid
+root  -l -q pid_complete_GenFit2.C"(\"$outname\")" >> pid$prefix.log 2>&1 
 echo END
 

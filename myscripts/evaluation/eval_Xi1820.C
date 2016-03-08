@@ -65,7 +65,7 @@ void eval_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_m = new TH1D("h_xi_m", "Mass distribution for #Xi^{-}(1820) with vertex cut and mass cut; m/GeV/c^{2}; counts", 500,1.7,2);
 		ntpXiMinus1820->Project("h_xi_m", "VtxFit_m", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m, path+"/plots/", "XiMinus1820_m_masscut", save, close,false, 0.01,0.1);
+		jenny::CreateDrawAndSaveHistogramBreitWignerFit(h_xi_m, path+"/plots/", "XiMinus1820_m_masscut", save, close, 0.08);
 
 //
 //		TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi^{-}(1820); x-x_{MC}; counts", 500,-1,1);

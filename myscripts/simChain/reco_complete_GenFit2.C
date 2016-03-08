@@ -53,7 +53,7 @@ void reco_complete_GenFit2(TString pre="")
   TString digiFile = "all.par";
   
   // Output file
-  TString outFile = pre+"_reco_complete.root";
+  TString outFile = pre+"_reco_complete_genfit2.root";
   
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;

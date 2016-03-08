@@ -657,6 +657,25 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 	       fntpLambda0->Column("Lambda0_HitTag", (Int_t) tag);
 
+//	       //Poca
+//	       TVector3 startVtx;
+//	       PndVtxPoca poca;
+//	       poca.GetPocaVtx(startVtx, lambda0[j]);
+//
+//	       cout << "start test propagation" << endl;
+//
+//	       startVtx.Print();
+//
+////	       for(int dau=0; dau<ndau; dau++){
+////	    	   RhoCandidate * d = lambda0[j]->Daughter(dau);
+////	    	   fAnalysis->PropagateToPoint(d, startVtx);
+////	       }
+//	       RhoCandidate * pro = lambda0[j]->Daughter(0);
+//	       fAnalysis->PropagateToPoint(pro, startVtx);
+//
+//	       cout << "test propagation done!" << endl;
+
+
 
 	       // do vertex fit
 	       PndKinVtxFitter vertexfitterLambda0 (lambda0[j]);
@@ -921,6 +940,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 			int moth = (mother==0x0) ? 88888 : mother->PdgCode();
 			fntpXiMinus1820->Column("Mother", (Float_t) moth);
+
 
 			// store info of vertex-fit
 

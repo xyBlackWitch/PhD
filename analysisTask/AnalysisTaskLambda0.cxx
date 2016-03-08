@@ -573,6 +573,14 @@ void AnalysisTaskLambda0::Exec(Option_t* op)
 
 	       fntpLambda0->Column("Lambda0_HitTag", (Int_t) tag);
 
+//	       TVector3 startvtx;
+//		   PndVtxPoca poca;
+//		   poca.GetPocaVtx(startvtx, lambda0[j]);
+//
+//		   RhoCandidate * d1 = lambda0[j]->Daughter(0);
+//
+//		   fAnalysis->PropagateToPoint(lambda0[j], startvtx);
+
 
 	       // do vertex fit
 	       PndKinVtxFitter vertexfitterLambda0 (lambda0[j]);
@@ -701,6 +709,8 @@ void AnalysisTaskLambda0::Exec(Option_t* op)
 
 
 	       fntpAntiLambda0->Column("antiLambda0_HitTag", (Int_t) tag);
+
+
 
 
 	       // do vertex fit

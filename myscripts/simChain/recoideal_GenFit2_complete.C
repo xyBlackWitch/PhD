@@ -15,14 +15,14 @@ void recoideal_GenFit2_complete(TString pre = "")
 	  TString digFile = pre+"_digi_complete.root";
 	  TString parFile = pre+"_simparams.root"; // at the moment you do not need it
 	  TString digiFile = "all.par";
-	  TString outFile = pre+"_reco_complete.root";
+	  TString outFile = pre+"_reco_complete_Genfit2.root";
   }
   else{
 	  TString simFile = "sim_complete.root";
 	  TString digFile = "digi_complete.root";
 	  TString parFile = "simparams.root"; // at the moment you do not need it
 	  TString digiFile = "all.par";
-	  TString outFile = "reco_complete.root";
+	  TString outFile = "reco_complete_Genfit2.root";
   }
   
   // -----   Timer   --------------------------------------------------------
@@ -70,14 +70,15 @@ void recoideal_GenFit2_complete(TString pre = "")
   fRun->AddTask(trackMC);
   */
 
-  PndRecoKalmanTask2* recoKalman = new PndRecoKalmanTask2();
-  recoKalman->SetTrackInBranchName("SttMvdGemIdealTrack");
-  //recoKalman->SetTrackInIDBranchName("SttMvdGemIdealTrackID");
-  recoKalman->SetTrackOutBranchName("SttMvdGemGenTrack");
-  recoKalman->SetBusyCut(50); // CHECK to be tuned
-  //recoKalman->SetIdealHyp(kTRUE);
-  //recoKalman->SetNumIterations(3);
-  fRun->AddTask(recoKalman);
+  PndRecoKalmanTask2* recoKalman2 = new PndRecoKalmanTask2();
+  recoKalman2->SetTrackInBranchName("SttMvdGemIdealTrack");
+  recoKalman2->SetTrackInIDBranchName("SttMvdGemIdealTrackID");
+  recoKalman2->SetTrackOutBranchName("SttMvdGemGenTrack");
+  recoKalman2->SetBusyCut(50); // CHECK to be tuned
+  //recoKalman2->SetIdealHyp(kTRUE);
+  recoKalman2->SetNumIterations(5);
+  // recoKalman2->SetPropagateToIP(kFALSE);
+  fRun->AddTask(recoKalman2);
 
   PndMCTrackAssociator* trackMC2 = new PndMCTrackAssociator();
   trackMC2->SetTrackInBranchName("SttMvdGemGenTrack"); 
@@ -103,7 +104,7 @@ void recoideal_GenFit2_complete(TString pre = "")
   recoKalmanFwd->SetTrackOutBranchName("FtsIdealGenTrack");
   recoKalmanFwd->SetBusyCut(50); // CHECK to be tuned
   //recoKalmanFwd->SetIdealHyp(kTRUE);
-  //recoKalmanFwd->SetNumIterations(3);
+  recoKalmanFwd->SetNumIterations(5);
   fRun->AddTask(recoKalmanFwd);
 
   PndMCTrackAssociator* trackMC3 = new PndMCTrackAssociator();

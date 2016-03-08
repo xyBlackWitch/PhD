@@ -10,6 +10,8 @@
 
 
 class PndAnalysis;
+class RhoFitters;
+class RhoTools;
 class RhoCandList;
 class RhoCandidate;
 class RhoTuple;

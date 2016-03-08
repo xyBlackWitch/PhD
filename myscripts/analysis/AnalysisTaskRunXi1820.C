@@ -14,8 +14,8 @@ void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 	}
 	else{
 		TString Path = pre;
-		TString OutputFile = Path + "_analysis_output.root";
-		TString outPath = Path + "_";
+		TString OutputFile = Path + "_analysis_output_with_poca.root";
+		TString outPath = Path + "_with_poca_";
 
 		//Input simulation Files
 		TString inPIDFile = Path + "_pid_complete.root";

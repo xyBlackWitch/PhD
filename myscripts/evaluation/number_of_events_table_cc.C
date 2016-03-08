@@ -56,13 +56,13 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpPiMinus->Project("h_piminus_dp", "(piminus_p-piminus_MC_p)/piminus_MC_p", "McTruthMatch && piminus_HitTag && Mother==3122");
 
 	Double_t param[6] = jenny::GetFitParameterDoubleFit(h_piminus_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus_dp, "","", false, false, false, 0.02,0.1, true);
 
 
 	double ratio_piminus_cut = piminus/piminus_uncut;
 	double ratio_piminus_mc = piminus/nevents_mc;
 
-	cout << "PiMinus(L0)|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << "|   " << param[2]*100 << endl;
+	cout << "PiMinus(L0)|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << endl;//<< "|   " << param[2]*100 << endl;
 
 
 
@@ -79,12 +79,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpPiMinus->Project("h_piminus2_dp", "(piminus_p-piminus_MC_p)/piminus_MC_p", "McTruthMatch && piminus_HitTag && Mother==3312");
 
 	Double_t parampip2[6] = jenny::GetFitParameterDoubleFit(h_piminus2_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus2_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus2_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_piminus_cut2 = piminus2/piminus_uncut2;
 	double ratio_piminus_mc2 = piminus2/nevents_mc;
 
-	cout << "PiMinus(Xi)|   " <<  piminus_uncut2 << "|   " <<  piminus2 << "(" << ratio_piminus_cut2*100 << ")|   " << ratio_piminus_mc2*100 << "|   " << parampip2[2]*100 << endl;
+	cout << "PiMinus(Xi)|   " <<  piminus_uncut2 << "|   " <<  piminus2 << "(" << ratio_piminus_cut2*100 << ")|   " << ratio_piminus_mc2*100<< endl;// << "|   " << parampip2[2]*100 << endl;
 
 
 	//**** PiPlus (AntiLambda0)
@@ -100,12 +100,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpPiPlus->Project("h_piplus_dp", "(piplus_p-piplus_MC_p)/piplus_MC_p", "McTruthMatch && piplus_HitTag && Mother==-3122");
 
 	Double_t parampip[6] = jenny::GetFitParameterDoubleFit(h_piplus_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_piplus_cut = piplus/piplus_uncut;
 	double ratio_piplus_mc = piplus/nevents_mc;
 
-	cout << "PiPlus(AL0)|   " <<  piplus_uncut << "|   " <<  piplus << "(" << ratio_piplus_cut*100 << ")|   " << ratio_piplus_mc*100 << "|   " << parampip[2]*100 << endl;
+	cout << "PiPlus(AL0)|   " <<  piplus_uncut << "|   " <<  piplus << "(" << ratio_piplus_cut*100 << ")|   " << ratio_piplus_mc*100 << endl;//<< "|   " << parampip[2]*100 << endl;
 
 
 
@@ -123,12 +123,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpkaonplus->Project("h_kaonplus_dp", "(kaonplus_p-kaonplus_MC_p)/kaonplus_MC_p", "McTruthMatch && kaonplus_HitTag && Mother==-23314");
 
 	Double_t paramk[6] = jenny::GetFitParameterDoubleFit(h_kaonplus_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_kaonplus_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_kaonplus_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_kaonplus_cut = kaonplus/kaonplus_uncut;
 	double ratio_kaonplus_mc = kaonplus/nevents_mc;
 
-	cout << "kaonplus|   " <<  kaonplus_uncut << "|   " <<  kaonplus << "(" << ratio_kaonplus_cut*100 << ")|   " << ratio_kaonplus_mc*100 << "|   " << paramk[2]*100 << endl;
+	cout << "kaonplus|   " <<  kaonplus_uncut << "|   " <<  kaonplus << "(" << ratio_kaonplus_cut*100 << ")|   " << ratio_kaonplus_mc*100 << endl;//<< "|   " << paramk[2]*100 << endl;
 
 
 
@@ -145,12 +145,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpProton->Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
 
 	Double_t paramProt[6] = jenny::GetFitParameterDoubleFit(h_proton_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_proton_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_proton_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_proton_cut = proton/proton_uncut;
 	double ratio_proton_mc = proton/nevents_mc;
 
-	cout << "proton|   " <<  proton_uncut << "|   " <<  proton << "(" << ratio_proton_cut*100 << ")|   " << ratio_proton_mc*100 << "|   " << paramProt[2]*100 << endl;
+	cout << "proton|   " <<  proton_uncut << "|   " <<  proton << "(" << ratio_proton_cut*100 << ")|   " << ratio_proton_mc*100 << endl;//<< "|   " << paramProt[2]*100 << endl;
 
 
 
@@ -168,12 +168,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpAntiProton->Project("h_AntiProton_dp", "(AntiProton_p-AntiProton_MC_p)/AntiProton_MC_p", "McTruthMatch && AntiProton_HitTag");
 
 	Double_t paramAProt[6] = jenny::GetFitParameterDoubleFit(h_AntiProton_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_AntiProton_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_AntiProton_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_AntiProton_cut = AntiProton/AntiProton_uncut;
 	double ratio_AntiProton_mc = AntiProton/nevents_mc;
 
-	cout << "AntiProton|   " <<  AntiProton_uncut << "|   " <<  AntiProton << "(" << ratio_AntiProton_cut*100 << ")|   " << ratio_AntiProton_mc*100 << "|   " << paramAProt[2]*100 << endl;
+	cout << "AntiProton|   " <<  AntiProton_uncut << "|   " <<  AntiProton << "(" << ratio_AntiProton_cut*100 << ")|   " << ratio_AntiProton_mc*100 << endl;//<< "|   " << paramAProt[2]*100 << endl;
 
 
 
@@ -190,12 +190,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpLambda0->Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "Lambda0_HitTag && "+cuts );
 
 	Double_t paraml0[6] = jenny::GetFitParameterDoubleFit(h_Lambda0_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_Lambda0_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_Lambda0_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_Lambda0_cut = lambda0/Lambda0_uncut;
 	double ratio_Lambda0_mc = lambda0/nevents_mc;
 
-	cout << "lambda0|   " <<  Lambda0_uncut << "|   " <<  lambda0 << "(" << ratio_Lambda0_cut*100 << ")|   " << ratio_Lambda0_mc*100 << "|   " << paraml0[2]*100 << endl;
+	cout << "lambda0|   " <<  Lambda0_uncut << "|   " <<  lambda0 << "(" << ratio_Lambda0_cut*100 << ")|   " << ratio_Lambda0_mc*100 << endl;//<< "|   " << paraml0[2]*100 << endl;
 
 
 
@@ -212,12 +212,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpAntiLambda0->Project("h_antiLambda0_dp", "(antiLambda0_p-McTruth_p)/McTruth_p", "antiLambda0_HitTag && "+cuts);
 
 	Double_t paramAL0[6] = jenny::GetFitParameterDoubleFit(h_antiLambda0_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_antiLambda0_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_antiLambda0_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_antiLambda0_cut = AntiLambda0/antiLambda0_uncut;
 	double ratio_antiLambda0_mc = AntiLambda0/nevents_mc;
 
-	cout << "AntiLambda0|   " <<  antiLambda0_uncut << "|   " <<  AntiLambda0 << "(" << ratio_antiLambda0_cut*100 << ")|   " << ratio_antiLambda0_mc*100 << "|   " << paramAL0[2]*100 << endl;
+	cout << "AntiLambda0|   " <<  antiLambda0_uncut << "|   " <<  AntiLambda0 << "(" << ratio_antiLambda0_cut*100 << ")|   " << ratio_antiLambda0_mc*100<< endl;// << "|   " << paramAL0[2]*100 << endl;
 
 
 	//**** XiPlus1820
@@ -233,12 +233,12 @@ void number_of_events_table_cc(TString inFile=""){
 	ntpXiPlus1820->Project("h_xiplus_dp", "(xiplus_p-MCTruth_p)/MCTruth_p", VtxCut);
 
 	Double_t paramxip[6] = jenny::GetFitParameterDoubleFit(h_xiplus_dp, false, 0.02,0.1, true);
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xiplus_dp, "","", false, false, false, 0.02,0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xiplus_dp, "","", false, false, false, 0.02,0.1, true);
 
 	double ratio_xiplus_cut = XiPlus/xiplus_uncut;
 	double ratio_XiPlus_McTruth = XiPlus/nevents_mc;
 
-	cout << "XiPlus1820|   " <<  xiplus_uncut << "|   " <<  XiPlus << "(" << ratio_xiplus_cut*100 << ")|   " << ratio_XiPlus_McTruth*100 << "|   " << paramxip[2]*100 << endl;
+	cout << "XiPlus1820|   " <<  xiplus_uncut << "|   " <<  XiPlus << "(" << ratio_xiplus_cut*100 << ")|   " << ratio_XiPlus_McTruth*100<< endl;// << "|   " << paramxip[2]*100 << endl;
 
 
 	//**** XiMinus
@@ -253,13 +253,13 @@ void number_of_events_table_cc(TString inFile=""){
 	TH1D * h_xiMinus_dp = new TH1D("h_xiMinus_dp", "h_xiMinus_dp", 250, -0.1,0.1);
 	ntpXiMinus->Project("h_xiMinus_dp", "VtxFit_p-MCTruth_p");
 
-	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xiMinus_dp, " ", " ", false, false, false, 0.02 , 0.1, true);
+	//jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xiMinus_dp, " ", " ", false, false, false, 0.02 , 0.1, true);
 	Double_t paramxim[6] = jenny::GetFitParameterDoubleFit(h_xiMinus_dp, false, 0.02,0.1, true);
 
 	double ratio_XiMinus_cut = XiMinus1820/XiMinus_uncut;
 	double ratio_XiMinus_mc = XiMinus1820/nevents_mc;
 
-	cout << "XiMinus|   " <<  XiMinus_uncut << "|   " <<  XiMinus1820 << "(" << ratio_XiMinus_cut*100 << ")|   " << ratio_XiMinus_mc*100 <<  "|   " << paramxim[2]*100 << endl;
+	cout << "XiMinus|   " <<  XiMinus_uncut << "|   " <<  XiMinus1820 << "(" << ratio_XiMinus_cut*100 << ")|   " << ratio_XiMinus_mc*100 << endl;// "|   " << paramxim[2]*100 << endl;
 
 
 	//**** XiSys
@@ -280,7 +280,7 @@ void number_of_events_table_cc(TString inFile=""){
 	double ratio_XiSys_cut = XiSys/XiSys_uncut;
 	double ratio_XiSys_mc = XiSys/nevents_mc;
 
-	cout << "XiSys|   " <<  XiSys_uncut << "|   " <<  XiSys << "(" << ratio_XiSys_cut*100 << ")|   " << ratio_XiSys_mc*100 << "|   " << paramxisys[2]*100 << endl;
+	cout << "XiSys|   " <<  XiSys_uncut << "|   " <<  XiSys << "(" << ratio_XiSys_cut*100 << ")|   " << ratio_XiSys_mc*100<< endl;// << "|   " << paramxisys[2]*100 << endl;
 
 
 }

@@ -1,3 +1,40 @@
+void process_mem_usage(double& vm_usage)
+{
+   using std::ios_base;
+   using std::ifstream;
+   using std::string;
+
+   vm_usage     = 0.0;
+
+
+   // 'file' stat seems to give the most reliable results
+   //
+   ifstream stat_stream("/proc/self/stat",ios_base::in);
+
+   // dummy vars for leading entries in stat that we don't care about
+   //
+   string pid, comm, state, ppid, pgrp, session, tty_nr;
+   string tpgid, flags, minflt, cminflt, majflt, cmajflt;
+   string utime, stime, cutime, cstime, priority, nice;
+   string O, itrealvalue, starttime;
+
+   // the two fields we want
+   //
+   unsigned long vsize;
+   long rss;
+
+   stat_stream >> pid >> comm >> state >> ppid >> pgrp >> session >> tty_nr
+               >> tpgid >> flags >> minflt >> cminflt >> majflt >> cmajflt
+               >> utime >> stime >> cutime >> cstime >> priority >> nice
+               >> O >> itrealvalue >> starttime >> vsize >> rss; // don't care about the rest
+
+   stat_stream.close();
+
+   vm_usage     = vsize / (1024*1024);
+
+}
+
+
 void reco_complete(TString pre="")
 {
   // Macro created 20/09/2006 by S.Spataro
@@ -9,37 +46,19 @@ void reco_complete(TString pre="")
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
   
-  if (pre==""){
-
-	  	TString inputFile = "sim_complete.root";
-	  	TString digFile = "digi_complete.root";
-
-	  // Parameter file
-	    TString parFile = "simparams.root"; // at the moment you do not need it
-
-	    // Digitisation file (ascii)
-	    TString digiFile = "all.par";
-
-	    // Output file
-	    TString outFile = "reco_complete.root";
-
-
+  if (pre!=""){
+	  TString simFile = pre+"_sim_complete.root";
+	  TString digFile = pre+"_digi_complete.root";
+	  TString parFile = pre+"_simparams.root"; // at the moment you do not need it
+	  TString digiFile = "all.par";
+	  TString outFile = pre+"_reco_complete.root";
   }
   else{
-
-	  TString inputFile = pre + "_sim_complete.root";
-	  TString digFile = pre + "_digi_complete.root";
-
-
-	  // Parameter file
-	    TString parFile = pre + "_simparams.root"; // at the moment you do not need it
-
-	    // Digitisation file (ascii)
-	    TString digiFile = "all.par";
-
-	    // Output file
-	    TString outFile = pre + "_reco_complete.root";
-
+	  TString simFile = "sim_complete.root";
+	  TString digFile = "digi_complete.root";
+	  TString parFile = "simparams.root"; // at the moment you do not need it
+	  TString digiFile = "all.par";
+	  TString outFile = "reco_complete.root";
   }
   
   
@@ -162,6 +181,12 @@ void reco_complete(TString pre="")
   cout << "Real time " << rtime << " s, CPU time " << ctime << " s" << endl;
   cout << endl;
   // ------------------------------------------------------------------------
+
+  double vm;
+  process_mem_usage(vm);
+  cout << "-------------------------------------------"<<endl;
+  cout << "VM: " << vm << " MB."<< endl;
+
   cout << " Test passed" << endl;
   cout << " All ok " << endl;
   exit(0);

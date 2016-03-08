@@ -28,7 +28,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   Bool_t UseFtf 	      =kFALSE;
   Bool_t UseBoxGenerator      =kFALSE;
   
-  TString evtPdlFile = "evt.pdl";
+  TString evtPdlFile = "/home/ikp1/puetz/panda/myscripts/simChain/evt.pdl";
 
   Double_t BeamMomentum = 0.; // beam momentum ONLY for the scaling of the dipole field.
   if (UseBoxGenerator)
@@ -45,7 +45,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed();
+  gRandom->SetSeed(2704);
   
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();
@@ -175,7 +175,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   if(UseEvtGenDirect){
 //    TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
-	  TString EvtInput="./test/XiMinus_1820_lambda0_K.dec";
+	  TString EvtInput="/home/ikp1/puetz/panda/myscripts/simChain/pbarp_six_fs.dec";
 //    PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
 	  PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
