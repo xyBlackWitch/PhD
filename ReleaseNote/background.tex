@@ -12,26 +12,6 @@ The scaling factor is $B=6000$ for the channel \pbarp $\rightarrow$ \excitedcasc
 The scaling factor for the c.c. channel is the same. 
 This means that the number of reconstructed events in the background sample surviving all cuts applied to the reconstruction of the signal events 
 has to be multiplied by a factor 6000 in order to deduce the achieved signal-to-background ratio. 
-
-%\begin{table}
-%	\centering
-%	\caption{Scaling factor $B$ of each particle type for the channel \pbarp $\rightarrow$ \excitedcascade \anticascade.}
-%	\label{tab:bg_scaling}
-%	\begin{tabular}{cc}
-%		\hline
-%		 Particle & Scaling factor \\
-%		\hline
-%		\hline
-%		&  \\
-%		\lam & 7,828.16\\
-%		\anticascade & 7,837.01 \\
-%		\excitedcascade & 7,828.16\\
-%		\excitedcascade \anticascade & 12,269.89\\
-%		\hline
-%		 
-%	 \end{tabular}
-%\end{table}
-
 All background events are subject to the same reconstruction procedure including all cuts for the signal events. 
 The number of reconstructed background events is shown in table \ref{tab:bg_reco_without_scaling}.
 
@@ -39,7 +19,7 @@ The number of reconstructed background events is shown in table \ref{tab:bg_reco
 	\centering
 	\caption{Number of reconstructed particles in the background sample for \newline \pbarp $\rightarrow$ \excitedcascade \anticascade }
 	\label{tab:bg_reco_without_scaling}
-	\begin{tabular}{lc}
+	\begin{tabular}{lr}
 		\hline
 		Particle & $N_\mt{bg}$ \\
 		\hline
@@ -52,41 +32,28 @@ The number of reconstructed background events is shown in table \ref{tab:bg_reco
 		\excitedcascade & 298\\
 		\excitedcascade \anticascade & 0\\
 		\hline
-		 
-		%\pbarp $\rightarrow$ \cascade \excitedanticascade & \\
-		%\lam & \\
-		%\alam & \\
-		%\cascade & \\
-		%\excitedanticascade & \\
-		%\excitedanticascade \cascade &\\
-		%\hline
+
 		  
 	\end{tabular}
 \end{table}
 The comparison between signal and background events is shown in table \ref{bg_compared_reco_with_scaling}.
-The significance is given by
-\begin{equation}
-	S = \frac{N_\mt{sig}}{\sqrt{N_\mt{sig}+N_\mt{bg}\cdot B}}.
-	\label{eq:significance}
-\end{equation}
-
 \begin{table}
 	\centering
-	\caption{\propose The number of background events scaled with factor $B$ compared to the number of signal events for \pbarp $\rightarrow$ \excitedcascade \anticascade.
-		The significance is calculated with equation \ref{eq:significance}.}
+	\caption{\propose The number of background events scaled with factor $B$ compared to the number of signal events for \pbarp $\rightarrow$ \excitedcascade \anticascade. Branching ratios are not included in the number of signal events.}
+		%The significance is calculated with equation \ref{eq:significance}.}
 	\label{bg_compared_reco_with_scaling}
-	\begin{tabular}{lccc}
+	\begin{tabular}{l r r}
 		\hline
-		Particle & $N_\mt{sig}$ & $N_\mt{bg} \cdot B$ & $S$\\
+		Particle & $N_\mt{sig}$ & $N_\mt{bg} \cdot B$ \\%& $S$\\
 		\hline
 		\hline
-		& & &\\
+		& & \\
 		%\pbarp $\rightarrow$ \excitedcascade \anticascade & & &\\
-		\lam & 387,993 &$ 1.585 \cdot 10^{9}$& 9.7\\
-		\alam & 320,316 & $ 744.408 \cdot 10^{6}$ & 11.7\\
-		\anticascade & 176,840 & $ 18.372 \cdot 10^{6}$ & 41\\
-		\excitedcascade &306,955  & $ 1.788 \cdot 10^{6}$& 212.1\\
-		\excitedcascade \anticascade &  8,614 & < 6,000 & > 71.3\\
+		\lam & 607,188 & 1.585 $\cdot 10^{9}$\\%& 9.7\\
+		\alam & 501,277 &  744.408 $\cdot 10^{6}$\\% & 11.7\\
+		\anticascade & 277,022 &  18.372 $\cdot 10^{6}$\\% & 41\\
+		\excitedcascade &480,368  &  1.788 $\cdot 10^{6}$\\%& 212.1\\
+		\excitedcascade \anticascade &  70,394 & < 6000 \\%& > 71.3\\
 		\hline
 		 
 		%\pbarp $\rightarrow$ \cascade \excitedanticascade & & &\\
@@ -99,15 +66,14 @@ The significance is given by
 		  
 	\end{tabular}
 \end{table}
-Because none of the background events survives the cuts applied to reconstruct the signal, it is only possible to estimate a lower limit for the significance.
-For one background event scaled by the factor $B$ the significance is at least 71.3.
-The signal-to-background ratio is for this estimation
+
+Including the branching ratios BR(\decay{\lam}{\piminus}{p})$=0.639$, BR(\decay{\cascade}{\lam}{\piminus})$=0.999$ and BR(\decay{\excitedcascade}{\lam}{\kminus})$=0.3$ \cite{PDG} for the decay tree, the number of signal events is 8,614.
+Because none of the background events survives the cuts applied to reconstruct the signal, it is only possible to estimate a lower limit for the significance given as
 \begin{equation}
-	\nonumber
-	\frac{N_\mt{sig}}{N_\mt{bg}} = \frac{8,614} {6,000} = 1.44 : 1
+	S = \frac{N_\mt{sig}}{\sqrt{N_\mt{sig}+N_\mt{bg}\cdot B}}.
+	\label{eq:significance}
 \end{equation}
-The values for the significance are unrealistically high since they are obtained from ideal tracking and ideal particle identification.
-For the final numbers one have to use a more realistic software.
-Additionally for a more precise statement more background studies have to be done.
+In this first study, still based on several simplifications, we would then obtain a significance of 71.3 for a single background event and a signal-to-background ratio of 1.44:1.
+To achieve a more realistic estimate of the signal-to-background ratio, the used "ideal" pattern recognition and "ideal" particle identification need to be replaced by realistic ones and the statistical uncertainties must be reduced by generating and analyzing a much larger background sample.
  
 	
