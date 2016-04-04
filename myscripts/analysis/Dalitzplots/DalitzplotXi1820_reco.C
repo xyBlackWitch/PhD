@@ -21,11 +21,13 @@
 
 
 
-void DalitzplotXi1820_reco(){
+void DalitzplotXi1820_reco(TString inputFile=""){
 
-
+	if(inputFile==""){
 	//*** Data input
-	TString inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/output_ana.root";
+		inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/output_ana.root";
+	}
+
 	TFile * data = new TFile(inputFile, "READ");
 
 	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/plots";
@@ -37,7 +39,7 @@ void DalitzplotXi1820_reco(){
 	int nevents = xisys->GetEntriesFast();
 
 
-	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for reco; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,4,150,3.2,4.9);
+	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for reco; M^{2}(#Lambda^{0},K^{-})[GeV^{2}/c^{4}]; M^{2}(#bar{#Xi}, K^{-})[GeV^{2}/c^{4}]", 150,2.5,3.8,150,3.2,4.6);
 	TH1D * mass_Xi_before_cut = new TH1D("mass_Xi_before_cut", "mass disitribution of m(#bar{#Xi^{+}}); m(#bar{#Xi})/GeV/c^{2}; counts", 150,-2,3);
 	TH1D * mass_Xi_after_cut = new TH1D("mass_Xi_after_cut", "mass disitribution of m(#bar{#Xi^{+}}); m(#bar{#Xi})/GeV/c^{2}; counts", 150,-2,3);
 
@@ -126,13 +128,13 @@ void DalitzplotXi1820_reco(){
 //	TF1 * ellipse1 = new TF1("ellipse1", "3.9285+0.6345*sqrt(1-(x-3.199)*(x-3.199)/(0.559*0.559))",2.628,3.758);
 //	TF1 * ellipse2 = new TF1("ellipse2", "3.9285-0.6345*sqrt(1-(x-3.199)*(x-3.199)/(0.559*0.559))",2.628,3.758);
 //	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
-//	dalitz_Xilk->Draw("COLZ");
+	dalitz_Xilk->Draw("COLZ");
 
 //	TCanvas * c1 = new TCanvas("c1", "c1", 0,0,1500,1000);
 //	mass_Xi_before_cut->SetLineColor("kRed");
 //	mass_Xi_before_cut->Draw();
 
-	jenny::CreateDrawAndSaveNHistograms(mass_Xi_before_cut, mass_Xi_after_cut, "before fit", "after fit", "", "", false, false);
+//	jenny::CreateDrawAndSaveNHistograms(mass_Xi_before_cut, mass_Xi_after_cut, "before fit", "after fit", "", "", false, false);
 
 	PandaSmartLabel("L");
 

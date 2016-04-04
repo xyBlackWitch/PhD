@@ -28,3 +28,19 @@ This log file should be a documentation for the changes during my Phd thesis.
 	Prometheus trunk rev 28931 -> rev 28958 (uncommented: folder master)
 	simulation of 50000 evts for pbar p -> Xi(1820) Anti-Xi with GenFit2
 	simulation of 5000 for pbar p -> pbar p 2piminus 2piplus each for ideal and real pattern recognition
+	
+22.03.:
+	simulation of 50.000 events with GenFit2 for pbar p -> Xi(1820) Anti-Xi at 4.6 GeV/c
+	simulation of 10.000 events (local) pbar p -> pbar p Pi- Pi+ K- K+ at 4.6 GeV/c
+	
+29.03.:
+	simulation of 100.000 events with GenFit1 for pbar p -> Xi(1820) Anti-xi at 4.6 GeV/c
+	simulation of 150.000 events with GenFit2 for pbar p -> Xi(1820) Anti-xi at 4.6 GeV/c
+		(Reason: different settings for GenFi2: NumIter=3 and Geane Propagation)
+		
+30.03.:
+	RhoKinVtxFitter: change mass hypothesis for daugter particles (Prometheus)
+	
+31.03.:
+	simulation of pbar p -> Xi(1820) Anti-xi at 4.6 GeV/c with each 50.000 events for GenFit1 and GenFit2 and realistic pattern recognition
+
