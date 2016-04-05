@@ -23,11 +23,11 @@ void number_of_events_table(TString inFile=""){
 	TFile * input = new TFile(inFile, "READ");
 
 	TTree * ntpMC = (TTree*) input->Get("ntpMC");
-//	TTree * ntpPiMinus = (TTree*) input->Get("ntpPiMinus");
-//	TTree * ntpPiPlus = (TTree*) input->Get("ntpPiPlus");
-//	TTree * ntpKaonMinus = (TTree*) input->Get("ntpKaonMinus");
-//	TTree * ntpProton = (TTree*) input->Get("ntpProton");
-//	TTree * ntpAntiProton = (TTree*) input->Get("ntpAntiProton");
+	TTree * ntpPiMinus = (TTree*) input->Get("ntpPiMinus");
+	TTree * ntpPiPlus = (TTree*) input->Get("ntpPiPlus");
+	TTree * ntpKaonMinus = (TTree*) input->Get("ntpKaonMinus");
+	TTree * ntpProton = (TTree*) input->Get("ntpProton");
+	TTree * ntpAntiProton = (TTree*) input->Get("ntpAntiProton");
 	TTree * ntpLambda0 = (TTree*) input->Get("ntpLambda0");
 	TTree * ntpAntiLambda0 = (TTree*) input->Get("ntpAntiLambda0");
 	TTree * ntpXiPlus = (TTree*) input->Get("ntpXiPlus");
@@ -44,135 +44,135 @@ void number_of_events_table(TString inFile=""){
 	cout << "particle|   #evts (uncut)|    #evts (ratio in %)|   MC ratio in %|   dp/p in %" << endl;
 
 
-//	//**** PiMinus
-//	TH1D * h_piminus_tht_uncut = new TH1D("h_piminus_tht_uncut", "h_piminus_tht", 100, 0,10);
-//	ntpPiMinus->Project("h_piminus_tht_uncut", "piminus_tht", "McTruthMatch && Mother==3122");
-//	double piminus_uncut =  h_piminus_tht_uncut->GetEntries();
-//
-//	TH1D * h_piminus_tht = new TH1D("h_piminus_tht", "h_piminus_tht", 100, 0,10);
-//	ntpPiMinus->Project("h_piminus_tht", "piminus_tht", "McTruthMatch && piminus_HitTag && Mother==3122");
-//	int piminus =  h_piminus_tht->GetEntries();
-//
-//	TH1D * h_piminus_dp = new TH1D("h_piminus_dp", "h_piminus_dp", 250, -0.1,0.1);
-//	ntpPiMinus->Project("h_piminus_dp", "(piminus_p-piminus_MC_p)/piminus_MC_p", "McTruthMatch && piminus_HitTag && Mother==3122");
-//
-////	Double_t param[6] = jenny::GetFitParameterDoubleFit(h_piminus_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//	double ratio_piminus_cut = piminus/piminus_uncut;
-//	double ratio_piminus_mc = piminus/nevents_mc;
-//
-//	cout << "PiMinus|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << endl; //[2]*100 << endl;
-//
-//
-//	//**** PiPlus (AntiLambda0)
-//	TH1D * h_piplus_tht_uncut = new TH1D("h_piplus_tht_uncut", "h_piplus_tht", 100, 0,10);
-//	ntpPiPlus->Project("h_piplus_tht_uncut", "piplus_tht", "McTruthMatch && Mother==-3122");
-//	double piplus_uncut =  h_piplus_tht_uncut->GetEntries();
-//
-//	TH1D * h_piplus_tht = new TH1D("h_piplus_tht", "h_piplus_tht", 100, 0,10);
-//	ntpPiPlus->Project("h_piplus_tht", "piplus_tht", "McTruthMatch && piplus_HitTag && Mother==-3122");
-//	int piplus =  h_piplus_tht->GetEntries();
-//
-//	double ratio_piplus_cut = piplus/piplus_uncut;
-//	double ratio_piplus_mc = piplus/nevents_mc;
-//
-//	TH1D * h_piplus_dp = new TH1D("h_piplus_dp", "h_piplus_dp", 250, -0.1,0.1);
-//	ntpPiPlus->Project("h_piplus_dp", "(piplus_p-piplus_MC_p)/piplus_MC_p", "McTruthMatch && piplus_HitTag && Mother==-3122");
-//
-////	Double_t parampip[6] = jenny::GetFitParameterDoubleFit(h_piplus_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//	cout << "PiPlus(AL0)|   " <<  piplus_uncut << "|   " <<  piplus << "(" << ratio_piplus_cut*100 << ")|   " << ratio_piplus_mc*100 << endl; //pip[2]*100 << endl;
-//
-//
-//
-//	//**** piplus (Xi+)
-//	TH1D * h_piplus2_tht_uncut = new TH1D("h_piplus2_tht_uncut", "h_piplus2_tht", 100, 0,10);
-//	ntpPiPlus->Project("h_piplus2_tht_uncut", "piplus_tht", "McTruthMatch && Mother==-3312");
-//	double piplus2_uncut =  h_piplus2_tht_uncut->GetEntries();
-//
-//	TH1D * h_piplus2_tht = new TH1D("h_piplus2_tht", "h_piplus2_tht", 100, 0,10);
-//	ntpPiPlus->Project("h_piplus2_tht", "piplus_tht", "McTruthMatch && piplus_HitTag && Mother==-3312");
-//	int piplus2 =  h_piplus2_tht->GetEntries();
-//
-//	TH1D * h_piplus2_dp = new TH1D("h_piplus2_dp", "h_piplus_dp", 250, -0.1,0.1);
-//	ntpPiPlus->Project("h_piplus2_dp", "(piplus_p-piplus_MC_p)/piplus_MC_p", "McTruthMatch && piplus_HitTag && Mother==-3312");
-//
-////	Double_t parampip2[6] = jenny::GetFitParameterDoubleFit(h_piplus2_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus2_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//	double ratio_piplus2_cut = piplus2/piplus2_uncut;
-//	double ratio_piplus2_mc = piplus2/nevents_mc;
-//
-//	cout << "PiPlus(Xi+)|" <<  piplus2_uncut << "|" <<  piplus2 << "(" << ratio_piplus2_cut*100 << ")|" << ratio_piplus2_mc*100 << endl; //pip2[2]*100 << endl;
-//
-//
-//	//**** kaonMinus
-//	TH1D * h_kaonMinus_tht_uncut = new TH1D("h_kaonMinus_tht_uncut", "h_kaonMinus_tht", 100, 0,10);
-//	ntpKaonMinus->Project("h_kaonMinus_tht_uncut", "kaonminus_tht", "McTruthMatch && Mother==23314");
-//	double kaonMinus_uncut =  h_kaonMinus_tht_uncut->GetEntries();
-//
-//	TH1D * h_kaonMinus_tht = new TH1D("h_kaonMinus_tht", "h_kaonMinus_tht", 100, 0,10);
-//	ntpKaonMinus->Project("h_kaonMinus_tht", "kaonminus_tht", "McTruthMatch && kaonminus_HitTag && Mother==23314");
-//	int kaonMinus =  h_kaonMinus_tht->GetEntries();
-//
-//	TH1D * h_kaonminus_dp = new TH1D("h_kaonminus_dp", "h_kaonminus_dp", 250, -0.1,0.1);
-//	ntpKaonMinus->Project("h_kaonminus_dp", "(kaonminus_p-kaonminus_MC_p)/kaonminus_MC_p", "McTruthMatch && kaonminus_HitTag && Mother==23314");
-//
-////	Double_t paramk[6] = jenny::GetFitParameterDoubleFit(h_kaonminus_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_kaonminus_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//
-//	double ratio_kaonMinus_cut = kaonMinus/kaonMinus_uncut;
-//	double ratio_kaonMinus_mc = kaonMinus/nevents_mc;
-//
-//	cout << "kaonMinus|   " <<  kaonMinus_uncut << "|   " <<  kaonMinus << "(" << ratio_kaonMinus_cut*100 << ")|   " << ratio_kaonMinus_mc*100 << endl; //k[2]*100 << endl;
-//
-//
-//	//**** Proton
-//	TH1D * h_proton_tht_uncut = new TH1D("h_proton_tht_uncut", "h_proton_tht", 100, 0,10);
-//	ntpProton->Project("h_proton_tht_uncut", "proton_tht", "McTruthMatch && MC_Mother_PDG==3122");
-//	double proton_uncut =  h_proton_tht_uncut->GetEntries();
-//
-//	TH1D * h_proton_tht = new TH1D("h_proton_tht", "h_proton_tht", 100, 0,10);
-//	ntpProton->Project("h_proton_tht", "proton_tht", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
-//	int proton =  h_proton_tht->GetEntries();
-//
-//	TH1D * h_proton_dp = new TH1D("h_proton_dp", "h_proton_dp", 250, -0.1,0.1);
-//	ntpProton->Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
-//
-////	Double_t paramProt[6] = jenny::GetFitParameterDoubleFit(h_proton_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_proton_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//	double ratio_proton_cut = proton/proton_uncut;
-//	double ratio_proton_mc = proton/nevents_mc;
-//
-//	cout << "proton|   " <<  proton_uncut << "|   " <<  proton << "(" << ratio_proton_cut*100 << ")|   " << ratio_proton_mc*100 <<  endl; //Prot[2]*100 << endl;
-//
-//
-//
-//	//**** AntiProton
-//	TH1D * h_AntiProton_tht_uncut = new TH1D("h_AntiProton_tht_uncut", "h_AntiProton_tht", 100, 0,10);
-//	ntpAntiProton->Project("h_AntiProton_tht_uncut", "AntiProton_tht", "McTruthMatch");
-//	double AntiProton_uncut =  h_AntiProton_tht_uncut->GetEntries();
-//
-//	TH1D * h_AntiProton_tht = new TH1D("h_AntiProton_tht", "h_AntiProton_tht", 100, 0,10);
-//	ntpAntiProton->Project("h_AntiProton_tht", "AntiProton_tht", "McTruthMatch && AntiProton_HitTag");
-//	int AntiProton =  h_AntiProton_tht->GetEntries();
-//
-//	TH1D * h_proton_dp = new TH1D("h_AntiProton_dp", "h_AntiProton_dp", 250, -0.1,0.1);
-//	ntpAntiProton->Project("h_AntiProton_dp", "(AntiProton_p-AntiProton_MC_p)/AntiProton_MC_p", "McTruthMatch && AntiProton_HitTag");
-//
-////	Double_t paramAProt[6] = jenny::GetFitParameterDoubleFit(h_AntiProton_dp, false, 0.02,0.1, true);
-////	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_AntiProton_dp, "","", false, false, false, 0.02,0.1, true);
-//
-//	double ratio_AntiProton_cut = AntiProton/AntiProton_uncut;
-//	double ratio_AntiProton_mc = AntiProton/nevents_mc;
-//
-//
-//
-//	cout << "AntiProton|   " <<  AntiProton_uncut << "|   " <<  AntiProton << "(" << ratio_AntiProton_cut*100 << ")|   " << ratio_AntiProton_mc*100 << endl; //AProt[2]*100 << endl;
+	//**** PiMinus
+	TH1D * h_piminus_tht_uncut = new TH1D("h_piminus_tht_uncut", "h_piminus_tht", 100, 0,10);
+	ntpPiMinus->Project("h_piminus_tht_uncut", "piminus_tht", "McTruthMatch && Mother==3122");
+	double piminus_uncut =  h_piminus_tht_uncut->GetEntries();
+
+	TH1D * h_piminus_tht = new TH1D("h_piminus_tht", "h_piminus_tht", 100, 0,10);
+	ntpPiMinus->Project("h_piminus_tht", "piminus_tht", "McTruthMatch && piminus_HitTag && Mother==3122");
+	int piminus =  h_piminus_tht->GetEntries();
+
+	TH1D * h_piminus_dp = new TH1D("h_piminus_dp", "h_piminus_dp", 250, -0.1,0.1);
+	ntpPiMinus->Project("h_piminus_dp", "(piminus_p-piminus_MC_p)/piminus_MC_p", "McTruthMatch && piminus_HitTag && Mother==3122");
+
+//	Double_t param[6] = jenny::GetFitParameterDoubleFit(h_piminus_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piminus_dp, "","", false, false, false, 0.02,0.1, true);
+
+	double ratio_piminus_cut = piminus/piminus_uncut;
+	double ratio_piminus_mc = piminus/nevents_mc;
+
+	cout << "PiMinus|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << endl; //[2]*100 << endl;
+
+
+	//**** PiPlus (AntiLambda0)
+	TH1D * h_piplus_tht_uncut = new TH1D("h_piplus_tht_uncut", "h_piplus_tht", 100, 0,10);
+	ntpPiPlus->Project("h_piplus_tht_uncut", "piplus_tht", "McTruthMatch && Mother==-3122");
+	double piplus_uncut =  h_piplus_tht_uncut->GetEntries();
+
+	TH1D * h_piplus_tht = new TH1D("h_piplus_tht", "h_piplus_tht", 100, 0,10);
+	ntpPiPlus->Project("h_piplus_tht", "piplus_tht", "McTruthMatch && piplus_HitTag && Mother==-3122");
+	int piplus =  h_piplus_tht->GetEntries();
+
+	double ratio_piplus_cut = piplus/piplus_uncut;
+	double ratio_piplus_mc = piplus/nevents_mc;
+
+	TH1D * h_piplus_dp = new TH1D("h_piplus_dp", "h_piplus_dp", 250, -0.1,0.1);
+	ntpPiPlus->Project("h_piplus_dp", "(piplus_p-piplus_MC_p)/piplus_MC_p", "McTruthMatch && piplus_HitTag && Mother==-3122");
+
+//	Double_t parampip[6] = jenny::GetFitParameterDoubleFit(h_piplus_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus_dp, "","", false, false, false, 0.02,0.1, true);
+
+	cout << "PiPlus(AL0)|   " <<  piplus_uncut << "|   " <<  piplus << "(" << ratio_piplus_cut*100 << ")|   " << ratio_piplus_mc*100 << endl; //pip[2]*100 << endl;
+
+
+
+	//**** piplus (Xi+)
+	TH1D * h_piplus2_tht_uncut = new TH1D("h_piplus2_tht_uncut", "h_piplus2_tht", 100, 0,10);
+	ntpPiPlus->Project("h_piplus2_tht_uncut", "piplus_tht", "McTruthMatch && Mother==-3312");
+	double piplus2_uncut =  h_piplus2_tht_uncut->GetEntries();
+
+	TH1D * h_piplus2_tht = new TH1D("h_piplus2_tht", "h_piplus2_tht", 100, 0,10);
+	ntpPiPlus->Project("h_piplus2_tht", "piplus_tht", "McTruthMatch && piplus_HitTag && Mother==-3312");
+	int piplus2 =  h_piplus2_tht->GetEntries();
+
+	TH1D * h_piplus2_dp = new TH1D("h_piplus2_dp", "h_piplus_dp", 250, -0.1,0.1);
+	ntpPiPlus->Project("h_piplus2_dp", "(piplus_p-piplus_MC_p)/piplus_MC_p", "McTruthMatch && piplus_HitTag && Mother==-3312");
+
+//	Double_t parampip2[6] = jenny::GetFitParameterDoubleFit(h_piplus2_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_piplus2_dp, "","", false, false, false, 0.02,0.1, true);
+
+	double ratio_piplus2_cut = piplus2/piplus2_uncut;
+	double ratio_piplus2_mc = piplus2/nevents_mc;
+
+	cout << "PiPlus(Xi+)|" <<  piplus2_uncut << "|" <<  piplus2 << "(" << ratio_piplus2_cut*100 << ")|" << ratio_piplus2_mc*100 << endl; //pip2[2]*100 << endl;
+
+
+	//**** kaonMinus
+	TH1D * h_kaonMinus_tht_uncut = new TH1D("h_kaonMinus_tht_uncut", "h_kaonMinus_tht", 100, 0,10);
+	ntpKaonMinus->Project("h_kaonMinus_tht_uncut", "kaonminus_tht", "McTruthMatch && Mother==23314");
+	double kaonMinus_uncut =  h_kaonMinus_tht_uncut->GetEntries();
+
+	TH1D * h_kaonMinus_tht = new TH1D("h_kaonMinus_tht", "h_kaonMinus_tht", 100, 0,10);
+	ntpKaonMinus->Project("h_kaonMinus_tht", "kaonminus_tht", "McTruthMatch && kaonminus_HitTag && Mother==23314");
+	int kaonMinus =  h_kaonMinus_tht->GetEntries();
+
+	TH1D * h_kaonminus_dp = new TH1D("h_kaonminus_dp", "h_kaonminus_dp", 250, -0.1,0.1);
+	ntpKaonMinus->Project("h_kaonminus_dp", "(kaonminus_p-kaonminus_MC_p)/kaonminus_MC_p", "McTruthMatch && kaonminus_HitTag && Mother==23314");
+
+//	Double_t paramk[6] = jenny::GetFitParameterDoubleFit(h_kaonminus_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_kaonminus_dp, "","", false, false, false, 0.02,0.1, true);
+
+
+	double ratio_kaonMinus_cut = kaonMinus/kaonMinus_uncut;
+	double ratio_kaonMinus_mc = kaonMinus/nevents_mc;
+
+	cout << "kaonMinus|   " <<  kaonMinus_uncut << "|   " <<  kaonMinus << "(" << ratio_kaonMinus_cut*100 << ")|   " << ratio_kaonMinus_mc*100 << endl; //k[2]*100 << endl;
+
+
+	//**** Proton
+	TH1D * h_proton_tht_uncut = new TH1D("h_proton_tht_uncut", "h_proton_tht", 100, 0,10);
+	ntpProton->Project("h_proton_tht_uncut", "proton_tht", "McTruthMatch && MC_Mother_PDG==3122");
+	double proton_uncut =  h_proton_tht_uncut->GetEntries();
+
+	TH1D * h_proton_tht = new TH1D("h_proton_tht", "h_proton_tht", 100, 0,10);
+	ntpProton->Project("h_proton_tht", "proton_tht", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
+	int proton =  h_proton_tht->GetEntries();
+
+	TH1D * h_proton_dp = new TH1D("h_proton_dp", "h_proton_dp", 250, -0.1,0.1);
+	ntpProton->Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
+
+//	Double_t paramProt[6] = jenny::GetFitParameterDoubleFit(h_proton_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_proton_dp, "","", false, false, false, 0.02,0.1, true);
+
+	double ratio_proton_cut = proton/proton_uncut;
+	double ratio_proton_mc = proton/nevents_mc;
+
+	cout << "proton|   " <<  proton_uncut << "|   " <<  proton << "(" << ratio_proton_cut*100 << ")|   " << ratio_proton_mc*100 <<  endl; //Prot[2]*100 << endl;
+
+
+
+	//**** AntiProton
+	TH1D * h_AntiProton_tht_uncut = new TH1D("h_AntiProton_tht_uncut", "h_AntiProton_tht", 100, 0,10);
+	ntpAntiProton->Project("h_AntiProton_tht_uncut", "AntiProton_tht", "McTruthMatch");
+	double AntiProton_uncut =  h_AntiProton_tht_uncut->GetEntries();
+
+	TH1D * h_AntiProton_tht = new TH1D("h_AntiProton_tht", "h_AntiProton_tht", 100, 0,10);
+	ntpAntiProton->Project("h_AntiProton_tht", "AntiProton_tht", "McTruthMatch && AntiProton_HitTag");
+	int AntiProton =  h_AntiProton_tht->GetEntries();
+
+	TH1D * h_proton_dp = new TH1D("h_AntiProton_dp", "h_AntiProton_dp", 250, -0.1,0.1);
+	ntpAntiProton->Project("h_AntiProton_dp", "(AntiProton_p-AntiProton_MC_p)/AntiProton_MC_p", "McTruthMatch && AntiProton_HitTag");
+
+//	Double_t paramAProt[6] = jenny::GetFitParameterDoubleFit(h_AntiProton_dp, false, 0.02,0.1, true);
+//	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_AntiProton_dp, "","", false, false, false, 0.02,0.1, true);
+
+	double ratio_AntiProton_cut = AntiProton/AntiProton_uncut;
+	double ratio_AntiProton_mc = AntiProton/nevents_mc;
+
+
+
+	cout << "AntiProton|   " <<  AntiProton_uncut << "|   " <<  AntiProton << "(" << ratio_AntiProton_cut*100 << ")|   " << ratio_AntiProton_mc*100 << endl; //AProt[2]*100 << endl;
 
 
 

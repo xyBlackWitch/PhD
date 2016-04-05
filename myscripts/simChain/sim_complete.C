@@ -45,7 +45,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed(2704);
+  gRandom->SetSeed();
   
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();

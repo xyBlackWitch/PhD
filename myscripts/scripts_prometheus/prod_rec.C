@@ -48,39 +48,31 @@ void prod_rec(TString outpre="")
   rtdb->setSecondInput(parIo1);
 
   // ------------------------------------------------------------------------
-//  //  use the constructor with input :
-//  //      printout flag (int) , plotting flag (bool), MC comparison flag (bool), SciTil.
-//  PndTrkTracking2* tracking = new PndTrkTracking2(0,false,false,true);
-//  tracking->SetInputBranchName("STTHit","MVDHitsPixel","MVDHitsStrip");
-//  // tracking->SetInputBranchName("STTHitMix","MVDHitsPixelMix","MVDHitsStripMix");
-//  //  don't do the Pattern Recognition second part, starting from the Mvd;
-//  tracking->NoMvdAloneTracking();
-//  // do Cleanup only when there is Mixing;
-//  // tracking->Cleanup();
-//  tracking->SetPersistence(kFALSE);
-//  fRun->AddTask(tracking);
-//
-//  PndSttMvdGemTracking * SttMvdGemTracking = new PndSttMvdGemTracking(0);
-//  //SttMvdGemTracking->SetPdgFromMC();
-//  SttMvdGemTracking->SetPersistence(kFALSE);
-//  fRun->AddTask(SttMvdGemTracking);
-//
-//  PndMCTrackAssociator* trackMC = new PndMCTrackAssociator();
-//  trackMC->SetTrackInBranchName("SttMvdGemTrack");
-//  trackMC->SetTrackOutBranchName("SttMvdGemTrackID");
-//  trackMC->SetPersistence(kFALSE);
-//  fRun->AddTask(trackMC);
+  //  use the constructor with input :
+  //      printout flag (int) , plotting flag (bool), MC comparison flag (bool), SciTil.
+  PndTrkTracking2* tracking = new PndTrkTracking2(0,false,false,true);
+  tracking->SetInputBranchName("STTHit","MVDHitsPixel","MVDHitsStrip");
+  // tracking->SetInputBranchName("STTHitMix","MVDHitsPixelMix","MVDHitsStripMix");
+  //  don't do the Pattern Recognition second part, starting from the Mvd;
+  tracking->NoMvdAloneTracking();
+  // do Cleanup only when there is Mixing;
+  // tracking->Cleanup();
+  tracking->SetPersistence(kFALSE);
+  fRun->AddTask(tracking);
+
+  PndSttMvdGemTracking * SttMvdGemTracking = new PndSttMvdGemTracking(0);
+  //SttMvdGemTracking->SetPdgFromMC();
+  SttMvdGemTracking->SetPersistence(kFALSE);
+  fRun->AddTask(SttMvdGemTracking);
   
-  PndSttMvdGemTrackingIdeal* trackStt = new PndSttMvdGemTrackingIdeal();
-  trackStt->SetRelativeMomentumSmearing(0.05);
-  trackStt->SetVertexSmearing(0.05, 0.05, 0.05);
-  trackStt->SetTrackingEfficiency(1.);
-  trackStt->SetTrackOutput("SttMvdGemIdealTrack");
-  trackStt->SetPersistence(kFALSE);
-  fRun->AddTask(trackStt);
+  PndMCTrackAssociator* trackMC = new PndMCTrackAssociator();
+  trackMC->SetTrackInBranchName("SttMvdGemTrack");
+  trackMC->SetTrackOutBranchName("SttMvdGemTrackID");
+  trackMC->SetPersistence(kFALSE);
+  fRun->AddTask(trackMC);
 
   PndRecoKalmanTask* recoKalman = new PndRecoKalmanTask();
-  recoKalman->SetTrackInBranchName("SttMvdGemIdealTrack");
+  recoKalman->SetTrackInBranchName("SttMvdGemTrack");
 //  recoKalman->SetTrackInIDBranchName("SttMvdGemTrackID");
   recoKalman->SetTrackOutBranchName("SttMvdGemGenTrack");
   recoKalman->SetBusyCut(50); // CHECK to be tuned

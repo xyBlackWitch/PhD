@@ -22,11 +22,14 @@
 #include "TDatabasePDG"
 #include "common_andi.cpp"
 #include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/PandaSmartLabel.C"
+#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/setPandaStyle.C"
 
 //#include "RhoTuple.h"
 //#include "RhoCandidate.h"
 
 namespace jenny{
+
+
 
 	void CreateDrawAndSaveHistogram(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool log=false){
 
@@ -34,30 +37,24 @@ namespace jenny{
 		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
 		*/
 
+		setPandaStyle();
+
 		TString name = TString(histo->GetName());
 		TString title = TString(histo->GetTitle());
 
 		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
-		gStyle->SetFrameFillStyle(0);
-		gStyle->SetOptStat(1111);
-		gStyle->SetOptFit(0);
-		gStyle->SetStatY(0.85);
-		gStyle->SetStatX(0.85);
-		gStyle->SetStatW(0.15);
-		gStyle->SetStatH(0.15);
 
-
-		histo->GetXaxis()->SetLabelSize(0.045);
-		histo->GetXaxis()->SetTitleSize(0.05);
-		histo->GetXaxis()->SetTitleOffset(0.90);
-		histo->GetYaxis()->SetLabelSize(0.045);
-		histo->GetYaxis()->SetTitleSize(0.05);
-		histo->GetYaxis()->SetTitleOffset(0.80);
+//		histo->GetXaxis()->SetLabelSize(0.045);
+//		histo->GetXaxis()->SetTitleSize(0.05);
+//		histo->GetXaxis()->SetTitleOffset(0.90);
+//		histo->GetYaxis()->SetLabelSize(0.045);
+//		histo->GetYaxis()->SetTitleSize(0.05);
+//		histo->GetYaxis()->SetTitleOffset(0.80);
 		histo->Draw();
 
 		if(log) canvas->SetLogy();
 
-		PandaSmartLabel("Lprel");
+		PandaSmartLabel("L");
 
 
 		if (saveoutput){
@@ -71,33 +68,59 @@ namespace jenny{
 
 	}
 
-	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, bool prelim=false){
+	void CreateDrawAndSaveHistogram(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close){
+
+				/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
+				*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
+				*/
+
+				setPandaStyle();
+
+				TString name = TString(histo->GetName());
+				TString title = TString(histo->GetTitle());
+
+
+				TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+
+				histo->Draw("COLZ");
+
+				PandaSmartLabel("L");
+
+
+				if (saveoutput){
+					canvas->Print(outputdir + "root-files/" + outputname + ".root");
+					canvas->Print(outputdir + "png-files/" + outputname + ".png");
+					canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
+				}
+
+				if (close) canvas->Close();
+
+
+			}
+
+	void CreateDrawAndSaveHistogram2D(TH2* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, double zmin =0., double zmax=0.){
 
 			/** @brief  saves Histogramm as *.root and *.png and if wanted closes the histograms at the end
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
 			*/
 
+
+			setPandaStyle();
 			TString name = TString(histo->GetName());
 			TString title = TString(histo->GetTitle());
 
-			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
-			gStyle->SetFrameFillStyle(0);
-			gStyle->SetOptStat(0);
-			gStyle->SetStatY(0.85);
-			gStyle->SetStatX(0.85);
-			gStyle->SetStatW(0.15);
-			gStyle->SetStatH(0.15);
 
-			histo->GetXaxis()->SetLabelSize(0.045);
-			histo->GetXaxis()->SetTitleSize(0.05);
-			histo->GetXaxis()->SetTitleOffset(0.90);
-			histo->GetYaxis()->SetLabelSize(0.045);
-			histo->GetYaxis()->SetTitleSize(0.05);
-			histo->GetYaxis()->SetTitleOffset(0.80);
+			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+
+
+
+			if(zmax!=0){
+				histo->GetZaxis()->SetRangeUser(zmin, zmax)
+			}
+
 
 			histo->Draw("COLZ");
-//			if(prelim)
-			PandaSmartLabel("Lprelfront");
+			PandaSmartLabel("L");
 
 
 			if (saveoutput){
@@ -117,27 +140,17 @@ namespace jenny{
 		*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
 		*/
 
+		setPandaStyle();
+
+//		gStyle->SetOptStat(1111);
 		TString name = TString(histo->GetName());
 		TString title = TString(histo->GetTitle());
 
-		gStyle->SetFrameFillStyle(0);
+
 
 		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
 
-		gStyle->SetOptStat(1111);
-		gStyle->SetOptFit(0);
-		gStyle->SetStatY(0.85);
-		gStyle->SetStatX(0.85);
-		gStyle->SetStatW(0.15);
-		gStyle->SetStatH(0.15);
 
-
-		histo->GetXaxis()->SetLabelSize(0.045);
-		histo->GetXaxis()->SetTitleSize(0.05);
-		histo->GetXaxis()->SetTitleOffset(0.90);
-		histo->GetYaxis()->SetLabelSize(0.045);
-		histo->GetYaxis()->SetTitleSize(0.05);
-		histo->GetYaxis()->SetTitleOffset(1.11);
 		histo->Draw();
 
 		//***** FWHM ******
@@ -152,12 +165,8 @@ namespace jenny{
 
 		double FWHM =  upperbin - lowerbin;
 
-		TPave * fwhm = new TPave(lowerbin, 0, upperbin, max/2, 0);
-		fwhm->SetFillColor(kCyan-10);
-		fwhm->SetFillStyle(3001);
-		fwhm->Draw();
 
-		TPaveText * text = new TPaveText(0.2,2000,1,4000);
+		TPaveText * text = new TPaveText(0.2,1500,1,3500);
 		TString name = TString::Format("FWHM  %.4f", FWHM);
 		text->InsertText(name);
 		text->SetFillColor(kWhite);
@@ -168,7 +177,7 @@ namespace jenny{
 
 		if(log) canvas->SetLogy();
 
-		PandaSmartLabel("Lprel");
+		PandaSmartLabel("L");
 
 
 		if (saveoutput){
@@ -188,32 +197,20 @@ namespace jenny{
 			*	@details This mehtod create a histogramm and save it as root and png file. If you choose close, the canvas is closed after the histogram was saved
 			*/
 
-			Double_t parameters[6] = {0.,0.,0.,0.,0.,0.};
+			setPandaStyle();
+
 			TString name = TString(histo->GetName());
 			TString title = TString(histo->GetTitle());
 
 			TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
-			gStyle->SetOptStat(1000000001);
-			gStyle->SetFrameFillStyle(0);
-			gStyle->SetOptFit(111);
-			gStyle->SetFitFormat("5.8g");
-			gStyle->SetStatY(0.9);
-			gStyle->SetStatX(0.9);
-			gStyle->SetStatW(0.35);
-			gStyle->SetStatH(0.45);
-
-			histo->GetXaxis()->SetLabelSize(0.045);
-			histo->GetXaxis()->SetTitleSize(0.05);
-			histo->GetXaxis()->SetTitleOffset(0.90);
-			histo->GetYaxis()->SetLabelSize(0.045);
-			histo->GetYaxis()->SetTitleSize(0.05);
-			histo->GetYaxis()->SetTitleOffset(0.80);
 
 
 			histo->Draw();
 
 			TF1 * fit;
-//
+			TF1 * fitinner;
+			TF1 * fitouter;
+
 			if(excludeCenter){
 				fit = andi::doubleGaussFitExcludeCenter(histo, false, innerRange, outerRange);
 			}
@@ -222,6 +219,8 @@ namespace jenny{
 			}
 			else if (fittype==2){
 				fit = doubleGaussFit(histo, autorange, innerRange, outerRange);
+				fitinner = getDoubleFit(histo, autorange, innerRange, outerRange, 1);
+				fitouter = getDoubleFit(histo, autorange, innerRange, outerRange, 2);
 			}
 			else{
 				std::cout << "Type of fit is not defined"<< std::endl;
@@ -230,8 +229,19 @@ namespace jenny{
 			fit->SetLineStyle(7);
 			fit->SetLineWidth(3);
 			fit->Draw("SAME");
-//			if(prelim)
-			PandaSmartLabel("Lprel");
+
+			fitinner->SetLineColor(kBlue);
+			fitinner->SetLineStyle(7);
+			fitinner->SetLineWidth(3);
+			fitinner->Draw("SAME");
+
+
+			fitouter->SetLineColor(kBlack);
+			fitouter->SetLineStyle(7);
+			fitouter->SetLineWidth(3);
+			fitouter->Draw("SAME");
+
+			PandaSmartLabel("L");
 
 
 			if (saveoutput){
@@ -253,6 +263,38 @@ namespace jenny{
 		return CreateDrawAndSaveHistogramWithFit(histo, outputdir, outputname, saveoutput, close, autorange, innerRange, outerRange,excludeCenter,2);
 	}
 
+	void CreateDrawAndSaveHistogramBreitWignerFit(TH1* &histo, TString outputdir, TString outputname, bool saveoutput, bool close, double range=1){
+		setPandaStyle();
+
+		TString name = TString(histo->GetName());
+		TString title = TString(histo->GetTitle());
+
+		TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
+		histo->Draw();
+
+//		canvas->Update();
+
+		TF1 * bw;
+
+		bw = GetVoigtFit(histo, range);
+
+		bw->SetLineColor(kRed);
+		bw->SetLineStyle(7);
+		bw->SetLineWidth(3);
+		bw->Draw("SAME");
+
+		PandaSmartLabel("L");
+
+		if (saveoutput){
+			canvas->Print(outputdir + "root-files/" + outputname + ".root");
+			canvas->Print(outputdir + "png-files/" + outputname + ".png");
+			canvas->Print(outputdir + "pdf-files/" + outputname + ".pdf");
+		}
+
+		if (close) canvas->Close();
+
+	}
+
 	void GetFitParameterDoubleFit(TH1* &histo, bool autorange = true, double innerRange=0.1 , double outerRange=1, bool excludeCenter=false){
 
 		Double_t parameter[6] = {0,0,0,0,0,0};
@@ -266,7 +308,7 @@ namespace jenny{
 		}
 
 		fit->GetParameters(&parameter[0]);
-		//return parameter;
+
 	}
 
 	void GetFitParameterErrorDoubleFit(TH1* &histo, bool autorange = true, double innerRange=0.1 , double outerRange=1, bool excludeCenter=false){
@@ -341,6 +383,7 @@ namespace jenny{
 	  	/** @brief  saves 2 histograms in same file as *.root and *.png and if wanted closes the canvas at the end
 	  	*	@details This mehtod create 2 histograms and save it as root and png file. If you choose close, the canvas is closed after the histograms are saved
 	  	*/
+		setPandaStyle();
 
 	  	TString name = TString(h1->GetName());
 	  	TString title = TString(h1->GetTitle());
@@ -349,20 +392,19 @@ namespace jenny{
 	  	h2->SetLineColor(kRed);
 
 
-	  	TLegend * legend = new TLegend(0.7,0.62,0.86,0.795, "");
+	  	TLegend * legend = new TLegend(0.6,0.50,0.85,0.675, "");
 	  	legend->AddEntry(h1, leg1, "l");
 	  	legend->AddEntry(h2, leg2, "l");
 
 
 	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
-	  	gStyle->SetOptStat(0);
 
 	  	h1->Draw();
 	  	h2->Draw("SAME");
 	  	legend->Draw();
 
 //	  	if(prelim)
-	  	PandaSmartLabel("Lprel");
+	  	PandaSmartLabel("L");
 
 
 	  	if (saveoutput){
@@ -382,7 +424,7 @@ namespace jenny{
 	  	*	@details This mehtod create 3 histograms and save it as root and png file. If you choose close, the canvas is closed after the histograms are saved
 	  	*/
 
-		gStyle->SetFrameFillStyle(0);
+		  setPandaStyle();
 
 	  	TString name = TString(h1->GetName());
 	  	TString title = TString(h1->GetTitle());
@@ -398,13 +440,13 @@ namespace jenny{
 
 
 	  	TCanvas * canvas = new TCanvas("c_"+name, title, 0,0,1500,1000);
-	  	gStyle->SetOptStat(0);
+
 	  	h1->Draw();
 	  	h2->Draw("SAME");
 	  	h3->Draw("SAME");
 	  	legend->Draw();
-//	  	if(prelim)
-	  	PandaSmartLabel();
+
+	  	PandaSmartLabel("L");
 
 
 	  	if (saveoutput){
@@ -544,7 +586,7 @@ namespace jenny{
 
 		TF1 * gaussFit(TH1 * hist, double inner) {
 			Double_t parameters[6] = {0,0,0,0,0,0};
-			gStyle->SetOptFit(1);
+
 
 			double center =0;// hist->GetMean();
 
@@ -565,7 +607,7 @@ namespace jenny{
 		   * @brief performes a double gaussian Fit
 		   */
 		  Double_t parameters[6] = {0,0,0,0,0,0};
-		  gStyle->SetOptFit(1);
+
 
 		  double center = hist->GetMean();
 
@@ -600,6 +642,156 @@ namespace jenny{
 		  fitproper->SetLineStyle(2);
 
 		  return fitproper;
+
+	  }
+
+	  TF1 * tripleGaussFit(TH1 * hist, bool autorange, double inner=0.01, double outer=0.1){
+		  /**
+		   * @brief performes a double gaussian Fit
+		   */
+		  Double_t parameters[9] = {0,0,0,0,0,0,0,0,0};
+
+
+		  double center = hist->GetMean();
+
+
+		  if (autorange){
+			  double inner = fabs(center - hist->GetXaxis()->GetXmax()) /10;
+			  double outer = fabs(center - hist->GetXaxis()->GetXmax()) /10*8;
+		  }
+		  double middle = (outer - inner)/2;
+
+		  TF1 * fit1 = new TF1("fit1", "gaus", center-inner, center+inner );
+
+		  hist->Fit(fit1, "0R");
+		  fit1->GetParameters(&parameters[0]);
+
+		  TF1 * fitmid = new TF1("fitmid", "gaus", center-middle, center+middle );
+		  fitmid->SetParameter(1, parameters[1]);
+		  hist->Fit(fitmid, "0R");
+		  fitmid->GetParameters(&parameters[3]);
+
+		  TF1 * fit2 = new TF1("fit2", "gaus", center-outer, center+outer );
+		  fit2->SetParameter(1, parameters[1]);
+		  hist->Fit(fit2, "0R");
+		  fit2->GetParameters(&parameters[6]);
+
+		  TF1 * fitproper = new TF1("fitproper", "gaus(0)+gaus(3)+gaus(6)", center-outer, center+outer);
+		  fitproper->SetParameters(parameters);
+		  fitproper->SetParName(0, "Const.(inner)");
+		  fitproper->SetParName(1, "Mean (inner)");
+		  fitproper->SetParName(2, "Sigma (inner)");
+		  fitproper->SetParName(3, "Const.(middle)");
+		  fitproper->SetParName(4, "Mean (middle)");
+		  fitproper->SetParName(5, "Sigma (middle)");
+		  fitproper->SetParName(6, "Const.(outer)");
+		  fitproper->SetParName(7, "Mean (outer)");
+		  fitproper->SetParName(8, "Sigma (outer)");
+
+		  hist->Fit(fitproper, "0R");
+
+//		  fitproper->SetLineColor(hist->GetLineColor());
+//		  fitproper->SetLineWidth(hist->GetLineWidth());
+////		  fitproper->SetLineStyle(2);
+
+		  return fitproper;
+
+	  }
+
+	  TF1 * getDoubleFit(TH1 * hist, bool autorange, double inner, double outer, int which=1){
+		  /**
+		   * @brief performes a double gaussian Fit
+		   */
+
+		  Double_t parameters[6] = {0,0,0,0,0,0};
+		  Double_t parameters_new[6] = {0,0,0,0,0,0};
+
+
+		  double center = hist->GetMean();
+
+		  if (autorange){
+			  double inner = fabs(center - hist->GetXaxis()->GetXmax()) /10;
+			  double outer = fabs(center - hist->GetXaxis()->GetXmax()) /10*8;
+		  }
+
+		  TF1 * fit1 = new TF1("fit1", "gaus", center-inner, center+inner );
+
+		  hist->Fit(fit1, "Q0R");
+		  fit1->GetParameters(&parameters[0]);
+
+		  TF1 * fit2 = new TF1("fit2", "gaus", center-outer, center+outer );
+
+		  hist->Fit(fit2, "Q0R");
+		  fit2->GetParameters(&parameters[3]);
+
+		  TF1 * fitproper = new TF1("fitproper", "gaus(0)+gaus(3)", center-outer, center+outer);
+		  fitproper->SetParameters(parameters);
+		  fitproper->SetParName(0, "Const.(inner)");
+		  fitproper->SetParName(1, "Mean (inner)");
+		  fitproper->SetParName(2, "Sigma (inner)");
+		  fitproper->SetParName(3, "Const.(outer)");
+		  fitproper->SetParName(4, "Mean (outer)");
+		  fitproper->SetParName(5, "Sigma (outer)");
+
+		  hist->Fit(fitproper, "Q0R");
+		  fitproper->GetParameters(&parameters_new[0]);
+
+
+		  fitproper->SetLineColor(hist->GetLineColor());
+		  fitproper->SetLineWidth(hist->GetLineWidth());
+		  fitproper->SetLineStyle(2);
+
+		  if (which==1){
+		  	  TF1 * Gausinner = new TF1("Gausinner", "gaus(0)", center-inner, center+inner);
+			  Gausinner->SetParameters(parameters_new);
+		  	  return Gausinner;
+		  }
+		  else{
+			  TF1 * Gausouter = new TF1("Gausouter", "gaus(3)", center-outer, center+outer);
+			  Gausouter->SetParameters(parameters_new);
+			  return Gausouter;
+		  }
+
+	  }
+
+	  TF1 * GetVoigtFit(TH1 * hist, double lower, double upper){
+		  /**
+		   * @brief performes a Fit with a Breit-Wigner-Distribution.
+		  */
+		  double parameter[3];
+
+		  double max = hist->GetMaximum();
+
+		  int bin1 = hist->FindFirstBinAbove(max-1);
+
+		  double center =  hist->GetBinCenter(bin1);
+
+
+		  TString func = TString::Format("TMath::Voigt(x-%.4f, [0], [1])", center);
+
+		  TF1 * fit = new TF1("fit", func, lower, upper);
+
+		  hist->Fit(fit, "0R");
+
+		  fit->GetParameters(&parameter[0]);
+
+
+		  TF1 * voigt = new TF1("voigt", func+"*[2]", lower, upper);
+
+		  voigt->SetParameter(0, parameter[0]);
+		  voigt->SetParameter(1, parameter[1]);
+
+		  voigt->SetParName(0, "#sigma");
+		  voigt->SetParName(1, "#Gamma");
+		  voigt->SetParName(2, "A");
+//		  voigt->SetParName(3, "B");
+//		  voigt->SetParName(4, "C");
+
+		  hist->Fit(voigt, "0R");
+
+		  return voigt;
+
+
 
 	  }
 
