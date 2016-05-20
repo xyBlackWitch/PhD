@@ -1,4 +1,4 @@
-void reco_secondary_trackfinder(TString pre="")
+void reco_secondary_trackfinder(TString prefix="")
 {
   // Macro created 20/09/2006 by S.Spataro
   // It loads a digi file and performs tracking
@@ -9,39 +9,34 @@ void reco_secondary_trackfinder(TString pre="")
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
   
-  if (pre==""){
-
-	  	TString inputFile = "sim_complete.root";
-	  	TString digFile = "digi_complete.root";
-
-	  // Parameter file
-	    TString parFile = "simparams.root"; // at the moment you do not need it
-
-	    // Digitisation file (ascii)
-	    TString digiFile = "all.par";
+  if(prefix !=""){
+	  	// Parameter file
+	    TString parFile = prefix+"_simparams.root"; // at the moment you do not need it
 
 	    // Output file
-	    TString outFile = "reco_complete.root";
+	    TString outFile = prefix+"_reco_complete_sec.root";
+
+	    // Input Files
+	    TString InputSim = prefix+"_sim_complete.root";
+	    TString InputDigi = prefix+"_digi_complete.root";
 
 
   }
   else{
-
-	  TString inputFile = pre + "_sim_complete.root";
-	  TString digFile = pre + "_digi_complete.root";
-
-
 	  // Parameter file
-	    TString parFile = pre + "_simparams.root"; // at the moment you do not need it
+	  TString parFile = "simparams.root"; // at the moment you do not need it
 
-	    // Digitisation file (ascii)
-	    TString digiFile = "all.par";
 
-	    // Output file
-	    TString outFile = pre + "_reco_secondary.root";
+	  // Output file
+	  TString outFile = "reco_complete_sec.root";
 
+	  // Input Files
+	  TString InputSim = "sim_complete.root";
+	  TString InputDigi = "digi_complete.root";
   }
   
+  // Digitisation file (ascii)
+  TString digiFile = "all.par";
   
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
@@ -49,10 +44,10 @@ void reco_secondary_trackfinder(TString pre="")
   
   // -----   Reconstruction run   -------------------------------------------
   FairRunAna *fRun= new FairRunAna();
-  fRun->SetInputFile(inputFile);
-  fRun->AddFriend(digFile);
+  fRun->SetInputFile(InputSim);
+  fRun->AddFriend(InputDigi);
   fRun->SetOutputFile(outFile);
-  fRun->SetWriteRunInfoFile(kFALSE);
+  fRun->SetGenerateRunInfo(kFALSE);
   fRun->SetUseFairLinks(kTRUE);
   FairGeane *Geane = new FairGeane();
   fRun->AddTask(Geane);
@@ -85,25 +80,27 @@ void reco_secondary_trackfinder(TString pre="")
   tracking->SetPersistence(kFALSE);
   fRun->AddTask(tracking);
   
-  // Secondary track finder
-
-  PndTrkTrackFinder * secondary = new PndTrkTrackFinder();
-  fRun->AddTask(secondary);
-
   PndSttMvdGemTracking * SttMvdGemTracking = new PndSttMvdGemTracking(0);
   //SttMvdGemTracking->SetPdgFromMC();
   SttMvdGemTracking->SetPersistence(kFALSE);
   fRun->AddTask(SttMvdGemTracking);
   
-  PndMCTrackAssociator* trackMC = new PndMCTrackAssociator();
-  trackMC->SetTrackInBranchName("SttMvdGemTrack");
-  trackMC->SetTrackOutBranchName("SttMvdGemTrackID");
-  trackMC->SetPersistence(kFALSE);
-  fRun->AddTask(trackMC);
-
+  // ------------------------------------------------------------------------
+  // secondary track finder -------------------------------------------------
+  PndTrkTrackFinder *ltracking = new PndTrkTrackFinder(0);
+  //   ltracking->SwitchOnDisplay();
+  ltracking->SearchSecondaryTracks();
+  // ltracking->DeletePrimaryHits();
+  fRun->AddTask(ltracking);
+  
+  // ------------------------------------------------------------------------
+  // sum I and II track finder ----------------------------------------------
+  PndTrkAddTCA *add = new PndTrkAddTCA();
+  fRun->AddTask(add);
+  
   PndRecoKalmanTask* recoKalman = new PndRecoKalmanTask();
-  recoKalman->SetTrackInBranchName("SttMvdGemTrack");
-  recoKalman->SetTrackInIDBranchName("SttMvdGemTrackID");
+  recoKalman->SetTrackInBranchName("CombiTrack");
+  //recoKalman->SetTrackInIDBranchName("SttMvdGemTrackID");
   recoKalman->SetTrackOutBranchName("SttMvdGemGenTrack");
   recoKalman->SetBusyCut(50); // CHECK to be tuned
   //recoKalman->SetIdealHyp(kTRUE);

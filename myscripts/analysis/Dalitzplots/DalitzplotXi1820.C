@@ -29,7 +29,7 @@ void DalitzplotXi1820(){
 
 
 	//*** Data input
-	TString inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/output_ana.root";
+	TString inputFile = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/output_ana_new.root";
 	TFile * data = new TFile(inputFile, "READ");
 
 	TString outPath = "/home/ikp1/puetz/panda/mysimulations/analysis/cascade_1820_lambda0_K/branching/spin_3half/plots";
@@ -40,7 +40,7 @@ void DalitzplotXi1820(){
 	int nevents = sim->GetEntriesFast();
 
 
-	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,3.8,150,3.2,4.6);
+	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,3.8,150,3.2,4.8);
 	TH1D * h_lk = new TH1D("h_lk", "Dalitz plot for MC; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; counts", 150,2.5,3.8);
 	gStyle->SetOptStat(0);
 

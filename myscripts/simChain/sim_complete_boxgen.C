@@ -33,7 +33,7 @@ sim_complete_boxgen(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="",
   Double_t BeamMomentum = 0.; // beam momentum ONLY for the scaling of the dipole field.
   if (UseBoxGenerator)
   {
-    BeamMomentum   =15.0; // ** change HERE if you run Box generator
+    BeamMomentum   =mom; // ** change HERE if you run Box generator
   }
   else
   {
@@ -154,19 +154,13 @@ sim_complete_boxgen(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="",
   fRun->SetGenerator(primGen);
 	 
   if(UseBoxGenerator){	// Box Generator
-    FairBoxGenerator* boxGen = new FairBoxGenerator(13, 1); // 13 = muon; 1 = multipl.
-    boxGen->SetPRange(mom,mom); // GeV/c
+    FairBoxGenerator* boxGen = new FairBoxGenerator(-211, 1); // 13 = muon; 1 = multipl.
+    boxGen->SetPRange(0.1,0.7); // GeV/c
     boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-    boxGen->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
+    boxGen->SetThetaRange(6., 9.); // Polar angle in lab system range [degree]
     boxGen->SetXYZ(0., 0., 0.); // cm
     primGen->AddGenerator(boxGen);
 
-    FairBoxGenerator* boxgen2 = new FairBoxGenerator(-13, 1); // 13 = muon; 1 = multipl.
-	boxgen2->SetPRange(mom,mom); // GeV/c
-	boxgen2->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-	boxgen2->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
-	boxgen2->SetXYZ(0., 0., 0.); // cm
-	primGen->AddGenerator(boxgen2);
   }
   if(UseDpm){
     PndDpmDirect *Dpm= new PndDpmDirect(mom,1);
@@ -193,6 +187,9 @@ sim_complete_boxgen(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="",
   PndMultiField *fField= new PndMultiField("AUTO");
   fRun->SetField(fField);
   
+  //---------------------Store trajectory---------------------
+  fRun->SetStoreTraj(kTRUE);
+
   // EMC Hit producer
   //-------------------------------
   PndEmcHitProducer* emcHitProd = new PndEmcHitProducer();

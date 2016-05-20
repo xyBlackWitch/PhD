@@ -28,19 +28,22 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 	double nevents_ideal = MC_ideal->GetEntriesFast();
 	double nevents_real = MC_real->GetEntriesFast();
 
-	TString cut = "Mother==88888 & McTruthMatch==1 & ";
-	TString cut_real = "Mother==88888 & McTruthMatch==1";
+
+
+	TString cut = "McTruthMatch==1 & Mother==88888 &";
+	TString cut_real = "& McTruthMatch==1";
 
 
 	//Histograms
 	// ideal
 	TH1D * h_pim_ideal_tht = new TH1D("h_pim_ideal_tht", "tht", 200,0,3.5);
-	piminus_ideal->Project("h_pim_ideal_tht", "piminus_tht", cut+"piminus_HitTag==1");
+	piminus_ideal->Project("h_pim_ideal_tht", "piminus_tht", cut+"piminus_HitTag==1 ");
 	int pim_ideal = h_pim_ideal_tht->GetEntries();
 
 	TH1D * h_pip_ideal_tht = new TH1D("h_pip_ideal_tht", "tht", 200,0,3.5);
-	piplus_ideal->Project("h_pip_ideal_tht", "piplus_tht", cut+"piplus_HitTag==1");
+	piplus_ideal->Project("h_pip_ideal_tht", "piplus_tht", cut+"piplus_HitTag==1 ");
 	int pip_ideal = h_pip_ideal_tht->GetEntries();
+
 
 	TH1D * h_prot_ideal_tht = new TH1D("h_prot_ideal_tht", "tht", 200,0,3.5);
 	proton_ideal->Project("h_prot_ideal_tht", "proton_tht", "MC_Mother_PDG==88888 & proton_HitTag==1 & McTruthMatch==1");
@@ -61,7 +64,7 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 
 	//real
 	TH1D * h_pim_real_tht = new TH1D("h_pim_real_tht", "tht", 200,0,3.5);
-	piminus_real->Project("h_pim_real_tht", "piminus_tht", cut+"piminus_HitTag==1");
+	piminus_real->Project("h_pim_real_tht", "piminus_tht", cut+"piminus_HitTag==1 ");
 	double pim_real = h_pim_real_tht->GetEntries();
 
 	TH1D * h_pip_real_tht = new TH1D("h_pip_real_tht", "tht", 200,0,3.5);
@@ -81,7 +84,7 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 	double km_real = h_km_real_tht->GetEntries();
 
 	TH1D * h_kp_real_tht = new TH1D("h_kp_real_tht", "tht", 200,0,3.5);
-	kaonplus_real->Project("h_kp_real_tht", "kaonplus_tht", cut+"kaonplus_HitTag==1");
+	kaonplus_real->Project("h_kp_real_tht", "kaonplus_tht", cut+"kaonplus_HitTag==1 ");
 	double kp_real = h_kp_real_tht->GetEntries();
 
 	cout << "Particle" << "|" << " reco eff (ideal) [%]" << "|" << "reco eff (real) [%]"  << "|" << "difference [%]" << endl;
@@ -97,7 +100,7 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 
 
 	//plot for ideal
-	TH1D * h_reco_eff_ideal = new TH1D("h_reco_eff_ideal", "; particle type; efficiency", 6,0,6);
+	TH1D * h_reco_eff_ideal = new TH1D("h_reco_eff_ideal", "; particle type; efficiency", 5,0,5);
 
 	h_reco_eff_ideal->Fill("#pi^{-}", pim_ideal/nevents_ideal);
 	h_reco_eff_ideal->Fill("#pi^{+}", pip_ideal/nevents_ideal);
@@ -112,14 +115,14 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 	h_reco_eff_ideal->Draw();
 
 	//plot for real
-	TH1D * h_reco_eff_real = new TH1D("h_reco_eff_real", "; particle type; efficiency", 6,0,6);
+	TH1D * h_reco_eff_real = new TH1D("h_reco_eff_real", "; particle type; efficiency", 5,0,5);
 
 	h_reco_eff_real->Fill("#pi^{-}", pim_real/nevents_real);
 	h_reco_eff_real->Fill("#pi^{+}", pip_real/nevents_real);
 	h_reco_eff_real->Fill("p", prot_real/nevents_real);
 	h_reco_eff_real->Fill("#bar{p}", aprot_real/nevents_real);
 	h_reco_eff_real->Fill("K^{-}", km_real/nevents_real);
-	h_reco_eff_real->Fill("K^{+}", kp_real/nevents_real);
+//	h_reco_eff_real->Fill("K^{+}", kp_real/nevents_real);
 
 	h_reco_eff_real->GetYaxis()->SetRangeUser(0,1);
 	h_reco_eff_real->SetLineColor(kRed);
@@ -127,8 +130,8 @@ void comparison_PR(TString input_ideal = "", TString input_real=""){
 	h_reco_eff_real->Draw("SAME");
 
   	TLegend * legend = new TLegend(0.65,0.77,0.889,0.89, "");
-  	legend->AddEntry(h_reco_eff_ideal, "ideal PR", "l");
-  	legend->AddEntry(h_reco_eff_real, "real PR", "l");
+  	legend->AddEntry(h_reco_eff_ideal, "old trunk", "l");
+  	legend->AddEntry(h_reco_eff_real, "new trunk", "l");
   	legend->Draw();
 
   	c->Print("comparison.pdf");
