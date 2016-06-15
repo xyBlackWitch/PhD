@@ -44,3 +44,37 @@ This log file should be a documentation for the changes during my Phd thesis.
 31.03.:
 	simulation of pbar p -> Xi(1820) Anti-xi at 4.6 GeV/c with each 50.000 events for GenFit1 and GenFit2 and realistic pattern recognition
 
+04.04.:
+	run of 10k events pbar p -> Xi(1820) Anti-Xi @ 4.6 GeV/c (2 files with each 5000 evts) (test for rising prob)
+	sim of 20k events pbar p -> Xi(1820) Anti-Xi @ 4.6 GeV/c (4 files with each 5000 evts) 
+	simualtaion with trunk 28958 -> no changes
+
+05.04.:
+	PndKinVtxFitter: fDaughters->SetP7(pos,mom4) changed to fDaughters->SetP7(pos,p1)
+	same for 4C Fitter -> BugFix
+
+25.04.:
+	1.5 Mio evts pbar p -> Xi(1820) Anti-Xi @ 4.6 GeV/c in /hera/panda/data/Xi1820_lambda0_K with new trunk version
+
+26.04.:
+	simulation of 1.5 Mio evts pbar p -> Anti-Xi Lambda K- @ 4.6 GeV/c (trunk rev 28958)
+
+09.06.:
+	new installation on Kronos
+	PandaRoot trunk 28958
+	FairRoot v15-11d
+	FairSoft Nov15p1
+
+13.06.:
+	additional installation on local machine
+	FairRoot v15-11d
+	FairSoft Nov15p1
+
+14.06.:	
+	comparison vtxFit old & new trunk -> see presentation
+	start comparison ideal & realistic PID (MVD, STT, Barrel Dirc, Disc Dirc, EMC)
+
+15.06.:
+	comparison nov15 and mar15 -> no differences with trunk rev. 28958
+	trunk update rev. 28958 ->  (local machine)
+	
