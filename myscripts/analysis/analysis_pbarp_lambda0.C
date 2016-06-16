@@ -3,7 +3,7 @@ class PndAnaPidSelector;
 class RhoCandList;
 class RhoTuple;
 
-#include <map>
+//#include <map>
 
 /******************************************
  * Methods needed in the analysis task
@@ -131,98 +131,98 @@ void qaMomRes(TString pre, RhoCandidate * c, RhoTuple * n){
 
 }
 
-std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
-	  /** @brief  give back the order of the best chi2
-	   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative valuesfor bad chi2 )
-	   */
+//std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
+//	  /** @brief  give back the order of the best chi2
+//	   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative valuesfor bad chi2 )
+//	   */
+//
+//	  std::map<double, int> chi2_good, chi2_bad;
+//
+//	  for (int j=0; j<candList->GetLength(); ++j){
+//
+//		  PndKinVtxFitter vtxfitter(candList->Get(j));
+//		  vtxfitter.Fit();
+//
+//		  bool failedchi2 = TMath::IsNaN(vtxfitter.GetChi2());
+//		  bool failedprob = TMath::IsNaN(vtxfitter.GetProb());
+//
+//		  if(!failedchi2 && !failedprob){
+//
+//			  if (vtxfitter.GetProb() > probLimit){ //Prob > 0.01
+//				  chi2_good[vtxfitter.GetChi2()]=j;
+//			  }
+//			  else{ //Prob <= 0.01
+//				  chi2_bad[vtxfitter.GetChi2()]=j;
+//			  }
+//
+//		  }
+//	  }
+//
+//	  std::map<double, int>::iterator is_good, is_bad;
+//	  std::map<int, int> indexBestFit;
+//	  int running = 0;
+//
+//	  for (is_good = chi2_good.begin(); is_good != chi2_good.end(); is_good++, running++){
+//		   indexBestFit[is_good->second] = running + 1;
+//	  }
+//
+//	  running =0;
+//
+//	  for (is_bad = chi2_bad.begin(); is_bad != chi2_bad.end(); is_bad++, running++){
+//		  indexBestFit[is_bad->second] = - (running + 1);
+//	  }
+//
+//
+//	  return indexBestFit;
+//}
 
-	  std::map<double, int> chi2_good, chi2_bad;
-
-	  for (int j=0; j<candList->GetLength(); ++j){
-
-		  PndKinVtxFitter vtxfitter(candList->Get(j));
-		  vtxfitter.Fit();
-
-		  bool failedchi2 = TMath::IsNaN(vtxfitter.GetChi2());
-		  bool failedprob = TMath::IsNaN(vtxfitter.GetProb());
-
-		  if(!failedchi2 && !failedprob){
-
-			  if (vtxfitter.GetProb() > probLimit){ //Prob > 0.01
-				  chi2_good[vtxfitter.GetChi2()]=j;
-			  }
-			  else{ //Prob <= 0.01
-				  chi2_bad[vtxfitter.GetChi2()]=j;
-			  }
-
-		  }
-	  }
-
-	  std::map<double, int>::iterator is_good, is_bad;
-	  std::map<int, int> indexBestFit;
-	  int running = 0;
-
-	  for (is_good = chi2_good.begin(); is_good != chi2_good.end(); is_good++, running++){
-		   indexBestFit[is_good->second] = running + 1;
-	  }
-
-	  running =0;
-
-	  for (is_bad = chi2_bad.begin(); is_bad != chi2_bad.end(); is_bad++, running++){
-		  indexBestFit[is_bad->second] = - (running + 1);
-	  }
-
-
-	  return indexBestFit;
-}
-
-std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
-	  /** @brief  give back the order of the best chi2 for MassFit
-	   * @details give back the order of the best chi2 for the MassFit!  1 means best, 2: second best (analoge for bad chi2 with negative values)
-	   */
-
-	  if(m0==0) std::cout << "Mass is missing for mass fit" << std::endl;
-
-	  std::map<double, int> chi2_good, chi2_bad;
-
-	  for (int i=0; i<candList->GetLength(); i++){
-
-		  PndKinFitter massfitter(candList->Get(i));
-		  massfitter.AddMassConstraint(m0);
-		  massfitter.Fit();
-
-		  bool failedchi2 = TMath::IsNaN(massfitter.GetChi2());
-		  bool failedprob = TMath::IsNaN(massfitter.GetProb());
-
-		  if(!failedchi2 && !failedprob){
-
-			  if (massfitter.GetProb() > probLimit){
-				  chi2_good[massfitter.GetChi2()]=i;
-			  }
-			  else{
-				  chi2_bad[massfitter.GetChi2()]=i;
-			  }
-		  }
-	  }
-
-	  std::map<double,int>::iterator is_good, is_bad;
-	  std::map<int,int> bestMassFit;
-
-	  int run =0;
-
-	  for (is_good = chi2_good.begin(); is_good != chi2_good.end(); is_good++, run++){
-		  bestMassFit[is_good->second] = run + 1;
-	  }
-
-	  run = 0;
-
-	  for (is_bad = chi2_bad.begin(); is_bad != chi2_bad.end(); is_bad++, run++){
-		  bestMassFit[is_bad->second] = - (run + 1);
-	  }
-
-
-	  return bestMassFit;
-}
+//std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit=0.01){
+//	  /** @brief  give back the order of the best chi2 for MassFit
+//	   * @details give back the order of the best chi2 for the MassFit!  1 means best, 2: second best (analoge for bad chi2 with negative values)
+//	   */
+//
+//	  if(m0==0) std::cout << "Mass is missing for mass fit" << std::endl;
+//
+//	  std::map<double, int> chi2_good, chi2_bad;
+//
+//	  for (int i=0; i<candList->GetLength(); i++){
+//
+//		  PndKinFitter massfitter(candList->Get(i));
+//		  massfitter.AddMassConstraint(m0);
+//		  massfitter.Fit();
+//
+//		  bool failedchi2 = TMath::IsNaN(massfitter.GetChi2());
+//		  bool failedprob = TMath::IsNaN(massfitter.GetProb());
+//
+//		  if(!failedchi2 && !failedprob){
+//
+//			  if (massfitter.GetProb() > probLimit){
+//				  chi2_good[massfitter.GetChi2()]=i;
+//			  }
+//			  else{
+//				  chi2_bad[massfitter.GetChi2()]=i;
+//			  }
+//		  }
+//	  }
+//
+//	  std::map<doubl//e,int>::iterator is_good, is_bad;
+//	  std::map<int,int> bestMassFit;
+//
+//	  int run =0;
+//
+//	  for (is_good = chi2_good.begin(); is_good != chi2_good.end(); is_good++, run++){
+//		  bestMassFit[is_good->second] = run + 1;
+//	  }
+//
+//	  run = 0;
+//
+//	  for (is_bad = chi2_bad.begin(); is_bad != chi2_bad.end(); is_bad++, run++){
+//		  bestMassFit[is_bad->second] = - (run + 1);
+//	  }
+//
+//
+//	  return bestMassFit;
+//}
 
 
 
@@ -231,7 +231,7 @@ std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimi
  * The analysis part starts
  **********************************************/
 
-void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
+void analysis_pbarp_lambda0(double mom=1.712, int nevts=0, TString pre=""){
   
   TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
   
@@ -563,10 +563,10 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 	lambda0.Select(lambdaMassSelector);
     lambda0.SetType(3122);
 
-    //*****sort the candidates according to their fit information
-    std::map<int,int> bestVtxFit, bestMassFitLambda0;
-    bestVtxFit = VertexQaIndex(&lambda0);
-    bestMassFitLambda0 = MassFitQaIndex(&lambda0, m0_lambda0);
+//    //*****sort the candidates according to their fit information
+//    std::map<int,int> bestVtxFit, bestMassFitLambda0;
+//    bestVtxFit = VertexQaIndex(&lambda0);
+//    bestMassFitLambda0 = MassFitQaIndex(&lambda0, m0_lambda0);
 
 
 
@@ -619,7 +619,7 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 
 		//Get information about fit
 		qa.qaFitter("VtxFit_", &vertexfitterLambda0, ntpLambda0);
-		ntpLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFit[j]);
+//		ntpLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFit[j]);
 		qa.qaVtx("VtxFit_", lambda0Fit , ntpLambda0);
 		qa.qaCand("VtxFit_", lambda0Fit, ntpLambda0);
 		qa.qaP4("VtxFit_", lambda0Fit->P4(), ntpLambda0);
@@ -640,7 +640,7 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 		RhoCandidate * lambda0Fit_mass = lambda0Fit->GetFit();
 		qa.qaFitter("MassFit_", &massFitterLambda0, ntpLambda0);
 
-		ntpLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitLambda0[j]);
+//		ntpLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitLambda0[j]);
 
 		//Get MCTruth inforamtion
 		TLorentzVector l;
@@ -658,8 +658,9 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 		qa.qaP4("McTruth_", l, ntpLambda0);
 
 
-		//*** use for Xi only bestChi2Cand
-		if (bestVtxFit[j]==1 && bestMassFitLambda0[j]>0 && tag==1){
+
+//		if (bestVtxFit[j]==1 && bestMassFitLambda0[j]>0 && tag==1){ //*** use only bestChi2Cand
+		if(vertexfitterLambda0.GetProb()>0.01 && massFitterLambda0.GetProb()>0.01 /* && tag==1 */){ //*** use only candidates with prob>0.01 in both fitter
 		  Lambda0Fit.Append(lambda0Fit);
 		}
 
@@ -677,9 +678,10 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 	antiLambda0.Select(lambdaMassSelector);
     antiLambda0.SetType(-3122);
 
-    std::map<int,int> bestVtxFitAntiLambda0, bestMassFitAntiLambda0;
-    bestVtxFitAntiLambda0 = VertexQaIndex(&antiLambda0);
-    bestMassFitAntiLambda0 = MassFitQaIndex(&antiLambda0, m0_lambda0);
+//    //*****sort the candidates according to their fit information
+//    std::map<int,int> bestVtxFitAntiLambda0, bestMassFitAntiLambda0;
+//    bestVtxFitAntiLambda0 = VertexQaIndex(&antiLambda0);
+//    bestMassFitAntiLambda0 = MassFitQaIndex(&antiLambda0, m0_lambda0);
 
 
 
@@ -732,7 +734,7 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 
 		//Get information about fit
 		qa.qaFitter("VtxFit_", &vertexfitterAntiLambda0, ntpAntiLambda0);
-		ntpAntiLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFitAntiLambda0[j]);
+//		ntpAntiLambda0->Column("VtxFit_HowGood", (Int_t)  bestVtxFitAntiLambda0[j]);
 		qa.qaVtx("VtxFit_", antiLambda0Fit , ntpAntiLambda0);
 		qa.qaCand("VtxFit_", antiLambda0Fit, ntpAntiLambda0);
 		qa.qaP4("VtxFit_", antiLambda0Fit->P4(), ntpAntiLambda0);
@@ -753,7 +755,7 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 		RhoCandidate * lambda0Fit_mass = antiLambda0Fit->GetFit();
 		qa.qaFitter("MassFit_", &massFitterAntiLambda0, ntpAntiLambda0);
 
-		ntpAntiLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitAntiLambda0[j]);
+//		ntpAntiLambda0->Column("MassFit_HowGood", (Int_t) bestMassFitAntiLambda0[j]);
 
 
 		//Get MCTruth information
@@ -772,8 +774,9 @@ void analysis_pbarp_lambda0(double mom=1.712, int nevts=100, TString pre=""){
 		qa.qaP4("McTruth_", l, ntpAntiLambda0);
 
 
-		//*** use for Xi only bestChi2Cand
-		if (bestVtxFitAntiLambda0[j]==1 && bestMassFitAntiLambda0[j]>0 && tag==1){
+
+//		if (bestVtxFitAntiLambda0[j]==1 && bestMassFitAntiLambda0[j]>0 && tag==1){ //*** use only bestChi2Cand
+		if (vertexfitterAntiLambda0.GetProb()>0.01 &&  massFitterAntiLambda0.GetProb()>0.01 /* && tag==1 */){ //*** use only candidate with prob>0.01 in both fitter
 			AntiLambda0Fit.Append(antiLambda0Fit);
 		}
 
