@@ -96,6 +96,7 @@ void AnalysisTaskAntiXi1820::numberOfHitsInSubdetector(TString pre, RhoCandidate
 	 */
 
 	PndPidCandidate *pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+
 	if(pidCand){
 		n->Column(pre + "MvdHits", (Int_t) pidCand->GetMvdHits(), 0);
 		n->Column(pre + "SttHits", (Int_t) pidCand->GetSttHits(), 0);

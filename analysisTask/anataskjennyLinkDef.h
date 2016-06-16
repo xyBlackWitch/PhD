@@ -9,6 +9,8 @@
 #pragma link C++ class  AnalysisTaskAntiXi1820+;
 #pragma link C++ class  AnalysisTask+;
 #pragma link C++ class  AnalysisTaskLambda0+;
+#pragma link C++ class  AnalysisTaskXi1690+;
+#pragma link C++ class  AnalysisTaskXiPlusLambda0K+;
 
 
 

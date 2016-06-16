@@ -13,6 +13,7 @@ ${CMAKE_SOURCE_DIR}/PndTools/PndParticleFitters
 ${CMAKE_SOURCE_DIR}/AnalysisTask
 ${CMAKE_SOURCE_DIR}/pnddata
 ${CMAKE_SOURCE_DIR}/pnddata/PidData
+${CMAKE_SOURCE_DIR}/pnddata/TrackData
 )
 
 include_directories(${INCLUDE_DIRECTORIES})
@@ -28,6 +29,8 @@ AnalysisTask.cxx
 AnalysisTaskLambda0.cxx
 AnalysisTaskXi1820.cxx
 AnalysisTaskAntiXi1820.cxx
+AnalysisTaskXi1690.cxx
+AnalysisTaskXiPlusLambda0K.cxx
 )
 
 set(LINKDEF anataskjennyLinkDef.h)
