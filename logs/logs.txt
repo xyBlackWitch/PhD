@@ -76,5 +76,5 @@ This log file should be a documentation for the changes during my Phd thesis.
 
 15.06.:
 	comparison nov15 and mar15 -> no differences with trunk rev. 28958
-	trunk update rev. 28958 ->  (local machine)
+	trunk update rev. 28958 -> 29165  (local machine)
 	
