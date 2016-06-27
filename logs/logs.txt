@@ -78,3 +78,11 @@ This log file should be a documentation for the changes during my Phd thesis.
 	comparison nov15 and mar15 -> no differences with trunk rev. 28958
 	trunk update rev. 28958 -> 29165  (local machine)
 	
+22.06.:
+	100k evts DPM on Kronos -> Copied to DPM_new on local machine
+	comparison new macros with used macros -> New macro tasks causes strange prob distribution
+	
+27.06.:
+	reset befor Lambda0 and Xi is not working for cov matrices and pull distributions
+	changed AnalysisLambda0.C AnalysisTaskLambda0.cxx -> bug fix( number of events less than for macro)
+	
