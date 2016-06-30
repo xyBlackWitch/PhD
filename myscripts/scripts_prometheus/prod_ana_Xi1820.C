@@ -39,45 +39,39 @@ void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
 	//		firstfile=false;
 	//	}
   	//}
-  	
-	// *** PID table with selection thresholds; can be modified by the user
-	TString pidParFile = TString(gSystem->Getenv("VMCWORKDIR"))+"/macro/params/all.par";
-	
-	// *** initialization
-	FairLogger::GetLogger()->SetLogToFile(kFALSE);
-	FairRuntimeDb* rtdb = fRun->GetRuntimeDb();
-	
-	// *** setup parameter database 	
-	
-	FairParRootFileIo* parIO = new FairParRootFileIo();
-	parIO->open(inParFile);
-	FairParAsciiFileIo* parIOPid = new FairParAsciiFileIo();
-	parIOPid->open(pidParFile.Data(),"in");
-	
-	rtdb->setFirstInput(parIO);
-	rtdb->setSecondInput(parIOPid);
-	rtdb->setOutput(parIO);  
-	
-	
-	fRun->SetOutputFile(OutFile1);
-	
-	//---------------------Create and Set the Field(s)---------- 
-//  	PndMultiField *fField= new PndMultiField("FULL");
-//  	fRun->SetField(fField);
-	
-	//RhoCalculationTools::ForceConstantBz(20.0);
+	TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
 
-	// ***
-	// *** HERE YOUR ANALYSIS CODE GOES!
-	// ***
+
+	//Initialization
+	FairLogger::GetLogger()->SetLogToFile(kFALSE);
+	FairRunAna* RunAna = new FairRunAna();
+	FairRuntimeDb* rtdb = RunAna->GetRuntimeDb();
+	RunAna->SetInputFile(inPIDFile);
+
+
+	//setup parameter database
+	FairParRootFileIo* parIo = new FairParRootFileIo();
+	parIo->open(inParFile);
+	FairParAsciiFileIo* parIoPID = new FairParAsciiFileIo();
+	parIoPID->open(PIDParFile.Data(),"in");
+
+	rtdb->setFirstInput(parIo);
+	rtdb->setSecondInput(parIoPID);
+	rtdb->setOutput(parIo);
+
+	RunAna->AddFriend(RecoFile);
+	RunAna->SetOutputFile(OutputFile);
+
+
+	// *** HERE OUR TASK GOES!
 	AnalysisTaskXi1820 *anaTask = new AnalysisTaskXi1820();
-	anaTask->SetOutPutDir(OutFile2);
+	anaTask->SetOutPutDir(outPath);
 	anaTask->SetNEvents(nevts);
 	anaTask->SetMom(mom);
-	fRun->AddTask(anaTask);
+	RunAna->AddTask(anaTask);
 
-	fRun->Init();
-	fRun->Run(0.,1.);
+	RunAna->Init();
+	RunAna->Run(0.,1.);
 
 	
 }

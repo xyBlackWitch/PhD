@@ -1,10 +1,11 @@
 // Macro for running Panda reconstruction tasks
 // to run the macro:
 // root  reco_complete.C  or in root session root>.x  reco_complete.C
-void reco_complete(Int_t nEvents = 0)
+void reco_complete(TString  prefix = "evtcomplete", Int_t nEvents = 0)
 {
   //-----User Settings:------------------------------------------------------
   TString  parAsciiFile   = "all.par";
+//  TString  prefix         = "evtcomplete";
   TString  input          = "psi2s_Jpsi2pi_Jpsi_mumu.dec"; 
   TString  output         = "reco";
   TString  friend1        = "digi";
@@ -21,7 +22,7 @@ void reco_complete(Int_t nEvents = 0)
   fRun->SetFriend3(friend3);
   fRun->SetFriend4(friend4);
   fRun->SetParamAsciiFile(parAsciiFile);
-  fRun->Setup();
+  fRun->Setup(prefix);
   
   // -----   Add tasks   ----------------------------------------------------
   fRun->AddRecoTasks();
@@ -31,6 +32,4 @@ void reco_complete(Int_t nEvents = 0)
   fRun->Init();
   fRun->Run(0, nEvents);
   fRun->Finish();
-
-  exit(0);
 }

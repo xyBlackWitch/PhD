@@ -60,13 +60,18 @@ void comparison_PID(TString folder="", TString pre="output_ana", float nevts=100
 	float nloose = h->GetEntries();
 	h_eff->Fill("loose", nloose/nevts*100);
 
-	tightTree->Project("h", "XiSys_tht", cut);
-	float ntight = h->GetEntries();
+
+	TH1D * h_tight = new TH1D("h_tight", "tht", 100, 0, 10);
+	tightTree->Project("h_tight", "XiSys_tht", cut);
+	float ntight = h_tight->GetEntries();
 	h_eff->Fill("tight", ntight/nevts*100);
 
-	verytightTree->Project("h", "XiSys_tht", cut);
-	float nverytight = h->GetEntries();
+
+	TH1D * h_verytight = new TH1D("h_verytight", "tht", 100, 0, 10);
+	verytightTree->Project("h_verytight", "XiSys_tht", cut);
+	float nverytight = h_verytight->GetEntries();
 	h_eff->Fill("verytight", nverytight/nevts*100);
+
 
 	bestTree->Project("h", "XiSys_tht", cut);
 	float nbest = h->GetEntries();

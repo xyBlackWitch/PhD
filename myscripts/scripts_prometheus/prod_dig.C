@@ -18,6 +18,7 @@ void prod_dig(TString outpre="")
   // Output file
   TString outFile = outpre+"_dig.root";
   
+
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
   
@@ -25,9 +26,8 @@ void prod_dig(TString outpre="")
   FairRunAna *fRun= new FairRunAna();
   fRun->SetInputFile(inFile);
   fRun->SetOutputFile(outFile);
-  fRun->SetGenerateRunInfo(kFALSE);  
-  fRun->SetUseFairLinks(kTRUE); //added
-  
+  fRun->SetGenerateRunInfo(kFALSE);
+  fRun->SetUseFairLinks(kTRUE);
   // -----  Parameter database   --------------------------------------------
   TString allDigiFile = gSystem->Getenv("VMCWORKDIR");
   allDigiFile += "/macro/params/";
@@ -74,7 +74,7 @@ void prod_dig(TString outpre="")
   //fRun->AddTask(emcHdrFiller); // ECM header
 
   // -----   SciT hit producers   ---------------------------
-  PndSciTHitProducerIdeal* tofhit = new PndSciTHitProducerIdeal();
+  PndSciTDigiTask* tofhit = new PndSciTDigiTask();
   tofhit->SetVerbose(iVerbose);
   fRun->AddTask(tofhit);
 
@@ -128,5 +128,4 @@ void prod_dig(TString outpre="")
   cout << " Test passed" << endl;
   cout << " All ok " << endl;
 
-  //exit(0);
 }

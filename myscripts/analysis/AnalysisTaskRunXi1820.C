@@ -9,6 +9,7 @@ void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 		TString OutputFile = outPath + "analysis_output.root";
 
 		//Input simulation Files
+		TString RecoFile = Path + "reco_complete.root";
 		TString inPIDFile = Path + "pid_complete.root";
 		TString inParFile = Path + "simparams.root";
 	}
@@ -18,17 +19,20 @@ void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 		TString outPath = Path + "_";
 
 		//Input simulation Files
+		TString RecoFile = Path + "_reco_complete.root";
 		TString inPIDFile = Path + "_pid_complete.root";
 		TString inParFile = Path + "_simparams.root";
 	}
 
 	TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
 
+
 	//Initialization
 	FairLogger::GetLogger()->SetLogToFile(kFALSE);
 	FairRunAna* RunAna = new FairRunAna();
 	FairRuntimeDb* rtdb = RunAna->GetRuntimeDb();
 	RunAna->SetInputFile(inPIDFile);
+
 
 	//setup parameter database
 	FairParRootFileIo* parIo = new FairParRootFileIo();
@@ -40,8 +44,9 @@ void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 	rtdb->setSecondInput(parIoPID);
 	rtdb->setOutput(parIo);
 
-
+	RunAna->AddFriend(RecoFile);
 	RunAna->SetOutputFile(OutputFile);
+
 
 	// *** HERE OUR TASK GOES!
 	AnalysisTaskXi1820 *anaTask = new AnalysisTaskXi1820();
@@ -52,6 +57,4 @@ void AnalysisTaskRunXi1820(double mom=4.6, int nevts=0,  TString pre = ""){
 
 	RunAna->Init();
 	RunAna->Run(0.,1.);
-
-	exit(0);
 }

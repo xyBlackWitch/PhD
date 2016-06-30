@@ -1,10 +1,11 @@
 // Macro for running Panda digitization tasks
 // to run the macro:
 // root  digi_complete.C  or in root session root>.x  digi_complete.C
-void digi_complete(Int_t nEvents = 0)
+void digi_complete( TString  prefix = "evtcomplete",Int_t nEvents = 0)
 {
   //-----User Settings:------------------------------------------------------
   TString  parAsciiFile   = "all.par";
+//  TString  prefix         = "evtcomplete";
   TString  input          = "psi2s_Jpsi2pi_Jpsi_mumu.dec"; 
   TString  output         = "digi";
   TString  friend1        = "";
@@ -21,7 +22,7 @@ void digi_complete(Int_t nEvents = 0)
   fRun->SetFriend3(friend3);
   fRun->SetFriend4(friend4);
   fRun->SetParamAsciiFile(parAsciiFile);
-  fRun->Setup();
+  fRun->Setup(prefix);
 
   // -----   Add tasks   ----------------------------------------------------
   fRun->AddDigiTasks();
@@ -30,6 +31,4 @@ void digi_complete(Int_t nEvents = 0)
   fRun->Init();
   fRun->Run(0, nEvents);
   fRun->Finish();
- 
-  exit(0);
 }

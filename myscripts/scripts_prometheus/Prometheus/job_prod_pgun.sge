@@ -1,0 +1,86 @@
+#$ -wd /tmp
+#$ -j y
+#$ -o /hera/panda/jpuetz/data/fulljob.log
+
+cd $TMPDIR
+
+. "/hera/panda/jpuetz/pandaroot/trunk/build/config.sh"
+
+
+data="/hera/panda/jpuetz/myscripts"
+_target="/hera/panda/jpuetz/data"
+
+prefix=13
+nEvts=1000
+pdg=13
+mom=10.
+thtmin=0.
+thtmax=90.
+mult=1
+save=""
+
+
+if test "$1" != ""; then
+  prefix=$1
+fi
+
+if test "$2" != ""; then
+  nEvts=$2
+fi
+
+if test "$3" != ""; then
+  pdg=$3
+fi
+
+if test "$4" != ""; then
+  mom=$4
+fi
+
+if test "$5" != ""; then
+  thtmin=$5
+fi
+
+if test "$6" != ""; then
+  thtmax=$6
+fi
+
+if test "$7" != ""; then
+  mult=$7
+fi
+
+if test "$8" != ""; then
+  save=$8
+fi
+
+
+outprefix=$TMPDIR"/M"$prefix"_"$SGE_TASK_ID
+
+echo $TMPDIR
+root -l -q -b -w $data"/"prod_sim_pgun.C\(\"$outprefix\",$nEvts,$pdg,$mom,$thtmin,$thtmax,$mult\) &> $outprefix"_sim.log"
+root -l -b -q -w $data"/"prod_dig.C\(\"$outprefix\"\) &> $outprefix"_dig.log"
+root -l -b -q -w $data"/"prod_rec.C\(\"$outprefix\"\) &> $outprefix"_rec.log"
+root -l -b -q -w $data"/"prod_pid.C\(\"$outprefix\"\) &> $outprefix"_pid.log"
+root -l -b -q -w $data"/"prod_ana.C\(\"$outprefix\", $nEvts, $mom\)&> $outprefix"_ana.log"
+
+
+# Move the data to the persistent storage
+if test "$save" == "saveall"; then
+  cp -v $TMPDIR/M*root $_target 
+  cp -v $TMPDIR/M*log $_target 
+else
+  cp -v $TMPDIR/M*_pid.root $_target 
+  cp -v $TMPDIR/M*_pid.log $_target 
+  cp -v $TMPDIR/M*_par.root $_target 
+  cp -v $TMPDIR/M*_ana.root $_target 
+  cp -v $TMPDIR/M*_ana.log $_target 
+
+
+fi
+
+# Evacuate the log-file
+cp -v $SGE_STDOUT_PATH $_target/$JOB_ID.log
+
+# Clean up
+rm $TMPDIR/M*root
+rm $TMPDIR/M*log
+rm $TMPDIR/Fair*root

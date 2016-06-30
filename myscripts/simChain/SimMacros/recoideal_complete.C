@@ -1,4 +1,4 @@
-void recoideal_complete(TString pre = "")
+void recoideal_complete(TString pre="")
 {
   // Macro created 20/09/2006 by S.Spataro
   // It loads a simulation file and digitize hits for EMC
@@ -9,6 +9,7 @@ void recoideal_complete(TString pre = "")
   
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
+  
   
   if (pre!=""){
 	  TString simFile = pre+"_sim_complete.root";
@@ -35,7 +36,6 @@ void recoideal_complete(TString pre = "")
   fRun->AddFriend(digFile);
   fRun->SetOutputFile(outFile);
   fRun->SetGenerateRunInfo(kFALSE);
-  fRun->SetUseFairLinks(kTRUE);
   FairGeane *Geane = new FairGeane();
   fRun->AddTask(Geane);
 

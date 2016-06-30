@@ -8,17 +8,8 @@
 sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TString  SimEngine ="TGeant3")
 {
   //-----User Settings:-----------------------------------------------
-
-  if(pre == ""){
-	  TString  OutputFile		="sim_complete.root";
-	  TString  ParOutputfile  	="simparams.root";
-  }
-  else{
-	  TString  OutputFile 		= pre + "_sim_complete.root";
-	  TString  ParOutputfile  	=pre + "_simparams.root";
-  }
-
-
+  TString  OutputFile     =pre + "_sim_complete.root";
+  TString  ParOutputfile  =pre + "_simparams.root";
   TString  MediaFile      ="media_pnd.geo";
   gDebug                  = 0;
   TString digiFile        = "all.par"; //The emc run the hit producer directly
@@ -113,7 +104,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   fRun->AddModule(Emc);
   //-------------------------  SCITIL    -----------------
   FairDetector *SciT = new PndSciT("SCIT",kTRUE);
-  SciT->SetGeometryFileName("SciTil_201504.root");
+  SciT->SetGeometryFileName("SciTil_201601.root");
   fRun->AddModule(SciT);
   //-------------------------  DRC       -----------------
   PndDrc *Drc = new PndDrc("DIRC", kTRUE);
@@ -154,10 +145,10 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   fRun->SetGenerator(primGen);
 	 
   if(UseBoxGenerator){	// Box Generator
-    FairBoxGenerator* boxGen = new FairBoxGenerator(-3312, 1); // 13 = muon; 1 = multipl.
+    FairBoxGenerator* boxGen = new FairBoxGenerator(22, 5); // 13 = muon; 1 = multipl.
     boxGen->SetPRange(mom,mom); // GeV/c
     boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-    boxGen->SetThetaRange(0., 30.); // Polar angle in lab system range [degree]
+    boxGen->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
     boxGen->SetXYZ(0., 0., 0.); // cm
     primGen->AddGenerator(boxGen);
   }
@@ -175,9 +166,9 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   if(UseEvtGenDirect){
 //    TString  EvtInput =gSystem->Getenv("VMCWORKDIR");
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
-	  TString EvtInput="/home/ikp1/puetz/panda/myscripts/simChain/XiMinus_1820_lambda0_K.dec";
+	TString EvtInput="/home/ikp1/puetz/panda/myscripts/simChain/SimMacros/XiMinus_1820_lambda0_K.dec";
 //    PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
-	  PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
+	PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
     primGen->AddGenerator(EvtGen);
   }
@@ -185,9 +176,6 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   //---------------------Create and Set the Field(s)----------
   PndMultiField *fField= new PndMultiField("AUTO");
   fRun->SetField(fField);
-
-  //---------------------Store trajectory---------------------
-  fRun->SetStoreTraj(kTRUE);
   
   // EMC Hit producer
   //-------------------------------
@@ -209,7 +197,8 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
   cout << " Test passed" << endl;
   cout << " All ok " << endl;
   
-  exit(0);
+  //exit(0);
+//  return;
   
 };
 

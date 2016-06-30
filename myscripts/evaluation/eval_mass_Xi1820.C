@@ -28,7 +28,12 @@
 void eval_mass_Xi1820(TString path="", bool save=kTRUE, bool close=kFALSE){
 
 	//*** Input file
-	TString inFile = TString::Format("%s/output_ana.root", path.Data());
+	if(path==""){
+		TString inFile ="output_ana_new.root";
+	}
+	else{
+		TString inFile = TString::Format("%s/output_ana_new.root", path.Data());
+	}
 
 
 	//*** get Data from Tree

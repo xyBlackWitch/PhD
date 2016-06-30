@@ -7,7 +7,7 @@
 #SBATCH -J test
 
 # Run time limit
-#SBATCH --time=00:20:00
+#SBATCH --time=8:00:00
 
 # Working directory on shared storage
 #SBATCH -D /lustre/nyx/panda/jpuetz/data
@@ -78,6 +78,12 @@ root -l -b -q -w $scripts"/"prod_ana_Xi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $
 # Standard and error output in different files
 #SBATCH -o %j_%N.out.log
 #SBATCH -e %j_%N.err.log
+
+# tidy up
+rm  $outprefix"_sim.root"
+rm  $outprefix"_dig.root"
+rm  $outprefix"_dig.log"
+rm  $outprefix"_rec.log"
 
 # Execute application code
 hostname; uptime; sleep 30; uname -a

@@ -1,4 +1,4 @@
-void digi_complete(TString pre = "")
+void digi_complete(TString pre="")
 {
   // Macro created 20/09/2006 by S.Spataro
   // It loads a simulation file and digitize hits 
@@ -6,6 +6,7 @@ void digi_complete(TString pre = "")
   // Verbosity level (0=quiet, 1=event level, 2=track level, 3=debug)
   Int_t iVerbose = 0; // just forget about it, for the moment
   
+
   if (pre!=""){
 
 	TString inFile = pre+"_sim_complete.root";
@@ -19,7 +20,7 @@ void digi_complete(TString pre = "")
 	TString digiFile = "all.par";
 	TString outFile = "digi_complete.root";
   }
-
+  
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;
   
@@ -27,7 +28,7 @@ void digi_complete(TString pre = "")
   FairRunAna *fRun= new FairRunAna();
   fRun->SetInputFile(inFile);
   fRun->SetOutputFile(outFile);
-  fRun->SetWriteRunInfoFile(kFALSE);  
+  fRun->SetGenerateRunInfo(kFALSE);  
   fRun->SetUseFairLinks(kTRUE); 
   // -----  Parameter database   --------------------------------------------
   TString allDigiFile = gSystem->Getenv("VMCWORKDIR");
@@ -75,7 +76,7 @@ void digi_complete(TString pre = "")
   //fRun->AddTask(emcHdrFiller); // ECM header
 
   // -----   SciT hit producers   ---------------------------
-  PndSciTHitProducerIdeal* tofhit = new PndSciTHitProducerIdeal();
+  PndSciTDigiTask* tofhit = new PndSciTDigiTask();
   tofhit->SetVerbose(iVerbose);
   fRun->AddTask(tofhit);
 

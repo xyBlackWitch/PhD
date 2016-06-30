@@ -5,32 +5,9 @@
 // to run with different options:(e.g more events, different momentum, Geant4)
 // root  sim_complete.C"(100, "TGeant4",2)"
 
-prod_sim_ldd(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t mom = 0., TString Resonance="pbarpSystem" )
+prod_sim_ldd_pgun(TString outpre="", Int_t nEvents = 100, Int_t PdgType=22 , Float_t mom = 10., double thtmin=0., double thtmax=90., int mult = 1  )
 {
-	if (outpre=="" || Decfile=="" || mom==0.) 
-	{
-		cout << "USAGE:\n";
-		cout << "prod_sim.C+( <pref>,  <nevt>, <decfile>, <mom>, [res] )\n\n";
-		cout << "   <pref>     : output file names prefix\n";
-		cout << "   <nevt>     : number of events\n";
-		cout << "   <decfile>  : decfile; 'DPM' uses DPM generator instead\n";
-		cout << "   <mom>      : pbar momentum\n";
-		cout << "   [res]      : resonance (ignored when running DPM); default = 'pbarpSystem0'\n\n";
-		return;
-	}
 	
-	double mp = 0.938272;
-	
-	// if mom<0, it's -E_cm -> compute mom
-	if (mom<0)
-	{
-		double X = (mom*mom-2*mp*mp)/(2*mp);
-		mom = sqrt(X*X-mp*mp);
-	}
-	
-	// Allow shortcut for resonance
-	if (Resonance=="pbp")  Resonance = "pbarpSystem";
-	if (Resonance=="pbp0") Resonance = "pbarpSystem0";
 
   //-----User Settings:-----------------------------------------------
   TString  SimEngine      ="TGeant3";
@@ -42,7 +19,7 @@ prod_sim_ldd(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t
 
   TString  OutputFile     = outpre+"_sim.root";
   TString  ParOutputfile  = outpre+"_par.root";
-  Double_t BeamMomentum   = mom; // beam momentum ONLY for the scaling of the dipole field. For the generator use "mom"
+  Double_t BeamMomentum   = 15.0; // beam momentum ONLY for the scaling of the dipole field. For the generator use "mom"
   TString  MediaFile      = "media_pnd.geo";
   gDebug                  = 0;
   TString digiFile        = "all.par"; //The emc run the hit producer directly 
@@ -50,14 +27,14 @@ prod_sim_ldd(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t
   Bool_t UseEvtGen	      = kFALSE;
   Bool_t UseEvtGenDirect  = kFALSE;     
   Bool_t UseDpm 	      = kFALSE;
-  Bool_t UseBoxGenerator  = kFALSE;
+  Bool_t UseBoxGenerator  = kTRUE;
   
   
   // DPM or EvtGen?
-  if (Decfile=="DPM") UseDpm=kTRUE;
-  else UseEvtGenDirect=kTRUE;
+ // if (Decfile=="DPM") UseDpm=kTRUE;
+ // else UseEvtGenDirect=kTRUE;
 
-  if (!UseBoxGenerator) BeamMomentum = mom;
+  //if (!UseBoxGenerator) BeamMomentum = mom;
 
   //------------------------------------------------------------------
   TLorentzVector fIni(0, 0, mom, sqrt(mom*mom+9.3827203e-01*9.3827203e-01)+9.3827203e-01);  
@@ -65,7 +42,7 @@ prod_sim_ldd(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed(); 
+  gRandom->SetSeed(2704); 
 
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();
@@ -178,10 +155,10 @@ prod_sim_ldd(TString outpre="", Int_t nEvents = 100, TString Decfile="", Float_t
   fRun->SetGenerator(primGen);
   
   if(UseBoxGenerator){	// Box Generator
-     FairBoxGenerator* boxGen = new FairBoxGenerator(22, 5); // 13 = muon; 1 = multipl.
+     FairBoxGenerator* boxGen = new FairBoxGenerator(PdgType, mult); // 13 = muon; 1 = multipl.
      boxGen->SetPRange(mom,mom); // GeV/c
      boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-     boxGen->SetThetaRange(0., 90.); // Polar angle in lab system range [degree]
+     boxGen->SetThetaRange(thtmin, thtmax); // Polar angle in lab system range [degree]
      boxGen->SetXYZ(0., 0., 0.); // cm
      primGen->AddGenerator(boxGen);
   }

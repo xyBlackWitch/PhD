@@ -8,14 +8,12 @@ void pid_complete(TString pre="")
   
 	// Number of events to process
   Int_t nEvents = 0;  // if 0 all the vents will be processed
-  
+
   
   if (pre == ""){
 	  TString inputFile = "sim_complete.root";
 	  TString digFile = "digi_complete.root";
 	  TString recoFile = "reco_complete.root";
-
-
 
 	  // Parameter file
 	  TString parFile = "simparams.root"; // at the moment you do not need it
@@ -43,7 +41,6 @@ void pid_complete(TString pre="")
 	  // Output file
 	  TString outFile = pre + "_pid_complete.root";
   }
-
   
   // -----   Timer   --------------------------------------------------------
   TStopwatch timer;

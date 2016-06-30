@@ -132,15 +132,15 @@ void number_of_events_table(TString inFile=""){
 
 	//**** Proton
 	TH1D * h_proton_tht_uncut = new TH1D("h_proton_tht_uncut", "h_proton_tht", 100, 0,10);
-	ntpProton->Project("h_proton_tht_uncut", "proton_tht", "McTruthMatch && MC_Mother_PDG==3122");
+	ntpProton->Project("h_proton_tht_uncut", "proton_tht", "McTruthMatch && Mother==3122");
 	double proton_uncut =  h_proton_tht_uncut->GetEntries();
 
 	TH1D * h_proton_tht = new TH1D("h_proton_tht", "h_proton_tht", 100, 0,10);
-	ntpProton->Project("h_proton_tht", "proton_tht", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
+	ntpProton->Project("h_proton_tht", "proton_tht", "McTruthMatch && proton_HitTag && Mother==3122");
 	int proton =  h_proton_tht->GetEntries();
 
 	TH1D * h_proton_dp = new TH1D("h_proton_dp", "h_proton_dp", 250, -0.1,0.1);
-	ntpProton->Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "McTruthMatch && proton_HitTag && MC_Mother_PDG==3122");
+	ntpProton->Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "McTruthMatch && proton_HitTag && Mother==3122");
 
 //	Double_t paramProt[6] = jenny::GetFitParameterDoubleFit(h_proton_dp, false, 0.02,0.1, true);
 //	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_proton_dp, "","", false, false, false, 0.02,0.1, true);
@@ -183,10 +183,10 @@ void number_of_events_table(TString inFile=""){
 	double Lambda0_uncut =  h_Lambda0_tht_uncut->GetEntries();
 
 	TH1D * h_Lambda0_tht = new TH1D("h_Lambda0_tht", "h_Lambda0_tht", 100, 0,10);
-	ntpLambda0->Project("h_Lambda0_tht", "Lambda0_tht", "Lambda0_HitTag && "+cuts);
+	ntpLambda0->Project("h_Lambda0_tht", "Lambda0_tht", "HitTag && "+cuts);
 	int lambda0 =  h_Lambda0_tht->GetEntries();
 	TH1D * h_Lambda0_dp = new TH1D("h_Lambda0_dp", "h_Lambda0_dp", 250, -0.1,0.1);
-	ntpLambda0->Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "Lambda0_HitTag && "+cuts );
+	ntpLambda0->Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "HitTag && "+cuts );
 
 //	Double_t paraml0[6] = jenny::GetFitParameterDoubleFit(h_Lambda0_dp, false, 0.02,0.1, true);
 //	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_Lambda0_dp, "","", false, false, false, 0.02,0.1, true);
@@ -203,11 +203,11 @@ void number_of_events_table(TString inFile=""){
 	double antiLambda0_uncut =  h_antiLambda0_tht_uncut->GetEntries();
 
 	TH1D * h_antiLambda0_tht = new TH1D("h_antiLambda0_tht", "h_antiLambda0_tht", 100, 0,10);
-	ntpAntiLambda0->Project("h_antiLambda0_tht", "antiLambda0_tht", "antiLambda0_HitTag && "+cuts);
+	ntpAntiLambda0->Project("h_antiLambda0_tht", "antiLambda0_tht", "HitTag && "+cuts);
 	int AntiLambda0 =  h_antiLambda0_tht->GetEntries();
 
 	TH1D * h_antiLambda0_dp = new TH1D("h_antiLambda0_dp", "h_antiLambda0_dp", 250, -0.1,0.1);
-	ntpAntiLambda0->Project("h_antiLambda0_dp", "(antiLambda0_p-McTruth_p)/McTruth_p", "antiLambda0_HitTag && "+cuts);
+	ntpAntiLambda0->Project("h_antiLambda0_dp", "(antiLambda0_p-McTruth_p)/McTruth_p", "HitTag && "+cuts);
 
 //	Double_t paramAL0[6] = jenny::GetFitParameterDoubleFit(h_antiLambda0_dp, false, 0.02,0.1, true);
 //	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_antiLambda0_dp, "","", false, false, false, 0.02,0.1, true);

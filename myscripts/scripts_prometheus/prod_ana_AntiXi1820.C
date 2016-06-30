@@ -10,7 +10,7 @@
 //	return fileok;
 //}
 
-void prod_ana_lambda0(TString outpre="M9999", int nevts=0, double mom=4.6)
+void prod_ana_AntiXi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
 {
 	TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
 
@@ -70,7 +70,7 @@ void prod_ana_lambda0(TString outpre="M9999", int nevts=0, double mom=4.6)
 	// ***
 	// *** HERE YOUR ANALYSIS CODE GOES!
 	// ***
-	AnalysisTaskLambda0 *anaTask = new AnalysisTaskLambda0();
+	AnalysisTaskAntiXi1820 *anaTask = new AnalysisTaskAntiXi1820();
 	anaTask->SetOutPutDir(OutFile2);
 	anaTask->SetNEvents(nevts);
 	anaTask->SetMom(mom);

@@ -5,7 +5,7 @@
 // to run with different options:(e.g more events, different momentum, Geant4)
 // root  sim_complete.C"(100, "TGeant4",2)"
 
-prod_sim_pgun(TString outpre="", Int_t nEvents = 100, int PdgType=13, Float_t mom = 10., int mult = 1 )
+prod_sim_pgun(TString outpre="", Int_t nEvents = 100, int PdgType=13, Float_t mom = 10., double thtmin=0., double thtmax=90., int mult = 1 )
 {
   //-----User Settings:-----------------------------------------------
   TString  SimEngine      ="TGeant3";
@@ -31,7 +31,7 @@ prod_sim_pgun(TString outpre="", Int_t nEvents = 100, int PdgType=13, Float_t mo
   //------------------------------------------------------------------
   TStopwatch timer;
   timer.Start();
-  gRandom->SetSeed(); 
+  gRandom->SetSeed(2704); 
 
   // Create the Simulation run manager--------------------------------
   FairRunSim *fRun = new FairRunSim();
@@ -141,7 +141,7 @@ prod_sim_pgun(TString outpre="", Int_t nEvents = 100, int PdgType=13, Float_t mo
      FairBoxGenerator* boxGen = new FairBoxGenerator(PdgType, mult); // 13 = muon; 1 = multipl.
      boxGen->SetPRange(mom,mom); // GeV/c
      boxGen->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-     boxGen->SetThetaRange(0., 30.); // Polar angle in lab system range [degree]
+     boxGen->SetThetaRange(thtmin, thtmax); // Polar angle in lab system range [degree]
      //boxGen->SetCosTheta();
 	 boxGen->SetXYZ(0., 0., 0.); // cm
      primGen->AddGenerator(boxGen);
@@ -164,7 +164,8 @@ prod_sim_pgun(TString outpre="", Int_t nEvents = 100, int PdgType=13, Float_t mo
   //-------------------------------
   PndEmcHitProducer* emcHitProd = new PndEmcHitProducer();
   fRun->AddTask(emcHitProd);
-  
+ 
+ fRun->SetStoreTraj(kTRUE);
  //-------------------------  Initialize the RUN  -----------------  
   fRun->Init();
  //-------------------------  Run the Simulation  -----------------   

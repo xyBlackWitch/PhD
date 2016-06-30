@@ -29,8 +29,7 @@ void prod_pid(TString outpre="")
   fRun->AddFriend(outpre+"_rec.root");
   fRun->SetOutputFile(outFile);
   fRun->SetGenerateRunInfo(kFALSE);
-  fRun->SetUseFairLinks(kTRUE); //added
-
+  fRun->SetUseFairLinks(kTRUE);
   FairGeane *Geane = new FairGeane();
   fRun->AddTask(Geane);
 
@@ -59,8 +58,11 @@ void prod_pid(TString outpre="")
   corr->SetInputIDBranch2("FtsIdealGenTrackID");
   //corr->SetDebugMode(kTRUE);
   //corr->SetFast(kTRUE);
-  //corr->SetBackPropagate(kFALSE);
+  corr->SetBackPropagate(kFALSE);
   fRun->AddTask(corr);
+
+  PndPidBremCorrector *bremCorr = new PndPidBremCorrector();
+  fRun->AddTask(bremCorr);
 
   PndMcCloner *clone = new PndMcCloner();
   fRun->AddTask(clone);
