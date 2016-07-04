@@ -85,4 +85,18 @@ This log file should be a documentation for the changes during my Phd thesis.
 27.06.:
 	reset befor Lambda0 and Xi is not working for cov matrices and pull distributions
 	changed AnalysisLambda0.C AnalysisTaskLambda0.cxx -> bug fix( number of events less than for macro)
+
+29.06.:
+	macros from /macro/master cause strange propability distributions for vertex fitter (SOLVED! Caused bei turning on back propagation)
+	
+30.06.:
+	trunk revision update on kronos rev 28958 -> rev. 29165
+	simulation with 500k events for pbar p -> Xi1820 anti-Xi @ 4.6 GeV/c (named XiMinus1820_run1)
+	
+01.07.:
+	simulation with 500k events for pbar p -> Xi1820 anti-Xi @ 4.6 GeV/c (named XiMinus1820_run2)
+	simulation with 500k events for pbar p -> Xi1820 anti-Xi @ 4.6 GeV/c (named XiMinus1820_run3)
+
+04.07.:
+	DPM simulation 10 million events @ 4.6 GeV/c (named DPM_run1)
 	
