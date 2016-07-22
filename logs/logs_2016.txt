@@ -1,6 +1,5 @@
 This log file should be a documentation for the changes during my Phd thesis.
 
-2016:
 
 15.02.: 
 	 background.tex in folder ReleaseNote:
@@ -100,3 +99,18 @@ This log file should be a documentation for the changes during my Phd thesis.
 04.07.:
 	DPM simulation 10 million events @ 4.6 GeV/c (named DPM_run1)
 	
+12.07.:
+	simulation of 2x 10k events @ 4.6 GeV/c for pbar p -> anti-Xi1820 Xi on local machine
+
+13.07.:
+	simulation of 2x 10k events @ 4.6 GeV/c for pbar p -> anti-Xi1820 Xi on local machine
+
+21.07.:
+	simulation of 500x 1k events for pbar p -> anti-Xi1820 Xi @ 4.6 GeV/c on kronos (named run1)
+	simulation of 5k x 2k events for DPM @ 4.6 GeV/c on kronos (named run2)
+
+22.07.:
+	generated 500k events with simpleEvtGen for pbar p -> Xi(1690) anti-Xi and Xi(1820) anti-Xi with BR=0.5 each
+	@ 4.6 GeV/c saved in ~/panda/myscripts/simChain/EvtGen/XiMinus_1820_1690.root
+	generated 1.5 Mio events for pbar p-> Xi(1690) anti-Xi @ 4.1 GeV/c with simpleEvtGen
+	saved in ~/panda/myscripts/simChain/EvtGen/XiMinus_1690_1500000_events.root
