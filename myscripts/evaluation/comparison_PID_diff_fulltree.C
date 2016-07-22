@@ -61,7 +61,7 @@ void comparison_PID_diff_fulltree(TString input_list = ""){
 		//***Histograms
 
 		TH1D * h_sys = new TH1D("h_sys", "tht", 200,0,10);
-		ntpSys->Project("h_sys", "XiSys_tht", "4CFit_prob>0.01");
+		ntpSys->Project("h_sys", "XiSys_tht", "4CFit_prob>0.01 & McTruthMatch");
 		double sys = h_sys->GetEntries();
 
 
@@ -76,8 +76,8 @@ void comparison_PID_diff_fulltree(TString input_list = ""){
 	h_fulltree->GetYaxis()->SetRangeUser(0,3);
 	h_fulltree->Draw("PL");
 
-//	c->Print("comparison_PID_fulltree.pdf");
-//	c->Print("comparison_PID_fulltree.png");
-//	c->Print("comparison_PID_fulltree.root");
+	c->Print("comparison_PID_fulltree.pdf");
+	c->Print("comparison_PID_fulltree.png");
+	c->Print("comparison_PID_fulltree.root");
 
 }

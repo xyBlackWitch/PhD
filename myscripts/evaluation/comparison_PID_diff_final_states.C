@@ -119,7 +119,8 @@ void comparison_PID_diff_final_states(TString input_list = ""){
 		cout << "PID selection: " << pid << endl;
 		cout << "Particle" << "|" << " reco eff (ideal) [%]" << endl;
 		cout << "PiMinus"  << "|" << pim/nevents*100 << endl;
-		cout << "PiPlus"  << "|" << (pip+pip2)/2/nevents*100 << endl;
+		cout << "PiPlus(ala)"  << "|" << pip/nevents*100 << endl;
+		cout << "PiPlus(aXi)"  << "|" << pip2/nevents*100 << endl;
 		cout << "Proton"  << "|" << prot/nevents*100 << endl;
 		cout << "Antiproton"  << "|" << aprot/nevents*100 << endl;
 		cout << "KMinus"  << "|" << km/nevents*100 << endl;
@@ -151,9 +152,9 @@ void comparison_PID_diff_final_states(TString input_list = ""){
 	legend->Draw();
 
 
-
-  	c->Print("comparison_PID_FS.pdf");
-	c->Print("comparison_PID_FS.png");
-	c->Print("comparison_PID_FS.root");
+//
+//  	c->Print("comparison_PID_FS.pdf");
+//	c->Print("comparison_PID_FS.png");
+//	c->Print("comparison_PID_FS.root");
 
 }

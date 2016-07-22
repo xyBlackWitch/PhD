@@ -26,18 +26,18 @@ void DalitzplotXi1820_EvtGen(){
 
 
 	//*** Data input
-	TString inputFile ="/home/ikp1/puetz/panda/myscripts/simChain/EvtGen/evtOutput.root";
+	TString inputFile ="/home/ikp1/puetz/panda/myscripts/simChain/EvtGen/XiMinus_1690_1500000_events.root";
 	TFile * data = new TFile(inputFile, "READ");
 
 	TString outPath = "/home/ikp1/puetz/panda/myscripts/simChain/EvtGen/";
-	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave28.root", "RECREATE");
+	TFile * out = new TFile(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Xi1690.root", "RECREATE");
 
 
 	TTree * sim = (TTree*) data->Get("ntp");
 	int nevents = sim->GetEntriesFast();
 
 
-	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot for Partwave28 model; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.5,3.8,150,3.2,4.6);
+	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}; m^{2}(#bar{#Xi}, K^{-})/GeV^{2}/c^{4}", 150,2.7,3.3,150,3.2,4.1);
 //	TH2D * dalitz_Xilk = new TH2D("dalitz_Xilk", "Dalitz plot; m^{2}(#bar{#Xi}, #Lambda^{0})/GeV^{2}/c^{4}; m^{2}(#Lambda^{0},K^{-})/GeV^{2}/c^{4}",200,5.8,7.3, 200,3.2,3.8);
 	TH1D * massXi = new TH1D("mass", "Mass distribution of #Xi(1820)^{-}; m/GeV/c^{2}; counts", 150, 1.61, 1.94);
 
@@ -82,8 +82,8 @@ void DalitzplotXi1820_EvtGen(){
 
 
 		dalitz_Xilk->Fill(PlaK.M2(),PXiK.M2());
-		mass->Fill(lXi1820.M());
-		massXi->Fill(lXi.M());
+//		mass->Fill(lXi1820.M());
+//		massXi->Fill(lXi.M());
 
 	}
 
@@ -94,24 +94,24 @@ void DalitzplotXi1820_EvtGen(){
 	out->Save();
 
 
-	TCanvas * c_mass = new TCanvas("c_mass", "Mass distribution Partwave28 model", 0,0,1000,900);
+//	TCanvas * c_mass = new TCanvas("c_mass", "Mass distribution Xi1690 model", 0,0,1000,900);
 //	c->Divide(2,1);
 
 //	c->cd(1);
-	mass->Draw();
+//	mass->Draw();
 
-//	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Partwave28.pdf");
-//	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Partwave28.png");
+//	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Xi1690.pdf");
+//	c_mass->Print(outPath+"Massdist_pbarsys_simpleEvtGen_Xi1820_Xi1690.png");
 
-	TCanvas * c = new TCanvas("c", "Dalitz plot Partwave28 model", 0,0,1000,900);
+	TCanvas * c = new TCanvas("c", "Dalitz plot", 0,0,1500,800);
 //	c->cd(2);
-	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
+//	dalitz_Xilk->GetZaxis()->SetRangeUser(0,40);
 	dalitz_Xilk->Draw("COLZ");
 
 	//****write histograms
 
-//	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave28.pdf");
-	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Partwave28.png");
+	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Xi1690.pdf");
+	c->Print(outPath+"Dalitzplots_pbarsys_simpleEvtGen_Xi1820_Xi1690.png");
 
 
 }

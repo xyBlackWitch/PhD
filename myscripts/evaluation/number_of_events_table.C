@@ -37,7 +37,7 @@ void number_of_events_table(TString inFile=""){
 
 	double nevents_mc = ntpMC->GetEntriesFast();
 	TString cuts = " McTruthMatch && VtxFit_HowGood==1 && MassFit_prob>0.01";
-	TString VtxCut = " McTruthMatch && VtxFit_HowGood==1";
+	TString VtxCut = " McTruthMatch && VtxFit_HowGood==1 & HitTag==1";
 	TString cut4c = "McTruthMatch && 4CFit_prob>0.01";
 
 
@@ -62,7 +62,7 @@ void number_of_events_table(TString inFile=""){
 	double ratio_piminus_cut = piminus/piminus_uncut;
 	double ratio_piminus_mc = piminus/nevents_mc;
 
-	cout << "PiMinus|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << endl; //[2]*100 << endl;
+	cout << "PiMinus|   " <<  piminus_uncut << "|   " <<  piminus << "(" << ratio_piminus_cut*100 << ")|   " << ratio_piminus_mc*100 << endl; //param[2]*100 << endl;
 
 
 	//**** PiPlus (AntiLambda0)
@@ -178,7 +178,7 @@ void number_of_events_table(TString inFile=""){
 
 	//**** lambda0
 	TH1D * h_Lambda0_tht_uncut = new TH1D("h_Lambda0_tht_uncut", "h_Lambda0_tht", 100, 0,10);
-	ntpLambda0->Project("h_Lambda0_tht_uncut", "Lambda0_tht", "McTruthMatch");
+	ntpLambda0->Project("h_Lambda0_tht_uncut", "Lambda0_tht", "McTruthMatch & HitTag");
 	h_Lambda0_tht_uncut->Draw();
 	double Lambda0_uncut =  h_Lambda0_tht_uncut->GetEntries();
 
@@ -199,7 +199,7 @@ void number_of_events_table(TString inFile=""){
 
 	//**** AntiLambda0
 	TH1D * h_antiLambda0_tht_uncut = new TH1D("h_antiLambda0_tht_uncut", "h_antiLambda0_tht", 100, 0,10);
-	ntpAntiLambda0->Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "McTruthMatch");
+	ntpAntiLambda0->Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "McTruthMatch & HitTag");
 	double antiLambda0_uncut =  h_antiLambda0_tht_uncut->GetEntries();
 
 	TH1D * h_antiLambda0_tht = new TH1D("h_antiLambda0_tht", "h_antiLambda0_tht", 100, 0,10);
@@ -221,7 +221,7 @@ void number_of_events_table(TString inFile=""){
 
 	//**** XiPlus
 	TH1D * h_xiplus_tht_uncut = new TH1D("h_xiplus_tht_uncut", "h_xiplus_tht", 100, 0,10);
-	ntpXiPlus->Project("h_xiplus_tht_uncut", "xiplus_tht", "McTruthMatch");
+	ntpXiPlus->Project("h_xiplus_tht_uncut", "xiplus_tht", "McTruthMatch & HitTag");
 	double xiplus_uncut =  h_xiplus_tht_uncut->GetEntries();
 
 	TH1D * h_xiplus_tht = new TH1D("h_xiplus_tht", "h_xiplus_tht", 100, 0,10);
@@ -242,7 +242,7 @@ void number_of_events_table(TString inFile=""){
 
 	//**** XiMinus1820
 	TH1D * h_XiMinus_tht_uncut = new TH1D("h_XiMinus_tht_uncut", "h_XiMinus_tht", 100, 0,10);
-	ntpXiMinus1820->Project("h_XiMinus_tht_uncut", "XiMinus_tht", "McTruthMatch");
+	ntpXiMinus1820->Project("h_XiMinus_tht_uncut", "XiMinus_tht", "McTruthMatch & HitTag");
 	double XiMinus_uncut =  h_XiMinus_tht_uncut->GetEntries();
 
 	TH1D * h_XiMinus_tht = new TH1D("h_XiMinus_tht", "h_XiMinus_tht", 100, 0,10);
@@ -284,21 +284,21 @@ void number_of_events_table(TString inFile=""){
 	cout << "XiSys|   " <<  XiSys_uncut << "|   " <<  XiSys << "(" << ratio_XiSys_cut*100 << ")|   " << ratio_XiSys_mc*100 << endl; //xisys[2]*100 << endl;
 
 
-//	setPandaStyle();
-//
-//	TCanvas *c = new TCanvas("c","c", 0,0, 800,500);
-//
-//	TH1D * reco = new TH1D("reco", "fraction of reconstructed final state particles; particle type; reco efficiency in %", 5,0,5);
-//	reco->Fill("#pi^{-}", ratio_piminus_mc*100);
-//	reco->Fill("#pi^{+}", (ratio_piplus_mc+ratio_piplus2_mc)/2*100);
-//	reco->Fill("K^{-}", ratio_kaonMinus_mc*100);
-//	reco->Fill("p", ratio_proton_mc*100);
-//	reco->Fill("#bar{p}", ratio_AntiProton_mc*100);
-//
-//
-//	reco->GetYaxis()->SetRangeUser(0,100);
-//	reco->Draw();
-//	PandaSmartLabel("Lprel");
+	setPandaStyle();
+
+	TCanvas *c = new TCanvas("c","c", 0,0, 800,500);
+
+	TH1D * reco = new TH1D("reco", "fraction of reconstructed final state particles; particle type; reco efficiency in %", 5,0,5);
+	reco->Fill("#pi^{-}", ratio_piminus_mc*100);
+	reco->Fill("#pi^{+}", (ratio_piplus_mc+ratio_piplus2_mc)/2*100);
+	reco->Fill("K^{-}", ratio_kaonMinus_mc*100);
+	reco->Fill("p", ratio_proton_mc*100);
+	reco->Fill("#bar{p}", ratio_AntiProton_mc*100);
+
+
+	reco->GetYaxis()->SetRangeUser(0,100);
+	reco->Draw();
+	PandaSmartLabel("Lprel");
 
 
 }

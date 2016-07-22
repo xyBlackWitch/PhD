@@ -14,12 +14,12 @@ void AnalysisTaskRunAntiXi1820(double mom=2.7, int nevts=0,  TString pre = ""){
 	}
 	else{
 		TString Path = pre;
-		TString outPath = Path;
-		TString OutputFile = Path + "analysis_output.root";
+		TString OutputFile = Path + "_analysis_output.root";
+		TString outPath = Path + "_";
 
 		//Input simulation Files
-		TString inPIDFile = Path + "pid_complete.root";
-		TString inParFile = Path + "simparams.root";
+		TString inPIDFile = Path + "_pid_complete.root";
+		TString inParFile = Path + "_simparams.root";
 	}
 
 	TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";

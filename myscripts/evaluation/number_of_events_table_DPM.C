@@ -205,15 +205,15 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** lambda0
 	TH1D * h_Lambda0_tht_uncut = new TH1D("h_Lambda0_tht_uncut", "h_Lambda0_tht", 100, 0,10);
-	ntpLambda0.Project("h_Lambda0_tht_uncut", "Lambda0_tht", "");
+	ntpLambda0.Project("h_Lambda0_tht_uncut", "Lambda0_tht", "HitTag");
 	double Lambda0_uncut =  h_Lambda0_tht_uncut->GetEntries();
 
 	TH1D * h_Lambda0_tht = new TH1D("h_Lambda0_tht", "h_Lambda0_tht", 100, 0,10);
-	ntpLambda0.Project("h_Lambda0_tht", "Lambda0_tht", "Lambda0_HitTag && "+cuts);
+	ntpLambda0.Project("h_Lambda0_tht", "Lambda0_tht", "HitTag && "+cuts);
 	int lambda0 =  h_Lambda0_tht->GetEntries();
 
 	TH1D * h_Lambda0_dp = new TH1D("h_Lambda0_dp", "h_Lambda0_dp", 250, -0.1,0.1);
-	ntpLambda0.Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "Lambda0_HitTag && "+cuts );
+	ntpLambda0.Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "HitTag && "+cuts );
 
 	//Double_t paraml0[6] = jenny::GetFitParameterDoubleFit(h_Lambda0_dp, false, 0.02,0.1, true);
 
@@ -225,15 +225,15 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** AntiLambda0
 	TH1D * h_antiLambda0_tht_uncut = new TH1D("h_antiLambda0_tht_uncut", "h_antiLambda0_tht", 100, 0,10);
-	ntpAntiLambda0.Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "");
+	ntpAntiLambda0.Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "HitTag");
 	double antiLambda0_uncut =  h_antiLambda0_tht_uncut->GetEntries();
 
 	TH1D * h_antiLambda0_tht = new TH1D("h_antiLambda0_tht", "h_antiLambda0_tht", 100, 0,10);
-	ntpAntiLambda0.Project("h_antiLambda0_tht", "antiLambda0_tht", "antiLambda0_HitTag && "+cuts);
+	ntpAntiLambda0.Project("h_antiLambda0_tht", "antiLambda0_tht", "HitTag && "+cuts);
 	int AntiLambda0 =  h_antiLambda0_tht->GetEntries();
 
 	TH1D * h_antiLambda0_dp = new TH1D("h_antiLambda0_dp", "h_antiLambda0_dp", 250, -0.1,0.1);
-	ntpAntiLambda0.Project("h_antiLambda0_dp", "(antiLambda0_p-McTruth_p)/McTruth_p", "antiLambda0_HitTag && "+cuts);
+	ntpAntiLambda0.Project("h_antiLambda0_dp", "(antiLambda0_p-McTruth_p)/McTruth_p", "HitTag && "+cuts);
 
 	//Double_t paramAL0[6] = jenny::GetFitParameterDoubleFit(h_antiLambda0_dp, false, 0.02,0.1, true);
 
@@ -245,7 +245,7 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** XiPlus
 	TH1D * h_xiplus_tht_uncut = new TH1D("h_xiplus_tht_uncut", "h_xiplus_tht", 100, 0,10);
-	ntpXiPlus.Project("h_xiplus_tht_uncut", "xiplus_tht", "");
+	ntpXiPlus.Project("h_xiplus_tht_uncut", "xiplus_tht", "HitTag");
 	double xiplus_uncut =  h_xiplus_tht_uncut->GetEntries();
 
 	TH1D * h_xiplus_tht = new TH1D("h_xiplus_tht", "h_xiplus_tht", 100, 0,10);
@@ -267,7 +267,7 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** XiMinus1820
 	TH1D * h_XiMinus_tht_uncut = new TH1D("h_XiMinus_tht_uncut", "h_XiMinus_tht", 100, 0,10);
-	ntpXiMinus1820.Project("h_XiMinus_tht_uncut", "XiMinus_tht", "");
+	ntpXiMinus1820.Project("h_XiMinus_tht_uncut", "XiMinus_tht", "HitTag");
 	double XiMinus_uncut =  h_XiMinus_tht_uncut->GetEntries();
 
 	TH1D * h_XiMinus_tht = new TH1D("h_XiMinus_tht", "h_XiMinus_tht", 100, 0,10);
