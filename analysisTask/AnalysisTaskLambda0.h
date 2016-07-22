@@ -59,9 +59,15 @@ class AnalysisTaskLambda0 : public FairTask
 //		enum pidNumbers;
 
 
+		void CombinedList(RhoCandidate *cand, RhoCandList *combinedList, int pdg);
+		void GetNotCombinedList(RhoCandList combinedList, RhoCandList * candList);
+
 		void numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTuple *n);
 		void tagNHits(TString pre, RhoCandidate *c, RhoTuple *n);
 		int tagHits(RhoCandidate *c);
+		int trackBranch(RhoCandidate *c);
+		void TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoTuple *n);
+		void TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoCandidate *d2, RhoTuple *n);
 
 		std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit);
 		std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit);
