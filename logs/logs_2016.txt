@@ -114,3 +114,6 @@ This log file should be a documentation for the changes during my Phd thesis.
 	@ 4.6 GeV/c saved in ~/panda/myscripts/simChain/EvtGen/XiMinus_1820_1690.root
 	generated 1.5 Mio events for pbar p-> Xi(1690) anti-Xi @ 4.1 GeV/c with simpleEvtGen
 	saved in ~/panda/myscripts/simChain/EvtGen/XiMinus_1690_1500000_events.root
+	
+25.07.:
+	simualtion on local machine: 2x 10k events (run24&25) pbar p -> Anti-Xi(1820) Xi @ 4.6 GeV/c
