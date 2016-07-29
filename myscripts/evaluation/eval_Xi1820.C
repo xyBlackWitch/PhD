@@ -73,7 +73,7 @@ void eval_Xi1820(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_m_mc = new TH1D("h_xi_m_mc", "Mass distribution for #Xi^{-}(1820) to MC truth; (M_{#Xi*}-M_{PDG}) [GeV/c^{2}]; counts", 500,-50,50);
 		ntpXiMinus1820->Project("h_xi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m_mc, prefix+"/plots/", "XiMinus1820_m_masscut", save, close);
+		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xi_m_mc, prefix+"/plots/", "XiMinus1820_m_masscut_diff_mc", save, close);
 
 
 		TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi^{-}(1820); x-x_{MC} [mm]; counts", 500,-2,2);
@@ -134,7 +134,7 @@ void eval_Xi1820(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 		jenny::CreateDrawAndSaveHistogramVoigtFit(h_axi_m, prefix+"/plots/", "XiPlus1820_m_masscut", save, close, 1.75, 1.87);
 
 		TH1D * h_axi_m_mc = new TH1D("h_axi_m_mc", "Mass distribution for #bar{#Xi}^{+}(1820) to MC truth; (M_{#bar{#Xi}*}-M_{PDG}) [GeV/c^{2}]; counts", 500,-50,50);
-		ntpXiMinus1820->Project("h_axi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);
+		ntpXiPlus1820->Project("h_axi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);
 		jenny::CreateDrawAndSaveHistogramDoulbeFit(h_axi_m_mc, prefix+"/plots/", "XiPlus1820_m_masscut", save, close);
 
 		TH1D * h_axi_vtxres_x = new TH1D("h_axi_vtxres_x", "resolution for x coordinate of vertex for #bar{#Xi}^{+}(1820); x-x_{MC} [mm]; counts", 500,-1,1);
