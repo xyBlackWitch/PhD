@@ -4,7 +4,7 @@
 
 cd $TMPDIR
 
-. "/hera/panda/jpuetz/pandaroot/trunk/build/config.sh"
+. "/hera/panda/jpuetz/pandaroot/trunk28555/build/config.sh"
 
 hera="/hera/panda/jpuetz/myscripts"
 _target="/hera/panda/jpuetz/data"
@@ -55,7 +55,7 @@ root -l -q -b -w $hera"/"prod_sim.C\(\"$outprefix\",$nEvts,\"$dec\",$mom,\"$res\
 root -l -b -q -w $hera"/"prod_dig.C\(\"$outprefix\"\) &> $outprefix"_dig.log"
 root -l -b -q -w $hera"/"prod_ideal_rec.C\(\"$outprefix\"\) &> $outprefix"_rec.log"
 root -l -b -q -w $hera"/"prod_pid.C\(\"$outprefix\"\) &> $outprefix"_pid.log"
-root -l -b -q -w $hera"/"prod_ana_Xi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
+#root -l -b -q -w $hera"/"prod_ana_Xi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
 
 # Move the data to the persistent storage
 if test "$save" == "saveall"; then

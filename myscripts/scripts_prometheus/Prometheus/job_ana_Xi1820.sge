@@ -7,7 +7,7 @@ cd $TMPDIR
 . "/hera/panda/jpuetz/pandaroot/trunk/build/config.sh"
 
 data="/hera/panda/jpuetz/myscripts"
-_target="/hera/panda/jpuetz/data/XiMinus1820_Lambda0_K/spin_3half"
+_target="/hera/panda/jpuetz/data"
 
 prefix=13
 nevts=0

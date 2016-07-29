@@ -10,7 +10,7 @@
 //	return fileok;
 //}
 
-void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
+void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.1)
 {
 	TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
 
@@ -18,6 +18,7 @@ void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
  	TString OutFile1   = TString::Format("%s_ana.root",outpre.Data()); 
  	TString OutFile2   = TString::Format("%s_",outpre.Data()); 
 	TString inParFile = TString::Format("%s_par.root",outpre.Data());
+	TString RecoFile = TString::Format("%s_rec.root",outpre.Data());
 	
   	FairRunAna *fRun= new FairRunAna();
   
@@ -39,39 +40,45 @@ void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
 	//		firstfile=false;
 	//	}
   	//}
-	TString PIDParFile = TString( gSystem->Getenv("VMCWORKDIR")) + "/macro/params/all.par";
 
+	// *** PID table with selection thresholds; can be modified by the user
+	TString pidParFile = TString(gSystem->Getenv("VMCWORKDIR"))+"/macro/params/all.par";
 
-	//Initialization
+	// *** initialization
 	FairLogger::GetLogger()->SetLogToFile(kFALSE);
-	FairRunAna* RunAna = new FairRunAna();
-	FairRuntimeDb* rtdb = RunAna->GetRuntimeDb();
-	RunAna->SetInputFile(inPIDFile);
+	FairRuntimeDb* rtdb = fRun->GetRuntimeDb();
 
+	// *** setup parameter database
 
-	//setup parameter database
-	FairParRootFileIo* parIo = new FairParRootFileIo();
-	parIo->open(inParFile);
-	FairParAsciiFileIo* parIoPID = new FairParAsciiFileIo();
-	parIoPID->open(PIDParFile.Data(),"in");
+	FairParRootFileIo* parIO = new FairParRootFileIo();
+	parIO->open(inParFile);
+	FairParAsciiFileIo* parIOPid = new FairParAsciiFileIo();
+	parIOPid->open(pidParFile.Data(),"in");
 
-	rtdb->setFirstInput(parIo);
-	rtdb->setSecondInput(parIoPID);
-	rtdb->setOutput(parIo);
+	rtdb->setFirstInput(parIO);
+	rtdb->setSecondInput(parIOPid);
+	rtdb->setOutput(parIO);
 
-	RunAna->AddFriend(RecoFile);
-	RunAna->SetOutputFile(OutputFile);
+	fRun->AddFriend(RecoFile);
+	fRun->SetOutputFile(OutFile1);
 
+	//---------------------Create and Set the Field(s)----------
+//  	PndMultiField *fField= new PndMultiField("FULL");
+//  	fRun->SetField(fField);
 
-	// *** HERE OUR TASK GOES!
+	//RhoCalculationTools::ForceConstantBz(20.0);
+
+	// ***
+	// *** HERE YOUR ANALYSIS CODE GOES!
+	// ***
 	AnalysisTaskXi1820 *anaTask = new AnalysisTaskXi1820();
-	anaTask->SetOutPutDir(outPath);
+	anaTask->SetOutPutDir(OutFile2);
 	anaTask->SetNEvents(nevts);
 	anaTask->SetMom(mom);
-	RunAna->AddTask(anaTask);
+	fRun->AddTask(anaTask);
 
-	RunAna->Init();
-	RunAna->Run(0.,1.);
+	fRun->Init();
+	fRun->Run(0.,1.);
 
 	
 }

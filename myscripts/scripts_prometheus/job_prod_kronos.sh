@@ -3,11 +3,14 @@
 # start pandaroot software
 . "/lustre/nyx/panda/jpuetz/pandaroot/trunk/build/config.sh"
 
+#SBATCH --get-user-env
+
+
 # Task name
-#SBATCH -J test
+#SBATCH -J XiPlus1820_run1 
 
 # Run time limit
-#SBATCH --time=8:00:00
+#SBATCH --time=4:00:00
 
 # Working directory on shared storage
 #SBATCH -D /lustre/nyx/panda/jpuetz/data
@@ -26,9 +29,14 @@ save=""
 sig=1
 
 
+tmpdir="/tmp/"$USER"_"$SLURM_JOB_ID"/"
+mkdir $tmpdir
+
+_target="/lustre/nyx/panda/jpuetz/data/"
+
 # Parameters set by user
 if test "$1" != ""; then
-  prefix=$1
+  prefix=$tmpdir$1
 fi
 
 if test "$2" != ""; then
@@ -72,7 +80,16 @@ root -l -q -b -w $scripts"/"prod_sim.C\(\"$outprefix\",$nEvts,\"$dec\",$mom,\"$r
 root -l -b -q -w $scripts"/"prod_dig.C\(\"$outprefix\"\) &> $outprefix"_dig.log"
 root -l -b -q -w $scripts"/"prod_ideal_rec.C\(\"$outprefix\"\) &> $outprefix"_rec.log"
 root -l -b -q -w $scripts"/"prod_pid.C\(\"$outprefix\"\) &> $outprefix"_pid.log"
-root -l -b -q -w $scripts"/"prod_ana_Xi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
+root -l -b -q -w $scripts"/"prod_ana_AntiXi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
+
+NUMEV=`grep 'Generated Events' $outprefix"_sim.log"`
+echo $NUMEV >> $outprefix"_pid.log"
+   
+cp  $outprefix"_par.root" $_target
+cp  $outprefix"_pid.log" $_target
+cp  $outprefix"_rec.root" $_target
+cp  $outprefix"_pid.root" $_target
+cp  $outprefix"_sim.log" $_target
 
 
 # Standard and error output in different files
@@ -80,10 +97,13 @@ root -l -b -q -w $scripts"/"prod_ana_Xi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $
 #SBATCH -e %j_%N.err.log
 
 # tidy up
+rm  $outprefix"_par.root"
+rm  $outprefix"_sim.log"
+rm  $outprefix"_pid.log"
 rm  $outprefix"_sim.root"
+rm  $outprefix"_pid.root"
 rm  $outprefix"_dig.root"
 rm  $outprefix"_dig.log"
-rm  $outprefix"_rec.log"
 
 # Execute application code
 hostname; uptime; sleep 30; uname -a
