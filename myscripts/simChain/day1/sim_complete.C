@@ -13,6 +13,8 @@ void sim_complete(Int_t nEvents = 100, TString  inputGenerator ="psi2s_Jpsi2pi_J
   // EvtGen -> "xxxxxxxx.dec"
   // DPM    -> "dpm_xxxxx"
   // FTF    -> "ftf_xxxxx"
+  // BoxGen -> "box:type(211,1):p(1):tht(10,120)"
+
   // TString  inputGenerator = "psi2s_Jpsi2pi_Jpsi_mumu.dec";
 //  TString  inputDir = gSystem->Getenv("VMCWORKDIR");
 //  inputDir += "/macro/qa/day1/";

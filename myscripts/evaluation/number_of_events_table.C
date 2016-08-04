@@ -21,6 +21,7 @@ void number_of_events_table(TString inFile=""){
 	//*** In file
 
 	TFile * input = new TFile(inFile, "READ");
+	TFile * histOutput = new TFile("reco_eff.root", "RECREATE");
 
 	TTree * ntpMC = (TTree*) input->Get("ntpMC");
 	TTree * ntpPiMinus = (TTree*) input->Get("ntpPiMinus");
@@ -299,6 +300,8 @@ void number_of_events_table(TString inFile=""){
 	reco->GetYaxis()->SetRangeUser(0,100);
 	reco->Draw();
 	PandaSmartLabel("Lprel");
+
+	reco->Write();
 
 
 }
