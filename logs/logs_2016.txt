@@ -117,3 +117,35 @@ This log file should be a documentation for the changes during my Phd thesis.
 	
 25.07.:
 	simualtion on local machine: 2x 10k events (run24&25) pbar p -> Anti-Xi(1820) Xi @ 4.6 GeV/c
+	
+27.07.:
+	simulation of 500 x 1k evts pbar p -> Xi(1820) anti-Xi @ 4.6 GeV/c
+	
+28.07.:
+	new DPM run2 simulation @ 4.6 GeV/c
+	Reco Ideal task written for trunk revision 29165
+	Reco Ideal task written for trunk revision 29346
+	
+29.07.:
+	DPM run3 simulation 5000 x 2k evts @ 4.6 GeV/c
+	test simulation for Xi(1690) anti-Xi @ 4.1 GeV/c
+	
+02.08.:
+	simulation of 500 x 1k evts for Xi(1690) anti-Xi @ 4.1 GeV/c on kronos
+	simulation of 10k evts Xi(1820) anti-Xi @ 4.6 GeV/c Day1 + GEM
+	changes for Task for Xi(1690) analysis
+	add Tast for anti-Xi(1690) analysis
+	simulation of 5000 x 2k evts for DPM @ 4.6 GeV/c on kronos run3
+	
+03.08.:
+	boxgen simulation of 10k evts day1 + GEM pi+ and pi- with p=[0.1, 0.7] GeV/c and tht=[0,60]Deg (local)
+	boxgen simulation of 10k evts day1 + GEM K+ and K- with p=[0.2, 2.0] GeV/c and tht=[0,50]Deg (local)
+	boxgen simulation of 10k evts day1 + GEM p and pbar with p=[0.3, 2.7] GeV/c and tht=[0,30]Deg (local)
+	
+	boxgen simulation of 10k evts day1 pi+ and pi- with p=[0.1, 0.7] GeV/c and tht=[0,60]Deg (local)
+	boxgen simulation of 10k evts day1 K+ and K- with p=[0.2, 2.0] GeV/c and tht=[0,50]Deg (local)
+	
+04.08.:
+	boxgen simulation of 10k evts day1 p and pbar with p=[0.3, 2.7] GeV/c and tht=[0,30]Deg (local)
+	simulation of 500 x 1k evts for pbar p -> Xi(1690) anti-Xi @ 4.1 GeV/c (run2 on kronos)
+	
