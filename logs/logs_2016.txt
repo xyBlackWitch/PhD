@@ -148,4 +148,22 @@ This log file should be a documentation for the changes during my Phd thesis.
 04.08.:
 	boxgen simulation of 10k evts day1 p and pbar with p=[0.3, 2.7] GeV/c and tht=[0,30]Deg (local)
 	simulation of 500 x 1k evts for pbar p -> Xi(1690) anti-Xi @ 4.1 GeV/c (run2 on kronos)
+
+08.08.:
+	simulation on kronos: pbar p -> Xi(1690) anti-Xi @ 4.1 GeV/c (run2)
+	simulation on kronos: DPM (run4) @ 4.6GeV/c 2k x 5k events
+
+11.08.:
+	simulation on kronos: DPM(run5) @ 4.6 GeV/c 2k x 5k events
+
+12.08.:
+	simulation on kronos: DPM(run6) @ 4.6 GeV/c 2k x 5k events
+
+15.08.:
+	new simulation on kronos: DPM(run6) @ 4.6 GeV/c 2k x 5k events	(Reason: downtime of nyx)
+
+17.08.:
+	simulation on kronos: pbar p-> anti-Xi(1690) Xi @ 4.1 GeV/c (run1) 500 x 1k events
+	simulation on local machine: pbar p -> pi- pi+ K- K+ p pbar with boxgenerator. Angles and momenta 
+	are corresponding to range for final state particles in pbar p -> Xi(1690) anti-Xi
 	
