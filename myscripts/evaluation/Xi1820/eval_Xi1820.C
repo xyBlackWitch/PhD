@@ -69,7 +69,7 @@ void eval_Xi1820(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_m = new TH1D("h_xi_m", "Mass distribution for #Xi^{-}(1820) with vertex cut and mass cut; M [GeV/c^{2}]; counts", 500,1.7,2);
 		ntpXiMinus1820->Project("h_xi_m", "VtxFit_m", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramVoigtFit(h_xi_m, prefix+"/plots/", "XiMinus1820_m_masscut", save, close, 1.75, 1.87);
+		jenny::CreateDrawAndSaveHistogramVoigtFit(h_xi_m, prefix+"/plots/", "XiMinus1820_m_masscut", save, close, 1.75, 1.87, 1.832, 0.024);
 
 		TH1D * h_xi_m_mc = new TH1D("h_xi_m_mc", "Mass distribution for #Xi^{-}(1820) to MC truth; (M_{#Xi*}-M_{PDG}) [GeV/c^{2}]; counts", 500,-50,50);
 		ntpXiMinus1820->Project("h_xi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);

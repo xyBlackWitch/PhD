@@ -10,7 +10,7 @@
 //	return fileok;
 //}
 
-void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.1)
+void prod_ana_Xi1820(TString outpre="M9999", int nevts=0, double mom=4.6)
 {
 	TDatabasePDG::Instance()-> AddParticle("pbarpSystem","pbarpSystem", 1.9, kFALSE, 0.1, 0,"", 88888);
 

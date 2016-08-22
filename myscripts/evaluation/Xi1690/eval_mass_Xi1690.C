@@ -22,7 +22,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "../../common_jenny.cpp"
 
 
 void eval_mass_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE, TString path=""){
@@ -31,10 +31,10 @@ void eval_mass_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE, TSt
 
 	//*** Input file
 	if(prefix==""){
-		TString inFile ="output_ana_new.root";
+		TString inFile ="output_ana.root";
 	}
 	else{
-		TString inFile = TString::Format("%s", prefix.Data());
+		TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
 	}
 
 
@@ -58,7 +58,7 @@ void eval_mass_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE, TSt
 		ntpXiMinus1690->Project("h_xi_m_vtxcut", "VtxFit_m", "McTruthMatch "+vtxcut);
 
 
-		TF1 * fitfunc = jenny::GetVoigtFitMC(h_xi_m_vtxcut, 1.67, 1.93);
+		TF1 * fitfunc = jenny::GetVoigtFitMC(h_xi_m_vtxcut, 1.67, 1.93, 1.690, 0.03);
 
 
 

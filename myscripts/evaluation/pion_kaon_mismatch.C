@@ -1,186 +1,87 @@
-#include <fstream>
-#include <iostream>
-#include "/home/ikp1/puetz/panda/PandaSoftware/pandaroot/trunk/source/macro/setPandaStyle.C"
+
+void pion_kaon_mismatch(TString input=""){
 
 
-void mycolor(int colornumber, TH1* &hist){
+	//*** input file
 
-	hist->SetLineColor(kBlack);
+	TFile * inFile = new TFile(input, "READ");
 
-	if(colornumber==0) {
-		hist->SetFillColor(kYellow);
-		hist->SetFillStyle(1001);
-	}
-	else if (colornumber==1) {
-		hist->SetFillColor(kBlue);
-		hist->SetFillStyle(3004);
-	}
-	else if (colornumber==2) {
-		hist->SetFillStyle(3001);
-		hist->SetFillColor(kRed);
-	}
-	else if (colornumber==3) {
-		hist->SetFillStyle(1001);
-		hist->SetFillColor(kGreen);
-	}
-	else if (colornumber==4) {
-		hist->SetFillStyle(1001);
-		hist->SetFillColor(kViolet);
-	}
-	else cout << "no color match!" << endl;
+	//*** Get data from Tree
+	TTree * ntpPiMinus = (TTree*) inFile->Get("ntpPiMinus");
+	TTree * ntpPiPlus = (TTree*)  inFile->Get("ntpPiPlus");
+	TTree * ntpKaonMinus = (TTree*)  inFile->Get("ntpKaonMinus");
+	TTree * ntpKaonPlus = (TTree*)  inFile->Get("ntpKaonPlus");
+
+
+	//*** create histograms to get particle numbers
+	TH1D * h_pim = new TH1D("h_pim", "theta distribution; #theta [rad]; counts", 100,0,20);
+	TH1D * h_pip = new TH1D("h_pip", "theta distribution; #theta [rad]; counts", 100,0,20);
+	TH1D * h_kminus = new TH1D("h_kminus", "theta distribution; #theta [rad]; counts", 100,0,20);
+	TH1D * h_kplus = new TH1D("h_kplus", "theta distribution; #theta [rad]; counts", 100,0,20);
 
 
 
-}
+	//*** piminus
+	ntpPiMinus->Project("h_pim", "piminus_tht", "piminus_HitTag==1");
+	float nall_pim = h_pim->GetEntries();
 
-void unwrap(TString &name, int secondeunderscore=false){
+	ntpPiMinus->Project("h_pim", "piminus_tht", "piminus_HitTag==1 & piminus_MC_pdg==-321");
+	float nkm_pim = h_pim->GetEntries();
 
-	//**remove the file ending
-	int end = name.First(".");
-	name.Remove(end);
+	ntpPiMinus->Project("h_pim", "piminus_tht", "piminus_HitTag==1 & piminus_MC_pdg==321");
+	float nkp_pim = h_pim->GetEntries();
 
-	//**remove prefix
-	int underscore = name.First("_");
-	name.Remove(0,underscore+1);
+	float rate_pim = (nkm_pim + nkp_pim)/nall_pim;
 
-	//** check if file name has second underscore und remove it
-	if(secondeunderscore){
-		int secunder = name.First("_");
-		name.Remove(0,secunder+1);
-	}
-
-}
+	cout << "#pi^{-}: N(all)" << nall_pim << " N(kminus): " << nkm_pim << " N(kplus): " << nkp_pim << " ratio pion kaon mismatch [%]: " << 100*rate_pim << endl;
 
 
-void pion_kaon_mismatch(TString input_list = "", TString particle="piminus"){
+	//*** piplus
+	ntpPiPlus->Project("h_pip", "piplus_tht", "piplus_HitTag==1");
+	float nall_pip = h_pip->GetEntries();
 
-	//*** check if input list is empty
-	if(input_list==""){
-			cout << "Please insert txt-file name" << endl;
-		}
+	ntpPiPlus->Project("h_pip", "piplus_tht", "piplus_HitTag==1 & piplus_MC_pdg==-321");
+	float nkm_pip = h_pip->GetEntries();
 
-		std::ifstream filelist(input_list);
+	ntpPiPlus->Project("h_pip", "piplus_tht", "piplus_HitTag==1 & piplus_MC_pdg==321");
+	float nkp_pip = h_pip->GetEntries();
 
-		if (!filelist.is_open()){
-			cerr << "failed in open." << endl;
-			exit();
-		}
+	float rate_pip = (nkm_pip + nkp_pip)/nall_pip;
 
-		char line[10000];
-		TString ntp;
-		TString sign;
+	cout << "#pi^{+}: N(all)" << nall_pip << " N(kminus): " << nkm_pip << " N(kplus): " << nkp_pip << " ratio pion kaon mismatch [%]: " << 100*rate_pip << endl;
 
 
 
-		//***Create Canvas and Histogram
-		setPandaStyle();
-		TCanvas * c = new TCanvas("c", "pion kaon mismatch",0,0,1600,1000);
-		TLegend * legend = new TLegend(0.68,0.84,0.999,0.96, "");
+	//*** kaonminus
+	ntpKaonMinus->Project("h_kminus", "kaonminus_tht", "kaonminus_HitTag==1");
+	float nall_kminus = h_kminus->GetEntries();
 
-		TString title = TString::Format("%s; PID selector; counts", particle.Data());
-		TH1D * h_all = new TH1D("h_all", title, 5,0,5);
-		TH1D * h_kaon = new TH1D("h_kaon", title, 5,0,5);
-		TH1D * h_other = new TH1D("h_other", "", 5,0,5);
+	ntpKaonMinus->Project("h_kminus", "kaonminus_tht", "kaonminus_HitTag==1 & kaonminus_MC_pdg==-211");
+	float nkm_kminus = h_kminus->GetEntries();
 
-		//*** Which particle is chosen?
-		if(particle=="piminus"){
-			ntp="ntpPiMinus";
-			sign="-";
-		}
-		else if (particle=="piplus"){
-			ntp="ntpPiPlus";
-			sign="";
-		}
-		else if (particle=="kaonminus"){
-			ntp="ntpKaonMinus";
-			sign="-";
-		}
-		else if (particle=="kaonplus"){
-			ntp="ntpKaonPlus";
-			sign="";
-		}
-		else{
-			cout << "Please insert a valid particle! (piminus, piplus, kaonminus or kaonplus)" << endl;
-		}
 
-		while (!filelist.eof()){
+	ntpKaonMinus->Project("h_kminus", "kaonminus_tht", "kaonminus_HitTag==1 & kaonminus_MC_pdg==211");
+	float nkp_kminus = h_kminus->GetEntries();
 
-			filelist.getline(line, sizeof(line));
-			if (strcmp(line, "") == 0) continue;
+	float rate_kminus = (nkm_kminus + nkp_kminus)/nall_kminus;
 
-			TString pid(line);
-			unwrap(pid,true);
-
-			if(pid=="idealPID") continue;
-
-			TFile * file = new TFile(line, "READ");
-
-			//** Get Data
-			TTree * data = (TTree*) file->Get(ntp);
-
-			if (particle=="piminus" || particle=="piplus"){
-				TString cut_all = TString::Format("%s_HitTag==1", particle.Data());
-				TString cut_kaon = TString::Format("%s_HitTag==1 & %s_MC_pdg==%s321", particle.Data(), particle.Data(),sign.Data());
-				TString cut_other = TString::Format("%s_HitTag==1 & %s_MC_pdg!=%s321 & %s_MC_pdg!=%s211", particle.Data(), particle.Data(),sign.Data(), particle.Data(), sign.Data());
-			}
-			else{
-				TString cut_all = TString::Format("%s_HitTag==1", particle.Data());
-				TString cut_kaon = TString::Format("%s_HitTag==1 & %s_MC_pdg==%s211", particle.Data(), particle.Data(),sign.Data());
-				TString cut_other = TString::Format("%s_HitTag==1 & %s_MC_pdg!=%s321 & %s_MC_pdg!=%s211", particle.Data(), particle.Data(),sign.Data(), particle.Data(), sign.Data());
-
-			}
-
-			TH1D * h_tht_all = new TH1D("h_tht_all", "", 200,0,10);
-			data->Project("h_tht_all", particle+"_tht", cut_all);
-			int n_all = h_tht_all->GetEntries();
-
-			TH1D * h_tht_kaon = new TH1D("h_tht_kaon", "", 200,0,10);
-			data->Project("h_tht_kaon", particle+"_tht", cut_kaon);
-			int n_kaon = h_tht_kaon->GetEntries();
-
-			TH1D * h_tht_other = new TH1D("h_tht_other", "", 200,0,10);
-			data->Project("h_tht_other", particle+"_tht", cut_other);
-			int n_other = h_tht_other->GetEntries();
-
-			h_all->Fill(pid, n_all);
-			h_kaon->Fill(pid,n_kaon);
-			h_other->Fill(pid, n_other);
+	cout << "K^{-}: N(all)" << nall_kminus << " N(piminus): " << nkm_kminus << " N(piplus): " << nkp_kminus << " ratio pion kaon mismatch [%]: " << 100*rate_kminus << endl;
 
 
 
-		}
+	//*** kaonplus
+	ntpKaonPlus->Project("h_kplus", "kaonplus_tht", "kaonplus_HitTag==1");
+	float nall_kplus = h_kplus->GetEntries();
 
-		mycolor(0,h_all);
-		mycolor(1,h_kaon);
-		mycolor(2,h_other);
+	ntpKaonPlus->Project("h_kplus", "kaonplus_tht", "kaonplus_HitTag==1 & kaonplus_MC_pdg==-211");
+	float nkm_kplus = h_kplus->GetEntries();
 
-		if (particle=="piminus" || particle=="piplus"){
-			legend->AddEntry(h_all, "reconstructed pions", "f");
-			legend->AddEntry(h_kaon, "mismatched kaons", "f");
-			legend->AddEntry(h_other, "mismatched (other)", "f");
-		}
-		else{
-			legend->AddEntry(h_all, "reconstructed kaons", "f");
-			legend->AddEntry(h_kaon, "mismatched pions", "f");
-			legend->AddEntry(h_other, "mismatched (other)", "f");
-		}
+	ntpKaonPlus->Project("h_kplus", "kaonplus_tht", "kaonplus_HitTag==1 & kaonplus_MC_pdg==211");
+	float nkp_kplus = h_kplus->GetEntries();
 
-		h_all->GetYaxis()->SetRangeUser(1,5e4);
-		h_all->GetYaxis()->SetTitleOffset(1.11);
+	float rate_kplus = (nkm_kplus + nkp_kplus)/nall_kplus;
 
-		c->SetLogy();
-
-
-		h_all->Draw();
-		h_other->Draw("SAME");
-		h_kaon->Draw("SAME");
-
-		legend->Draw();
-
-		c->Print("Pion_kaon_mismatch_for_"+particle+".root");
-		c->Print("Pion_kaon_mismatch_for_"+particle+".pdf");
-		c->Print("Pion_kaon_mismatch_for_"+particle+".png");
-
+	cout << "K^{+}: N(all)" << nall_kplus << " N(piplus): " << nkm_kplus << " N(piplus): " << nkp_kplus << " ratio pion kaon mismatch [%]: " << 100*rate_kplus << endl;
 
 
 }

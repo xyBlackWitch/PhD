@@ -21,13 +21,19 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "../../common_jenny.cpp"
 
 
 void eval_MC(TString path="", bool save=kTRUE, bool close=kFALSE){
 
+
 	//*** Input file
-	TString inFile = TString::Format("%s/output_ana.root", path.Data());
+	if(prefix==""){
+		TString inFile ="output_ana.root";
+	}
+	else{
+		TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
+	}
 
 
 	//*** get Data from Tree

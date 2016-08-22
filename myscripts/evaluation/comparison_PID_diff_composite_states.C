@@ -21,7 +21,7 @@ void unwrap(TString &name, int secondeunderscore=false){
 
 }
 
-void comparison_PID_diff_composite_states(TString input_list = "", TString particle = "lambda0"){
+void comparison_PID_diff_composite_states(TString input_list = "", TString particle = "lambda"){
 	if(input_list==""){
 		cout << "Please insert txt-file name" << endl;
 	}
@@ -58,12 +58,13 @@ void comparison_PID_diff_composite_states(TString input_list = "", TString parti
 		ntp="ntpXiPlus";
 		name="xiplus";
 	}
-	else if (particle=="ximinus1820"){
-		ntp="ntpXiMinus1820";
+	else if (particle=="ximinus1690"){
+		ntp="ntpXiMinus1690";
 		name="XiMinus";
 	}
 	else{
 		cout << "Please insert a valid particle! (lambda, antilambda, xiplus or ximinus1820)" << endl;
+		break;
 	}
 
 	cout << "PID selection" << "|" << " reco eff (ideal) [%]" << endl;
@@ -86,7 +87,7 @@ void comparison_PID_diff_composite_states(TString input_list = "", TString parti
 
 		//***Histograms
 
-		TString cut = TString::Format("VtxFit_HowGood==1 & MassFit_prob>0.01 & %s_HitTag==1 & McTruthMatch", name.Data());
+		TString cut = "VtxFit_HowGood==1 & MassFit_prob>0.01 & HitTag==1 & McTruthMatch";
 
 		TH1D * h_cand = new TH1D("h_cand", "tht", 200,0,10);
 		ntpSys->Project("h_cand", name+"_tht", cut);

@@ -45,10 +45,14 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	char line[BUFSIZ];
 
+	int counter=0;
+
+
 	while (!filelist.eof()){
 
 		filelist.getline(line, sizeof(line));
 		if (strcmp(line, "") == 0) continue;
+
 
 		ntpMC.Add(line);
 		ntpPiMinus.Add(line);
@@ -61,9 +65,11 @@ void number_of_events_table_DPM(TString inFile=""){
 		ntpXiPlus.Add(line);
 		ntpXiMinus1820.Add(line);
 		ntpXiSys.Add(line);
+
+		counter+=1;
 	}
 
-	double nevents_mc =ntpMC.GetEntries();
+	double nevents_mc = counter * 2000; //ntpMC.GetEntriesFast();
 	TString cuts = "  VtxFit_HowGood==1 && MassFit_HowGood>0";
 	TString VtxCut = "   VtxFit_HowGood==1";
 	TString cut4c = " 4CFit_prob>0.01";
@@ -163,15 +169,15 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** Proton
 	TH1D * h_proton_tht_uncut = new TH1D("h_proton_tht_uncut", "h_proton_tht", 100, 0,10);
-	ntpProton.Project("h_proton_tht_uncut", "proton_tht", "  MC_Mother_PDG==3122");
+	ntpProton.Project("h_proton_tht_uncut", "proton_tht", "  Mother==3122");
 	double proton_uncut =  h_proton_tht_uncut->GetEntries();
 
 	TH1D * h_proton_tht = new TH1D("h_proton_tht", "h_proton_tht", 100, 0,10);
-	ntpProton.Project("h_proton_tht", "proton_tht", "  proton_HitTag && MC_Mother_PDG==3122");
+	ntpProton.Project("h_proton_tht", "proton_tht", "  proton_HitTag && Mother==3122");
 	int proton =  h_proton_tht->GetEntries();
 
 	TH1D * h_proton_dp = new TH1D("h_proton_dp", "h_proton_dp", 250, -0.1,0.1);
-	ntpProton.Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "  proton_HitTag && MC_Mother_PDG==3122");
+	ntpProton.Project("h_proton_dp", "(proton_p-proton_MC_p)/proton_MC_p", "  proton_HitTag && Mother==3122");
 
 	//Double_t paramProt[6] = jenny::GetFitParameterDoubleFit(h_proton_dp, false, 0.02,0.1, true);
 	if(proton_uncut==0) double ratio_proton_cut = 0;
@@ -205,13 +211,12 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** lambda0
 	TH1D * h_Lambda0_tht_uncut = new TH1D("h_Lambda0_tht_uncut", "h_Lambda0_tht", 100, 0,10);
-	ntpLambda0.Project("h_Lambda0_tht_uncut", "Lambda0_tht", "HitTag");
+	ntpLambda0.Project("h_Lambda0_tht_uncut", "Lambda0_tht", "");
 	double Lambda0_uncut =  h_Lambda0_tht_uncut->GetEntries();
 
 	TH1D * h_Lambda0_tht = new TH1D("h_Lambda0_tht", "h_Lambda0_tht", 100, 0,10);
 	ntpLambda0.Project("h_Lambda0_tht", "Lambda0_tht", "HitTag && "+cuts);
 	int lambda0 =  h_Lambda0_tht->GetEntries();
-
 	TH1D * h_Lambda0_dp = new TH1D("h_Lambda0_dp", "h_Lambda0_dp", 250, -0.1,0.1);
 	ntpLambda0.Project("h_Lambda0_dp", "(Lambda0_p-McTruth_p)/McTruth_p", "HitTag && "+cuts );
 
@@ -225,7 +230,7 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** AntiLambda0
 	TH1D * h_antiLambda0_tht_uncut = new TH1D("h_antiLambda0_tht_uncut", "h_antiLambda0_tht", 100, 0,10);
-	ntpAntiLambda0.Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "HitTag");
+	ntpAntiLambda0.Project("h_antiLambda0_tht_uncut", "antiLambda0_tht", "");
 	double antiLambda0_uncut =  h_antiLambda0_tht_uncut->GetEntries();
 
 	TH1D * h_antiLambda0_tht = new TH1D("h_antiLambda0_tht", "h_antiLambda0_tht", 100, 0,10);
@@ -243,9 +248,10 @@ void number_of_events_table_DPM(TString inFile=""){
 	cout << "AntiLambda0|   " <<  antiLambda0_uncut << "|   " <<  AntiLambda0 << "(" << ratio_antiLambda0_cut*100 << ")|   " << ratio_antiLambda0_mc*100 << endl;//"|   " << paramAL0[2]*100 << endl;
 
 
+
 	//**** XiPlus
 	TH1D * h_xiplus_tht_uncut = new TH1D("h_xiplus_tht_uncut", "h_xiplus_tht", 100, 0,10);
-	ntpXiPlus.Project("h_xiplus_tht_uncut", "xiplus_tht", "HitTag");
+	ntpXiPlus.Project("h_xiplus_tht_uncut", "xiplus_tht", "");
 	double xiplus_uncut =  h_xiplus_tht_uncut->GetEntries();
 
 	TH1D * h_xiplus_tht = new TH1D("h_xiplus_tht", "h_xiplus_tht", 100, 0,10);
@@ -267,7 +273,7 @@ void number_of_events_table_DPM(TString inFile=""){
 
 	//**** XiMinus1820
 	TH1D * h_XiMinus_tht_uncut = new TH1D("h_XiMinus_tht_uncut", "h_XiMinus_tht", 100, 0,10);
-	ntpXiMinus1820.Project("h_XiMinus_tht_uncut", "XiMinus_tht", "HitTag");
+	ntpXiMinus1820.Project("h_XiMinus_tht_uncut", "XiMinus_tht", "");
 	double XiMinus_uncut =  h_XiMinus_tht_uncut->GetEntries();
 
 	TH1D * h_XiMinus_tht = new TH1D("h_XiMinus_tht", "h_XiMinus_tht", 100, 0,10);

@@ -94,7 +94,7 @@ void comparison_PID_diff_final_states(TString input_list = ""){
 		double pip2 = h_pip2_tht->GetEntries();
 
 		TH1D * h_prot_tht = new TH1D("h_prot_tht", "tht", 200,0,10);
-		ntpProton->Project("h_prot_tht", "proton_tht", "MC_Mother_PDG==3122 & McTruthMatch==1 & proton_HitTag==1");
+		ntpProton->Project("h_prot_tht", "proton_tht", "Mother==3122 & McTruthMatch==1 & proton_HitTag==1");
 		double prot = h_prot_tht->GetEntries();
 
 		TH1D * h_aprot_tht = new TH1D("h_aprot_tht", "tht", 200,0,10);
@@ -102,7 +102,7 @@ void comparison_PID_diff_final_states(TString input_list = ""){
 		double aprot = h_aprot_tht->GetEntries();
 
 		TH1D * h_km_tht = new TH1D("h_km_tht", "tht", 200,0,10);
-		ntpKaonMinus->Project("h_km_tht", "kaonminus_tht", "Mother==23314 & McTruthMatch & kaonminus_HitTag==1");
+		ntpKaonMinus->Project("h_km_tht", "kaonminus_tht", "Mother==13314 & McTruthMatch & kaonminus_HitTag==1");
 		double km = h_km_tht->GetEntries();
 
 
@@ -152,9 +152,9 @@ void comparison_PID_diff_final_states(TString input_list = ""){
 	legend->Draw();
 
 
-//
-//  	c->Print("comparison_PID_FS.pdf");
-//	c->Print("comparison_PID_FS.png");
-//	c->Print("comparison_PID_FS.root");
+
+  	c->Print("comparison_PID_FS.pdf");
+	c->Print("comparison_PID_FS.png");
+	c->Print("comparison_PID_FS.root");
 
 }

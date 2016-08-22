@@ -97,7 +97,7 @@ void comparison_PR_diff_final_states(TString input_ideal = "", TString input_rea
 	double pip_ideal = h_pip_ideal_tht->GetEntries();
 
 	TH1D * h_prot_ideal_tht = new TH1D("h_prot_ideal_tht", "tht", 200,0,3.5);
-	Proton_ideal.Project("h_prot_ideal_tht", "proton_tht", "MC_Mother_PDG==88888 & McTruthMatch==1 & proton_HitTag==1");
+	Proton_ideal.Project("h_prot_ideal_tht", "proton_tht", cut+"proton_HitTag==1");
 	double prot_ideal = h_prot_ideal_tht->GetEntries();
 
 	TH1D * h_aprot_ideal_tht = new TH1D("h_aprot_ideal_tht", "tht", 200,0,3.5);
@@ -123,7 +123,7 @@ void comparison_PR_diff_final_states(TString input_ideal = "", TString input_rea
 	double pip_real = h_pip_real_tht->GetEntries();
 
 	TH1D * h_prot_real_tht = new TH1D("h_prot_real_tht", "tht", 200,0,3.5);
-	Proton_real.Project("h_prot_real_tht", "proton_tht", "MC_Mother_PDG==88888 & McTruthMatch==1 & proton_HitTag==1");
+	Proton_real.Project("h_prot_real_tht", "proton_tht", cut+"proton_HitTag==1");
 	double prot_real = h_prot_real_tht->GetEntries();
 
 	TH1D * h_aprot_real_tht = new TH1D("h_aprot_real_tht", "tht", 200,0,3.5);
@@ -138,13 +138,13 @@ void comparison_PR_diff_final_states(TString input_ideal = "", TString input_rea
 	KaonPlus_real.Project("h_kp_real_tht", "kaonplus_tht", cut+"kaonplus_HitTag==1");
 	double kp_real = h_kp_real_tht->GetEntries();
 
-	cout << "Particle" << "|" << " reco eff (ideal) [%]" << "|" << "reco eff (real) [%]"  << "|" << "difference [%]" << endl;
-	cout << "PiMinus"  << "|" << pim_ideal/nevents_ideal*100 << "|" << pim_real/nevents_real*100 << "|" << (1-pim_real/pim_ideal)*100 << endl;
-	cout << "PiPlus"  << "|" << pip_ideal/nevents_ideal*100 << "|" << pip_real/nevents_real*100  << "|" << (1-pip_real/pip_ideal)*100 << endl;
-	cout << "Proton"  << "|" << prot_ideal/nevents_ideal*100 << "|" << prot_real/nevents_real*100  << "|" << (1-prot_real/prot_ideal)*100 << endl;
-	cout << "AntiProton"  << "|" << aprot_ideal/nevents_ideal*100 << "|" << aprot_real/nevents_real*100 << "|" << (1-aprot_real/aprot_ideal)*100 << endl;
-	cout << "KMinus"  << "|" << km_ideal/nevents_ideal*100 << "|" <<  km_real/nevents_real*100  << "|" << (1-km_real/km_ideal)*100 << endl;
-	cout << "KPlus"  << "|" << kp_ideal/nevents_ideal*100 << "|" << kp_real/nevents_real*100  << "|" << (1-kp_real/kp_ideal)*100 << endl;
+	cout << "Particle" << "|" << " reco eff (ideal PR) [%]" << "|" << "reco eff (real PR) [%]"   << "|" << "difference [%]" << endl;
+	cout << "PiMinus"  << "|" << pim_ideal/nevents_ideal*100 << "|" << pim_real/nevents_real*100  << "|" << (1-pim_real/pim_ideal)*100 << endl;
+	cout << "PiPlus"  << "|" << pip_ideal/nevents_ideal*100 << "|" << pip_real/nevents_real*100    << "|" << (1-pip_real/pip_ideal)*100 << endl;
+	cout << "Proton"  << "|" << prot_ideal/nevents_ideal*100 << "|" << prot_real/nevents_real*100    << "|" << (1-prot_real/prot_ideal)*100 << endl;
+	cout << "AntiProton"  << "|" << aprot_ideal/nevents_ideal*100  << "|" << aprot_real/nevents_real*100  << "|" << (1-aprot_real/aprot_ideal)*100 << endl;
+	cout << "KMinus"  << "|" << km_ideal/nevents_ideal*100  << "|" <<  km_real/nevents_real*100  << "|" << (1-km_real/km_ideal)*100 << endl;
+	cout << "KPlus"  << "|" << kp_ideal/nevents_ideal*100  << "|" << kp_real/nevents_real*100  << "|" << (1-kp_real/kp_ideal)*100 << endl;
 
 	TCanvas * c = new TCanvas("c", "c", 0,0,1600,1000);
 	gStyle->SetOptStat(0);
@@ -187,14 +187,6 @@ void comparison_PR_diff_final_states(TString input_ideal = "", TString input_rea
   	legend->AddEntry(h_reco_eff_real, "real PR", "l");
   	legend->Draw();
 
-
-	cout << "Particle" << "|" << " reco eff (ideal) [%]" << "|" << "reco eff (real) [%]"  << "|" << "difference [%]" << endl;
-	cout << "PiMinus"  << "|" << pim_ideal/nevents_ideal*100 << "|" << pim_real/nevents_real*100 << "|" << (1-pim_real/pim_ideal)*100 << endl;
-	cout << "PiPlus"  << "|" << pip_ideal/nevents_ideal*100 << "|" << pip_real/nevents_real*100  << "|" << (1-pip_real/pip_ideal)*100 << endl;
-	cout << "Proton"  << "|" << prot_ideal/nevents_ideal*100 << "|" << prot_real/nevents_real*100  << "|" << (1-prot_real/prot_ideal)*100 << endl;
-	cout << "Antiproton"  << "|" << aprot_ideal/nevents_ideal*100 << "|" << aprot_real/nevents_real*100 << "|" << (1-aprot_real/aprot_ideal)*100 << endl;
-	cout << "KMinus"  << "|" << km_ideal/nevents_ideal*100 << "|" <<  km_real/nevents_real*100  << "|" << (1-km_real/km_ideal)*100 << endl;
-	cout << "KPlus"  << "|" << kp_ideal/nevents_ideal*100 << "|" << kp_real/nevents_real*100  << "|" << (1-kp_real/kp_ideal)*100 << endl;
 
   	c->Print("comparison_PR.pdf");
 	c->Print("comparison_PR.png");

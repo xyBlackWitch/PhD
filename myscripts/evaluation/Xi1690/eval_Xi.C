@@ -21,17 +21,18 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "../../common_jenny.cpp"
 
 
 void eval_Xi(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
-//	TString prefix;
-//	if (path != "") prefix = path+"/"+pre;
-//	else prefix = pre;
-
 	//*** Input file
-	TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
+	if(prefix==""){
+		TString inFile ="output_ana.root";
+	}
+	else{
+		TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
+	}
 
 
 	//*** get Data from Tree

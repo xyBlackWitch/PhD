@@ -22,17 +22,18 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "../../common_jenny.cpp"
 
 
 void eval_XiSys(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
-	//	TString prefix;
-	//	if (path != "") prefix = path+"/"+pre;
-	//	else prefix = pre;
-
 	//*** Input file
-	TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
+	if(prefix==""){
+		TString inFile ="output_ana.root";
+	}
+	else{
+		TString inFile = TString::Format("%s/output_ana.root", prefix.Data());
+	}
 
 
 	//*** get Data from Tree
@@ -67,7 +68,7 @@ void eval_XiSys(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
 	TH1D * h_xi_vtxres_x = new TH1D("h_xi_vtxres_x", "resolution for x coordinate of vertex for #Xi^{-}(1690)#bar{#Xi}^{+}-System; x-x_{MC}; counts", 500,-0.02,0.02);
 	ntpXiSys->Project("h_xi_vtxres_x", "4CFit_diffvx", "McTruthMatch "+cut);
-	jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_x, prefix+"/plots/", "XiSys_vtxres_x", save, close);1690
+	jenny::CreateDrawAndSaveHistogramFWHM(h_xi_vtxres_x, prefix+"/plots/", "XiSys_vtxres_x", save, close);
 
 	TH1D * h_xi_vtxres_y = new TH1D("h_xi_vtxres_y", "resolution for y coordinate of vertex for #Xi^{-}(1690)#bar{#Xi}^{+}-System; y-y_{MC}; counts", 500,-0.02,0.02);
 	ntpXiSys->Project("h_xi_vtxres_y", "4CFit_diffvy", "McTruthMatch "+cut);

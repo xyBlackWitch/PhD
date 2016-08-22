@@ -225,11 +225,11 @@ void number_of_events_table_xi1690(TString inFile=""){
 	double xiplus_uncut =  h_xiplus_tht_uncut->GetEntries();
 
 	TH1D * h_xiplus_tht = new TH1D("h_xiplus_tht", "h_xiplus_tht", 100, 0,10);
-	ntpXiPlus->Project("h_xiplus_tht", "xiplus_tht", cuts);
+	ntpXiPlus->Project("h_xiplus_tht", "xiplus_tht", cuts+"& HitTag");
 	int XiPlus =  h_xiplus_tht->GetEntries();
 
 	TH1D * h_xiplus_dp = new TH1D("h_xiplus_dp", "h_xiplus_dp", 250, -0.1,0.1);
-	ntpXiPlus->Project("h_xiplus_dp", "(xiplus_p-MCTruth_p)/MCTruth_p", cuts);
+	ntpXiPlus->Project("h_xiplus_dp", "(xiplus_p-MCTruth_p)/MCTruth_p", cuts+"& HitTag");
 
 //	Double_t paramxip[6] = jenny::GetFitParameterDoubleFit(h_xiplus_dp, false, 0.02,0.1, true);
 //	jenny::CreateDrawAndSaveHistogramDoulbeFit(h_xiplus_dp, "","", false, false, false, 0.02,0.1, true);
