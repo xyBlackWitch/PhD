@@ -155,16 +155,16 @@ sim_complete_boxgen_pions(Int_t nEvents = 100, TString pre="", Float_t mom = 6.2
 	 
   if(UseBoxGenerator){	// Box Generator
 	  FairBoxGenerator* boxGenPiM = new FairBoxGenerator(-211, 1); // 13 = muon; 1 = multipl.
-    boxGenPiM->SetPRange(0.1, 0.7); // GeV/c
+    boxGenPiM->SetPRange(0., 0.6); // GeV/c
     boxGenPiM->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-    boxGenPiM->SetThetaRange(0., 60); // Polar angle in lab system range [degree]
+    boxGenPiM->SetThetaRange(0., 70); // Polar angle in lab system range [degree]
     boxGenPiM->SetXYZ(0., 0., 0.); // cm
     primGen->AddGenerator(boxGenPiM);
 
     FairBoxGenerator* boxGenPiP = new FairBoxGenerator(211, 1); // 13 = muon; 1 = multipl.
-	boxGenPiP->SetPRange(0.1,0.7); // GeV/c
+	boxGenPiP->SetPRange(0.,0.6); // GeV/c
 	boxGenPiP->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-	boxGenPiP->SetThetaRange(0., 60); // Polar angle in lab system range [degree]
+	boxGenPiP->SetThetaRange(0., 70); // Polar angle in lab system range [degree]
 	boxGenPiP->SetXYZ(0., 0., 0.); // cm
 	primGen->AddGenerator(boxGenPiP);
 

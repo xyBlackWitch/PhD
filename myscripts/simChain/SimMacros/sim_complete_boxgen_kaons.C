@@ -156,16 +156,16 @@ sim_complete_boxgen_kaons(Int_t nEvents = 100, TString pre="", Float_t mom = 6.2
   if(UseBoxGenerator){	// Box Generator
 
     FairBoxGenerator* boxGenKM = new FairBoxGenerator(-321, 1); // 13 = muon; 1 = multipl.
-	boxGenKM->SetPRange(0.2, 2.0); // GeV/c
+	boxGenKM->SetPRange(0.2, 1.5); // GeV/c
 	boxGenKM->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-	boxGenKM->SetThetaRange(0., 50.); // Polar angle in lab system range [degree]
+	boxGenKM->SetThetaRange(0., 30.); // Polar angle in lab system range [degree]
 	boxGenKM->SetXYZ(0., 0., 0.); // cm
 	primGen->AddGenerator(boxGenKM);
 
     FairBoxGenerator* boxGenKP = new FairBoxGenerator(321, 1); // 13 = muon; 1 = multipl.
-	boxGenKP->SetPRange(0.2, 2.0); // GeV/c
+	boxGenKP->SetPRange(0.2, 1.5); // GeV/c
 	boxGenKP->SetPhiRange(0., 360.); // Azimuth angle range [degree]
-	boxGenKP->SetThetaRange(0., 50.); // Polar angle in lab system range [degree]
+	boxGenKP->SetThetaRange(0., 30.); // Polar angle in lab system range [degree]
 	boxGenKP->SetXYZ(0., 0., 0.); // cm
 	primGen->AddGenerator(boxGenKP);
 

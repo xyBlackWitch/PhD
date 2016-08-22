@@ -5,7 +5,7 @@
 // to run with different options:(e.g more events, different momentum, Geant4)
 // root  sim_complete.C"(100, "TGeant4",2)"
 
-sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TString  SimEngine ="TGeant3")
+sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString dec="", TString pre="", TString  SimEngine ="TGeant3")
 {
   //-----User Settings:-----------------------------------------------
   TString  OutputFile     =pre + "_sim_complete.root";
@@ -168,7 +168,7 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString pre="", TStrin
 //    EvtInput+="/macro/run/psi2s_Jpsi2pi_Jpsi_mumu.dec";
 	TString EvtInput="/home/ikp1/puetz/panda/myscripts/simChain/SimMacros/XiMinus_1690_lambda0_K.dec";
 //    PndEvtGenDirect *EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom);
-	PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", EvtInput.Data(), mom, -1, "", evtPdlFile.Data());
+	PndEvtGenDirect * EvtGen = new PndEvtGenDirect("pbarpSystem", dec.Data(), mom, -1, "", evtPdlFile.Data());
     EvtGen->SetStoreTree(kTRUE);
     primGen->AddGenerator(EvtGen);
   }

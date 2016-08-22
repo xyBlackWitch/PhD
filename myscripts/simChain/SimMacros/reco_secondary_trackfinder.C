@@ -14,7 +14,7 @@ void reco_secondary_trackfinder(TString prefix="")
 	    TString parFile = prefix+"_simparams.root"; // at the moment you do not need it
 
 	    // Output file
-	    TString outFile = prefix+"_reco_complete_sec.root";
+	    TString outFile = prefix+"_reco_complete.root";
 
 	    // Input Files
 	    TString InputSim = prefix+"_sim_complete.root";
@@ -28,7 +28,7 @@ void reco_secondary_trackfinder(TString prefix="")
 
 
 	  // Output file
-	  TString outFile = "reco_complete_sec.root";
+	  TString outFile = "reco_complete.root";
 
 	  // Input Files
 	  TString InputSim = "sim_complete.root";
@@ -166,5 +166,5 @@ void reco_secondary_trackfinder(TString prefix="")
   // ------------------------------------------------------------------------
   cout << " Test passed" << endl;
   cout << " All ok " << endl;
-  exit(0);
+//  exit(0);
 }
