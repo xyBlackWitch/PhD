@@ -19,7 +19,7 @@ void sim_complete(Int_t nEvents = 100, TString  inputGenerator ="psi2s_Jpsi2pi_J
 //  TString  inputDir = gSystem->Getenv("VMCWORKDIR");
 //  inputDir += "/macro/qa/day1/";
 
-  gRandom->SetSeed();
+  gRandom->SetSeed(2704);
   //-------------------------------------------------------------------------
   // -----   Create the Simulation run manager ------------------------------
   PndMasterRunSim *fRun = new PndMasterRunSim();
