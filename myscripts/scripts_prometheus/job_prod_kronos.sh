@@ -7,10 +7,10 @@
 
 
 # Task name
-#SBATCH -J XiPlus1820_run1 
+#SBATCH -J XiPlus1690_run1 
 
 # Run time limit
-#SBATCH --time=4:00:00
+#SBATCH --time=03:00:00
 
 # Working directory on shared storage
 #SBATCH -D /lustre/nyx/panda/jpuetz/data
@@ -80,7 +80,7 @@ root -l -q -b -w $scripts"/"prod_sim.C\(\"$outprefix\",$nEvts,\"$dec\",$mom,\"$r
 root -l -b -q -w $scripts"/"prod_dig.C\(\"$outprefix\"\) &> $outprefix"_dig.log"
 root -l -b -q -w $scripts"/"prod_ideal_rec.C\(\"$outprefix\"\) &> $outprefix"_rec.log"
 root -l -b -q -w $scripts"/"prod_pid.C\(\"$outprefix\"\) &> $outprefix"_pid.log"
-root -l -b -q -w $scripts"/"prod_ana_AntiXi1820.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
+root -l -b -q -w $scripts"/"prod_ana_AntiXi1690.C\(\"$outprefix\",$nEvts,$mom\) &> $outprefix"_ana.log"
 
 NUMEV=`grep 'Generated Events' $outprefix"_sim.log"`
 echo $NUMEV >> $outprefix"_pid.log"
@@ -90,6 +90,8 @@ cp  $outprefix"_pid.log" $_target
 cp  $outprefix"_rec.root" $_target
 cp  $outprefix"_pid.root" $_target
 cp  $outprefix"_sim.log" $_target
+cp  $outprefix"_output_ana.root" $_target
+cp  $outprefix"_ana.log" $_target
 
 
 # Standard and error output in different files
@@ -104,6 +106,12 @@ rm  $outprefix"_sim.root"
 rm  $outprefix"_pid.root"
 rm  $outprefix"_dig.root"
 rm  $outprefix"_dig.log"
+rm  $outprefix"_ana.root"
+rm  $outprefix"_output_ana.root"
+rm  $outprefix"_rec.root"
+rm  $outprefix"_rec.log"
+rm  $outprefix"_ana.log"
+
 
 # Execute application code
 hostname; uptime; sleep 30; uname -a

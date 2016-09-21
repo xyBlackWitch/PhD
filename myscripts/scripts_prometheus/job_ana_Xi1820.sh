@@ -10,7 +10,7 @@
 #SBATCH --time=0:20:00
 
 #Working directory on shared storage
-#SBATCH -D /lustre/nyx/panda/jpuetz/data/XiMinus1820_Lambda0_K/spin_3half/run1
+#SBATCH -D /lustre/nyx/panda/jpuetz/data/XiMinus1820_Lambda0_K/spin_3half/run3
 
 # Script directory (If different from working directory!)
 scripts="/lustre/nyx/panda/jpuetz/myscripts"
