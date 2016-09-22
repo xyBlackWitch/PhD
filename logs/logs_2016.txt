@@ -181,4 +181,22 @@ This log file should be a documentation for the changes during my Phd thesis.
 	start analysis on kronos for Xi(1820) anti-Xi with real PID for run1
 	start analysis on kronos for Xi(1820) anti-Xi with real PID for run2
 	start analysis on kronos for Xi(1820) anti-Xi with real PID for run3
-
+	
+23.08.:
+	start analsis on kronos for anti-Xi(1820) Xi with real PiD for run1
+	start analsis on kronos for anti-Xi(1820) Xi with real PiD for run2
+	start analsis on kronos for anti-Xi(1820) Xi with real PiD for run3
+	
+25.08.:
+	simulation on local machine: 1k events for day1 + GEMf for scann of missing particles
+	
+14.09.:
+	Bug fix in RhoKinFitter by Lu
+	
+19.09.:
+	run PAWIAN for Xi(1690) Hyp1m with 10000 MC and 3000 Data events
+	run PAWIAN for Xi(1690) Hyp1p with 10000 MC and 3000 Data events
+	local simulation of 15000 evts for Xi(1820) to chekc bugfix -> Higher statistic is needed
+	
+21.09.:
+	Bugfix test shows change in mass fix, but statistic is to low. Maybe simulation on kronos, but kronos is down!
