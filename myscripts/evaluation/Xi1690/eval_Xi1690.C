@@ -22,7 +22,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../../common_jenny.cpp"
+#include "/home/ikp1/puetz/panda/myscripts/common_jenny.cpp"
 
 
 void eval_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE){
@@ -70,7 +70,7 @@ void eval_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_xi_m = new TH1D("h_xi_m", "Mass distribution for #Xi^{-}(1690) with vertex cut and mass cut; M [GeV/c^{2}]; counts", 500,1.49,1.89);
 		ntpXiMinus1690->Project("h_xi_m", "VtxFit_m", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramVoigtFit(h_xi_m, prefix+"/plots/", "XiMinus1690_m_masscut", save, close, 1.6311 ,1.72, 1.690,0.03);
+		jenny::CreateDrawAndSaveHistogramVoigtFit(h_xi_m, prefix+"/plots/", "XiMinus1690_m_masscut", save, close, 1.6311 ,1.718, 1.690,0.029);
 
 		TH1D * h_xi_m_mc = new TH1D("h_xi_m_mc", "Mass distribution for #Xi^{-}(1690) to MC truth; (M_{#Xi*}-M_{PDG}) [GeV/c^{2}]; counts", 500,-50,50);
 		ntpXiMinus1690->Project("h_xi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);
@@ -121,10 +121,10 @@ void eval_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 		ntpXiPlus1690->Project("h_axi_pt_vs_pz_cut", "MCTruth_pt: MCTruth_pz", "McTruthMatch"+vtxcut);
 		jenny::CreateDrawAndSaveHistogram(h_axi_pt_vs_pz_cut, prefix+"/plots/", "XiPlus1690_pt_vs_pz_cut", save, close);
 
-		TH1D * h_axi_m_nocut = new TH1D("h_axi_m_nocut", "Mass distribution for #bar{#Xi}^{+}(1690); M [GeV/c^{2}]; counts", 500,1.7,2);
+		TH1D * h_axi_m_nocut = new TH1D("h_axi_m_nocut", "Mass distribution for #bar{#Xi}^{+}(1690); M [GeV/c^{2}]; counts", 500,1.49,1.89);
 		ntpXiPlus1690->Project("h_axi_m_nocut", "VtxFit_m", "McTruthMatch");
 
-		TH1D * h_axi_m_vtxcut = new TH1D("h_axi_m_vtxcut", "Mass distribution for #bar{#Xi}^{+}(1690) with vtxcut; M [GeV/c^{2}]; counts", 500,1.7,2);
+		TH1D * h_axi_m_vtxcut = new TH1D("h_axi_m_vtxcut", "Mass distribution for #bar{#Xi}^{+}(1690) with vtxcut; M [GeV/c^{2}]; counts", 500,1.49,1.89);
 		ntpXiPlus1690->Project("h_axi_m_vtxcut", "VtxFit_m", "McTruthMatch "+vtxcut);
 
 		jenny::CreateDrawAndSaveNHistograms(h_axi_m_nocut, h_axi_m_vtxcut, "mass window", "VtxFit_prob>0.01", prefix+"/plots/", "XiPlus1690_m_diffcuts", save, close);
@@ -132,7 +132,7 @@ void eval_Xi1690(TString prefix="", bool save=kTRUE, bool close=kFALSE){
 
 		TH1D * h_axi_m = new TH1D("h_axi_m", "Mass distribution for #bar{#Xi}^{+}(1690) with vertex cut and mass cut; M [GeV/c^{2}]; counts", 500,1.49,1.89);
 		ntpXiPlus1690->Project("h_axi_m", "VtxFit_m", "McTruthMatch "+vtxcut);
-		jenny::CreateDrawAndSaveHistogramVoigtFit(h_axi_m, prefix+"/plots/", "XiPlus1690_m_masscut", save, close, 1.6311 ,1.72, 1.690,0.03);
+		jenny::CreateDrawAndSaveHistogramVoigtFit(h_axi_m, prefix+"/plots/", "XiPlus1690_m_masscut", save, close, 1.6311 ,1.719, 1.690,0.029);
 
 		TH1D * h_axi_m_mc = new TH1D("h_axi_m_mc", "Mass distribution for #bar{#Xi}^{+}(1690) to MC truth; (M_{#bar{#Xi}*}-M_{PDG}) [GeV/c^{2}]; counts", 500,-50,50);
 		ntpXiPlus1690->Project("h_axi_m_mc", "(VtxFit_m-MCTruth_m)*1000", "McTruthMatch "+vtxcut);

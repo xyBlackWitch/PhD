@@ -21,7 +21,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "/home/ikp1/puetz/panda/myscripts/common_jenny.cpp"
 
 
 void eval_final_states(TString prefix="", bool save=kTRUE, bool close=kFALSE){

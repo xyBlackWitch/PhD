@@ -12,7 +12,7 @@ class RhoTuple;
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1.h"
-#include "../myscripts/common_jenny.cpp"
+#include "../../myscripts/common_jenny.cpp"
 
 #include <fstream>
 #include <iostream>

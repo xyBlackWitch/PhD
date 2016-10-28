@@ -21,7 +21,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include "../common_jenny.cpp"
+#include "../../common_jenny.cpp"
 
 
 void eval_Xi(TString prefix="", bool save=kTRUE, bool close=kFALSE){

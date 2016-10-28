@@ -46,7 +46,7 @@ void comparison_GenFit(TString input_GenFit1 = "", TString input_GenFit2=""){
 	int pip2_GenFit1 = h_pip_GenFit1_tht2->GetEntries();
 
 	TH1D * h_prot_GenFit1_tht = new TH1D("h_prot_GenFit1_tht", "tht", 200,0,3.5);
-	proton_GenFit1->Project("h_prot_GenFit1_tht", "proton_tht", "MC_Mother_PDG==3122 & proton_HitTag==1 & McTruthMatch==1");
+	proton_GenFit1->Project("h_prot_GenFit1_tht", "proton_tht", "Mother==3122 & proton_HitTag==1 & McTruthMatch==1");
 	int prot_GenFit1 = h_prot_GenFit1_tht->GetEntries();
 
 	TH1D * h_aprot_GenFit1_tht = new TH1D("h_aprot_GenFit1_tht", "tht", 200,0,3.5);
@@ -73,7 +73,7 @@ void comparison_GenFit(TString input_GenFit1 = "", TString input_GenFit2=""){
 	double pip2_GenFit2 = h_pip_GenFit2_tht2->GetEntries();
 
 	TH1D * h_prot_GenFit2_tht = new TH1D("h_prot_GenFit2_tht", "tht", 200,0,3.5);
-	proton_GenFit2->Project("h_prot_GenFit2_tht", "proton_tht", "MC_Mother_PDG==3122 & proton_HitTag==1 & McTruthMatch==1");
+	proton_GenFit2->Project("h_prot_GenFit2_tht", "proton_tht", "Mother==3122 & proton_HitTag==1 & McTruthMatch==1");
 	double prot_GenFit2 = h_prot_GenFit2_tht->GetEntries();
 
 	TH1D * h_aprot_GenFit2_tht = new TH1D("h_aprot_GenFit2_tht", "tht", 200,0,3.5);

@@ -21,7 +21,7 @@
 #include "TH2.h"
 #include "TStyle.h"
 #include "TCanvas.h"
-#include ".././common_jenny.cpp"
+#include "/home/ikp1/puetz/panda/myscripts/common_jenny.cpp"
 
 
 void eval_final_states_antiparticle(TString prefix="",  TString path="", bool save=kTRUE, bool close=kFALSE){
@@ -41,7 +41,7 @@ void eval_final_states_antiparticle(TString prefix="",  TString path="", bool sa
 	TTree * ntpPiMinus = (TTree*)data->Get("ntpPiMinus");
 	TTree * ntpPiPlus = (TTree*) data->Get("ntpPiPlus");
 	TTree * ntpKaonMinus = (TTree*) data->Get("ntpKaonMinus");
-	TTree * ntpKaonPlus = (TTree*) data->Get("ntpkaonplus");
+	TTree * ntpKaonPlus = (TTree*) data->Get("ntpKaonPlus");
 	TTree * ntpProton = (TTree*) data->Get("ntpProton");
 	TTree * ntpAntiProton = (TTree*) data->Get("ntpAntiProton");
 
@@ -134,7 +134,7 @@ void eval_final_states_antiparticle(TString prefix="",  TString path="", bool sa
 		ntpKaonMinus->Project("h_KaonMinus_number_per_evt", "cand", "McTruthMatch && kaonminus_HitTag");
 		jenny::CreateDrawAndSaveHistogram(h_KaonMinus_number_per_evt, prefix+"/plots/", "kaonminus_number_per_evt",save, close);
 	}
-	else if(ntpKaonPlus!=0x0){
+	if(ntpKaonPlus!=0x0){
 		TH2D * h_KaonPlus_pt_vs_pz = new TH2D("h_KaonPlus_pt_vs_pz", "Transverse vs. longitudinal momentum for K^{+}; pz/GeV/c; pt/GeV/c", 200,0,2.1, 200,0,0.7);
 		ntpKaonPlus->Project("h_KaonPlus_pt_vs_pz", "kaonplus_MC_pt: kaonplus_MC_pz", "McTruthMatch && kaonplus_HitTag");
 		jenny::CreateDrawAndSaveHistogram(h_KaonPlus_pt_vs_pz, prefix+"/plots/", "KaonPlus_pt_vs_pz",save, close);
@@ -152,9 +152,9 @@ void eval_final_states_antiparticle(TString prefix="",  TString path="", bool sa
 		ntpKaonPlus->Project("h_KaonPlus_number_per_evt", "cand", "McTruthMatch && kaonplus_HitTag");
 		jenny::CreateDrawAndSaveHistogram(h_KaonPlus_number_per_evt, prefix+"/plots/", "KaonPlus_number_per_evt",save, close);
 	}
-	else{
-		cout << "No particle of kind K- or K+!" << endl;
-	}
+//	else{
+//		cout << "No particle of kind K- or K+!" << endl;
+//	}
 
 
 	//**** Get information about p   *************************************************************************
