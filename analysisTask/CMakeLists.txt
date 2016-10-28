@@ -30,6 +30,7 @@ AnalysisTaskLambda0.cxx
 AnalysisTaskXi1820.cxx
 AnalysisTaskAntiXi1820.cxx
 AnalysisTaskXi1690.cxx
+AnalysisTaskAntiXi1690.cxx
 AnalysisTaskXiPlusLambda0K.cxx
 )
 

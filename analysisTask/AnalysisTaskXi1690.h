@@ -41,7 +41,7 @@ class AnalysisTaskXi1690 : public FairTask
 		void SetNEvents(double nevents=0){
 			fnevts = nevents;
 		}
-		void SetMom(double mom=4.1){
+		void SetMom(double mom=2.7){
 			fmom=mom;
 		}
 
@@ -60,6 +60,9 @@ class AnalysisTaskXi1690 : public FairTask
 		void numberOfHitsInSubdetector(TString pre, RhoCandidate *c, RhoTuple *n);
 		void tagNHits(TString pre, RhoCandidate *c, RhoTuple *n);
 		int tagHits(RhoCandidate *c);
+		int trackBranch(RhoCandidate *c);
+		void TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoTuple *n);
+		void TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoCandidate *d2, RhoTuple *n);
 
 		std::map<int,int> VertexQaIndex(RhoCandList* candList, float probLimit);
 		std::map<int,int> MassFitQaIndex(RhoCandList* candList, float m0, float probLimit);
@@ -99,7 +102,7 @@ class AnalysisTaskXi1690 : public FairTask
 
 		RhoMassParticleSelector* lambdaMassSelector;
 		RhoMassParticleSelector* xiMassSelector;
-		RhoMassParticleSelector* Xi1690MassSelector;
+		RhoMassParticleSelector* xi1690MassSelector;
 
 		TLorentzVector fini;
 

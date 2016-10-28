@@ -113,30 +113,6 @@ void AnalysisTaskXi1820::numberOfHitsInSubdetector(TString pre, RhoCandidate *c,
 	}
 }
 
-//void AnalysisTaskXi1820::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
-//
-//	/**@brief Tag the particle with different integers
-//	 * @details Tag the particle with different integers:
-//	 * 0: if there is no hit in the detector
-//	 * 1: sttHits>3 or mvdHits>3 or gemHit>3
-//	 */
-//
-//	int tag=0;
-//
-//	PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
-//
-//	if(pidCand){
-//		int mvdHits = pidCand->GetMvdHits();
-//		int sttHits = pidCand->GetSttHits();
-//		int gemHits = pidCand->GetGemHits();
-//
-//		if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
-//
-//
-//	}
-//
-//	n->Column(pre + "HitTag", (Int_t) tag, 0);
-//}
 
 void AnalysisTaskXi1820::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 
@@ -159,7 +135,7 @@ void AnalysisTaskXi1820::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 
 
 		if(mvdHits>3 || gemHits>3) tag=1;
-		else if (sttHits>3 && branch==48) tag=1;
+		else if (sttHits>3 && branch==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack")) tag=1;
 		else tag=0;
 	}
 
@@ -185,7 +161,7 @@ int AnalysisTaskXi1820::tagHits(RhoCandidate *c){
 		int gemHits = pidCand->GetGemHits();
 
 		if(mvdHits>3 || gemHits>3) tag=1;
-		else if (sttHits>3 && branch==48) tag=1;
+		else if (sttHits>3 && branch==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack")) tag=1;
 		else tag=0;
 
 	}
@@ -207,7 +183,7 @@ int AnalysisTaskXi1820::trackBranch(RhoCandidate *c){
 
 void AnalysisTaskXi1820::TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoTuple *n){
 	/* @brief check if daughter particles cause no hit in the FTS
-	 * @details check if daughter particles cause no hit in the FTS. 0 means cause a hit in FTS, 1 means cause no hin in FTS
+	 * @details check if daughter particles cause no hit in the FTS. 0 means cause a hit in FTS, 1 means cause no hit in FTS
 	 */
 
 	int tagbranch=0;
@@ -219,7 +195,7 @@ void AnalysisTaskXi1820::TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoT
 		int branchd0 = pidd0->GetTrackBranch();
 		int branchd1 = pidd1->GetTrackBranch();
 
-		if(branchd0==48 & branchd1==48){
+		if(branchd0==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack") & branchd1==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack")){
 				tagbranch=1;
 		}
 	}
@@ -242,7 +218,7 @@ void AnalysisTaskXi1820::TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoC
 		int branchd1 = pidd1->GetTrackBranch();
 		int branchd2 = pidd2->GetTrackBranch();
 
-		if(branchd0==48 && branchd1==48 && branchd2==48){
+		if(branchd0==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack") && branchd1==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack") && branchd2==FairRootManager::Instance()->GetBranchId("SttMvdGemGenTrack")){
 				tagbranch=1;
 		}
 	}
@@ -481,7 +457,7 @@ void AnalysisTaskXi1820::Exec(Option_t* op)
 
 		//***Setup event shape object
 
-	    TString PidSelection = "PidAlgoIdealCharged";//"PidAlgoMvd;PidAlgoStt;PidAlgoDrc";
+	    TString PidSelection = "PidAlgoIdealCharged";//"PidAlgoMvd;PidAlgoStt;PidAlgoDrc;PidAlgoDisc;PidAlgoEmcBayes";//
 
 		fAnalysis->FillList(all, "All", PidSelection);
 		PndEventShape evsh(all, fini, 0.05, 0.1);

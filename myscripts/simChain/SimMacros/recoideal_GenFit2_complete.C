@@ -70,15 +70,15 @@ void recoideal_GenFit2_complete(TString pre = "")
   fRun->AddTask(trackMC);
   */
 
-  PndRecoKalmanTask2* recoKalman2 = new PndRecoKalmanTask2();
-  recoKalman2->SetTrackInBranchName("SttMvdGemIdealTrack");
-  recoKalman2->SetTrackInIDBranchName("SttMvdGemIdealTrackID");
-  recoKalman2->SetTrackOutBranchName("SttMvdGemGenTrack");
-  recoKalman2->SetBusyCut(50); // CHECK to be tuned
-  //recoKalman2->SetIdealHyp(kTRUE);
-  recoKalman2->SetNumIterations(3);
-  // recoKalman2->SetPropagateToIP(kFALSE);
-  fRun->AddTask(recoKalman2);
+  PndRecoKalmanTask2* recoKalman = new PndRecoKalmanTask2();
+  recoKalman->SetTrackInBranchName("SttMvdGemIdealTrack");
+  //recoKalman->SetTrackInIDBranchName("SttMvdGemIdealTrackID");
+  recoKalman->SetTrackOutBranchName("SttMvdGemGenTrack");
+  recoKalman->SetBusyCut(50); // CHECK to be tuned
+  //recoKalman->SetIdealHyp(kTRUE);
+  //recoKalman->SetNumIterations(3);
+  fRun->AddTask(recoKalman);
+
 
   PndMCTrackAssociator* trackMC2 = new PndMCTrackAssociator();
   trackMC2->SetTrackInBranchName("SttMvdGemGenTrack"); 

@@ -37,6 +37,7 @@
 #include "PndKalmanVtxFitter.h"
 #include "PndKinFitter.h"
 #include "PndPidCandidate.h"
+//#include "PndTrack.h"
 
 
 using std::cout;
@@ -60,7 +61,7 @@ enum pidNumbers {
 	kPp = 2212, kaPm = -2212,
 	kl0 = 3122, kal0 = -3122,
 	kKm = -321,
-	kXim = 23314, kaXip = -3312
+	kXim = 13314, kaXip = -3312
 };
 
 void AnalysisTaskXi1690::CombinedList(RhoCandidate* cand, RhoCandList* combinedList, int pdg){
@@ -97,6 +98,8 @@ void AnalysisTaskXi1690::numberOfHitsInSubdetector(TString pre, RhoCandidate *c,
 
 	PndPidCandidate *pidCand = (PndPidCandidate*)c->GetRecoCandidate();
 
+
+
 	if(pidCand){
 		n->Column(pre + "MvdHits", (Int_t) pidCand->GetMvdHits(), 0);
 		n->Column(pre + "SttHits", (Int_t) pidCand->GetSttHits(), 0);
@@ -110,6 +113,31 @@ void AnalysisTaskXi1690::numberOfHitsInSubdetector(TString pre, RhoCandidate *c,
 	}
 }
 
+//void AnalysisTaskXi1690::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
+//
+//	/**@brief Tag the particle with different integers
+//	 * @details Tag the particle with different integers:
+//	 * 0: if there is no hit in the detector
+//	 * 1: sttHits>3 or mvdHits>3 or gemHit>3
+//	 */
+//
+//	int tag=0;
+//
+//	PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
+//
+//	if(pidCand){
+//		int mvdHits = pidCand->GetMvdHits();
+//		int sttHits = pidCand->GetSttHits();
+//		int gemHits = pidCand->GetGemHits();
+//
+//		if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
+//
+//
+//	}
+//
+//	n->Column(pre + "HitTag", (Int_t) tag, 0);
+//}
+
 void AnalysisTaskXi1690::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 
 	/**@brief Tag the particle with different integers
@@ -122,14 +150,17 @@ void AnalysisTaskXi1690::tagNHits(TString pre, RhoCandidate *c, RhoTuple *n){
 
 	PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
 
+	int branch = trackBranch(c);
+
 	if(pidCand){
 		int mvdHits = pidCand->GetMvdHits();
 		int sttHits = pidCand->GetSttHits();
 		int gemHits = pidCand->GetGemHits();
 
-		if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
 
-
+		if(mvdHits>3 || gemHits>3) tag=1;
+		else if (sttHits>3 && branch==48) tag=1;
+		else tag=0;
 	}
 
 	n->Column(pre + "HitTag", (Int_t) tag, 0);
@@ -146,24 +177,82 @@ int AnalysisTaskXi1690::tagHits(RhoCandidate *c){
 
 	PndPidCandidate * pidCand = (PndPidCandidate*)c->GetRecoCandidate();
 
+	int branch = trackBranch(c);
+
 	if(pidCand){
 		int mvdHits = pidCand->GetMvdHits();
 		int sttHits = pidCand->GetSttHits();
 		int gemHits = pidCand->GetGemHits();
 
-		if(mvdHits>3 || sttHits>3 || gemHits>3) tag=1;
-	//		cout << "mvd: " << mvdHits << " stt: " << sttHits << " gem: " << gemHits << endl;
+		if(mvdHits>3 || gemHits>3) tag=1;
+		else if (sttHits>3 && branch==48) tag=1;
+		else tag=0;
 
 	}
 
 	return tag;
 }
 
+int AnalysisTaskXi1690::trackBranch(RhoCandidate *c){
+
+	int branch=0;
+
+	PndPidCandidate * pid = (PndPidCandidate*)c->GetRecoCandidate();
+	if(pid){
+		branch = pid->GetTrackBranch();
+	}
+
+	return branch;
+}
+
+void AnalysisTaskXi1690::TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoTuple *n){
+	/* @brief check if daughter particles cause no hit in the FTS
+	 * @details check if daughter particles cause no hit in the FTS. 0 means cause a hit in FTS, 1 means cause no hin in FTS
+	 */
+
+	int tagbranch=0;
+
+	PndPidCandidate * pidd0 = (PndPidCandidate*) d0->GetRecoCandidate();
+	PndPidCandidate * pidd1 = (PndPidCandidate*) d1->GetRecoCandidate();
+
+	if(pidd0 && pidd1){
+		int branchd0 = pidd0->GetTrackBranch();
+		int branchd1 = pidd1->GetTrackBranch();
+
+		if(branchd0==48 & branchd1==48){
+				tagbranch=1;
+		}
+	}
+	 n->Column("NoFTSHit", (Int_t) tagbranch, -999);
+}
+
+void AnalysisTaskXi1690::TagTrackBranch(RhoCandidate *d0, RhoCandidate *d1, RhoCandidate *d2, RhoTuple *n){
+	/* @brief check if daughter particles cause no hit in the FTS
+	 * @details check if daughter particles cause no hit in the FTS. 0 means cause a hit in FTS, 1 means cause no hin in FTS
+	 */
+
+	int tagbranch=0;
+
+	PndPidCandidate * pidd0 = (PndPidCandidate*) d0->GetRecoCandidate();
+	PndPidCandidate * pidd1 = (PndPidCandidate*) d1->GetRecoCandidate();
+	PndPidCandidate * pidd2 = (PndPidCandidate*) d2->GetRecoCandidate();
+
+	if(pidd0 && pidd1 && pidd2){
+		int branchd0 = pidd0->GetTrackBranch();
+		int branchd1 = pidd1->GetTrackBranch();
+		int branchd2 = pidd2->GetTrackBranch();
+
+		if(branchd0==48 && branchd1==48 && branchd2==48){
+				tagbranch=1;
+		}
+	}
+	 n->Column("NoFTSHit", (Int_t) tagbranch, -999);
+}
 
 
 std::map<int,int> AnalysisTaskXi1690::VertexQaIndex(RhoCandList* candList, float probLimit=0.01){
 	  /** @brief  give back the order of the best chi2
-	   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative valuesfor bad chi2 )
+	   * @details give back the order of the best chi2!  1 means best, 2: second best (same with negative values for bad chi2 )
 	   */
 
 	  std::map<double, int> chi2_good, chi2_bad;
@@ -321,7 +410,7 @@ InitStatus AnalysisTaskXi1690::Init(){
   fntpKaonPlus = new RhoTuple("ntpKaonPlus", "KaonPlus info");
   fntpLambda0 = new RhoTuple("ntpLambda0", "Lambda0 info");
   fntpAntiLambda0 = new RhoTuple("ntpAntiLambda0", "AntiLambda0 info");
-  fntpXiMinus1690 = new RhoTuple("ntpXiMinus1960", "XiMinus info");
+  fntpXiMinus1690 = new RhoTuple("ntpXiMinus1690", "XiMinus info");
   fntpXiPlus = new RhoTuple("ntpXiPlus", "XiPlus info");
   fntpXiSys = new RhoTuple("ntpXiSys", "XiMinus XiPlus system info");
 
@@ -344,9 +433,9 @@ InitStatus AnalysisTaskXi1690::Init(){
   cout<<"Mass of Xi-: "<<fm0_Xi<<endl;
   xiMassSelector = new RhoMassParticleSelector("Xi-", fm0_Xi, 0.3);
 
-  fm0_Xi1690 = 1.691;
+  fm0_Xi1690 = 1.690;
   cout<<"Mass of Xi(1690)-: "<<fm0_Xi1690<<endl;
-  Xi1690MassSelector = new RhoMassParticleSelector("Xi(1690)-", fm0_Xi1690, 0.3);
+  xi1690MassSelector = new RhoMassParticleSelector("Xi(1690)-", fm0_Xi1690, 0.3);
 
   fm0_beam = TDatabasePDG::Instance()->GetParticle("pbarpSystem")->Mass();
   cout<<"Mass pbar p system: "<<fm0_beam<<endl;
@@ -392,19 +481,19 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 
 		//***Setup event shape object
 
-	    TString PidSelection = "PidAlgoIdealCharged";//"PidAlgoMvd;PidAlgoStt;PidAlgoDrc";
+	    TString PidSelection = "PidAlgoMvd;PidAlgoStt;PidAlgoDrc;PidAlgoDisc;PidAlgoEmcBayes"; //"PidAlgoIdealCharged";//
 
 		fAnalysis->FillList(all, "All", PidSelection);
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
-	    fAnalysis->FillList(NotCombinedPiPlus, "PionBestPlus", PidSelection);
-	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
-	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
-	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
-	    fAnalysis->FillList(kaonminus, "KaonBestMinus", PidSelection);
-	    fAnalysis->FillList(kaonplus, "KaonBestPlus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiPlus, "PionAllPlus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
+	    fAnalysis->FillList(kaonminus, "KaonAllMinus", PidSelection);
+	    fAnalysis->FillList(kaonplus, "KaonAllPlus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){
@@ -412,6 +501,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	        fntpPiPlus->Column("cand",    (Float_t) pip);
 	        fntpPiPlus->Column("ncand",   (Float_t) piplus.GetLength());
 	        fntpPiPlus->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(piplus[pip]));
+
+	        fntpPiPlus->Column("TrackBranch", (Int_t) trackBranch(piplus[pip]));
 
 	        qa.qaP4("piplus_", piplus[pip]->P4(), fntpPiPlus);
 	        qa.qaCand("piplus_", piplus[pip], fntpPiPlus);
@@ -431,6 +522,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			  moth_pip = mother_pip->PdgCode();
 
 			fntpPiPlus->Column("Mother", (Float_t) moth_pip);
+
+			qa.qaMcDiff("piplus_", piplus[pip], fntpPiPlus);
 
 			TLorentzVector l;
 			float costheta = -999.;
@@ -455,6 +548,10 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	        fntpPiMinus->Column("ncand",   (Float_t) piminus.GetLength());
 	        fntpPiMinus->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(piminus[pim]));
 
+	        int branch = trackBranch(piminus[pim]);
+	        fntpPiMinus->Column("TrackBranch", (Int_t) branch);
+
+
 	        qa.qaP4("piminus_", piminus[pim]->P4(), fntpPiMinus);
 	        qa.qaCand("piminus_", piminus[pim], fntpPiMinus);
 
@@ -474,6 +571,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 
 			fntpPiMinus->Column("Mother", (Float_t) moth_pim);
 
+			qa.qaMcDiff("piminus_", piminus[pim], fntpPiMinus);
+
 			TLorentzVector l;
 			float costheta = -999.;
 			if(truth!=0x0){
@@ -489,6 +588,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			fntpPiMinus->Column("piminus_MC_CosTheta", (Float_t) costheta);
 
 	        fntpPiMinus->DumpData();
+
+
 	    }
 
 	    for (int prot=0; prot<proton.GetLength(); ++prot){
@@ -514,7 +615,7 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			else
 			  moth_prot = mother_prot->PdgCode();
 
-			fntpProton->Column("MC_Mother_PDG", (Float_t) moth_prot);
+			fntpProton->Column("Mother", (Float_t) moth_prot);
 
 			TLorentzVector l;
 			float costheta = -999.;
@@ -588,6 +689,9 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 
 			numberOfHitsInSubdetector("kaonminus_", kaonminus[k], fntpKaonMinus);
 			tagNHits("kaonminus_", kaonminus[k], fntpKaonMinus);
+
+
+			qa.qaMcDiff("kaonminus_", kaonminus[k], fntpKaonMinus);
 
 			RhoCandidate * mother_k =0;
 			RhoCandidate * truth = kaonminus[k]->GetMcTruth();
@@ -675,8 +779,7 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	       fntpLambda0->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(lambda0[j]));
 	       fntpLambda0->Column("Lambda0_Pdg", (Float_t) lambda0[j]->PdgCode());
 
-
-
+	       TagTrackBranch(lambda0[j]->Daughter(0), lambda0[j]->Daughter(1), fntpLambda0);
 
 
 	       qa.qaP4("Lambda0_", lambda0[j]->P4(), fntpLambda0);
@@ -695,26 +798,23 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	       if(dtag[0]==1 && dtag[1]==1) tag=1;
 
 
-	       fntpLambda0->Column("Lambda0_HitTag", (Int_t) tag);
+	       fntpLambda0->Column("HitTag", (Int_t) tag);
 
-//	       //Poca
-//	       TVector3 startVtx;
-//	       PndVtxPoca poca;
-//	       poca.GetPocaVtx(startVtx, lambda0[j]);
-//
-//	       cout << "start test propagation" << endl;
-//
-//	       startVtx.Print();
-//
-////	       for(int dau=0; dau<ndau; dau++){
-////	    	   RhoCandidate * d = lambda0[j]->Daughter(dau);
-////	    	   fAnalysis->PropagateToPoint(d, startVtx);
-////	       }
-//	       RhoCandidate * pro = lambda0[j]->Daughter(0);
-//	       fAnalysis->PropagateToPoint(pro, startVtx);
-//
-//	       cout << "test propagation done!" << endl;
 
+
+	       qa.qaMcDiff("Lambda0_", lambda0[j], fntpLambda0);
+		   qaVtxDiff("Lambda0_", lambda0[j], fntpLambda0);
+		   qa.qaMcDiff("Lambda0d0_", lambda0[j]->Daughter(0), fntpLambda0);
+		   qa.qaMcDiff("Lambda0d1_", lambda0[j]->Daughter(1), fntpLambda0);
+
+
+//		   fAnalysis->ResetDaughters(lambda0[j]);
+//		   TVector3 startVtx;
+//		   RhoVtxPoca poca;
+//		   poca.GetPocaVtx(startVtx, lambda0[j]);
+//
+//		   fAnalysis->PropagateToPoint(lambda0[j]->Daughter(0), startVtx);
+//		   fAnalysis->PropagateToPoint(lambda0[j]->Daughter(1), startVtx);
 
 
 	       // do vertex fit
@@ -733,6 +833,10 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	       qa.qaVtx("VtxFit_", lambda0Fit, fntpLambda0);
 	       qa.qaComp("VtxFit_", lambda0Fit, fntpLambda0);
 	       qa.qaP4("VtxFit_", lambda0Fit->P4(), fntpLambda0);
+	       qa.qaMcDiff("VtxFitd0_", lambda0Fit->Daughter(0), fntpLambda0);
+	       qa.qaMcDiff("VtxFitd1_", lambda0Fit->Daughter(1), fntpLambda0);
+
+
 
 	       // differenz to MCTruth
 	        qa.qaMcDiff("VtxFit_", lambda0Fit, fntpLambda0);
@@ -847,7 +951,10 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	       if(dtag[0]==1 && dtag[1]==1) tag=1;
 
 
-	       fntpAntiLambda0->Column("antiLambda0_HitTag", (Int_t) tag);
+	       fntpAntiLambda0->Column("HitTag", (Int_t) tag);
+
+	       qa.qaMcDiff("antiLambda0_", antiLambda0[j], fntpAntiLambda0);
+		   qaVtxDiff("antiLambda0_", antiLambda0[j], fntpAntiLambda0);
 
 
 	       // do vertex fit
@@ -871,6 +978,7 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	        qa.qaMcDiff("VtxFit_", antiLambda0Fit, fntpAntiLambda0);
 	        qaVtxDiff("VtxFit_", antiLambda0Fit, fntpAntiLambda0);
 	        qaMomRes("VtxFit_", antiLambda0Fit, fntpAntiLambda0);
+
 
 
 		   // do Kalman vertex fit
@@ -941,9 +1049,9 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 
 
 
-	      //*** Xi(1690)- -> Lambda0 + K-
+	      //*** Xi(1820)- -> Lambda0 + K-
 	   	ximinus.Combine(Lambda0Fit, kaonminus);
-	   	ximinus.Select(Xi1690MassSelector);
+	   	ximinus.Select(xi1690MassSelector);
 	   	ximinus.SetType(kXim);
 
 	   	std::map<int,int> BestVtxFitXiMinus, BestMassFitXiMinus;
@@ -961,12 +1069,28 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			fntpXiMinus1690->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(ximinus[j]));
 			fntpXiMinus1690->Column("XiMinus_Pdg", (Float_t) ximinus[j]->PdgCode());
 
+			//Check if final state daughter has more than 3 Hits in any inner tracking detector
+			RhoCandidate * XiDaughter = ximinus[j]->Daughter(1);
+			int tag = tagHits(XiDaughter);
+			fntpXiMinus1690->Column("HitTag", (Int_t) tag);
 
+			RhoCandidate * lambda = ximinus[j]->Daughter(0);
+			RhoCandidate * kaon = ximinus[j]->Daughter(1);
+
+			TagTrackBranch(lambda->Daughter(0), lambda->Daughter(1), kaon, fntpXiMinus1690);
 
 
 			qa.qaP4("XiMinus_", ximinus[j]->P4(), fntpXiMinus1690);
 			qa.qaComp("XiMinus_", ximinus[j], fntpXiMinus1690);
 			qa.qaPoca("XiMinus_", ximinus[j], fntpXiMinus1690);
+
+
+
+			qa.qaMcDiff("XiMinus_", ximinus[j], fntpXiMinus1690);
+			qaVtxDiff("XiMinus_", ximinus[j], fntpXiMinus1690);
+
+		   qa.qaMcDiff("XiMinusd0_", ximinus[j]->Daughter(0), fntpXiMinus1690);
+		   qa.qaMcDiff("XiMinusd1_", ximinus[j]->Daughter(1), fntpXiMinus1690);
 
 
 
@@ -996,6 +1120,10 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			qa.qaMcDiff("VtxFit_", ximinusFit, fntpXiMinus1690);
 			qaVtxDiff("VtxFit_", ximinusFit, fntpXiMinus1690);
 			qaMomRes("VtxFit_", ximinusFit, fntpXiMinus1690);
+
+		   qa.qaMcDiff("VtxFit_d0", ximinusFit->Daughter(0), fntpXiMinus1690);
+		   qa.qaMcDiff("VtxFit_d1", ximinusFit->Daughter(1), fntpXiMinus1690);
+
 
 
 //			// do kalman vertex-fit
@@ -1048,8 +1176,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			qa.qaP4("MCTruth_", l, fntpXiMinus1690);
 
 
-			if (BestVtxFitXiMinus[j]==1){
-				ximinusFit->Lock();
+			if (BestVtxFitXiMinus[j]==1 & tag==1){
+//				ximinusFit->Lock();
 				XiMinusFit.Append(ximinusFit);
 			}
 
@@ -1087,12 +1215,20 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			fntpXiPlus->Column("McTruthMatch", (bool) fAnalysis->McTruthMatch(xiplus[j]));
 			fntpXiPlus->Column("xiplus_Pdg", (Float_t) xiplus[j]->PdgCode());
 
+			//check if final state daughter particle has more than 3 hits in any inner tracking detector
+			RhoCandidate * XiPlusDaughter = xiplus[j]->Daughter(1);
+			int tag = tagHits(XiPlusDaughter);
+			fntpXiPlus->Column("HitTag", (Int_t) tag);
 
 
 			qa.qaP4("xiplus_", xiplus[j]->P4(), fntpXiPlus);
 			qa.qaComp("xiplus_", xiplus[j], fntpXiPlus);
 			qa.qaPoca("xiplus_", xiplus[j], fntpXiPlus);
 
+
+
+			qa.qaMcDiff("xiplus_", xiplus[j], fntpXiPlus);
+			qaVtxDiff("xiplus_", xiplus[j], fntpXiPlus);
 
 
 			// do vertex-fit
@@ -1113,7 +1249,7 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 
 			qa.qaVtx("VtxFit_", xiplusFit, fntpXiPlus);
 			qa.qaP4("VtxFit_", xiplusFit->P4(), fntpXiPlus);
-//			qa.qaCand("VtxFit_", xiplusFit, fntpXiPlus);
+			qa.qaComp("VtxFit_", xiplusFit, fntpXiPlus);
 
 
 			// difference to MCTruth
@@ -1173,8 +1309,8 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 			qa.qaP4("MCTruth_", l, fntpXiPlus);
 
 
-			if (BestVtxFitxiplus[j]==1 && BestMassFitxiplus[j]>0){
-				xiplusFit->Lock();
+			if (BestVtxFitxiplus[j]==1 && BestMassFitxiplus[j]>0 && tag==1){
+//				xiplusFit->Lock();
 				XiPlusFit.Append(xiplusFit);
 			}
 
@@ -1209,6 +1345,9 @@ void AnalysisTaskXi1690::Exec(Option_t* op)
 	 		qa.qaP4("XiSys_", xiSys[syscand]->P4(), fntpXiSys);
 	 		qa.qaComp("XiSys_", xiSys[syscand], fntpXiSys);
 	  		qa.qaPoca("XiSys_", xiSys[syscand], fntpXiSys);
+
+	  		qa.qaMcDiff("XiSys_", xiSys[syscand], fntpXiSys);
+	  		qaVtxDiff("XiSys_", xiSys[syscand], fntpXiSys);
 
 
 	 		RhoCandidate *  truth = xiSys[syscand]->GetMcTruth();
@@ -1329,5 +1468,6 @@ void AnalysisTaskXi1690::Finish()
 	cout<<endl<<endl;
 	cout<<"Macro finisched successfully."<<endl;
 	cout<<"Realtime: "<<rtime<<" s, CPU time: "<<ctime<<" s"<<endl;
+	cout << "AnalysisTaskXi1690 finished" << endl;
 }
 

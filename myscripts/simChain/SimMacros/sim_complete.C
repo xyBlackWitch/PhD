@@ -173,6 +173,8 @@ sim_complete(Int_t nEvents = 100, Float_t mom = 6.231552, TString dec="", TStrin
     primGen->AddGenerator(EvtGen);
   }
   
+  fRun->SetStoreTraj(kTRUE);
+
   //---------------------Create and Set the Field(s)----------
   PndMultiField *fField= new PndMultiField("AUTO");
   fRun->SetField(fField);

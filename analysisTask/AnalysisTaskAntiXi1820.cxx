@@ -481,19 +481,19 @@ void AnalysisTaskAntiXi1820::Exec(Option_t* op)
 
 		//***Setup event shape object
 
-	    TString PidSelection = "PidAlgoIdealCharged";//"PidAlgoMvd;PidAlgoStt;PidAlgoDrc";
+	    TString PidSelection = "PidAlgoMvd;PidAlgoStt;PidAlgoDrc;PidAlgoDisc;PidAlgoEmcBayes";//"PidAlgoIdealCharged";//
 
 		fAnalysis->FillList(all, "All", PidSelection);
 		PndEventShape evsh(all, fini, 0.05, 0.1);
 
 		//***Selection
-	    fAnalysis->FillList(piminus, "PionBestMinus", PidSelection);
-	    fAnalysis->FillList(NotCombinedPiMinus, "PionBestMinus", PidSelection);
-	    fAnalysis->FillList(piplus, "PionBestPlus", PidSelection);
-	    fAnalysis->FillList(proton, "ProtonBestPlus", PidSelection);
-	    fAnalysis->FillList(antiProton, "ProtonBestMinus", PidSelection);
-	    fAnalysis->FillList(kaonminus, "KaonBestMinus", PidSelection);
-	    fAnalysis->FillList(kaonplus, "KaonBestPlus", PidSelection);
+	    fAnalysis->FillList(piminus, "PionAllMinus", PidSelection);
+	    fAnalysis->FillList(NotCombinedPiMinus, "PionAllMinus", PidSelection);
+	    fAnalysis->FillList(piplus, "PionAllPlus", PidSelection);
+	    fAnalysis->FillList(proton, "ProtonAllPlus", PidSelection);
+	    fAnalysis->FillList(antiProton, "ProtonAllMinus", PidSelection);
+	    fAnalysis->FillList(kaonminus, "KaonAllMinus", PidSelection);
+	    fAnalysis->FillList(kaonplus, "KaonAllPlus", PidSelection);
 
 
 	    for (int pip=0; pip<piplus.GetLength(); ++pip){
